@@ -1,0 +1,7 @@
+# Expected learning outcomes
+
+## Introduction to R
+
+## Data Wrangling
+
+## Exporing Data

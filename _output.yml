@@ -1,0 +1,18 @@
+bookdown::gitbook:
+  css: style.css
+  config:
+    split_by: section
+    toc:
+      collapse: section
+      before: |
+        <li><a href="./">APS 135 (R course)</a></li>
+      after: |
+        <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+    edit:
+      link: https://github.com/dzchilds/eda-for-bio/edit/master/%s
+bookdown::pdf_book:
+  includes:
+    in_header: preamble.tex
+  latex_engine: xelatex
+  citation_package: natbib
+bookdown::epub_book: default

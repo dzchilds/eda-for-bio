@@ -1,0 +1,3 @@
+book_filename: "eda-for-bio"
+before_chapter_script: "preamble.R"
+chapter_name: "Chapter "
