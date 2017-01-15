@@ -21,5 +21,21 @@ This is the online course book for the __Introduction to Exploratory Data Analys
 
 [Dylan Childs](https://www.shef.ac.uk/aps/staff-and-students/acadstaff/childs) is the course co-coordinator. Please [email him](mailto:d.childs@sheffield.ac.uk?Subject=APS%20133%20general%20query) if you have have any general queries about the course. The Teaching Assistants ('TAs') this year are Ross Booton, Matthew Hethcoat, Bethan Hindle, Tamora James, Felix Lim, and Simon Mills.
 
-## Why learn R? {#why-R}
+## Organisation
+
+```{block, type="action"}
+This is an **action** box.
+```
+
+```{block, type="warning"}
+This is a **warning** box.
+```
+
+```{block, type="info"}
+This is an **information** box.
+```
+
+
+
+Some text...
 

@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>APS 135: Introduction to Exploratory Data Analysis with R</title>
+  <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+  <meta name="description" content="Course book for Introduction to Exploratory Data Analysis with R (APS 135) in the Department of Animal and Plant Sciences, University of Sheffield.">
+  <meta name="generator" content="bookdown 0.3 and GitBook 2.6.7">
+
+  <meta property="og:title" content="APS 135: Introduction to Exploratory Data Analysis with R" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="Course book for Introduction to Exploratory Data Analysis with R (APS 135) in the Department of Animal and Plant Sciences, University of Sheffield." />
+  <meta name="github-repo" content="dzchilds/eda-for-bio" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="APS 135: Introduction to Exploratory Data Analysis with R" />
+  
+  <meta name="twitter:description" content="Course book for Introduction to Exploratory Data Analysis with R (APS 135) in the Department of Animal and Plant Sciences, University of Sheffield." />
+  
+
+<meta name="author" content="Dylan Z. Childs">
+
+
+<meta name="date" content="2017-01-15">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="expected-learning-outcomes.html">
+
+
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+<style type="text/css">
+
+.action, .warning, .info {
+  padding: 1em 1em 1em 4em;
+  margin-bottom: 10px;
+  background: #f5f5f5 5px center/3em no-repeat;
+}
+.action {
+  background-image: url("./images/action.png");
+}
+.warning {
+  background-image: url("./images/warning.png");
+}
+.info {
+  background-image: url("./images/info.png");
+}
+
+</style>
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">APS 135 (R course)</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Course information and overview</a><ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#organisation"><i class="fa fa-check"></i><b>1.1</b> Organisation</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="expected-learning-outcomes.html"><a href="expected-learning-outcomes.html"><i class="fa fa-check"></i><b>2</b> Expected learning outcomes</a><ul>
+<li class="chapter" data-level="2.1" data-path="expected-learning-outcomes.html"><a href="expected-learning-outcomes.html#introduction-to-r"><i class="fa fa-check"></i><b>2.1</b> Introduction to R</a></li>
+<li class="chapter" data-level="2.2" data-path="expected-learning-outcomes.html"><a href="expected-learning-outcomes.html#data-wrangling"><i class="fa fa-check"></i><b>2.2</b> Data Wrangling</a></li>
+<li class="chapter" data-level="2.3" data-path="expected-learning-outcomes.html"><a href="expected-learning-outcomes.html#exporing-data"><i class="fa fa-check"></i><b>2.3</b> Exporing Data</a></li>
+</ul></li>
+<li class="part"><span><b>I Introduction to R</b></span></li>
+<li class="chapter" data-level="3" data-path="r-and-rstudio.html"><a href="r-and-rstudio.html"><i class="fa fa-check"></i><b>3</b> R and RStudio</a><ul>
+<li class="chapter" data-level="3.1" data-path="r-and-rstudio.html"><a href="r-and-rstudio.html#what-is-r"><i class="fa fa-check"></i><b>3.1</b> What is R?</a><ul>
+<li class="chapter" data-level="3.1.1" data-path="r-and-rstudio.html"><a href="r-and-rstudio.html#getting-and-installing-r"><i class="fa fa-check"></i><b>3.1.1</b> Getting and installing R</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="r-and-rstudio.html"><a href="r-and-rstudio.html#what-is-rstudio"><i class="fa fa-check"></i><b>3.2</b> What is RStudio (and why use it)?</a><ul>
+<li class="chapter" data-level="3.2.1" data-path="r-and-rstudio.html"><a href="r-and-rstudio.html#getting-and-installing-rstudio"><i class="fa fa-check"></i><b>3.2.1</b> Getting and installing RStudio</a></li>
+<li class="chapter" data-level="3.2.2" data-path="r-and-rstudio.html"><a href="r-and-rstudio.html#the-anatomy-of-rstudio"><i class="fa fa-check"></i><b>3.2.2</b> The anatomy of RStudio</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="r-and-rstudio.html"><a href="r-and-rstudio.html#Console"><i class="fa fa-check"></i><b>3.3</b> Working at the Console</a></li>
+</ul></li>
+<li class="part"><span><b>II Data Wrangling</b></span></li>
+<li class="part"><span><b>III Exporing Data</b></span></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">APS 135: Introduction to Exploratory Data Analysis with R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="r-and-rstudio" class="section level1">
+<h1><span class="header-section-number">Chapter 3</span> R and RStudio</h1>
+<div id="what-is-r" class="section level2">
+<h2><span class="header-section-number">3.1</span> What is R?</h2>
+<p>The answer to this question very much depends on who we ask. The geeky answer is something like this…</p>
+<p>R is a dialect of the S language, which was developed by John Chambers and colleagues at Bell Laboratories in the mid 1970s. It was designed to offer an interactive computing environment for statisticians and scientists to carry out data analysis. There are essentially two widely used versions of S (though others have started to appear), a commercial one called S-Plus, and the open source implementation known as R. S-Plus came first, and although it is still around, it is used less each year. Development of R was begun in the late 1990s by two academics, Ross Ihaka and Robert Gentleman, at the University of Auckland. Their motivation was to create an open source language to enable researchers in computational statistics to explore new ideas. That language quickly evolved into something that looked more and more S-like, which we now know as R (GNU R, to be overly precise).</p>
+<p>We could go on and on about the various features that R possesses. R is a functional programming language, it supports object orientation, etc etc… but these kinds of explanations are only helpful to someone who already knows about computer languages. It is useful to understand why so many people have turned to R to meet their data analysis needs. When a typical R user talks about “R” they are often referring to two things at once, the GNU R language and the ecosystem that exists around the language:</p>
+<ul>
+<li><p>R is all about data analysis. We can carry out any standard statistical analysis in R, as well as access a huge array of more sophisticated tools with impressive names like “structural equation model”, “random forests” and “penalized regression”. These days, when statisticians and computer scientists develop a new analysis tool, they often implement it in R first. This means a competant R user can always access the latest, cutting edge analysis tools. R also has the best graphics and plotting facilities of any platform. With sufficient expertise, we can make pretty much any type of figure we need (e.g. scatter plots, phylogenetic trees, spatial maps, or even <a href="http://www.r-project.org/screenshots/volcano-image.jpg">volcanoes</a>). In short, R is a very productive environment for doing data analysis.</p></li>
+<li><p>Because R is such a good environment for data analysis, a very large community of users has grown up around it. The size of this community has increased steadily since R was created, but this growth has really ramped up in the last 5-10 years or so. In the early 2000s there were very few books about R and the main way to access help online was through the widely-feared R mailing lists. Now, there are probably hundreds of books about different aspects of R, online tutorials written by enthusiasts, and many websites that exist solely to help people learn R. The resulting ecosystem is vast, and though it can be difficult to navigate at times, when we run into an R-related problem the chances are that the answer is already written down somewhere<a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a>.</p></li>
+</ul>
+<p>R is not just about data analysis—though we will mostly use it this way. It is a fully-fledged programming language, meaning that once you become moderately proficient with it you can do things such as construct numerical simulation models, solve equations, query websites, send emails, <a href="http://cran.r-project.org/web/packages/rfoaas/">access the foaas web service</a>, and carry out many other tasks we don’t have time to write down. We won’t do any of this year or next but it is worth noting that R can do much more than just analyse data if we need it to.</p>
+<div id="getting-and-installing-r" class="section level3">
+<h3><span class="header-section-number">3.1.1</span> Getting and installing R</h3>
+<p>R is open source, meaning anyone can download the source code – the collection of computer instructions that define R – and assuming they have enough time, energy and expertise, they are free to alter it as they please. Open source does not <em>necessarily</em> mean free, as in it costs £0 to download and use, but luckily R <em>is</em> free in this sense. If you are working on the University managed desktops it should already have been installed and is ready for you to use. We encourage you to install a copy on your own laptop so that you can work at home, in the library, at a café, or wherever else you find you are productive. Do not use R on its own though. Use it in combination with the RStudio IDE discussed in the next section.</p>
+<p>In order to install R you need to download the appropriate installer from the Comprehensive R Archive Network (<a href="http://cran.r-project.org">CRAN</a>). We are going to use the “base distribution” as this contains everything you need to use R under normal circumstances. There is a single <a href="http://cran.r-project.org/bin/windows/base/">installer</a> for Windows. On a Mac, it’s important to match the <a href="http://cran.r-project.org/bin/macosx/">installer</a> to the version of OS X. In either case, R uses a the standard install mechanism that should be familiar to anyone who has installed an application on their machine. There is no need to change the default settings—doing so will probably lead to problems later on.</p>
+<p>After installing R it should be visible in the Programs menu on a Windows computer or in the Applications folder on a Mac. However, it would be a good idea to read the next section before launching R…</p>
+</div>
+</div>
+<div id="what-is-rstudio" class="section level2">
+<h2><span class="header-section-number">3.2</span> What is RStudio (and why use it)?</h2>
+<p>R and RStudio are not the same thing. We can run R without RStudio if we need to, but we cannot run RStudio without R. Remember that! R is essentially just a computer program that sits there and waits for instructions in the form of text. Those instructions can be typed in by a user like you or me, or they can be sent to it from another program. This means you can run R in a variety of different environments. The job of RStudio is to provide an environment that makes R a more pleasant and productive tool. One way to get a sense of why RStudio is a Very Good Thing is to look at what running R without it is like. The simplest way to run it on a Linux or Unix-based machine (like a Mac) is to use something called the Terminal. It’s well beyond the scope of this book to get into what this is, but in a nutshell, the Terminal provides a low-level, text-based way to interact with a computer. Here is what R looks like running inside a Terminal on a Mac:</p>
+<p><img src="images/R-terminal.png" width="682" /></p>
+<p>We can run R in much the same way on Windows using the “Command Prompt” if we need to. The key thing you need to take away from that screenshot is that running R like this is very “bare bones”. We typed the letter “R” in the Terminal and hit Enter to start R. It printed a little information as it started up and then presented us with “the prompt” (<code>&gt;</code>), waiting for input. This is where we type or paste in instructions telling R what to do. There is no other way to interact with it when we run R like this – no menus or buttons, just a lonely prompt.</p>
+<p>The developers of R on Windows PCs and Macs provide a slightly nicer way to work with R. When we download and install R for either of these two operating systems, in addition to the basic R program that we just saw running in a Terminal, we also get another program that acts as a <a href="http://en.wikipedia.org/wiki/Graphical_user_interface">Graphical User Interface</a> (GUI) for R. This is the thing labelled “R” in the Programs menu on a Windows computer or the Applications folder on a Mac. If you launch the R GUI on your computer you will be presented with roughly the same thing on either a Windows PC or a Mac. There will be something called the Console, which is where you interact directly with R by typing things at the prompt (<code>&gt;</code>), and a few buttons and menus for managing common tasks. We will not go through these two GUIs in any more detail because we are not going to use them. We just need to know they exist though so that we don’t confuse them with RStudio.</p>
+<p>So what is RStudio? It is a distinct program so we have to install it separately from R—after we do this, it has its own place in the Programs menu (Windows PC) or Applications folder (Mac). In one sense RStudio is just another GUI for R which improve on the “bare bones” experience. However, it is a GUI on steroids. In fact, it is more accurate to describe it as an Integrated Development Environment (<a href="http://en.wikipedia.org/wiki/Integrated_development_environment">IDE</a>). There is no all-encompassing definition of what an IDE is, but in essence IDEs exist to make programmer’s lives easier by integrating various useful tools into a single piece of software. RStudio is not that old, but it already includes a very large number of these tools. The key features we care about in this book are:</p>
+<ul>
+<li><p>The R interpreter—the thing that was running in the Terminal above—runs inside RStudio, accessed via a window labelled Console. This is where we type in instructions we want to execute when we are working directly with R. The Console also shows us any output that R prints in response to these instructions. This means that if we just want the “bare bones” experience, we can still have it.</p></li>
+<li><p>RStudio provides facilities for working with R programs using something called a Source Code Editor. An R program ( also called a “script”)&quot; is just is a collection of instructions in the R language that have been saved to a text file. Nothing more! However, it is much easier to work with a script using a proper Source Code Editor than an ordinary text editor like Notepad.</p></li>
+<li><p>An good IDE like RStudio also gives you a visual, point-and-click means of accessing various language-specific features. This is a bit difficult to explain until we have have actually used some of these, but trust us, being able to do things like manage packages, set working directories, or inspect objects we’ve made simplifies day-to-day use of R. This especially true for new users.</p></li>
+<li><p>RStudio is cross-platform— it will run on a Windows PC, a Linux PC or a Mac. In terms of the appearance and the functionality it provides, RStudio is exactly the same on each of these platforms. This means if someones learns to work with R via RStudio on say, a Windows PC, they will have no problem migrating to a Mac or Linux PC later on if you need to.</p></li>
+</ul>
+<p>We’re only going to scratch the surface of what RStudio can do—there are certainly alternative GUIs that can meet our immediate needs. The reason for introducing a powerful tool like RStudio now is because one day it may be useful to access things like debugging facilities, package building tools, repository management. RStudio makes it easy to use these advanced tools.</p>
+<div id="getting-and-installing-rstudio" class="section level3">
+<h3><span class="header-section-number">3.2.1</span> Getting and installing RStudio</h3>
+<p>RStudio is developed and maintained by a for-profit company called… RStudio. They make their money by selling software tools and services related to R and RStudio. The basic desktop version of RStudio is free to download and use though. It can be downloaded from <a href="http://www.rstudio.com/products/RStudio/#Desk">the Rstudio download page</a>. The one to go for is the Open Source Edition of RStudio Desktop: <strong>not</strong> the commercial version of RStudio Desktop, and <strong>not</strong> RStudio Server. RStudio just installs like any other piece of software, so there’s nothing to configure anything after installation.</p>
+</div>
+<div id="the-anatomy-of-rstudio" class="section level3">
+<h3><span class="header-section-number">3.2.2</span> The anatomy of RStudio</h3>
+<p>Once it’s installed, we run RStudio as we would run any other stand-alone application, via the Programs menu or the Applications folder on a Windows PC or Mac, respectively<a href="#fn2" class="footnoteRef" id="fnref2"><sup>2</sup></a>. We’ll say this one last time—RStudio only works if we’ve also installed R, so remember to do this too. Here is how RStudio appears the first time it runs:</p>
+<p><img src="images/RStudio-3-pane.png" width="1456" /></p>
+<p>There are three panes inside a single window, which we have labelled with red numbers. Each of these has a well-defined purpose. Let’s take a quick look at these:</p>
+<ol style="list-style-type: decimal">
+<li><p>The large window on the left is the Console. We have already told you what this is for—the Console lets you know what R is doing and provides a mechanism to interact with R by typing instructions. All this happens at the prompt, <code>&gt;</code>. We will be working in the Console in a moment so won’t say any more about this here.</p></li>
+<li><p>The window at the top right contains two tabs. The first of these, labelled <strong>Environment</strong>, allows us to see all the different R objects we can access. There are also some buttons that help us to get data into and out of R. The second, labelled <strong>History</strong>, allows us to see a list of instructions we’ve previously sent to R. The buttons in this tab allow us to reuse or save these instructions.</p></li>
+<li><p>The window at the bottom right contains five tabs. The first, labelled <strong>Files</strong>, gives us a way to interact with the files and folders. The next tab, labelled <strong>Plots</strong>, is where any figures we produce are displayed. This tab also allows you to save your figures to file. The <strong>Packages</strong> tab is where we view, install and update packages used to extend the functionality of R. The <strong>Help</strong> tab is where you can access and display various different help pages. The <strong>Viewer</strong> is essentially an embedded web browser for working with interactive output—we won’t be using it in this course.</p></li>
+</ol>
+<div class="rmdtip">
+<p>
+Don’t be alarmed if RStudio looks different on your computer. There are a couple of reasons why this might be the case. First, the appearance of RStudio is highly customisable. Take a quick look at the <code>Tools &gt; Global Options…</code> window to see what we mean. Second, there is a fourth window that is sometimes be visible when we work with RStudio—the source code Editor we mentioned above. RStudio saves its state between different sessions, so if we have already messed about with RStudio’s appearance or left a script open last time we used it you will see these changes.
+</p>
+</div>
+<p>Keep in mind that RStudio is very actively developed, which means features tend to appear or change over time. Consequently, if you are like me and you tend to update your software with each new release you should expect the odd thing to change here and there. This is generally a good thing – RStudio was fairly clunky when it was first released – but it does require you to be prepared to very occasionally adjust to new additions or changes.</p>
+</div>
+</div>
+<div id="Console" class="section level2">
+<h2><span class="header-section-number">3.3</span> Working at the Console</h2>
+<p>Because it was designed to be used interactively, R is what is known as an interpreted language. What this means is that you can interact with it in a step-wise manner via something called a Command Line Interface (CLI). This is just a fancy way of saying that you can type an R expression – instructions to “do something” – directly into the Console and those instructions will be interpreted as soon as you hit the Enter key. As long as your R expression does not contain any errors, R will then do something like read in your data, perform a calculation, make a figure, and so on – what actually happens obviously depends on what you ask it to do.</p>
+<p>Working directly at the Console like this is the simplest way to use R. Generally speaking, we do not recommend working this way unless you only need to do something very simple which involves a handful of steps. For more complicated activities you should store your instructions in a script. We will look at how to do this at the end of this topic. The aim of this section is to demonstrate how to use R to perform simple calculations and introduce a few key concepts that will help you understand how R works. At this stage – for the purposes of learning how to use R – typing expressions directly into the Console is fine.</p>
+<p>Now is a good time to start RStudio if you have not already done so. Let’s start by doing the simplest possible thing we can imagine doing with R. Type the number <code>1</code> at the Console and hit the Enter key:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="dv">1+1</span></code></pre></div>
+<pre><code>## [1] 2</code></pre>
+<p>Remember, the first line above just reminds us what we typed into the Console. The line after that beginning with <code>#&gt;</code> shows us what R decided to print to the Console after reading and evaluating our instructions. So how do we interpret this output? We can ignore the <code>[1]</code> bit for now. The meaning of this will become clear later in the course. What are we left with – the number 2. The instruction we gave R was in effect “evaluate the expression <code>1+1</code>”. R read this in, decided it was a valid R expression, evaluated the expression, and then printed the result to the Console for us.</p>
+<div class="rmdtip">
+<p>
+Why do we keep using the word <em>expression</em>? The appropriate <a href="http://en.wikipedia.org/wiki/Expression_(computer_science)">Wikipedia page says</a>, “An expression in a programming language is a combination of explicit values, constants, variables, operators, and functions that are interpreted according to the particular rules of precedence and of association for a particular programming language, which computes and then produces another value.” You can see why we do not let computer scientists teach biologists about programming. Essentially, an R expression is a small set of instructions – written in human readable(ish) text – that tell R to do something. That’s it. We could write “instructions” instead of “expressions” on this website, but we may as well use the correct word. One reason for the extra precision is that it may help you later if you decide to learn more about R. Whatever we call them, our aim is to learn how to combine sequences of expressions to Get Things Done in R. That’s what the rest of this course is about.
+</p>
+</div>
+<p>That was not very exciting. In the next topic we will start learning to use R to carry out more useful calculations. However, what you need to take away from this is that this sequence of events—reading instructions, evaluating those instructions and printing their output – happens every time you type or paste something into the Console and hit Enter. The printing bit is optional by the way—whether or not it happens depends on whether you decide to capture the output or not. Just remember, if R does not print anything to the Console it does not necessarily mean nothing has happened.</p>
+
+</div>
+</div>
+
+
+
+</div>
+
+
+
+</div>
+
+
+
+
+
+
+
+<div class="footnotes">
+<hr />
+<ol start="1">
+<li id="fn1"><p>The other big change is that R is finally starting to become part of the commercial landscape—learning how to use it can only improve a person’s job prospects.<a href="r-and-rstudio.html#fnref1">↩</a></p></li>
+<li id="fn2"><p>If you use a PC running Linux we assume you know what you are doing when it comes to installing and running software.<a href="r-and-rstudio.html#fnref2">↩</a></p></li>
+</ol>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="expected-learning-outcomes.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/dzchilds/eda-for-bio/edit/master/1_01_R_and_RStudio.Rmd",
+"text": "Edit"
+},
+"download": null,
+"toc": {
+"collapse": "section"
+},
+"split_by": "section"
+});
+});
+</script>
+
+</body>
+
+</html>

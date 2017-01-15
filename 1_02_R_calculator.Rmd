@@ -1,0 +1,5 @@
+# Using R as a calculator
+
+```{block, type="warning"}
+Working directly at the Console like this is the simplest way to use R. Generally speaking, we do not recommend working this way unless you only need to do something very simple which involves a handful of steps. For more complicated activities you should store your instructions in a script. We will look at how to do this at the end of this topic. The aim of this section is to demonstrate how to use R to perform simple calculations and introduce a few key concepts that will help you understand how R works. At this stage -- for the purposes of learning how to use R -- typing expressions directly into the Console is fine.
+```

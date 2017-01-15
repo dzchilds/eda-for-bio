@@ -26,7 +26,7 @@
 <meta name="author" content="Dylan Z. Childs">
 
 
-<meta name="date" content="2017-01-13">
+<meta name="date" content="2017-01-15">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -34,7 +34,7 @@
   
   
 <link rel="prev" href="index.html">
-<link rel="next" href="introduction-to-r-1.html">
+<link rel="next" href="get-up-and-running-with-r-and-rstudio.html">
 
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -51,30 +51,61 @@
 
 <style type="text/css">
 
-.warning-box {
-  border: 3px solid #e60000;
-  margin:  25px;
-  padding: 10px 10px 5px 10px;
-  border-radius: 6px 6px 6px 6px;
+.action, .warning, .info {
+  padding: 1em 1em 1em 4em;
+  margin-bottom: 10px;
+  background: #f5f5f5 5px center/3em no-repeat;
 }
-
-.advanced-box {
-  border: 3px solid #268bd2;
-  margin:  25px;
-  padding: 10px 10px 5px 10px;
-  border-radius: 6px 6px 6px 6px;
+.action {
+  background-image: url("./images/action.png");
 }
-
-.do-something {
-  border: 3px solid #803e00;
-  margin:  25px;
-  padding: 10px 10px 5px 10px;
-  border-radius: 6px 6px 6px 6px;
+.warning {
+  background-image: url("./images/warning.png");
+}
+.info {
+  background-image: url("./images/info.png");
 }
 
 </style>
 
 
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
 </head>
@@ -92,16 +123,27 @@
 
 <li class="divider"></li>
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Course information and overview</a><ul>
-<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#why-R"><i class="fa fa-check"></i><b>1.1</b> Why learn R?</a></li>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#organisation"><i class="fa fa-check"></i><b>1.1</b> Organisation</a></li>
 </ul></li>
 <li class="chapter" data-level="2" data-path="expected-learning-outcomes.html"><a href="expected-learning-outcomes.html"><i class="fa fa-check"></i><b>2</b> Expected learning outcomes</a><ul>
 <li class="chapter" data-level="2.1" data-path="expected-learning-outcomes.html"><a href="expected-learning-outcomes.html#introduction-to-r"><i class="fa fa-check"></i><b>2.1</b> Introduction to R</a></li>
 <li class="chapter" data-level="2.2" data-path="expected-learning-outcomes.html"><a href="expected-learning-outcomes.html#data-wrangling"><i class="fa fa-check"></i><b>2.2</b> Data Wrangling</a></li>
 <li class="chapter" data-level="2.3" data-path="expected-learning-outcomes.html"><a href="expected-learning-outcomes.html#exporing-data"><i class="fa fa-check"></i><b>2.3</b> Exporing Data</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="introduction-to-r-1.html"><a href="introduction-to-r-1.html"><i class="fa fa-check"></i>Introduction to R</a></li>
-<li class="chapter" data-level="" data-path="data-wrangling-1.html"><a href="data-wrangling-1.html"><i class="fa fa-check"></i>Data Wrangling</a></li>
-<li class="chapter" data-level="" data-path="exporing-data-1.html"><a href="exporing-data-1.html"><i class="fa fa-check"></i>Exporing Data</a></li>
+<li class="part"><span><b>I Introduction to R</b></span></li>
+<li class="chapter" data-level="3" data-path="get-up-and-running-with-r-and-rstudio.html"><a href="get-up-and-running-with-r-and-rstudio.html"><i class="fa fa-check"></i><b>3</b> Get up and running with R and RStudio</a><ul>
+<li class="chapter" data-level="3.1" data-path="get-up-and-running-with-r-and-rstudio.html"><a href="get-up-and-running-with-r-and-rstudio.html#what-is-r"><i class="fa fa-check"></i><b>3.1</b> What is R?</a><ul>
+<li class="chapter" data-level="3.1.1" data-path="get-up-and-running-with-r-and-rstudio.html"><a href="get-up-and-running-with-r-and-rstudio.html#getting-and-installing-r"><i class="fa fa-check"></i><b>3.1.1</b> Getting and installing R</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="get-up-and-running-with-r-and-rstudio.html"><a href="get-up-and-running-with-r-and-rstudio.html#what-is-rstudio"><i class="fa fa-check"></i><b>3.2</b> What is RStudio (and why use it)?</a><ul>
+<li class="chapter" data-level="3.2.1" data-path="get-up-and-running-with-r-and-rstudio.html"><a href="get-up-and-running-with-r-and-rstudio.html#getting-and-installing-rstudio"><i class="fa fa-check"></i><b>3.2.1</b> Getting and installing RStudio</a></li>
+<li class="chapter" data-level="3.2.2" data-path="get-up-and-running-with-r-and-rstudio.html"><a href="get-up-and-running-with-r-and-rstudio.html#the-anatomy-of-rstudio"><i class="fa fa-check"></i><b>3.2.2</b> The anatomy of RStudio</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="get-up-and-running-with-r-and-rstudio.html"><a href="get-up-and-running-with-r-and-rstudio.html#Console"><i class="fa fa-check"></i><b>3.3</b> Working at the Console</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="using-r-as-a-calculator.html"><a href="using-r-as-a-calculator.html"><i class="fa fa-check"></i><b>4</b> Using R as a calculator</a></li>
+<li class="part"><span><b>II Data Wrangling</b></span></li>
+<li class="part"><span><b>III Exporing Data</b></span></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 
@@ -135,13 +177,17 @@
 
 </div>
 </div>
+
+
+
+</div>
             </section>
 
           </div>
         </div>
       </div>
 <a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="introduction-to-r-1.html" class="navigation navigation-next " aria-label="Next page""><i class="fa fa-angle-right"></i></a>
+<a href="get-up-and-running-with-r-and-rstudio.html" class="navigation navigation-next " aria-label="Next page""><i class="fa fa-angle-right"></i></a>
 
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/lunr.js"></script>
