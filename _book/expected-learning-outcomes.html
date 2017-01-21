@@ -51,7 +51,7 @@
 
 <style type="text/css">
 
-.action, .warning, .info {
+.action, .warning, .info, .speed {
   padding: 1em 1em 1em 4em;
   margin-bottom: 10px;
   background: #f5f5f5 5px center/3em no-repeat;
@@ -65,6 +65,10 @@
 .info {
   background-image: url("./images/info.png");
 }
+.info {
+  background-image: url("./images/speed.png");
+}
+
 
 </style>
 
@@ -141,7 +145,9 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul></li>
 <li class="chapter" data-level="3.3" data-path="get-up-and-running-with-r-and-rstudio.html"><a href="get-up-and-running-with-r-and-rstudio.html#Console"><i class="fa fa-check"></i><b>3.3</b> Working at the Console</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="using-r-as-a-calculator.html"><a href="using-r-as-a-calculator.html"><i class="fa fa-check"></i><b>4</b> Using R as a calculator</a></li>
+<li class="chapter" data-level="4" data-path="using-r-as-a-calculator.html"><a href="using-r-as-a-calculator.html"><i class="fa fa-check"></i><b>4</b> Using R as a calculator</a><ul>
+<li class="chapter" data-level="4.1" data-path="using-r-as-a-calculator.html"><a href="using-r-as-a-calculator.html#r-calculator"><i class="fa fa-check"></i><b>4.1</b> Using R as a big calculator</a></li>
+</ul></li>
 <li class="part"><span><b>II Data Wrangling</b></span></li>
 <li class="part"><span><b>III Exporing Data</b></span></li>
 <li class="divider"></li>
@@ -227,6 +233,17 @@ gitbook.start({
 });
 </script>
 
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    if (location.protocol !== "file:" && /^https?:/.test(script.src))
+      script.src  = script.src.replace(/^https?:/, '');
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
 </body>
 
 </html>
