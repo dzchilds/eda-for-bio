@@ -1,10 +1,10 @@
 # Using scripts {#scripts}
 
+We have seen that using variables is useful because it enables us to break down a problem into a series of simpler steps. So far however, we have only been working in the Console. If we want to reuse a calculation when we're working like this, we have to change a variable or two and then evaluate the expressions that do the job of solving an equation, make a graph, whatever. We also have to do all of this in the correct order, or things will not work as intended.
+
 ```{block, type="warning"}
 Working directly at the Console like this is the simplest way to use R. Generally speaking, we do not recommend working this way unless you only need to do something very simple which involves a handful of steps. For more complicated activities you should store your instructions in a script. We will look at how to do this at the end of this chapter. The aim of this section is to demonstrate how to use R to perform simple calculations and introduce a few key concepts that will help you understand how R works. At this stage -- for the purposes of learning how to use R -- typing expressions directly into the Console is fine.
 ```
-
-We have seen that using variables is useful because it enables us to break down a problem into a series of simpler steps. So far however, we have only been working in the Console. If we want to reuse a calculation when we're working like this, we have to change a variable or two and then evaluate the expressions that do the job of solving an equation, make a graph, whatever. We also have to do all of this in the correct order, or things will not work as intended.
 
 You can see that working in the Console is not going to be practical most of the time. So what should we do? The answer is: put your sequence of R expressions into a text file, called a __script__ (We already told you the answer earlier). Calling it a script makes it sound a bit fancy and clever---"I spent all day debugging my script". It is not. It is a boring text file that could be opend up in something like Notepad.exe. We just call it a script to signify the fact that the text contained in the file is a series of instructions telling our computer to do something.
 
@@ -82,3 +82,19 @@ What happened? Look carefully at the little snippet of R code we sent to the Con
 Now that we have a script that does something a little useful we might wish to use it again. It is just a text file, so we can save the script as we would any other file. We can do this using the familiar menu-based approach (`File > Save As...`) or via the keyboard shortcut `Control+S` (or `Command+S` on a Mac). The only thing to keep in mind is that you should use the file extension `.R` or `.r`, e.g. `my_great_script.R`. This is because RStudio uses the file extension to detect the fact that a file is a script and not an ordinary text file. If you do not do this, then next time you open up the file in RStudio you won't be able to access the fancy Editor features like syntax highlighting, nor will you be able to send lines to the Console without using copy-paste.
 
 From now on you should always work with scripts. No more typing into the Console!
+
+## Spotting errors when they occur 
+
+We may as well get something out of the way early on: you __will__ ask R to do something that turns out to contain an error. 
+
+Mistakes happen all the time when 
+
+You will do this a lot. It's not a problem when this happens. When it does though, it's important to step back and work out what went wrong. Here is an example of what happens at the Console when you generate an error:
+```{r, error=TRUE}
+xyz + 2
+```
+In general terms, what happened is that R read in the instruction `xyz + 2`, tried to evaluate it, and found it could not. This is because the variable `xyz` does not exist. Upon running into the error, R printed something to the screen to tell us we have made a mistake ("Error: object 'xyz' not found"). 
+
+When this happens we say R has "thrown an error". We know this because the message is in a warning colour (prbably red or orange---it depends how RStudio is set up) and it contains the word `Error`. The bit after the `:` is an attempt by R to tell me what went wrong. You should always __read your error messages__. They will be incomprehensible at first, but as you fix the many mistakes you will inevitably make, they will start to make more sense and become helpful (usually---sometimes they make no sense whatsoever, even to experienced users). This way of learning only works if you read the error messages in the first place though.
+
+

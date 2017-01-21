@@ -1,0 +1,5 @@
+# 
+
+## Coding conventions
+
+Although they often allow a great deal of flexibily in the way things are named, most computer languages have a well-defined set of cenventions for names. Unfortunately, R is not one of them. The R community never managed to agree on a set of conventions for how we should name things, and the R ecosystem so large that it's probably too late for this to ever happen. This doesn't  
