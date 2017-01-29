@@ -1,6 +1,6 @@
-# Get up and running with R and RStudio
+# Get up and running with R and RStudio {-}
 
-## What is R? {#what-is-r}
+## What is R? {-}
 
 The answer to this question very much depends on who we ask. The geeky answer is something like this... 
 
@@ -14,19 +14,19 @@ We could go on and on about the various features that R possesses. R is a functi
 
 R is not just about data analysis---though we will mostly use it this way. It is a fully-fledged programming language, meaning that once you become moderately proficient with it you can do things such as construct numerical simulation models, solve equations, query websites, send emails, [access the foaas web service](http://cran.r-project.org/web/packages/rfoaas/), and carry out many other tasks we don't have time to write down. We won't do any of this year or next but it is worth noting that R can do much more than just analyse data if we need it to.
 
-### Getting and installing R
+### Getting and installing R {-}
 
 R is open source, meaning anyone can download the source code -- the collection of computer instructions that define R -- and assuming they have enough time, energy and expertise, they are free to alter it as they please. Open source does not _necessarily_ mean free, as in it costs £0 to download and use, but luckily R _is_ free in this sense. If you are working on the University managed desktops it should already have been installed and is ready for you to use. We encourage you to install a copy on your own laptop so that you can work at home, in the library, at a café, or wherever else you find you are productive. Do not use R on its own though. Use it in combination with the RStudio IDE discussed in the next section. 
 
 In order to install R you need to download the appropriate installer from the Comprehensive R Archive Network ([CRAN](http://cran.r-project.org)). We are going to use the "base distribution" as this contains everything you need to use R under normal circumstances. There is a single [installer](http://cran.r-project.org/bin/windows/base/) for Windows. On a Mac, it's important to match the [installer](http://cran.r-project.org/bin/macosx/) to the version of OS X. In either case, R uses a the standard install mechanism that should be familiar to anyone who has installed an application on their machine. There is no need to change the default settings---doing so will probably lead to problems later on.
 
 ```{block, type="action"}
-Go ahead and install R on your own computer. You won't be able to make much use of this book without it!
+Go ahead and install R on your own computer now. You won't be able to make much use of this book without it.
 ```
 
 After installing R it should be visible in the Programs menu on a Windows computer or in the Applications folder on a Mac. However, it would be a good idea to read the next section before launching R...
 
-## What is RStudio (and why use it)? {#what-is-rstudio}
+## What is RStudio (and why use it)? {-}
 
 R and RStudio are not the same thing. We can run R without RStudio if we need to, but we cannot run RStudio without R. Remember that! R is essentially just a computer program that sits there and waits for instructions in the form of text. Those instructions can be typed in by a user like you or me, or they can be sent to it from another program. This means you can run R in a variety of different environments. The job of RStudio is to provide an environment that makes R a more pleasant and productive tool. One way to get a sense of why RStudio is a Very Good Thing is to look at what running R without it is like. The simplest way to run it on a Linux or Unix-based machine (like a Mac) is to use something called the Terminal. It's well beyond the scope of this book to get into what this is, but in a nutshell, the Terminal provides a low-level, text-based way to interact with a computer. Here is what R looks like running inside a Terminal on a Mac:
 
@@ -52,7 +52,7 @@ So what is RStudio? The first thing to note is that it is a different program fr
 
 We're only going to scratch the surface of what RStudio can do and there are certainly alternative bits of software that could meet our immediate needs. The reason for introducing a powerful tool like RStudio is because one day you may need to access things like debugging facilities, package building tools, repository management. RStudio makes it easy to use these advanced tools.
 
-### Getting and installing RStudio
+### Getting and installing RStudio {-}
 
 RStudio is developed and maintained by a for-profit company called... RStudio. They make their money by selling software tools and services related to R and RStudio. The basic desktop version of RStudio is free to download and use though. It can be downloaded from the RStudio [download page](http://www.rstudio.com/products/RStudio/#Desk). The one to go for is the Open Source Edition of RStudio Desktop, __not__ the commercial version of RStudio Desktop. RStudio installs like any other piece of software, so there's nothing to configure after installation.
 
@@ -60,7 +60,7 @@ RStudio is developed and maintained by a for-profit company called... RStudio. T
 If you haven't already done it, go ahead and install RStudio Desktop on your own computer. You are going to need it.
 ```
 
-### The anatomy of RStudio 
+### The anatomy of RStudio {-}
 
 Once it's installed RStudio is run like any other stand-alone application, via the Programs menu or the Applications folder on a Windows PC or Mac, respectively^[If you use a computer running Linux we assume you know what you are doing when it comes to installing and running software.]. We'll say this one last time---RStudio only works if we've also installed R. Here is how RStudio appears the first time it runs:
 
@@ -82,7 +82,7 @@ Don't be alarmed if RStudio looks different on your computer. There are a couple
 Keep in mind that RStudio is very actively developed, which means features tend to appear or change over time. Consequently, if you update it regularly expect the odd thing to change here and there. This is generally a good thing---it usually means new features have been added---but it does require you to occasionally adjust to new additions.
 ```
 
-## Working at the Console {#Console}
+## Working at the Console {-}
 
 R was designed to be used interactively---it is what is known as an **interpreted language**, which we can interact with via something called a Command Line Interface (CLI). This is just a fancy way of saying that we can type an instructions to "do something" directly into the Console and those instructions will then be interpreted when we hit the Enter key. If our R expression does not contain any errors, R will then do something like read in some data, perform a calculation, make a figure, and so on. What actually happens obviously depends on what we ask it to do.
 
@@ -101,7 +101,7 @@ Why do we keep using that word _expression_? It has a very specific meaning in c
 
 > An expression in a programming language is a combination of explicit values, constants, variables, operators, and functions that are interpreted according to the particular rules of precedence and of association for a particular programming language, which computes and then produces another value.
 
-That probably doesn't make much sense (which is why we don't let computer scientists teach biologists to program). Essentially, an R expression is a small set of instructions written in human readable(ish) text that tell R to do something. That’s it. We could write "instructions" instead of "expressions" throughout this book but we may as well use the correct word. Whatever we call them, our aim is to learn how to combine sequences of expressions to Get Things Done in R. That's what the rest of this book is about.
+That probably doesn't make much sense, but it at least demonstrates why we don't let computer scientists teach biologists about programming. In simple terms, an R expression is a small set of instructions written in human readable(ish) text that tell R to do something. That’s it. We could write "instructions" instead of "expressions" throughout this book but we may as well use the correct word. Whatever we call them, our aim is to learn how to combine sequences of expressions to Get Things Done in R. That's what this book is about.
 ```
 
 

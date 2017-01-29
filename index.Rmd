@@ -5,6 +5,9 @@ date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
 output:
   bookdown::gitbook:
+    config:
+      toc:
+        collapse: section
     includes:
       in_header: extras.css
 documentclass: book
@@ -15,13 +18,13 @@ github-repo: dzchilds/eda-for-bio
 description: "Course book for Introduction to Exploratory Data Analysis with R (APS 135) in the Department of Animal and Plant Sciences, University of Sheffield."
 ---
 
-# Course information and overview
+# Course information and overview {-}
 
 This is the online course book for the __Introduction to Exploratory Data Analysis with R__ component of ([APS 135](https://www.shef.ac.uk/aps/currentug/level2/aps135)) module. You can view this book in any modern desktop browser, as well as on your phone or tablet device. The site is self-contained---it contains all the material you are expected to learn this year.
 
 [Dylan Childs](https://www.shef.ac.uk/aps/staff-and-students/acadstaff/childs) is the course co-coordinator. Please [email him](mailto:d.childs@sheffield.ac.uk?Subject=APS%20133%20general%20query) if you have have any general queries about the course. The Teaching Assistants ('TAs') this year are Ross Booton, Matthew Hethcoat, Bethan Hindle, Tamora James, Felix Lim, and Simon Mills.
 
-## Organisation
+## Organisation {-}
 
 ```{block, type="action"}
 This is an **action** box.
@@ -34,8 +37,6 @@ This is a **warning** box.
 ```{block, type="info"}
 This is an **information** box.
 ```
-
-
 
 Some text...
 

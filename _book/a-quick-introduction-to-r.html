@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>APS 135: Introduction to Exploratory Data Analysis with R</title>
+  <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+  <meta name="description" content="Course book for Introduction to Exploratory Data Analysis with R (APS 135) in the Department of Animal and Plant Sciences, University of Sheffield.">
+  <meta name="generator" content="bookdown 0.3 and GitBook 2.6.7">
+
+  <meta property="og:title" content="APS 135: Introduction to Exploratory Data Analysis with R" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="Course book for Introduction to Exploratory Data Analysis with R (APS 135) in the Department of Animal and Plant Sciences, University of Sheffield." />
+  <meta name="github-repo" content="dzchilds/eda-for-bio" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="APS 135: Introduction to Exploratory Data Analysis with R" />
+  
+  <meta name="twitter:description" content="Course book for Introduction to Exploratory Data Analysis with R (APS 135) in the Department of Animal and Plant Sciences, University of Sheffield." />
+  
+
+<meta name="author" content="Dylan Z. Childs">
+
+
+<meta name="date" content="2017-01-29">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="get-up-and-running-with-r-and-rstudio.html">
+<link rel="next" href="scripts.html">
+
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+<style type="text/css">
+
+.action, .warning, .info, .speed {
+  padding: 1em 1em 1em 4em;
+  margin-bottom: 10px;
+  background: #f5f5f5 5px center/3em no-repeat;
+}
+.action {
+  background-image: url("./images/action.png");
+}
+.warning {
+  background-image: url("./images/warning.png");
+}
+.info {
+  background-image: url("./images/info.png");
+}
+.speed {
+  background-image: url("./images/speed.png");
+}
+
+
+</style>
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">APS 135 (R course)</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Course information and overview</a><ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#organisation"><i class="fa fa-check"></i>Organisation</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="expected-learning-outcomes.html"><a href="expected-learning-outcomes.html"><i class="fa fa-check"></i>Expected learning outcomes</a><ul>
+<li class="chapter" data-level="" data-path="expected-learning-outcomes.html"><a href="expected-learning-outcomes.html#introduction-to-r"><i class="fa fa-check"></i>Introduction to R</a></li>
+<li class="chapter" data-level="" data-path="expected-learning-outcomes.html"><a href="expected-learning-outcomes.html#data-wrangling"><i class="fa fa-check"></i>Data Wrangling</a></li>
+<li class="chapter" data-level="" data-path="expected-learning-outcomes.html"><a href="expected-learning-outcomes.html#exporing-data"><i class="fa fa-check"></i>Exporing Data</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="get-up-and-running-with-r-and-rstudio.html"><a href="get-up-and-running-with-r-and-rstudio.html"><i class="fa fa-check"></i>Get up and running with R and RStudio</a><ul>
+<li class="chapter" data-level="" data-path="get-up-and-running-with-r-and-rstudio.html"><a href="get-up-and-running-with-r-and-rstudio.html#what-is-r"><i class="fa fa-check"></i>What is R?</a><ul>
+<li class="chapter" data-level="" data-path="get-up-and-running-with-r-and-rstudio.html"><a href="get-up-and-running-with-r-and-rstudio.html#getting-and-installing-r"><i class="fa fa-check"></i>Getting and installing R</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="get-up-and-running-with-r-and-rstudio.html"><a href="get-up-and-running-with-r-and-rstudio.html#what-is-rstudio-and-why-use-it"><i class="fa fa-check"></i>What is RStudio (and why use it)?</a><ul>
+<li class="chapter" data-level="" data-path="get-up-and-running-with-r-and-rstudio.html"><a href="get-up-and-running-with-r-and-rstudio.html#getting-and-installing-rstudio"><i class="fa fa-check"></i>Getting and installing RStudio</a></li>
+<li class="chapter" data-level="" data-path="get-up-and-running-with-r-and-rstudio.html"><a href="get-up-and-running-with-r-and-rstudio.html#the-anatomy-of-rstudio"><i class="fa fa-check"></i>The anatomy of RStudio</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="get-up-and-running-with-r-and-rstudio.html"><a href="get-up-and-running-with-r-and-rstudio.html#working-at-the-console"><i class="fa fa-check"></i>Working at the Console</a></li>
+</ul></li>
+<li class="part"><span><b>I Introduction to R</b></span></li>
+<li class="chapter" data-level="1" data-path="a-quick-introduction-to-r.html"><a href="a-quick-introduction-to-r.html"><i class="fa fa-check"></i><b>1</b> A quick introduction to R</a><ul>
+<li class="chapter" data-level="1.1" data-path="a-quick-introduction-to-r.html"><a href="a-quick-introduction-to-r.html#r-calculator"><i class="fa fa-check"></i><b>1.1</b> Using R as a big calculator</a><ul>
+<li class="chapter" data-level="1.1.1" data-path="a-quick-introduction-to-r.html"><a href="a-quick-introduction-to-r.html#basic-arithmetic"><i class="fa fa-check"></i><b>1.1.1</b> Basic arithmetic</a></li>
+<li class="chapter" data-level="1.1.2" data-path="a-quick-introduction-to-r.html"><a href="a-quick-introduction-to-r.html#problematic-calculations"><i class="fa fa-check"></i><b>1.1.2</b> Problematic calculations</a></li>
+</ul></li>
+<li class="chapter" data-level="1.2" data-path="a-quick-introduction-to-r.html"><a href="a-quick-introduction-to-r.html#assignment"><i class="fa fa-check"></i><b>1.2</b> Storing and reusing results</a></li>
+<li class="chapter" data-level="1.3" data-path="a-quick-introduction-to-r.html"><a href="a-quick-introduction-to-r.html#how-does-assignment-work"><i class="fa fa-check"></i><b>1.3</b> How does assignment work?</a></li>
+<li class="chapter" data-level="1.4" data-path="a-quick-introduction-to-r.html"><a href="a-quick-introduction-to-r.html#global-environment"><i class="fa fa-check"></i><b>1.4</b> Global environment</a></li>
+<li class="chapter" data-level="1.5" data-path="a-quick-introduction-to-r.html"><a href="a-quick-introduction-to-r.html#naming-rules-and-conventions"><i class="fa fa-check"></i><b>1.5</b> Naming rules and conventions</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="scripts.html"><a href="scripts.html"><i class="fa fa-check"></i><b>2</b> Building scripts</a><ul>
+<li class="chapter" data-level="2.1" data-path="scripts.html"><a href="scripts.html#introduction"><i class="fa fa-check"></i><b>2.1</b> Introduction</a></li>
+<li class="chapter" data-level="2.2" data-path="scripts.html"><a href="scripts.html#writing-scripts-in-rstudio"><i class="fa fa-check"></i><b>2.2</b> Writing scripts in RStudio</a></li>
+<li class="chapter" data-level="2.3" data-path="scripts.html"><a href="scripts.html#running-scripts-in-rstudio"><i class="fa fa-check"></i><b>2.3</b> Running scripts in RStudio</a></li>
+<li class="chapter" data-level="2.4" data-path="scripts.html"><a href="scripts.html#spotting-problems"><i class="fa fa-check"></i><b>2.4</b> Spotting problems</a><ul>
+<li class="chapter" data-level="2.4.1" data-path="scripts.html"><a href="scripts.html#the-dreaded"><i class="fa fa-check"></i><b>2.4.1</b> The dreaded <code>+</code></a></li>
+<li class="chapter" data-level="2.4.2" data-path="scripts.html"><a href="scripts.html#errors"><i class="fa fa-check"></i><b>2.4.2</b> Errors</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="using-functions.html"><a href="using-functions.html"><i class="fa fa-check"></i><b>3</b> Using functions</a><ul>
+<li class="chapter" data-level="3.1" data-path="using-functions.html"><a href="using-functions.html#intro-functions"><i class="fa fa-check"></i><b>3.1</b> Introduction</a></li>
+<li class="chapter" data-level="3.2" data-path="using-functions.html"><a href="using-functions.html#evaluating-arguments-and-returning-results"><i class="fa fa-check"></i><b>3.2</b> Evaluating arguments and returning results</a></li>
+<li class="chapter" data-level="3.3" data-path="using-functions.html"><a href="using-functions.html#functions-do-not-have-side-effects"><i class="fa fa-check"></i><b>3.3</b> Functions do not have “side effects”</a></li>
+<li class="chapter" data-level="3.4" data-path="using-functions.html"><a href="using-functions.html#combining-functions"><i class="fa fa-check"></i><b>3.4</b> Combining functions</a></li>
+<li class="chapter" data-level="3.5" data-path="using-functions.html"><a href="using-functions.html#function-arguments"><i class="fa fa-check"></i><b>3.5</b> Specifying function arguments</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="numeric-vectors.html"><a href="numeric-vectors.html"><i class="fa fa-check"></i><b>4</b> Numeric vectors</a><ul>
+<li class="chapter" data-level="4.1" data-path="numeric-vectors.html"><a href="numeric-vectors.html#introduction-1"><i class="fa fa-check"></i><b>4.1</b> Introduction</a></li>
+<li class="chapter" data-level="4.2" data-path="numeric-vectors.html"><a href="numeric-vectors.html#intro-vectors"><i class="fa fa-check"></i><b>4.2</b> Numeric vectors</a></li>
+<li class="chapter" data-level="4.3" data-path="numeric-vectors.html"><a href="numeric-vectors.html#making-numeric-vectors"><i class="fa fa-check"></i><b>4.3</b> Making numeric vectors</a><ul>
+<li class="chapter" data-level="4.3.1" data-path="numeric-vectors.html"><a href="numeric-vectors.html#named-vectors"><i class="fa fa-check"></i><b>4.3.1</b> Named vectors</a></li>
+<li class="chapter" data-level="4.3.2" data-path="numeric-vectors.html"><a href="numeric-vectors.html#generating-sequences-of-numbers"><i class="fa fa-check"></i><b>4.3.2</b> Generating sequences of numbers</a></li>
+<li class="chapter" data-level="4.3.3" data-path="numeric-vectors.html"><a href="numeric-vectors.html#generating-repeated-sequences-of-numbers"><i class="fa fa-check"></i><b>4.3.3</b> Generating repeated sequences of numbers</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="numeric-vectors.html"><a href="numeric-vectors.html#vectorised-operations"><i class="fa fa-check"></i><b>4.4</b> Vectorised operations</a></li>
+<li class="chapter" data-level="4.5" data-path="numeric-vectors.html"><a href="numeric-vectors.html#extract-subset"><i class="fa fa-check"></i><b>4.5</b> Extracting subsets of vectors</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="other-kinds-of-vectors.html"><a href="other-kinds-of-vectors.html"><i class="fa fa-check"></i><b>5</b> Other kinds of vectors</a><ul>
+<li class="chapter" data-level="5.1" data-path="other-kinds-of-vectors.html"><a href="other-kinds-of-vectors.html#other-vectors"><i class="fa fa-check"></i><b>5.1</b> Introduction</a><ul>
+<li class="chapter" data-level="5.1.1" data-path="other-kinds-of-vectors.html"><a href="other-kinds-of-vectors.html#character-vectors"><i class="fa fa-check"></i><b>5.1.1</b> Character vectors</a></li>
+<li class="chapter" data-level="5.1.2" data-path="other-kinds-of-vectors.html"><a href="other-kinds-of-vectors.html#logical-vectors"><i class="fa fa-check"></i><b>5.1.2</b> Logical vectors</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="numeric-vectors.html"><a href="numeric-vectors.html#extract-subset"><i class="fa fa-check"></i><b>5.2</b> Extracting subsets of vectors</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="getting-help.html"><a href="getting-help.html"><i class="fa fa-check"></i><b>6</b> Getting help</a><ul>
+<li class="chapter" data-level="6.1" data-path="getting-help.html"><a href="getting-help.html#console-help"><i class="fa fa-check"></i><b>6.1</b> Introduction</a></li>
+<li class="chapter" data-level="6.2" data-path="getting-help.html"><a href="getting-help.html#browsing-the-help-system"><i class="fa fa-check"></i><b>6.2</b> Browsing the help system</a></li>
+<li class="chapter" data-level="6.3" data-path="getting-help.html"><a href="getting-help.html#searching-for-help-files"><i class="fa fa-check"></i><b>6.3</b> Searching for help files</a></li>
+<li class="chapter" data-level="6.4" data-path="getting-help.html"><a href="getting-help.html#nav-help"><i class="fa fa-check"></i><b>6.4</b> Navigating help files</a></li>
+<li class="chapter" data-level="6.5" data-path="getting-help.html"><a href="getting-help.html#vignettes"><i class="fa fa-check"></i><b>6.5</b> Vignettes and demos</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="packages.html"><a href="packages.html"><i class="fa fa-check"></i><b>7</b> Packages</a><ul>
+<li class="chapter" data-level="7.1" data-path="packages.html"><a href="packages.html#package-system"><i class="fa fa-check"></i><b>7.1</b> The R package system</a></li>
+<li class="chapter" data-level="7.2" data-path="packages.html"><a href="packages.html#task-views"><i class="fa fa-check"></i><b>7.2</b> Task views</a></li>
+<li class="chapter" data-level="7.3" data-path="packages.html"><a href="packages.html#use-packages"><i class="fa fa-check"></i><b>7.3</b> Using packages</a><ul>
+<li class="chapter" data-level="7.3.1" data-path="packages.html"><a href="packages.html#viewing-installed-packages"><i class="fa fa-check"></i><b>7.3.1</b> Viewing installed packages</a></li>
+<li class="chapter" data-level="7.3.2" data-path="packages.html"><a href="packages.html#installing-and-updating-packages"><i class="fa fa-check"></i><b>7.3.2</b> Installing and updating packages</a></li>
+<li class="chapter" data-level="7.3.3" data-path="packages.html"><a href="packages.html#loading-and-attaching-packages"><i class="fa fa-check"></i><b>7.3.3</b> Loading and attaching packages</a></li>
+<li class="chapter" data-level="7.3.4" data-path="packages.html"><a href="packages.html#an-analogy"><i class="fa fa-check"></i><b>7.3.4</b> An analogy</a></li>
+</ul></li>
+</ul></li>
+<li class="part"><span><b>II Data Wrangling</b></span></li>
+<li class="part"><span><b>III Exporing Data</b></span></li>
+<li class="chapter" data-level="8" data-path="stuff.html"><a href="stuff.html"><i class="fa fa-check"></i><b>8</b> Stuff…</a><ul>
+<li class="chapter" data-level="8.1" data-path="stuff.html"><a href="stuff.html#mathematical-functions-in-r"><i class="fa fa-check"></i><b>8.1</b> Mathematical functions in R</a></li>
+<li class="chapter" data-level="8.2" data-path="stuff.html"><a href="stuff.html#coding-conventions"><i class="fa fa-check"></i><b>8.2</b> Coding conventions</a><ul>
+<li class="chapter" data-level="8.2.1" data-path="stuff.html"><a href="stuff.html#formatting-functions"><i class="fa fa-check"></i><b>8.2.1</b> Formatting functions</a></li>
+</ul></li>
+<li class="chapter" data-level="8.3" data-path="stuff.html"><a href="stuff.html#data-structures"><i class="fa fa-check"></i><b>8.3</b> Beyond vectors</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">APS 135: Introduction to Exploratory Data Analysis with R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="a-quick-introduction-to-r" class="section level1">
+<h1><span class="header-section-number">Chapter 1</span> A quick introduction to R</h1>
+<div id="r-calculator" class="section level2">
+<h2><span class="header-section-number">1.1</span> Using R as a big calculator</h2>
+<div id="basic-arithmetic" class="section level3">
+<h3><span class="header-section-number">1.1.1</span> Basic arithmetic</h3>
+<p>At the end of the last chapter we saw that R can apparently handle familiar arithmetic operations: addition, subtraction, multiplication, division. If we want to add or subtract a pair of numbers just place the <code>+</code> or <code>-</code> symbol in between two numbers, hit Enter, and R will read the expression, evaluate it, and print the result to the Console. This works exactly as we expect it to:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="dv">3</span> +<span class="st"> </span><span class="dv">2</span></code></pre></div>
+<pre><code>## [1] 5</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="dv">5</span> -<span class="st"> </span><span class="dv">1</span></code></pre></div>
+<pre><code>## [1] 4</code></pre>
+<p>Multiplication and division are no different, though we don’t use <code>x</code> or <code>÷</code> for these operations. Instead, we use <code>*</code> and <code>/</code> to multiply and divide:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="dv">7</span> *<span class="st"> </span><span class="dv">2</span></code></pre></div>
+<pre><code>## [1] 14</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="dv">3</span> /<span class="st"> </span><span class="dv">2</span></code></pre></div>
+<pre><code>## [1] 1.5</code></pre>
+<p>We can also exponentiate a numbers: raise one number to the power of another. We use the <code>^</code> operator to do this:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="dv">4</span>^<span class="dv">2</span></code></pre></div>
+<pre><code>## [1] 16</code></pre>
+<p>This raises 4 to the power of 2 (i.e. we squared it). In general, we can raise a number <code>x</code> to the power of <code>y</code> using <code>x^y</code>. Neither <code>x</code> or <code>y</code> need to be a whole numbers either.</p>
+<p>Arithmetic operations can also be combined into one expression. Assume we want to subtract 6 from 2<sup>3</sup>. The expression to perform this calculation is:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="dv">2</span>^<span class="dv">3</span> -<span class="st"> </span><span class="dv">6</span></code></pre></div>
+<pre><code>## [1] 2</code></pre>
+<p><span class="math inline">\(2^3=8\)</span> and <span class="math inline">\(8-6=2\)</span>. Simple enough, but what if we had wanted to carry out a slightly longer calculation that required the last answer to then be divided by 2? This is the <strong>wrong</strong> the way to do it:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="dv">2</span>^<span class="dv">3</span> -<span class="st"> </span><span class="dv">6</span> /<span class="st"> </span><span class="dv">2</span></code></pre></div>
+<pre><code>## [1] 5</code></pre>
+<p>The answer we were looking for is <span class="math inline">\(1\)</span>. So what happened? R evaluated <span class="math inline">\(6/2\)</span> first and then subtracted this answer from <span class="math inline">\(2^3\)</span>.</p>
+<p>If that’s obvious, great. If not, it’s time to learn a bit about the <strong>order of precendence</strong> used by R. R uses a standard set of rules to decide the order in which arithmetic calculations feed into one another so that it can unambiguously evaluate any expression. It uses the same order as every other computer language, which thankfully is the same one we all learned in mathematics class at school. The order of precedence used is:</p>
+<ol style="list-style-type: decimal">
+<li><p>exponents and roots (“taking powers”)</p></li>
+<li><p>multiplication and division</p></li>
+<li><p>additional and subtraction</p></li>
+</ol>
+<div class="info">
+<h4 id="bodmas-and-friends">
+BODMAS and friends
+</h4>
+<p>
+If you find it difficult to remember order of precedence used by R, there are a load of <a href="http://en.wikipedia.org/wiki/Order_of_operations#Mnemonics">mnemonics</a> that can to help. Pick one you like and remember that instead.
+</p>
+</div>
+<p>In order to get the answer we were looking for we need to take control of the order of evaluation. We do this by enclosing grouping the necessary bits of the calculation inside parentheses (“round brackets”). That is, we place <code>(</code> and <code>)</code> either side of them. The order in which expressions inside different pairs of parentheses are evaluated follows the rules we all had to learn at school. The R expression we should have used is therefore:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">(<span class="dv">2</span>^<span class="dv">3</span> -<span class="st"> </span><span class="dv">6</span>) /<span class="st"> </span><span class="dv">2</span></code></pre></div>
+<pre><code>## [1] 1</code></pre>
+<p>We can use more than one pair of parentheses to control the order of evaluation in more complex calculations. For example, if we want to find the cube root of 2 (i.e. 2<sup>1/3</sup>) rather than 2<sup>3</sup> in that last calculation we would instead write:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">(<span class="dv">2</span>^(<span class="dv">1</span>/<span class="dv">3</span>) -<span class="st"> </span><span class="dv">6</span>) /<span class="st"> </span><span class="dv">2</span></code></pre></div>
+<pre><code>## [1] -2.370039</code></pre>
+<p>The parentheses around the <code>1/3</code> in the exponent are needed to ensure this is evaluated prior to being used as the exponent.</p>
+</div>
+<div id="problematic-calculations" class="section level3">
+<h3><span class="header-section-number">1.1.2</span> Problematic calculations</h3>
+<p>Now is a good time to highlight how R handles certain kinds of awkward numerical calculations. One of these involves division of a number by 0. Some programming languages will respond to an attempt to do this with an error. R is a bit more forgiving:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="dv">1</span>/<span class="dv">0</span></code></pre></div>
+<pre><code>## [1] Inf</code></pre>
+<p>Mathematically, division of a finite number by <code>0</code> equals A Very Large Number: infinity. R has a special built in data value that allows it to handle this kind of thing. This is <code>Inf</code>, which of course stands for “infinity”. The other special kind of value we sometimes run into can be generated by numerical calculations that don’t have a well-defined result. For example, it arises when we try to divide 0 or infinity by themselves:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="dv">0</span>/<span class="dv">0</span></code></pre></div>
+<pre><code>## [1] NaN</code></pre>
+<p>The <code>NaN</code> in this result stands for Not a Number. R produces <code>NaN</code> because <span class="math inline">\(0/0\)</span> is not defined mathematically: it produces something that is Not a Number. The reason we are pointing out <code>Inf</code> and <code>NaN</code> is not because we expect to use them. It’s important to know what they represent because they often arise as a result of a mistake somewhere in a program. It’s hard to track down such mistakes if we don’t know how <code>Inf</code> and <code>NaN</code> arise.</p>
+<p>That is enough about using R as a calculator for now. What we’ve seen—even though we haven’t said it yet—is that R functions as a REPL: a read-eval-print loop (there’s no need to remember this term). R takes user input, evaluates it, prints the results, and then waits for the next input. This is handy, because it means we can use it interactively, working through an analysis line-by-line. However, to use R to solve for complex problems we need to learn how to store and reuse results. We’ll look at this in the next section.</p>
+<div class="speed">
+<h4 id="working-efficiently-at-the-console">
+Working efficiently at the Console
+</h4>
+<p>
+Working at the Console soon gets tedious if we have to retype similar things over and over again. There is no need to do this though. Place the cursor at the prompt and hit the up arrow. What happens? This brings back the last expression sent to R’s interpreter. Hit the up arrow again to see the last-but-one expression, and so on. We go back down the list using the down arrow. Once we’re at the line we need, we use the left and right arrows to move around the expression and the delete key to remove the parts we want to change. Once an expression has been edited like this we hit Enter to send it to R again. Try it!
+</p>
+</div>
+</div>
+</div>
+<div id="assignment" class="section level2">
+<h2><span class="header-section-number">1.2</span> Storing and reusing results</h2>
+<p>So far we’ve not tried to do anything remotely complicated or interesting, though we now know how to construct longer calculations using parentheses to control the order of evaluation. This approach is fine if the calculation is very simple. It quickly becomes unwieldy for dealing with anything more. The best way to see what we mean is by working through a simple example—solving a quadratic equation. Quadratic equations looks like this: <span class="math inline">\(a + bx + cx^2 = 0\)</span>. If we know the values of <span class="math inline">\(a\)</span>, <span class="math inline">\(b\)</span> and <span class="math inline">\(c\)</span> then we can solve this equation to find the values of <span class="math inline">\(x\)</span> that ensure the left hand side equals the right hand side. Here’s the well-known formula for these solutions: <span class="math display">\[
+x = \frac{-b\pm\sqrt{b^2-4ac}}{2a}
+\]</span> Let’s use R to calculate these solutions for us. Say that we want to find the solutions to the quadratic equation when <span class="math inline">\(a=1\)</span>, <span class="math inline">\(b=6\)</span> and <span class="math inline">\(c=5\)</span>. We just have to turn the above equation into a pair of R expressions:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">(-<span class="dv">6</span> +<span class="st"> </span>(<span class="dv">6</span>^<span class="dv">2</span> -<span class="dv">4</span> *<span class="st"> </span><span class="dv">1</span> *<span class="st"> </span><span class="dv">5</span>)^(<span class="dv">1</span>/<span class="dv">2</span>)) /<span class="st"> </span>(<span class="dv">2</span> *<span class="st"> </span><span class="dv">1</span>)</code></pre></div>
+<pre><code>## [1] -1</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">(-<span class="dv">6</span> -<span class="st"> </span>(<span class="dv">6</span>^<span class="dv">2</span> -<span class="dv">4</span> *<span class="st"> </span><span class="dv">1</span> *<span class="st"> </span><span class="dv">5</span>)^(<span class="dv">1</span>/<span class="dv">2</span>)) /<span class="st"> </span>(<span class="dv">2</span> *<span class="st"> </span><span class="dv">1</span>)</code></pre></div>
+<pre><code>## [1] -5</code></pre>
+<p>The output tells us that the two values of <span class="math inline">\(x\)</span> that satisfy this particular quadratic equation are -1 and -5. What should we do if we now need to solve a different quadratic equation? Working at the Console, we could bring up the expressions we typed (using the up arrow) and then go through each of these, changing the numbers to match the new values of <span class="math inline">\(a\)</span>, <span class="math inline">\(b\)</span> and <span class="math inline">\(c\)</span>. Editing individual expressions like this is fairly tedious, and more importantly, it’s fairly error prone because we have to make sure we substitute the new numbers at exactly the right positions.</p>
+<p>A partial solution to this problem is to store the values of <span class="math inline">\(a\)</span>, <span class="math inline">\(b\)</span> and <span class="math inline">\(c\)</span>. We’ll see precisely why this is useful in a moment. First, we need to learn how to store results in R. The key to this is to use the <strong>assigment operator</strong>, written as a left arrow <code>&lt;-</code>. Sticking with our original example, we need to store the numbers 1, 6 and 5. We do this using three expressions, one after the another:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">a &lt;-<span class="st"> </span><span class="dv">1</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">b &lt;-<span class="st"> </span><span class="dv">6</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">c &lt;-<span class="st"> </span><span class="dv">5</span></code></pre></div>
+<p>Notice that we don’t put a space between <code>&lt;</code> and <code>-</code>—R won’t like it if we try to add one. R didn’t print anything to screen, so what actually happened? We asked R to first evaluate the expression on the right hand side of each <code>&lt;-</code> (just a number in this case) and then <strong>assign the result</strong> of that evaluation instead of printing it. Each result has a name associated with it, which appears on the left hand side of the <code>&lt;-</code>.</p>
+<div class="speed">
+<h4 id="rstudio-shortcut">
+RStudio shortcut
+</h4>
+<p>
+We use the assignment operator <code>&lt;-</code> all the time when working with R, and because it’s inefficient to have to type the <code>&lt;</code> and <code>-</code> characters over and over again, RStudio has a built in shortcut for typing the assignment operator: Alt + <code>-</code> . Try it. Move the curser to the Console, hold down the Alt key (‘Option’ on a Mac), and press the <code>-</code> sign key. RStudio will auto-magically add insert <code>&lt;-</code>.
+</p>
+</div>
+<p>The net result of all this is that we have stored the numbers 1, 6 and 5 somewhere in R, associating them with the letters <code>a</code>, <code>b</code> and <code>c</code>, respectively. What does this mean? Here’s what happens if we type the letter <code>a</code> into the Console and hit Enter:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">a</code></pre></div>
+<pre><code>## [1] 1</code></pre>
+<p>It looks the same as if we had typed the number <code>1</code> directly into the Console. The result of typing <code>b</code> or <code>c</code> is hopefully obvious. What we just did was to store the output that results from evaluating three separate R expressions, associating each a name so that we can access them again<a href="#fn3" class="footnoteRef" id="fnref3"><sup>3</sup></a>.</p>
+<p>Whenever we use the assignment operator <code>&lt;-</code> we are telling R to keep whatever kind of value results from the calculation on the right hand side of <code>&lt;-</code>, giving it the name on the left hand side so that we can access it later. Why is this useful? Let’s imagine we want to do more than one thing with our three numbers. If we want to know their sum or their product we can now use:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">a +<span class="st"> </span>b +<span class="st"> </span>c</code></pre></div>
+<pre><code>## [1] 12</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">a *<span class="st"> </span>b *<span class="st"> </span>c</code></pre></div>
+<pre><code>## [1] 30</code></pre>
+<p>So once we’ve stored a result and associated it with a name we can reuse it wherever it’s needed. Returning to our motivating example, we can now calculate the solutions to the quadratic equation by typing these two expressions into the Console:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">(-b +<span class="st"> </span>(b^<span class="dv">2</span> -<span class="dv">4</span> *<span class="st"> </span>a *<span class="st"> </span>c)^(<span class="dv">1</span>/<span class="dv">2</span>)) /<span class="st"> </span>(<span class="dv">2</span> *<span class="st"> </span>a)</code></pre></div>
+<pre><code>## [1] -1</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">(-b -<span class="st"> </span>(b^<span class="dv">2</span> -<span class="dv">4</span> *<span class="st"> </span>a *<span class="st"> </span>c)^(<span class="dv">1</span>/<span class="dv">2</span>)) /<span class="st"> </span>(<span class="dv">2</span> *<span class="st"> </span>a)</code></pre></div>
+<pre><code>## [1] -5</code></pre>
+<p>Imagine we’d like to find the solutions to a different quadratic equation where <span class="math inline">\(a=1\)</span>, <span class="math inline">\(b=5\)</span> and <span class="math inline">\(c=5\)</span>. We just changed the value of <span class="math inline">\(b\)</span> here to keep things simple. To find our new solutions we have to do two things. First we change the value of the number associated with <code>b</code>…</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">b &lt;-<span class="st"> </span><span class="dv">5</span></code></pre></div>
+<p>…then we bring up those lines that calculate the solutions to the quadratic equation and run them, one after the other:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">(-b +<span class="st"> </span>(b^<span class="dv">2</span> -<span class="dv">4</span> *<span class="st"> </span>a *<span class="st"> </span>c)^(<span class="dv">1</span>/<span class="dv">2</span>)) /<span class="st"> </span>(<span class="dv">2</span> *<span class="st"> </span>a)</code></pre></div>
+<pre><code>## [1] -1.381966</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">(-b -<span class="st"> </span>(b^<span class="dv">2</span> -<span class="dv">4</span> *<span class="st"> </span>a *<span class="st"> </span>c)^(<span class="dv">1</span>/<span class="dv">2</span>)) /<span class="st"> </span>(<span class="dv">2</span> *<span class="st"> </span>a)</code></pre></div>
+<pre><code>## [1] -3.618034</code></pre>
+<p>We didn’t have to retype those two expressions. We could just use the up arrow to bring each one back to the prompt and hit Enter. This is much simpler than editing the expressions. More importantly, we are beginning to see the benefits of using something like R: we can break down complex calculations into a series of steps, storing and reusing intermediate results as required.</p>
+</div>
+<div id="how-does-assignment-work" class="section level2">
+<h2><span class="header-section-number">1.3</span> How does assignment work?</h2>
+<p>It’s important to understand, at least roughly, how assignment works. The first thing to note is that when we use the assignment operator <code>&lt;-</code> to associate names and values, we informally refer to this as creating (or modifying) <strong>a variable</strong>. This is much less tedious than using words like “bind”, “associate”, value“, and”name&quot; all the time. Why is it called a variable? What happens when we run these lines:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">myvar &lt;-<span class="st"> </span><span class="dv">1</span>
+myvar &lt;-<span class="st"> </span><span class="dv">7</span></code></pre></div>
+<p>The first time we used <code>&lt;-</code> with <code>myvar</code> on the left hand side we <strong>created</strong> a variable <code>myvar</code> associated with the value 1. The second line <code>myvar &lt;- 7</code> <strong>modified</strong> the value of <code>myvar</code> to be 7. This is why we refer to <code>myvar</code> as a variable: we can change the its value as we please. What happened to the old value associated with <code>myvar</code>? In short, it is gone, kaput, lost… forever. The moment we assign a new value to <code>myvar</code> the old one is destroyed and can no longer be accessed. Remember this.</p>
+<p>Keep in mind that the expression on the right hand side of <code>&lt;-</code> can be any kind of calculation, not just just a number. For example, if I want to store the number 1, associating it with <code>answer</code>, I could do this:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">answer &lt;-<span class="st"> </span>(<span class="dv">1</span> +<span class="st"> </span><span class="dv">2</span>^<span class="dv">3</span>) /<span class="st"> </span>(<span class="dv">2</span> +<span class="st"> </span><span class="dv">7</span>)</code></pre></div>
+<p>That is a strange way to assign the number 1, but it illustrates the point. More generally, as along as the expression on the right hand side generates an output it can be used with the assignment operator. For example, we can create new variables from old variables:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">newvar &lt;-<span class="st"> </span><span class="dv">2</span> *<span class="st"> </span>answer</code></pre></div>
+<p>What happened here? Start at the right hand side of <code>&lt;-</code>. The expression on this side contained the variable <code>answer</code> so R went to see if <code>answer</code> actually exists in the global environment. It does, so it then substituted the value associated with <code>answer</code> into the requested calculation, and then assigned the resulting value of 2 to <code>newvar</code>. We created a new variable <code>newvar</code> using information associated with <code>answer</code>.</p>
+<p>Now look at what happens if we just copy a variable using the assignment operator:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">myvar &lt;-<span class="st"> </span><span class="dv">7</span>
+mycopy &lt;-<span class="st"> </span>myvar</code></pre></div>
+<p>At this point we have two variables, <code>myvar</code> and <code>mycopy</code>, each associated with the number 7. There is something very important going on here: each of these is associated with a <strong>different copy</strong> of this number. If we change the value associated with one of these variables it does not change the value of the other, as this shows:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">myvar &lt;-<span class="st"> </span><span class="dv">10</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">myvar</code></pre></div>
+<pre><code>## [1] 10</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mycopy</code></pre></div>
+<pre><code>## [1] 7</code></pre>
+<p>R always behaves like this unless we work hard to alter this behaviour (we never do this in this book). So remember, every time we assign one variable to another, we actually make a completely new, independent copy of its associated value. For our purposes this is a good thing because it makes it much easier to understand what a long sequence of R expressions will do. That probably doesn’t seem like an obvious or important point, but trust us, it is.</p>
+</div>
+<div id="global-environment" class="section level2">
+<h2><span class="header-section-number">1.4</span> Global environment</h2>
+<p>Whenever we associate a name with a value we create a copy of both these things somewhere in the computer’s memory. In R the “somewhere” is called an environment. We aren’t going to get into a discussion of R’s many different kinds of environments—that’s an advanced topic well beyond the scope of this book. The one environment we do need to be aware of though is the <strong>Global Environment</strong>.</p>
+<p>Whenever we perform an assignment in the Console the name-value pair we create (i.e. the variable) is placed into the Global Environment. The current set of variables are all listed in the <strong>Environment</strong> tab in RStudio. Take a look. Assuming that at least one variable has been made, there will be two columns in the <strong>Environment</strong> tab. The first shows us the names of all the variables, while the second summarises their values.</p>
+<div class="warning">
+<h4 id="the-global-environment-is-temporary">
+The Global Environment is temporary
+</h4>
+<p>
+By default, R will save the Global Environment whenever we close it down and then restore it in the next R session. It does this by writing a copy of the Global Environment to disk. In theory this means we can close down R, reopen it, and pick things up from where we left off. Don’t do this—it only increases the risk of making a serious mistake. Assume that when R and RStudio are shut down, everything in Global Environment will be lost.
+</p>
+</div>
+</div>
+<div id="naming-rules-and-conventions" class="section level2">
+<h2><span class="header-section-number">1.5</span> Naming rules and conventions</h2>
+<p>We don’t have to use a single letter to name things in R. The words <code>tom</code>, <code>dick</code> and <code>harry</code> could be used in place of <code>a</code>, <code>b</code> and <code>c</code>. It might be confusing to use them, but <code>tom</code>, <code>dick</code> and <code>harry</code> are all legal names as far as to R is concerned:</p>
+<ul>
+<li><p>A legal name in R is any sequence of letters, numbers, <code>.</code>, or <code>_</code>, but the sequence of characters we use must begin with a letter. Both upper and lower case letters are allowed. For example, <code>num_1</code>, <code>num.1</code>, <code>num1</code>, <code>NUM1</code>, <code>myNum1</code> are all legal names, but <code>1num</code> and <code>_num1</code> are not because they begin with <code>1</code> and <code>_</code>.</p></li>
+<li><p>R is case sensitive—it treats upper and lower case letters as different characters. This means that <code>num</code> and <code>Num</code> are treated as distinct names. Forgetting about case sensitivity is a good way to create errors when using R. Try to remember that.</p></li>
+</ul>
+<div class="warning">
+<h4 id="dont-begin-a-name-with-.">
+Don’t begin a name with <code>.</code>
+</h4>
+<p>
+We are allowed to begin a name with a <code>.</code>, but this usually is A Bad Idea. Why? Because variable names that begin with <code>.</code> are hidden from view in the Global Environment—the value it refers to exists but it’s invisible. This behaviour exists to allow R to create invisible variables that control how it behaves. This is useful, but it isn’t really meant to be used by the average user.
+</p>
+</div>
+
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol start="3">
+<li id="fn3"><p>Technically, this is called <strong>binding</strong> the name to a value. You really don’t need to remember this though.<a href="a-quick-introduction-to-r.html#fnref3">↩</a></p></li>
+</ol>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="get-up-and-running-with-r-and-rstudio.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="scripts.html" class="navigation navigation-next " aria-label="Next page""><i class="fa fa-angle-right"></i></a>
+
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/dzchilds/eda-for-bio/edit/master/1_02_R_calculator.Rmd",
+"text": "Edit"
+},
+"download": null,
+"toc": {
+"collapse": "section"
+},
+"split_by": "section"
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    if (location.protocol !== "file:" && /^https?:/.test(script.src))
+      script.src  = script.src.replace(/^https?:/, '');
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

@@ -1,7 +1,7 @@
-# Expected learning outcomes
+# Expected learning outcomes {-}
 
-## Introduction to R
+## Introduction to R {-}
 
-## Data Wrangling
+## Data Wrangling {-}
 
-## Exporing Data
+## Exporing Data {-}

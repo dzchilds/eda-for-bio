@@ -1,0 +1,149 @@
+# Other kinds of vectors
+
+## Introduction {#other-vectors}
+
+We tend to use numeric vectors a lot. After all, the data we collect are often in the form of numbers, or they can at least be reduced to numerical summaries for further analysis. Sometimes however, we need to be able to represent other kinds of data. This chapter introduces two other types of atomic vector to help us do this: character vectors and logical vectors. 
+
+### Character vectors
+
+The elements of __character vectors__ are what are known as "character strings", or just "strings" if we are feeling lazy. The phrase "character string" is just computer-speak for a sequence of characters. When we want to make a character vector in R we need to use double or single quotation marks around the string(s). Here is how we can print the name "Dylan" to the Console:
+```{r}
+"Dylan"
+```
+Notice the `[1]`. This shows that what we just printed is indeed an atomic vector of some kind. We also know it is a character vector because the output is printed with double quotes around the value. The quoting here is important. If we try to do the same thing without the quotes we generate an error:
+```{r, error=TRUE}
+Dylan
+```
+The reason for this should be clear if you have been following our discussions about R evaluates expressions. When the interpreter sees the word `Dylan` without quotes it assumes that this must be the name of a variable, so it goes in search of it in the global environment. We haven't made a variable called Dylan, so there is no way to evaluate the expression.
+
+We often need to make simple character vectors with only one value (i.e. vectors of length 1)---usually to set the values of arguments to a function. However, we can make longer character vectors using the `c` function if we need to:
+```{r}
+c("Dylan", "Zachary", "Childs")
+```
+Here we made a length 3 character vector, with elements corresponding to a first name, a middle name, and a last name. Take note, this is __not__ the same as :
+```{r}
+c("Dylan Zachary Childs")
+```
+The only element of this character vector is a single string that contains the first, middle and last name separated by a spaces. We didn't need to use the the `c` function here because we were only ever working with a character vector of length 1. We just used only for consistency, i.e. we could have typed `"Dylan Zachary Childs"` and we would have ended up with exactly the same text printed at the Console.
+
+In addition to using the `c` function, we can construct repeating character vectors with `rep`. This works on character vectors in exactly the same way as it does on numeric vectors:
+```{r}
+cvec <- c("Dylan", "Zachary", "Childs")
+rep(cvec, each = 2, times = 3)
+```
+Each element was replicated twice (`each = 2`), and then the whole vector was replicated three times (`times = 3`), end to end. 
+
+What about the `seq` function? Hopefully it is fairly obvious that we cannot use this function to construct character vectors. The `seq` function is designed to make sequences of numbers, from a starting value, to another. The notion of a sequence of character strings -- for example, from `"Dylan"` to `"Childs"` -- is meaningless.
+
+### Logical vectors
+
+The elements of __logical vectors__ only take two values: `TRUE` or `FALSE`. These are called logical values. Do not let the simplicity of logical vectors fool you though: they are very useful. As with other kinds of vectors we can use the `c` function to construct short logical vectors and the `rep` function to construct repeating sequences of logical values:
+```{r}
+lvec <- c(TRUE, FALSE)
+rep(lvec, times = 2)
+```
+Nothing about this should surprise you by this point.
+
+So why are logical vectors useful? Their main purpose is to allow us to represent the results of questions such as, "is x greater than y". This may not sound particularly useful, but at the end of this topic we will see how such questions can implemented via logical vectors in order to extract subsets of data. Let's first look at how we use logical vectors to evaluate these kinds of questions. Before we can do that though we need to introduce __relational operators__. These sound fancy, but they are very simple: we use relational operators to evaluate the relative value of vector elements. Six are available in R:
+
+- `x < y `: is x less than y?
+- `x > y `: is x greater than y?
+- `x <= y`: is x less than or equal to y?
+- `x >= y`: is x greater than or equal to y?
+- `x == y`: is x equal to y?
+- `x != y`: is x not equal to y?
+
+The easiest way to understand how these work is just use them. We most often use relational operators with numeric vectors, so let's make a couple of numeric variables to illustrate their use:
+```{r}
+x <- 11:20
+y <- seq(3, 30, by = 3)
+x
+y
+```
+Now, if we need to evaluate and represent a question like, "is x greater than y", we can use either `<` or `>`:
+```{r}
+x < y
+y > x
+```
+These are both equivalent as long as we get the order of the `x` and `y` vectors right in each case. What do you notice about this simple example? Not surprisingly, it produces a logical vector, with `TRUE` values associated with elements in `x` are less than `y`, and `FALSE` otherwise. In this example, x is less than y until we reach the value of 15 in each sequence. Notice that this shows that relational operators are vectorised: the work on an element by element basis. They would be much less useful if this were not true. 
+
+What does the `==` operator do? You can probably guess: it compares the elements of two vectors to determine if they are exactly equal:
+```{r}
+x == y
+```
+The output of this comparison is true only for one element, the number 15, which is at the 5^th^ position in both `x` and `y`. Most of the other relational operators are self-explanatory so we will not illustrate their use. If you are in any doubt about how they work though experiment using the `x` and `y` above with them.
+
+```{block, type="warning"}
+#### `=` and `==` are not the same
+
+If you want to test for equivalence between the elements of two vectors you must use double equals, `==`. If you forget this and use a single equals, `=`, you will run into problems. This is because the `=` symbol already has a use in R -- assigning name-value pairs -- so using it to compare vectors would lead to ambiguity in our R scripts. Forgetting this and using `=` when you meant to use `==` is a __very__ common mistake. If you make it, this mistake will lead to all kinds of difficult-to-comprehend problems with your scripts. Try not to do it.
+```
+
+## Extracting subsets of vectors {#extract-subset}
+
+Extracting subsets of data is a very common task. Luckily for us, R is very good at doing this. In this last section we are going to see how to extract subsets of vectors. Actually, we are going to see how to extract subsets of atomic vectors, but that detail is not too crucial at this point. By the way, we use the word "subset" as a verb that is shorthand for "extract a subset of elements".
+
+There are several ways to subset a vector. However, these always use a pair opening and closing square brackets, `[` and `]`. These should always be used together. Remember that we said a vector is a 1-dimensional object that contains an ordered collection of data objects that can be accessed by their position? This means we can use the `[` construct with a numeric vector of integer(s) to subset the elements of vector by their position. Take a look at this example:
+```{r}
+cvec <- c("Dylan", "Zachary", "Childs")
+cvec[1]
+```
+The `cvec` variable is a length 3 character vector, with elements corresponding to his first, middle and last name. In order to subset it an retain only the first element -- his first name -- we used the `[ ]` construct with the number 1 inside, placing `[1]` next to the name of the vector. Notice that we do not place a space anywhere in this construct. We could, but this is not conventional.
+
+Remember, "the number 1" is in fact a numeric vector of length 1. This suggest we might be able to use longer vectors to extract more than one element: 
+```{r}
+cvec <- c("Dylan", "Zachary", "Childs")
+nindex <- c(1, 3)
+cvec[nindex]
+```
+We first constructed a numeric vector of length 2 called `index`, which has elements `1` and `3`. We then used this to extract his first and last name by placing the its name inside the `[]`. We did not have to do this in two steps though. This achieves the same result:
+```{r}
+cvec[c(1, 3)]
+```
+You may have noticed something important. When we subset a vector of a particular type, we get a vector of the same type back, e.g. subsetting a character vector produces a character vector.
+
+We can also subset a vector by removing its elements if we need to. We use the `-` operator to do this. Here is an example that produces the same result as the last example, but in a different way:
+```{r}
+cvec[-2]
+```
+Hopefully you can see why this works. The `cvec[-2]` construct indicates that we want all the elements of `cvec` __except__ that at position 2. If we want to remove more than one element we just use a longer numeric vector inside the `[ ]`. For example, this leaves just his first name in the resulting character vector:
+```{r}
+cvec[-c(2, 3)]
+```
+
+A second way to subset a vector makes use of logical vectors inside the `[ ]`. This is usually done using two vectors of the same length: the focal vector we wish to subset, and a logical vector that specifies which elements to keep. Here is a very simple example:
+```{r}
+lindex <- c(TRUE, FALSE, TRUE)
+cvec[lindex]  
+```
+This should be fairly self-explanatory. The logical vector method of subsetting works element-by-element. An element in `cvec` is retained wherever the corresponding element in `lindex` contains a `TRUE`, otherwise it is discarded.
+
+Why is this useful? After all, using a integer vector of positions to subset a vector is much more direct. The reason is that we can use relational operators to help us select elements according to particular criteria. This is best illustrated with an example. We will start by defining two vectors of the same length: 
+```{r}
+name <- c("cat", "dog", "wren", "pig", "owl")
+name
+type <- c("mammal", "mammal", "bird", "mammal", "bird")
+type
+```
+The first, `name`, is a character vector containing the common names of a few animals. The second, `type`, is another character vector whose elements denote the type of animal, in this case, a bird or a mammal. The vectors are arranged such that the information is associated via the position of elements in each vector.
+
+Let's assume that we want to create a subset of `name` that only contains the names of mammals. We can do this by creating a logical vector from `type`, where the values are `TRUE` if an element is equal to `"mammal"` and `FALSE` otherwise. We know how to do this using the `==` operator: 
+```{r}
+lindex <- type == "mammal"
+lindex
+```
+We stored the result in a variable called `lindex`. Now all we need to do is use with `lindex` inside the `[ ]` construct to subset `name`:
+```{r}
+name[lindex]
+```
+We have done this the long way so that you can understand the logic of how subsetting vectors with logical operators. This is quite verbose, so we would usually combine the two steps into a single R expression:
+```{r}
+name[type == "mammal"]
+```
+
+We can use all of the relational operators like this. If we define a numeric variable that contains the mean mass (in grams) of each animal, we can use this to subset `names` according to the associated mean mass. For example, if we want a subset that contains only those animals where the mean mass is greater than 1kg we use: 
+```{r}
+mass <- c(2900, 9000, 10, 18000, 2000)
+name[mass > 1000]
+```
+Just remember, this way of using information in one vector to create subsets of a second vector only works if the information in each is associated via the position of their respective elements. Keeping a bunch of different vectors organised like this is difficult and error prone. In the next block we'll learn how to use something called a data frame and the `dplyr` package to make working with a collection of related vectors much easier.

@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>APS 135: Introduction to Exploratory Data Analysis with R</title>
+  <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+  <meta name="description" content="Course book for Introduction to Exploratory Data Analysis with R (APS 135) in the Department of Animal and Plant Sciences, University of Sheffield.">
+  <meta name="generator" content="bookdown 0.3 and GitBook 2.6.7">
+
+  <meta property="og:title" content="APS 135: Introduction to Exploratory Data Analysis with R" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="Course book for Introduction to Exploratory Data Analysis with R (APS 135) in the Department of Animal and Plant Sciences, University of Sheffield." />
+  <meta name="github-repo" content="dzchilds/eda-for-bio" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="APS 135: Introduction to Exploratory Data Analysis with R" />
+  
+  <meta name="twitter:description" content="Course book for Introduction to Exploratory Data Analysis with R (APS 135) in the Department of Animal and Plant Sciences, University of Sheffield." />
+  
+
+<meta name="author" content="Dylan Z. Childs">
+
+
+<meta name="date" content="2017-01-29">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="using-functions.html">
+<link rel="next" href="other-kinds-of-vectors.html">
+
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+<style type="text/css">
+
+.action, .warning, .info, .speed {
+  padding: 1em 1em 1em 4em;
+  margin-bottom: 10px;
+  background: #f5f5f5 5px center/3em no-repeat;
+}
+.action {
+  background-image: url("./images/action.png");
+}
+.warning {
+  background-image: url("./images/warning.png");
+}
+.info {
+  background-image: url("./images/info.png");
+}
+.speed {
+  background-image: url("./images/speed.png");
+}
+
+
+</style>
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">APS 135 (R course)</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Course information and overview</a><ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#organisation"><i class="fa fa-check"></i>Organisation</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="expected-learning-outcomes.html"><a href="expected-learning-outcomes.html"><i class="fa fa-check"></i>Expected learning outcomes</a><ul>
+<li class="chapter" data-level="" data-path="expected-learning-outcomes.html"><a href="expected-learning-outcomes.html#introduction-to-r"><i class="fa fa-check"></i>Introduction to R</a></li>
+<li class="chapter" data-level="" data-path="expected-learning-outcomes.html"><a href="expected-learning-outcomes.html#data-wrangling"><i class="fa fa-check"></i>Data Wrangling</a></li>
+<li class="chapter" data-level="" data-path="expected-learning-outcomes.html"><a href="expected-learning-outcomes.html#exporing-data"><i class="fa fa-check"></i>Exporing Data</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="get-up-and-running-with-r-and-rstudio.html"><a href="get-up-and-running-with-r-and-rstudio.html"><i class="fa fa-check"></i>Get up and running with R and RStudio</a><ul>
+<li class="chapter" data-level="" data-path="get-up-and-running-with-r-and-rstudio.html"><a href="get-up-and-running-with-r-and-rstudio.html#what-is-r"><i class="fa fa-check"></i>What is R?</a><ul>
+<li class="chapter" data-level="" data-path="get-up-and-running-with-r-and-rstudio.html"><a href="get-up-and-running-with-r-and-rstudio.html#getting-and-installing-r"><i class="fa fa-check"></i>Getting and installing R</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="get-up-and-running-with-r-and-rstudio.html"><a href="get-up-and-running-with-r-and-rstudio.html#what-is-rstudio-and-why-use-it"><i class="fa fa-check"></i>What is RStudio (and why use it)?</a><ul>
+<li class="chapter" data-level="" data-path="get-up-and-running-with-r-and-rstudio.html"><a href="get-up-and-running-with-r-and-rstudio.html#getting-and-installing-rstudio"><i class="fa fa-check"></i>Getting and installing RStudio</a></li>
+<li class="chapter" data-level="" data-path="get-up-and-running-with-r-and-rstudio.html"><a href="get-up-and-running-with-r-and-rstudio.html#the-anatomy-of-rstudio"><i class="fa fa-check"></i>The anatomy of RStudio</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="get-up-and-running-with-r-and-rstudio.html"><a href="get-up-and-running-with-r-and-rstudio.html#working-at-the-console"><i class="fa fa-check"></i>Working at the Console</a></li>
+</ul></li>
+<li class="part"><span><b>I Introduction to R</b></span></li>
+<li class="chapter" data-level="1" data-path="a-quick-introduction-to-r.html"><a href="a-quick-introduction-to-r.html"><i class="fa fa-check"></i><b>1</b> A quick introduction to R</a><ul>
+<li class="chapter" data-level="1.1" data-path="a-quick-introduction-to-r.html"><a href="a-quick-introduction-to-r.html#r-calculator"><i class="fa fa-check"></i><b>1.1</b> Using R as a big calculator</a><ul>
+<li class="chapter" data-level="1.1.1" data-path="a-quick-introduction-to-r.html"><a href="a-quick-introduction-to-r.html#basic-arithmetic"><i class="fa fa-check"></i><b>1.1.1</b> Basic arithmetic</a></li>
+<li class="chapter" data-level="1.1.2" data-path="a-quick-introduction-to-r.html"><a href="a-quick-introduction-to-r.html#problematic-calculations"><i class="fa fa-check"></i><b>1.1.2</b> Problematic calculations</a></li>
+</ul></li>
+<li class="chapter" data-level="1.2" data-path="a-quick-introduction-to-r.html"><a href="a-quick-introduction-to-r.html#assignment"><i class="fa fa-check"></i><b>1.2</b> Storing and reusing results</a></li>
+<li class="chapter" data-level="1.3" data-path="a-quick-introduction-to-r.html"><a href="a-quick-introduction-to-r.html#how-does-assignment-work"><i class="fa fa-check"></i><b>1.3</b> How does assignment work?</a></li>
+<li class="chapter" data-level="1.4" data-path="a-quick-introduction-to-r.html"><a href="a-quick-introduction-to-r.html#global-environment"><i class="fa fa-check"></i><b>1.4</b> Global environment</a></li>
+<li class="chapter" data-level="1.5" data-path="a-quick-introduction-to-r.html"><a href="a-quick-introduction-to-r.html#naming-rules-and-conventions"><i class="fa fa-check"></i><b>1.5</b> Naming rules and conventions</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="scripts.html"><a href="scripts.html"><i class="fa fa-check"></i><b>2</b> Building scripts</a><ul>
+<li class="chapter" data-level="2.1" data-path="scripts.html"><a href="scripts.html#introduction"><i class="fa fa-check"></i><b>2.1</b> Introduction</a></li>
+<li class="chapter" data-level="2.2" data-path="scripts.html"><a href="scripts.html#writing-scripts-in-rstudio"><i class="fa fa-check"></i><b>2.2</b> Writing scripts in RStudio</a></li>
+<li class="chapter" data-level="2.3" data-path="scripts.html"><a href="scripts.html#running-scripts-in-rstudio"><i class="fa fa-check"></i><b>2.3</b> Running scripts in RStudio</a></li>
+<li class="chapter" data-level="2.4" data-path="scripts.html"><a href="scripts.html#spotting-problems"><i class="fa fa-check"></i><b>2.4</b> Spotting problems</a><ul>
+<li class="chapter" data-level="2.4.1" data-path="scripts.html"><a href="scripts.html#the-dreaded"><i class="fa fa-check"></i><b>2.4.1</b> The dreaded <code>+</code></a></li>
+<li class="chapter" data-level="2.4.2" data-path="scripts.html"><a href="scripts.html#errors"><i class="fa fa-check"></i><b>2.4.2</b> Errors</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="using-functions.html"><a href="using-functions.html"><i class="fa fa-check"></i><b>3</b> Using functions</a><ul>
+<li class="chapter" data-level="3.1" data-path="using-functions.html"><a href="using-functions.html#intro-functions"><i class="fa fa-check"></i><b>3.1</b> Introduction</a></li>
+<li class="chapter" data-level="3.2" data-path="using-functions.html"><a href="using-functions.html#evaluating-arguments-and-returning-results"><i class="fa fa-check"></i><b>3.2</b> Evaluating arguments and returning results</a></li>
+<li class="chapter" data-level="3.3" data-path="using-functions.html"><a href="using-functions.html#functions-do-not-have-side-effects"><i class="fa fa-check"></i><b>3.3</b> Functions do not have “side effects”</a></li>
+<li class="chapter" data-level="3.4" data-path="using-functions.html"><a href="using-functions.html#combining-functions"><i class="fa fa-check"></i><b>3.4</b> Combining functions</a></li>
+<li class="chapter" data-level="3.5" data-path="using-functions.html"><a href="using-functions.html#function-arguments"><i class="fa fa-check"></i><b>3.5</b> Specifying function arguments</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="numeric-vectors.html"><a href="numeric-vectors.html"><i class="fa fa-check"></i><b>4</b> Numeric vectors</a><ul>
+<li class="chapter" data-level="4.1" data-path="numeric-vectors.html"><a href="numeric-vectors.html#introduction-1"><i class="fa fa-check"></i><b>4.1</b> Introduction</a></li>
+<li class="chapter" data-level="4.2" data-path="numeric-vectors.html"><a href="numeric-vectors.html#intro-vectors"><i class="fa fa-check"></i><b>4.2</b> Numeric vectors</a></li>
+<li class="chapter" data-level="4.3" data-path="numeric-vectors.html"><a href="numeric-vectors.html#making-numeric-vectors"><i class="fa fa-check"></i><b>4.3</b> Making numeric vectors</a><ul>
+<li class="chapter" data-level="4.3.1" data-path="numeric-vectors.html"><a href="numeric-vectors.html#named-vectors"><i class="fa fa-check"></i><b>4.3.1</b> Named vectors</a></li>
+<li class="chapter" data-level="4.3.2" data-path="numeric-vectors.html"><a href="numeric-vectors.html#generating-sequences-of-numbers"><i class="fa fa-check"></i><b>4.3.2</b> Generating sequences of numbers</a></li>
+<li class="chapter" data-level="4.3.3" data-path="numeric-vectors.html"><a href="numeric-vectors.html#generating-repeated-sequences-of-numbers"><i class="fa fa-check"></i><b>4.3.3</b> Generating repeated sequences of numbers</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="numeric-vectors.html"><a href="numeric-vectors.html#vectorised-operations"><i class="fa fa-check"></i><b>4.4</b> Vectorised operations</a></li>
+<li class="chapter" data-level="4.5" data-path="numeric-vectors.html"><a href="numeric-vectors.html#extract-subset"><i class="fa fa-check"></i><b>4.5</b> Extracting subsets of vectors</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="other-kinds-of-vectors.html"><a href="other-kinds-of-vectors.html"><i class="fa fa-check"></i><b>5</b> Other kinds of vectors</a><ul>
+<li class="chapter" data-level="5.1" data-path="other-kinds-of-vectors.html"><a href="other-kinds-of-vectors.html#other-vectors"><i class="fa fa-check"></i><b>5.1</b> Introduction</a><ul>
+<li class="chapter" data-level="5.1.1" data-path="other-kinds-of-vectors.html"><a href="other-kinds-of-vectors.html#character-vectors"><i class="fa fa-check"></i><b>5.1.1</b> Character vectors</a></li>
+<li class="chapter" data-level="5.1.2" data-path="other-kinds-of-vectors.html"><a href="other-kinds-of-vectors.html#logical-vectors"><i class="fa fa-check"></i><b>5.1.2</b> Logical vectors</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="numeric-vectors.html"><a href="numeric-vectors.html#extract-subset"><i class="fa fa-check"></i><b>5.2</b> Extracting subsets of vectors</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="getting-help.html"><a href="getting-help.html"><i class="fa fa-check"></i><b>6</b> Getting help</a><ul>
+<li class="chapter" data-level="6.1" data-path="getting-help.html"><a href="getting-help.html#console-help"><i class="fa fa-check"></i><b>6.1</b> Introduction</a></li>
+<li class="chapter" data-level="6.2" data-path="getting-help.html"><a href="getting-help.html#browsing-the-help-system"><i class="fa fa-check"></i><b>6.2</b> Browsing the help system</a></li>
+<li class="chapter" data-level="6.3" data-path="getting-help.html"><a href="getting-help.html#searching-for-help-files"><i class="fa fa-check"></i><b>6.3</b> Searching for help files</a></li>
+<li class="chapter" data-level="6.4" data-path="getting-help.html"><a href="getting-help.html#nav-help"><i class="fa fa-check"></i><b>6.4</b> Navigating help files</a></li>
+<li class="chapter" data-level="6.5" data-path="getting-help.html"><a href="getting-help.html#vignettes"><i class="fa fa-check"></i><b>6.5</b> Vignettes and demos</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="packages.html"><a href="packages.html"><i class="fa fa-check"></i><b>7</b> Packages</a><ul>
+<li class="chapter" data-level="7.1" data-path="packages.html"><a href="packages.html#package-system"><i class="fa fa-check"></i><b>7.1</b> The R package system</a></li>
+<li class="chapter" data-level="7.2" data-path="packages.html"><a href="packages.html#task-views"><i class="fa fa-check"></i><b>7.2</b> Task views</a></li>
+<li class="chapter" data-level="7.3" data-path="packages.html"><a href="packages.html#use-packages"><i class="fa fa-check"></i><b>7.3</b> Using packages</a><ul>
+<li class="chapter" data-level="7.3.1" data-path="packages.html"><a href="packages.html#viewing-installed-packages"><i class="fa fa-check"></i><b>7.3.1</b> Viewing installed packages</a></li>
+<li class="chapter" data-level="7.3.2" data-path="packages.html"><a href="packages.html#installing-and-updating-packages"><i class="fa fa-check"></i><b>7.3.2</b> Installing and updating packages</a></li>
+<li class="chapter" data-level="7.3.3" data-path="packages.html"><a href="packages.html#loading-and-attaching-packages"><i class="fa fa-check"></i><b>7.3.3</b> Loading and attaching packages</a></li>
+<li class="chapter" data-level="7.3.4" data-path="packages.html"><a href="packages.html#an-analogy"><i class="fa fa-check"></i><b>7.3.4</b> An analogy</a></li>
+</ul></li>
+</ul></li>
+<li class="part"><span><b>II Data Wrangling</b></span></li>
+<li class="part"><span><b>III Exporing Data</b></span></li>
+<li class="chapter" data-level="8" data-path="stuff.html"><a href="stuff.html"><i class="fa fa-check"></i><b>8</b> Stuff…</a><ul>
+<li class="chapter" data-level="8.1" data-path="stuff.html"><a href="stuff.html#mathematical-functions-in-r"><i class="fa fa-check"></i><b>8.1</b> Mathematical functions in R</a></li>
+<li class="chapter" data-level="8.2" data-path="stuff.html"><a href="stuff.html#coding-conventions"><i class="fa fa-check"></i><b>8.2</b> Coding conventions</a><ul>
+<li class="chapter" data-level="8.2.1" data-path="stuff.html"><a href="stuff.html#formatting-functions"><i class="fa fa-check"></i><b>8.2.1</b> Formatting functions</a></li>
+</ul></li>
+<li class="chapter" data-level="8.3" data-path="stuff.html"><a href="stuff.html#data-structures"><i class="fa fa-check"></i><b>8.3</b> Beyond vectors</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">APS 135: Introduction to Exploratory Data Analysis with R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="numeric-vectors" class="section level1">
+<h1><span class="header-section-number">Chapter 4</span> Numeric vectors</h1>
+<div id="introduction-1" class="section level2">
+<h2><span class="header-section-number">4.1</span> Introduction</h2>
+<p>[FIXME]</p>
+<p>Remember that we said atomic vectors are the simplest kind of data structure in R? This really is true, in that whenever you work with a number in R you are (invisibly) working with a atomic (numeric) vector of length one. Here is the very first R expression we evaluate in the last topic:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="dv">1+1</span></code></pre></div>
+<pre><code>## [1] 2</code></pre>
+<p>Look at the output. It has is <code>[1]</code> at the beginning. We told you to ignore this before because we weren’t in a position to understand its significance. Now we are. It is a clue that the output resulting from <code>1+1</code> is in fact an numeric vector. If you need more convincing try using the <code>is.atomic</code> and <code>is.numeric</code> functions. These check whether their argument is atomic and numeric, respectively: both <code>is.atomic(1+1)</code> and <code>is.numeric(1+1)</code> print <code>TRUE</code> to the screen. This little exercise demonstrates an important point about R, which is that unlike many other languages, there is no way to represent just a number. A single number is treated as a vector of length one. The same is true for things like character strings and logical values discussed below.</p>
+</div>
+<div id="intro-vectors" class="section level2">
+<h2><span class="header-section-number">4.2</span> Numeric vectors</h2>
+<p>The most common type of atomic vector we tend to work with in R are <strong>numeric vectors</strong>. In this section we will see how to make numeric vectors. We will also learn “vectorised operations”, using numeric vectors to illustrate the main ideas. Keep in mind that these also apply to other kinds of vectors.</p>
+<p>Here is one of the simplest ways to make a numeric vector:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">numeric</span>(<span class="dt">length =</span> <span class="dv">50</span>)</code></pre></div>
+<pre><code>##  [1] 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+## [36] 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0</code></pre>
+<p>What happened here? We made a numeric vector with 50 <strong>elements</strong>, each of which is the number 0. When we create a vector but don’t assign it to a name using <code>&lt;-</code> R just prints it to the Console for us, as you should expect by now. The word “element” is used to reference any object (a number in this case) that resides at a particular position. Notice what happens when the numeric vector is printed to the screen. It can’t fit on one line, so it is printed over two. At the beginning of each line there is a <code>[X]</code>, where the <code>X</code> is a number that describes the position of the element at the beginning of that line.</p>
+<div class="info">
+<h4 id="different-kinds-of-numbers">
+Different kinds of numbers
+</h4>
+<p>
+Roughly speaking, R stores numbers in two different ways depending of whether they are whole numbers (“integers”) or numbers containing decimal points (“doubles” – don’t ask). We are not going to worry about this distinction. Generally speaking, the distinction is invisible to us as users so it is easier to just think in terms of numeric vectors.
+</p>
+</div>
+<p>If we need to check that we really have made a numeric vector there is a function called <code>is.numeric</code> to do this:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">numvec &lt;-<span class="st"> </span><span class="kw">numeric</span>(<span class="dt">length =</span> <span class="dv">50</span>)
+<span class="kw">is.numeric</span>(numvec)</code></pre></div>
+<pre><code>## [1] TRUE</code></pre>
+<p>This returns <code>TRUE</code> as expected (a value of <code>FALSE</code> would imply that <code>numvec</code> is some other kind of object). This probably doesn’t look like the most useful function in the world, but sometimes we need simple sanity checks to root out mistakes in our scripts.</p>
+<p>One thing to keep in mind is that when you print a numeric vector to Console R only prints the elements to 7 significant figures by default. We can see this by printing the built in constant <code>pi</code> to the Console:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">pi</code></pre></div>
+<pre><code>## [1] 3.141593</code></pre>
+<p>The actual value stored in <code>pi</code> is much more precise than this.</p>
+</div>
+<div id="making-numeric-vectors" class="section level2">
+<h2><span class="header-section-number">4.3</span> Making numeric vectors</h2>
+<p>We just learned how to use the <code>numeric</code> function to make a numeric vector of zeros of any length (just vary the the <code>length</code> argument). This is arguably not a particularly useful skill. Usually, we want to work with a vector whose elements have particular values. One of the more useful functions for creating these is the <code>c</code> function, where the “c” stands for combine. Take a look at this example:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">c</span>(<span class="fl">1.1</span>, <span class="fl">2.3</span>, <span class="fl">4.0</span>, <span class="fl">5.7</span>)</code></pre></div>
+<pre><code>## [1] 1.1 2.3 4.0 5.7</code></pre>
+<p>The <code>c</code> function takes a variable number of arguments, each of which is a vector. In this example we supplied the <code>c</code> function with four arguments, each of which was a vector of length 1 (remember: a single number is treated as a length-one vector). The <code>c</code> function combines these to generate a vector of length 4. Simple. Now look at this example:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">vec1 &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="fl">1.1</span>, <span class="fl">2.3</span>)
+vec2 &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="fl">4.0</span>, <span class="fl">5.7</span>)
+<span class="kw">c</span>(vec1, vec2)</code></pre></div>
+<pre><code>## [1] 1.1 2.3 4.0 5.7</code></pre>
+<p>This just shows that we can use the <code>c</code> function to concatenate (“stick together”) two or more vectors, even if they are not of length 1.</p>
+<p>You may have noticed that we did not name the arguments in those two examples (there was no <code>=</code> involved). The <code>c</code> function is an example of one of those flexible functions that breaks the simple rules of thumb for using arguments that we set out earlier: it can take a variable number of arguments that do not have predefined names. This behaviour is necessary if you think about how <code>c</code> has to work. In order to be at all useful it needs to be able to take any combination of arguments. We can name the arguments if we want to, resulting in a named vector. We will look at the effect of using named arguments with <code>c</code> and named vectors in general in the next section.</p>
+<p>The main limitation of the <code>c</code> function is that we have to manually construct vectors from their elements. This is not very practical if we need to construct long vectors of numeric values. This is a very common task in R. There are a couple of functions worth knowing about to help us do this. These are useful when the elements of the target vector need to follow a sequence or repeating pattern. Again, these kinds of vectors are used a lot in R.</p>
+<div class="info">
+<h4 id="finding-out-about-a-vector-r">
+Finding out about a vector R
+</h4>
+<p>
+Sometimes it is useful to be able to find out a little extra information about a vector you are working with, especially if it is very large. Three functions that can extract some useful information about a vector for us are <code>length</code>, <code>head</code> and <code>tail</code>. Using a variety of different vectors, experiment with these to find out what they do. Make sure you use vectors that aren’t too short (e.g. with a length of at least 10). Hint: <code>head</code> and <code>tail</code> can be used with a second argument, <code>n</code>.
+</p>
+</div>
+<div id="named-vectors" class="section level3">
+<h3><span class="header-section-number">4.3.1</span> Named vectors</h3>
+<p>What happens if we name the arguments to <code>c</code> when constructing a vector? Take a look at this:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">namedv &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dt">a =</span> <span class="dv">1</span>, <span class="dt">b =</span> <span class="dv">2</span>, <span class="dt">c =</span> <span class="dv">3</span>)
+namedv</code></pre></div>
+<pre><code>## a b c 
+## 1 2 3</code></pre>
+<p>What happened here is that the argument names were used to define the names of elements in the vector we made. The resulting vector is still a 1-dimensional data structure. When it is printed to the Console the value of each element is printed, along with the associated name above it. We can extract the names from a named vector using the <code>names</code> function:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">names</span>(namedv)</code></pre></div>
+<pre><code>## [1] &quot;a&quot; &quot;b&quot; &quot;c&quot;</code></pre>
+<p>Being able to name the elements of a vector is very useful because it enables us to more easily identify relevant information and extract the bits we need—we’ll see how this works in the next chapter.</p>
+</div>
+<div id="generating-sequences-of-numbers" class="section level3">
+<h3><span class="header-section-number">4.3.2</span> Generating sequences of numbers</h3>
+<p>The <code>seq</code> function is (unsurprisingly) designed to generate sequences of numbers. We always have to specify at least two arguments, <code>from</code> and <code>to</code>. These specify the start and end values of the sequence we are aiming for, respectively. There are different ways to control the sequence produced by <code>seq</code>. The method is determined by our choice of arguments: <code>by</code>, <code>length.out</code> and <code>along.with</code>. You typically need to specify three out of the five main arguments of <code>seq</code>, although fewer can be used.</p>
+<ol style="list-style-type: decimal">
+<li>Using the <code>by</code> argument generates a sequence of numbers that increase or decrease by the requested step size:</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">seq</span>(<span class="dt">from =</span> <span class="dv">0</span>, <span class="dt">to =</span> <span class="dv">12</span>, <span class="dt">by =</span> <span class="dv">2</span>)</code></pre></div>
+<pre><code>## [1]  0  2  4  6  8 10 12</code></pre>
+<p>This is fairly self-explanatory. The <code>seq</code> function constructed a numeric vector with elements that started at 0 and ended 12, with successive elements increasing in steps of 2. Be careful when using <code>seq</code> like this. If the <code>by</code> argument does not lead to a sequence that ends exactly on the value of <code>to</code> then that value won’t appear in the vector. For example:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">seq</span>(<span class="dt">from =</span> <span class="dv">0</span>, <span class="dt">to =</span> <span class="dv">11</span>, <span class="dt">by =</span> <span class="dv">2</span>)</code></pre></div>
+<pre><code>## [1]  0  2  4  6  8 10</code></pre>
+<p>You can generate a descending sequence by using a negative <code>by</code> value, like this:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">seq</span>(<span class="dt">from =</span> <span class="dv">12</span>, <span class="dt">to =</span> <span class="dv">0</span>, <span class="dt">by =</span> -<span class="dv">2</span>)</code></pre></div>
+<pre><code>## [1] 12 10  8  6  4  2  0</code></pre>
+<p>Just remember to make sure the <code>from</code> argument is larger than the <code>by</code> argument if you do this or you will generate an error.</p>
+<ol start="2" style="list-style-type: decimal">
+<li>Using the <code>length.out</code> argument generates a sequence of numbers such that the resulting vector has the length specified by <code>length.out</code>:</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">seq</span>(<span class="dt">from =</span> <span class="dv">0</span>, <span class="dt">to =</span> <span class="dv">12</span>, <span class="dt">length =</span> <span class="dv">6</span>)</code></pre></div>
+<pre><code>## [1]  0.0  2.4  4.8  7.2  9.6 12.0</code></pre>
+<p>Using the <code>length.out</code> argument will always produce a sequence that starts and ends exactly on the values specified by <code>from</code> and <code>to</code>. Obviously, if you need a descending sequence just make sure <code>from</code> is larger than <code>to</code>.</p>
+<ol start="3" style="list-style-type: decimal">
+<li>Using the <code>along.with</code> argument allows us to use another vector to determine the length of the numeric sequence we want to produce:</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">myvec &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">7</span>, <span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">2</span>)
+<span class="kw">seq</span>(<span class="dt">from =</span> <span class="dv">0</span>, <span class="dt">to =</span> <span class="dv">12</span>, <span class="dt">along.with =</span> myvec)</code></pre></div>
+<pre><code>## [1]  0.0  2.4  4.8  7.2  9.6 12.0</code></pre>
+<p>It does not matter what the elements of <code>myvec</code> were in this example. It is the length of <code>myvec</code> that controls the behaviour of <code>seq</code> when we use the <code>along.with</code>. This example generated the same result as the last one because the length of <code>myvec</code> is 6.</p>
+<p>When using the <code>seq</code> function it is conventional to leave out the <code>from</code> and <code>to</code> argument names. It is obvious what behaviour is controlled by these first two arguments, so we tend not to name them to keep our R code compact. For example, we would typically write the first example in this subsection as:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">seq</span>(<span class="dv">0</span>, <span class="dv">12</span>, <span class="dt">by =</span> <span class="dv">2</span>)</code></pre></div>
+<pre><code>## [1]  0  2  4  6  8 10 12</code></pre>
+<p>If you leave out the name of the third argument as well, position matching or arguments ensures that it is treated as the <code>by</code> argument. This is equivalent to the previous example:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">seq</span>(<span class="dv">0</span>, <span class="dv">12</span>, <span class="dv">2</span>)</code></pre></div>
+<pre><code>## [1]  0  2  4  6  8 10 12</code></pre>
+<p>Our advice is to explicitly name the by argument for now, rather than relying on position matching. this will remind you what you are doing and will hopefully stop you forgetting about the different control arguments.</p>
+<p>If we do not specify values of either <code>by</code>, <code>length.out</code> and <code>along.with</code> when using <code>seq</code> the default behaviour is to assume we meant <code>by = 1</code>:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">seq</span>(<span class="dt">from =</span> <span class="dv">0</span>, <span class="dt">to =</span> <span class="dv">12</span>)</code></pre></div>
+<pre><code>##  [1]  0  1  2  3  4  5  6  7  8  9 10 11 12</code></pre>
+<p>Generating sequences of integers that go up or down in steps of 1 is something we frequently have to do in R. Because of this, there is a special operator to help us do this – the colon, <code>:</code>. It is very straightforward to understand. For example, to produce the last sequence again we use:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="dv">1</span>:<span class="dv">12</span></code></pre></div>
+<pre><code>##  [1]  1  2  3  4  5  6  7  8  9 10 11 12</code></pre>
+<p>When we use the <code>:</code> operator the convention is to <strong>not</strong> leave spaces either side of it.</p>
+</div>
+<div id="generating-repeated-sequences-of-numbers" class="section level3">
+<h3><span class="header-section-number">4.3.3</span> Generating repeated sequences of numbers</h3>
+<p>The <code>rep</code> function is designed to replicate the values inside a vector (no surprises there). The rep function is easy to use. The first argument (called <code>x</code>) is the vector we want to replicate. There are two other arguments that control how this is done. The <code>times</code> argument just specifies the number of times to replicate the whole vector:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">seqvec &lt;-<span class="st"> </span><span class="dv">1</span>:<span class="dv">4</span>
+<span class="kw">rep</span>(seqvec, <span class="dt">times =</span> <span class="dv">3</span>)</code></pre></div>
+<pre><code>##  [1] 1 2 3 4 1 2 3 4 1 2 3 4</code></pre>
+<p>All we did here was take a sequence of integers from 1 to 4 and replicate this end-to-end, three times. The resulting vector has length 12. Alternatively, we use the <code>each</code> argument to first replicate each element of a vector, then combine these end-to-end:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">seqvec &lt;-<span class="st"> </span><span class="dv">1</span>:<span class="dv">4</span>
+<span class="kw">rep</span>(seqvec, <span class="dt">each =</span> <span class="dv">3</span>)</code></pre></div>
+<pre><code>##  [1] 1 1 1 2 2 2 3 3 3 4 4 4</code></pre>
+<p>This example produced a similar vector to the previous one. It contains the same elements and has the same length, but now the order is different. All the 1’s appear first, then the 2’s, and so on. We can also use both the <code>times</code> and <code>each</code> arguments together if we want to:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">seqvec &lt;-<span class="st"> </span><span class="dv">1</span>:<span class="dv">4</span>
+<span class="kw">rep</span>(seqvec, <span class="dt">times =</span> <span class="dv">3</span>, <span class="dt">each =</span> <span class="dv">2</span>)</code></pre></div>
+<pre><code>##  [1] 1 1 2 2 3 3 4 4 1 1 2 2 3 3 4 4 1 1 2 2 3 3 4 4</code></pre>
+<p>The way to think about how this works is to imagine that you apply <code>rep</code> twice, first with <code>each = 2</code>, then with <code>times = 3</code> (or vice versa). We can achieve the same thing using nested function calls, though it is much uglier:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">seqvec &lt;-<span class="st"> </span><span class="dv">1</span>:<span class="dv">4</span>
+<span class="kw">rep</span>(<span class="kw">rep</span>(seqvec, <span class="dt">each =</span> <span class="dv">2</span>), <span class="dt">times =</span> <span class="dv">3</span>)</code></pre></div>
+<pre><code>##  [1] 1 1 2 2 3 3 4 4 1 1 2 2 3 3 4 4 1 1 2 2 3 3 4 4</code></pre>
+</div>
+</div>
+<div id="vectorised-operations" class="section level2">
+<h2><span class="header-section-number">4.4</span> Vectorised operations</h2>
+<p>Most simple operators (e.g. <code>+</code> and <code>-</code>) and many functions in R are <strong>vectorised</strong>. All this means is that when you use a vectorised operator / function it operates on vectors on an element-by-element basis. Take a look at this example to see what we mean by this:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="dv">1</span>:<span class="dv">10</span>
+x</code></pre></div>
+<pre><code>##  [1]  1  2  3  4  5  6  7  8  9 10</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">y &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="fl">0.1</span>, <span class="dv">1</span>, <span class="dt">length =</span> <span class="dv">10</span>)
+y</code></pre></div>
+<pre><code>##  [1] 0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1.0</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x +<span class="st"> </span>y</code></pre></div>
+<pre><code>##  [1]  1.1  2.2  3.3  4.4  5.5  6.6  7.7  8.8  9.9 11.0</code></pre>
+<p>We constructed two numeric variables with a length of 10, <code>x</code> and <code>y</code>, where <code>x</code> is a sequence from 1 to 10 and <code>y</code> is a sequence from 0.1 to 1. When R evaluates the expression <code>x + y</code> it does this by adding the first element of <code>x</code> to the first element of <code>y</code>, the second element of <code>x</code> to the second element of <code>y</code>, and so on, working through all 10 elements of <code>x</code> and <code>y</code>. This may seem like the “obvious” thing to do, but most computer languages do not work like this. Instead we have to write a much more complicated expression to do something so simple. This is one of the reasons R is such a data analysis language: vectorisation allows us to express repetitious calculations in a simple, intuitive way.</p>
+<p>Vectorisation is also implemented in the standard mathematical functions. For example, our friend the <code>round</code> function will round each element of vector:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mynums &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dt">length =</span> <span class="dv">13</span>)
+mynums</code></pre></div>
+<pre><code>##  [1] 0.00000000 0.08333333 0.16666667 0.25000000 0.33333333 0.41666667
+##  [7] 0.50000000 0.58333333 0.66666667 0.75000000 0.83333333 0.91666667
+## [13] 1.00000000</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">round</span>(mynums, <span class="dt">digits =</span> <span class="dv">2</span>)</code></pre></div>
+<pre><code>##  [1] 0.00 0.08 0.17 0.25 0.33 0.42 0.50 0.58 0.67 0.75 0.83 0.92 1.00</code></pre>
+<p>The same behaviour is seen with other mathematical functions like <code>sin</code>, <code>cos</code>, <code>exp</code>, and <code>log</code>. Each of these will apply the relevant function to each element of a numeric vector. Not all functions are vectorised though. For example, the <code>sum</code> function takes a vector of numbers and adds them up:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sum</span>(mynums)</code></pre></div>
+<pre><code>## [1] 6.5</code></pre>
+<p>Although sum obviously works on a numeric vector it is not “vectorised” in the sense that it works element-by-element to return an output vector of the same length as its main argument.</p>
+<p>Many functions apply the vectorisation principle to more than one argument. Take a look at this example to see what we mean by this:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mynums &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="dv">2</span>/<span class="dv">7</span>, <span class="dt">times =</span> <span class="dv">6</span>)
+<span class="kw">round</span>(mynums, <span class="dt">digits =</span> <span class="dv">1</span>:<span class="dv">6</span>)</code></pre></div>
+<pre><code>## [1] 0.300000 0.290000 0.286000 0.285700 0.285710 0.285714</code></pre>
+<p>We constructed a length 6 vector containing the number 2/7 – which equals approximately 0.285714 – and then used the <code>round</code> function to round each element to a different number of decimal places. The first element was rounded to 1 decimal place, the second to two decimal places, and so on. We get this behaviour because instead of using a single number for the <code>digits</code> argument, we used a vector that is an integer sequence from 1 to 6.</p>
+<p>This behaviour can save us a lot of time. It allows us to express a repetitious calculation in a single step while also varying the details of the calculation on an element-by-element basis. However, keep in mind that not every function treats its arguments in a vectorised way, so you need to check (most easily, by experimenting) whether this behaviour is available before relying on it.</p>
+</div>
+<div id="extract-subset" class="section level2">
+<h2><span class="header-section-number">4.5</span> Extracting subsets of vectors</h2>
+<p>Extracting subsets of data is a very common task. Luckily for us, R is very good at doing this. In this last section we are going to see how to extract subsets of vectors. Actually, we are going to see how to extract subsets of atomic vectors, but that detail is not too crucial at this point. By the way, we use the word “subset” as a verb that is shorthand for “extract a subset of elements”.</p>
+<p>There are several ways to subset a vector. However, these always use a pair opening and closing square brackets, <code>[</code> and <code>]</code>. These should always be used together. Remember that we said a vector is a 1-dimensional object that contains an ordered collection of data objects that can be accessed by their position? This means we can use the <code>[</code> construct with a numeric vector of integer(s) to subset the elements of vector by their position. Take a look at this example:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">cvec &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Dylan&quot;</span>, <span class="st">&quot;Zachary&quot;</span>, <span class="st">&quot;Childs&quot;</span>)
+cvec[<span class="dv">1</span>]</code></pre></div>
+<pre><code>## [1] &quot;Dylan&quot;</code></pre>
+<p>The <code>cvec</code> variable is a length 3 character vector, with elements corresponding to his first, middle and last name. In order to subset it an retain only the first element – his first name – we used the <code>[ ]</code> construct with the number 1 inside, placing <code>[1]</code> next to the name of the vector. Notice that we do not place a space anywhere in this construct. We could, but this is not conventional.</p>
+<p>Remember, “the number 1” is in fact a numeric vector of length 1. This suggest we might be able to use longer vectors to extract more than one element:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">cvec &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Dylan&quot;</span>, <span class="st">&quot;Zachary&quot;</span>, <span class="st">&quot;Childs&quot;</span>)
+nindex &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">3</span>)
+cvec[nindex]</code></pre></div>
+<pre><code>## [1] &quot;Dylan&quot;  &quot;Childs&quot;</code></pre>
+<p>We first constructed a numeric vector of length 2 called <code>index</code>, which has elements <code>1</code> and <code>3</code>. We then used this to extract his first and last name by placing the its name inside the <code>[]</code>. We did not have to do this in two steps though. This achieves the same result:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">cvec[<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">3</span>)]</code></pre></div>
+<pre><code>## [1] &quot;Dylan&quot;  &quot;Childs&quot;</code></pre>
+<p>You may have noticed something important. When we subset a vector of a particular type, we get a vector of the same type back, e.g. subsetting a character vector produces a character vector.</p>
+<p>We can also subset a vector by removing its elements if we need to. We use the <code>-</code> operator to do this. Here is an example that produces the same result as the last example, but in a different way:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">cvec[-<span class="dv">2</span>]</code></pre></div>
+<pre><code>## [1] &quot;Dylan&quot;  &quot;Childs&quot;</code></pre>
+<p>Hopefully you can see why this works. The <code>cvec[-2]</code> construct indicates that we want all the elements of <code>cvec</code> <strong>except</strong> that at position 2. If we want to remove more than one element we just use a longer numeric vector inside the <code>[ ]</code>. For example, this leaves just his first name in the resulting character vector:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">cvec[-<span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">3</span>)]</code></pre></div>
+<pre><code>## [1] &quot;Dylan&quot;</code></pre>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="using-functions.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="other-kinds-of-vectors.html" class="navigation navigation-next " aria-label="Next page""><i class="fa fa-angle-right"></i></a>
+
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/dzchilds/eda-for-bio/edit/master/1_05_numeric_vectors.Rmd",
+"text": "Edit"
+},
+"download": null,
+"toc": {
+"collapse": "section"
+},
+"split_by": "section"
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    if (location.protocol !== "file:" && /^https?:/.test(script.src))
+      script.src  = script.src.replace(/^https?:/, '');
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

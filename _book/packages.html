@@ -33,8 +33,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
-<link rel="prev" href="index.html">
-<link rel="next" href="get-up-and-running-with-r-and-rstudio.html">
+<link rel="prev" href="getting-help.html">
+<link rel="next" href="stuff.html">
 
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -235,26 +235,105 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="expected-learning-outcomes" class="section level1 unnumbered">
-<h1>Expected learning outcomes</h1>
-<div id="introduction-to-r" class="section level2 unnumbered">
-<h2>Introduction to R</h2>
+<div id="packages" class="section level1">
+<h1><span class="header-section-number">Chapter 7</span> Packages</h1>
+<div id="package-system" class="section level2">
+<h2><span class="header-section-number">7.1</span> The R package system</h2>
+<p>The R package system is probably the most important single factor driving increased adoption of R among quantitatively-minded scientists. Packages make it very easy to extend the basic capabilities of R. In <a href="http://r-pkgs.had.co.nz">his book</a> about R packages Hadley Wickam says,</p>
+<blockquote>
+<p>Packages are the fundamental units of reproducible R code. They include reusable R functions, the documentation that describes how to use them, and sample data.</p>
+</blockquote>
+<p>An R package is just a collection of folders and files in a standard, well-defined format. They bundle together together computer code, data, and documentation in a way that is easy to use and share with other users. The computer code might all be R code, but it can also include code written in other languages. Packages provide an R-friendly interface to use this “foreign” code without the need to understand how it works.</p>
+<p>When you download the base R distribution it comes with quiet a few packages already installed. These are “mature” packages that implement widely used statistical and plotting functionality. These base R packages represent a very small subset of all the packages you can use with R though. The majority of packages are hosted on a network of web servers around the world collectively know as <a href="http://cran.r-project.org">CRAN</a>. This network – which is known as a repository – is the same one we used to download the base R distribution in the <a href="get-up-and-running-with-r-and-rstudio.html#get-up-and-running-with-r-and-rstudio">Get up and running with R and RStudio</a> chapter. CRAN stands for the Comprehensive R Archive Network, pronounced either “see-ran” or “kran”. CRAN is a fairly spartan web site, so it is easy to find your way around.</p>
+<p>If you now <a href="http://cran.r-project.org">navigate to CRAN</a> you will see about a dozen links of the right hand side of the page. Under the <em>Software</em> section there is link called <a href="http://cran.r-project.org/web/packages/">Packages</a>. Near the top of this page there is a link called <a href="http://cran.r-project.org/web/packages/available_packages_by_name.html">Table of available packages, sorted by name</a>. Following this link takes you to a very long list of all the packages hosted on CRAN – the column on the left shows each package name, followed by a brief description of what the package does on the right. There are a huge number of packages here (6369 at the time of writing). It is worth spending a few minutes looking over this list to get a sense of the diversity of R packages.</p>
 </div>
-<div id="data-wrangling" class="section level2 unnumbered">
-<h2>Data Wrangling</h2>
+<div id="task-views" class="section level2">
+<h2><span class="header-section-number">7.2</span> Task views</h2>
+<p>A big list of packages presented like this is overwhelming. Unless you already know the name of the package you want to investigate it is very hard to find anything useful this way. A more user-friendly view of many R packages can be found on the <a href="http://cran.r-project.org/web/views/">Task Views</a> page. The link to this is on the left hand side, under the section labelled <em>CRAN</em>. If you navigate to the Task Views page now you will see of list of topics with a brief description. A Task View is basically a curated guide to the packages and functions that are useful for certain disciplines.</p>
+<p>The <a href="http://cran.r-project.org/web/views/Environmetrics.html">Environmentrics</a> Task View maintained by Gavin Simpson contains information about using R to analyse ecological and environmental data. It is not surprising this Task View exists. Ecologists and environmental scientists are among the most enthusiastic R users. This view is a good place to start if you find yourself in need of a package to support a particular analysis in a future project. The <a href="http://cran.r-project.org/web/views/ExperimentalDesign.html">Experimental Design</a>, <a href="http://cran.r-project.org/web/views/Graphics.html">Graphics</a>, <a href="http://cran.r-project.org/web/views/Multivariate.html">Multivariate</a>, <a href="http://cran.r-project.org/web/views/Phylogenetics.html">Phylogenetics</a>, <a href="http://cran.r-project.org/web/views/Spatial.html">Spatial</a>, <a href="http://cran.r-project.org/web/views/Survival.html">Survival</a> and <a href="http://cran.r-project.org/web/views/TimeSeries.html">Time Series</a> Task Views alll contain some useful information for biologists and environmental scientists.</p>
 </div>
-<div id="exporing-data" class="section level2 unnumbered">
-<h2>Exporing Data</h2>
+<div id="use-packages" class="section level2">
+<h2><span class="header-section-number">7.3</span> Using packages</h2>
+<p>Two things need to happen in order for you to use a package. First, you need to ensure that a copy of the folders and files that comprise the package are copied to an appropriate folder on your computer, called a library. This is called <strong>installing</strong> the package. Second, we need to <strong>load and attach</strong> the package for use in a particular R session. As usual, the word “session” in this context just refers to the time between when you start up R and close it down again.</p>
+<p>Let’s unpack what we just said, because for some reason the package system often confuses new users.</p>
+<ul>
+<li><p>If you do not have a copy of a package’s folders and files in the right format and in the right place on your computer you cannot use it. This is probably fairly obvious to you. The process of making this copy is called <strong>installing</strong> the package. We could install a package by going to the CRAN website, downloading the package and making use of various tools in R to install it. We will not use this approach because it is inefficient and error prone. Instead, we will use built-in R functions to grab the package from CRAN and install it for us, all in one step.</p></li>
+<li><p>You do not need to install the packages you plan to use every time you start a new R session. It is worth saying that again, <strong>there is no need to install packages each time you open up R / RStudio</strong>. Once you have a copy of the package on your hard drive it will remain there for you to use, unless you delete it or you install a version of R.</p></li>
+<li><p>Installing a package does nothing more than place a copy of the relevant files on your hard drive. If you want to use the functions or data that come with a package you need to make them available in your current R session. Unlike package installation this process has to be repeated every time you restart R.</p></li>
+</ul>
+<p>Take note: every time you install a new major version of R (not RStudio) you will need to reinstall any packages you plan to use. This is because the R installer will not copy installed packages to the new version of R.</p>
+<div id="viewing-installed-packages" class="section level3">
+<h3><span class="header-section-number">7.3.1</span> Viewing installed packages</h3>
+<p>We sometimes need to check whether a package is currently installed on our computer. Use the <code>find.package</code> function to do this:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">find.package</span>(<span class="st">&quot;MASS&quot;</span>)</code></pre></div>
+<pre><code>## [1] &quot;/Library/Frameworks/R.framework/Versions/3.2/Resources/library/MASS&quot;</code></pre>
+<p>This prints a file path showing where the package is located, or returns an error if the package does not exist. If you understand file paths, great. If you do not, then the take home message is that <code>find.package</code> will only return some location information if a package has been installed. The is also a function called <code>installed.packages</code> that returns something called a data frame object (these are discussed in the next block) containing a lot of information about the packages installed on your computer.</p>
+<p>As you might expect, RStudio provides a more intuitive way to see which packages are installed on your computer. The <strong>Packages</strong> tab in the top right pane of RStudio shows the name of every installed package, a brief description (the same one seen on CRAN) and a version number. We can also manage our packages from this tab, as we are about to find out.</p>
+</div>
+<div id="installing-and-updating-packages" class="section level3">
+<h3><span class="header-section-number">7.3.2</span> Installing and updating packages</h3>
+<p>R packages can be installed in a number of different ways. For example, they can be installed from a local file on your computer, from the CRAN repository, or from a different kind of online repository called Github. Although CRAN alternatives are becoming more popular, in this course we will only worry about installing packages that live on CRAN.</p>
+<p>In order to install a package from an online repository like CRAN we have to first download the package files, possibly uncompress them (like you would a ZIP file), and move them to the correct location. Fortunately, all of this can be done at the Console using a single function, <code>install.packages</code>. For example, if we want to install the <strong>fortunes</strong> package, we use:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">install.packages</span>(<span class="st">&quot;fortunes&quot;</span>)</code></pre></div>
+<p>The quotes are necessary by the way. Try this on your own computer. If everything is working – e.g. you have an active internet connection, you used a valid package name, and so on – R will briefly pause while it communicates with the CRAN servers, you should see some red text and then you will be returned to the prompt. The red text is just letting us know what R is up to. As long as this text does not include an error, there is no need to worry about it.</p>
+<p>There is nothing to stop us using <code>install.packages</code> to install more than one package at a time. We are going to use <strong>dplyr</strong> and <strong>ggplot2</strong> in the next two blocks. Since neither of these is part of the base R distribution, we need to download and install them from CRAN. Here is one way to do this:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">pckg.names &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;dplyr&quot;</span>,<span class="st">&quot;ggplot2&quot;</span>)
+<span class="kw">install.packages</span>(pckg.names)</code></pre></div>
+<p>Simple. If you are working on your own computer you should do this now so that they are ready to use later in the course.</p>
+<p>There are a couple of things to keep in mind when you install packages. First, package names are case sensitive, like variable names. For example, <strong>fortunes</strong> is not the same as <strong>Fortunes</strong>. Quite often when you fail to install a package which you know exists it is because you used the wrong case somewhere in its name. The other aspect of packages you keep to know about is related to <strong>dependencies</strong>: some packages rely on other packages in order to work properly. By default <code>install.packages</code> will install these dependencies for us, so we do not usually have to worry too much about them. However, do not be surprised if using the <code>install.packages</code> function installs more than one package when you only specified one package name.</p>
+<p>If you prefer not to work at the Console to install packages RStudio gives you a way of interacting with <code>install.packages</code> via the GUI. The <strong>Packages</strong> tab has an “Install”&quot; button at the top right. Clicking on this brings up a small window with three main fields: “Install from”, “Packages”, and “Install to Library”. We only need to work with the “Packages” field – the other two can be left at their defaults. When you start typing in the first few letters of a package name (e.g. <strong>dplyr</strong>) RStudio will provide a list of available packages that match this. After we select the one we want and click the “Install” button RStudio invokes <code>install.packages</code> with the appropriate arguments at the Console for us.</p>
+</div>
+<div id="loading-and-attaching-packages" class="section level3">
+<h3><span class="header-section-number">7.3.3</span> Loading and attaching packages</h3>
+<p>Once we have installed a package or two we will probably want to actually use them. Two things have to happen to access a package’s facilities: the package has to be loaded into memory, and then it has to attached to something called a search path so that R can find it. It is beyond the scope of the course to get in to hows and whys of this. Luckily for us loading and attaching a package is done with a single function called <code>library</code>, so there is no need to worry about the details. Library works exactly as you would expect it to. If we want to start using the <code>fortunes</code> package – which we just installed above – all we need is:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(fortunes)</code></pre></div>
+<p>Notice that library does not need its main argument to be quoted; <code>library(&quot;fortunes&quot;)</code> does the same thing though.</p>
+<p>Nothing much happens if everything is working as it should. R just returns us to the prompt without printing anything to the Console. The difference is that now we can use the functions that <strong>fortunes</strong> provides. As it turns out, there is only one:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">fortune</span>()</code></pre></div>
+<pre><code>## 
+## Friends don&#39;t let friends use Excel for statistics!
+##    -- Jonathan D. Cryer (about problems with using Microsoft Excel for
+##       statistics)
+##       JSM 2001, Atlanta (August 2001)</code></pre>
+<p>The <strong>fortunes</strong> package is either very useful or utterly pointless, depending on your perspective. It dispenses quotes from various R experts delivered through the R mailing list over the years.</p>
+<p>As usual, if you really do not like using the command line RStudio can help you out. There is a small button next to each package listed in the <strong>Packages</strong> tab. Packages that have been loaded and attached have a blue check box next to them, whereas this is absent from those that have not. Clicking on an empty check box will load up the package. Try this. Notice that all it does is invoke <code>library</code> with the appropriate arguments for us (RStudio explicitly sets the <code>lib.loc</code> argument, whereas above we just relied on the default value).</p>
+<div class="warning">
+<h4 id="never-use-install.packages-in-scripts">
+Never use <code>install.packages</code> in scripts
+</h4>
+<p>
+Because installing a package is a “do once” operation, it is almost never a good idea to place <code>install.packages</code> in a typical R script. A script may be run 100s of times as we develop an analysis. Installing a package is quite time consuming, so we don’t really want to do it every time we run our analysis. As long as the package has been installed at some point in the past it is ready to be used and the script will work fine without reinstalling it.
+</p>
+<p>
+On the other hand, if a script makes use of a package we do need to load and attach that package before we can use it, i.e. loading and attaching a package is a “do every time” operation. This means that it is a good idea to include <code>library</code> in a script that needs to use a package. We can use library anywhere, but typically the <code>library(&lt;package name&gt;)</code> expressions live at the very beginning of a script so that everything is ready to use later on.
+</p>
+</div>
+</div>
+<div id="an-analogy" class="section level3">
+<h3><span class="header-section-number">7.3.4</span> An analogy</h3>
+<p>We noted above that the package system often confuses new users. The reason for this stems from the fact that they aren’t really clear about what the <code>install.packages</code> and <code>library</code> functions are doing. One way to think about these is by analogy with smartphone “Apps”. Think of an R package as being analogous to a smartphone App— a package effectively extends what R can do, just as an App extends what your phone can do.</p>
+<p>When you want to try out a new App you have to first download it from an App store and install it on your phone. Once it has been downloaded, an App lives permanently on your phone (unless you delete it!) and can be used whenever you need it. Downloading and installing an App is something you only have to do once. Packages are no different. When you want to use an R package you also have to make sure it is first installed on your computer. This is effectively what <code>install.packages</code> does: it grabs the package from CRAN (the “App store”) and installs it on your computer. Installing a package is a “do once” operation. Once you have installed it, you don’t need to install a package again each time you restart R. The package is sat on your hard drive ready to be used.</p>
+<p>(There are obvious exceptions to the “do once” rule. If you have recently updated R you will need to reinstall all the packages you need to use. This is a bit like buying a new phone. Similarly, you may need to occasionally reinstall a package to get hold of a latest version.)</p>
+<p>In order to actually use an App which has been installed on your phone you have to open it up by tapping on its icon. You obviously have to do this every time you want to use the App. The package equivalent of opening a smartphone App is the load and attach operation. This is what <code>library</code> does. It makes a package available for use in a particular session. You have to use <code>library</code> to load the package every time you start a new R session if you plan to access the functions in that package. So loading and attaching a package via <code>library</code> is a “do every time” operation.</p>
 
 </div>
+</div>
+</div>
+
+
+
+</div>
+
+
+
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="get-up-and-running-with-r-and-rstudio.html" class="navigation navigation-next " aria-label="Next page""><i class="fa fa-angle-right"></i></a>
+<a href="getting-help.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="stuff.html" class="navigation navigation-next " aria-label="Next page""><i class="fa fa-angle-right"></i></a>
 
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/lunr.js"></script>
@@ -282,7 +361,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/dzchilds/eda-for-bio/edit/master/0_01_learning_outcomes.Rmd",
+"link": "https://github.com/dzchilds/eda-for-bio/edit/master/1_08_using_packages.Rmd",
 "text": "Edit"
 },
 "download": null,

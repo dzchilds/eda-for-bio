@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>APS 135: Introduction to Exploratory Data Analysis with R</title>
+  <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+  <meta name="description" content="Course book for Introduction to Exploratory Data Analysis with R (APS 135) in the Department of Animal and Plant Sciences, University of Sheffield.">
+  <meta name="generator" content="bookdown 0.3 and GitBook 2.6.7">
+
+  <meta property="og:title" content="APS 135: Introduction to Exploratory Data Analysis with R" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="Course book for Introduction to Exploratory Data Analysis with R (APS 135) in the Department of Animal and Plant Sciences, University of Sheffield." />
+  <meta name="github-repo" content="dzchilds/eda-for-bio" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="APS 135: Introduction to Exploratory Data Analysis with R" />
+  
+  <meta name="twitter:description" content="Course book for Introduction to Exploratory Data Analysis with R (APS 135) in the Department of Animal and Plant Sciences, University of Sheffield." />
+  
+
+<meta name="author" content="Dylan Z. Childs">
+
+
+<meta name="date" content="2017-01-29">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="other-kinds-of-vectors.html">
+<link rel="next" href="packages.html">
+
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+<style type="text/css">
+
+.action, .warning, .info, .speed {
+  padding: 1em 1em 1em 4em;
+  margin-bottom: 10px;
+  background: #f5f5f5 5px center/3em no-repeat;
+}
+.action {
+  background-image: url("./images/action.png");
+}
+.warning {
+  background-image: url("./images/warning.png");
+}
+.info {
+  background-image: url("./images/info.png");
+}
+.speed {
+  background-image: url("./images/speed.png");
+}
+
+
+</style>
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">APS 135 (R course)</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Course information and overview</a><ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#organisation"><i class="fa fa-check"></i>Organisation</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="expected-learning-outcomes.html"><a href="expected-learning-outcomes.html"><i class="fa fa-check"></i>Expected learning outcomes</a><ul>
+<li class="chapter" data-level="" data-path="expected-learning-outcomes.html"><a href="expected-learning-outcomes.html#introduction-to-r"><i class="fa fa-check"></i>Introduction to R</a></li>
+<li class="chapter" data-level="" data-path="expected-learning-outcomes.html"><a href="expected-learning-outcomes.html#data-wrangling"><i class="fa fa-check"></i>Data Wrangling</a></li>
+<li class="chapter" data-level="" data-path="expected-learning-outcomes.html"><a href="expected-learning-outcomes.html#exporing-data"><i class="fa fa-check"></i>Exporing Data</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="get-up-and-running-with-r-and-rstudio.html"><a href="get-up-and-running-with-r-and-rstudio.html"><i class="fa fa-check"></i>Get up and running with R and RStudio</a><ul>
+<li class="chapter" data-level="" data-path="get-up-and-running-with-r-and-rstudio.html"><a href="get-up-and-running-with-r-and-rstudio.html#what-is-r"><i class="fa fa-check"></i>What is R?</a><ul>
+<li class="chapter" data-level="" data-path="get-up-and-running-with-r-and-rstudio.html"><a href="get-up-and-running-with-r-and-rstudio.html#getting-and-installing-r"><i class="fa fa-check"></i>Getting and installing R</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="get-up-and-running-with-r-and-rstudio.html"><a href="get-up-and-running-with-r-and-rstudio.html#what-is-rstudio-and-why-use-it"><i class="fa fa-check"></i>What is RStudio (and why use it)?</a><ul>
+<li class="chapter" data-level="" data-path="get-up-and-running-with-r-and-rstudio.html"><a href="get-up-and-running-with-r-and-rstudio.html#getting-and-installing-rstudio"><i class="fa fa-check"></i>Getting and installing RStudio</a></li>
+<li class="chapter" data-level="" data-path="get-up-and-running-with-r-and-rstudio.html"><a href="get-up-and-running-with-r-and-rstudio.html#the-anatomy-of-rstudio"><i class="fa fa-check"></i>The anatomy of RStudio</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="get-up-and-running-with-r-and-rstudio.html"><a href="get-up-and-running-with-r-and-rstudio.html#working-at-the-console"><i class="fa fa-check"></i>Working at the Console</a></li>
+</ul></li>
+<li class="part"><span><b>I Introduction to R</b></span></li>
+<li class="chapter" data-level="1" data-path="a-quick-introduction-to-r.html"><a href="a-quick-introduction-to-r.html"><i class="fa fa-check"></i><b>1</b> A quick introduction to R</a><ul>
+<li class="chapter" data-level="1.1" data-path="a-quick-introduction-to-r.html"><a href="a-quick-introduction-to-r.html#r-calculator"><i class="fa fa-check"></i><b>1.1</b> Using R as a big calculator</a><ul>
+<li class="chapter" data-level="1.1.1" data-path="a-quick-introduction-to-r.html"><a href="a-quick-introduction-to-r.html#basic-arithmetic"><i class="fa fa-check"></i><b>1.1.1</b> Basic arithmetic</a></li>
+<li class="chapter" data-level="1.1.2" data-path="a-quick-introduction-to-r.html"><a href="a-quick-introduction-to-r.html#problematic-calculations"><i class="fa fa-check"></i><b>1.1.2</b> Problematic calculations</a></li>
+</ul></li>
+<li class="chapter" data-level="1.2" data-path="a-quick-introduction-to-r.html"><a href="a-quick-introduction-to-r.html#assignment"><i class="fa fa-check"></i><b>1.2</b> Storing and reusing results</a></li>
+<li class="chapter" data-level="1.3" data-path="a-quick-introduction-to-r.html"><a href="a-quick-introduction-to-r.html#how-does-assignment-work"><i class="fa fa-check"></i><b>1.3</b> How does assignment work?</a></li>
+<li class="chapter" data-level="1.4" data-path="a-quick-introduction-to-r.html"><a href="a-quick-introduction-to-r.html#global-environment"><i class="fa fa-check"></i><b>1.4</b> Global environment</a></li>
+<li class="chapter" data-level="1.5" data-path="a-quick-introduction-to-r.html"><a href="a-quick-introduction-to-r.html#naming-rules-and-conventions"><i class="fa fa-check"></i><b>1.5</b> Naming rules and conventions</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="scripts.html"><a href="scripts.html"><i class="fa fa-check"></i><b>2</b> Building scripts</a><ul>
+<li class="chapter" data-level="2.1" data-path="scripts.html"><a href="scripts.html#introduction"><i class="fa fa-check"></i><b>2.1</b> Introduction</a></li>
+<li class="chapter" data-level="2.2" data-path="scripts.html"><a href="scripts.html#writing-scripts-in-rstudio"><i class="fa fa-check"></i><b>2.2</b> Writing scripts in RStudio</a></li>
+<li class="chapter" data-level="2.3" data-path="scripts.html"><a href="scripts.html#running-scripts-in-rstudio"><i class="fa fa-check"></i><b>2.3</b> Running scripts in RStudio</a></li>
+<li class="chapter" data-level="2.4" data-path="scripts.html"><a href="scripts.html#spotting-problems"><i class="fa fa-check"></i><b>2.4</b> Spotting problems</a><ul>
+<li class="chapter" data-level="2.4.1" data-path="scripts.html"><a href="scripts.html#the-dreaded"><i class="fa fa-check"></i><b>2.4.1</b> The dreaded <code>+</code></a></li>
+<li class="chapter" data-level="2.4.2" data-path="scripts.html"><a href="scripts.html#errors"><i class="fa fa-check"></i><b>2.4.2</b> Errors</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="using-functions.html"><a href="using-functions.html"><i class="fa fa-check"></i><b>3</b> Using functions</a><ul>
+<li class="chapter" data-level="3.1" data-path="using-functions.html"><a href="using-functions.html#intro-functions"><i class="fa fa-check"></i><b>3.1</b> Introduction</a></li>
+<li class="chapter" data-level="3.2" data-path="using-functions.html"><a href="using-functions.html#evaluating-arguments-and-returning-results"><i class="fa fa-check"></i><b>3.2</b> Evaluating arguments and returning results</a></li>
+<li class="chapter" data-level="3.3" data-path="using-functions.html"><a href="using-functions.html#functions-do-not-have-side-effects"><i class="fa fa-check"></i><b>3.3</b> Functions do not have “side effects”</a></li>
+<li class="chapter" data-level="3.4" data-path="using-functions.html"><a href="using-functions.html#combining-functions"><i class="fa fa-check"></i><b>3.4</b> Combining functions</a></li>
+<li class="chapter" data-level="3.5" data-path="using-functions.html"><a href="using-functions.html#function-arguments"><i class="fa fa-check"></i><b>3.5</b> Specifying function arguments</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="numeric-vectors.html"><a href="numeric-vectors.html"><i class="fa fa-check"></i><b>4</b> Numeric vectors</a><ul>
+<li class="chapter" data-level="4.1" data-path="numeric-vectors.html"><a href="numeric-vectors.html#introduction-1"><i class="fa fa-check"></i><b>4.1</b> Introduction</a></li>
+<li class="chapter" data-level="4.2" data-path="numeric-vectors.html"><a href="numeric-vectors.html#intro-vectors"><i class="fa fa-check"></i><b>4.2</b> Numeric vectors</a></li>
+<li class="chapter" data-level="4.3" data-path="numeric-vectors.html"><a href="numeric-vectors.html#making-numeric-vectors"><i class="fa fa-check"></i><b>4.3</b> Making numeric vectors</a><ul>
+<li class="chapter" data-level="4.3.1" data-path="numeric-vectors.html"><a href="numeric-vectors.html#named-vectors"><i class="fa fa-check"></i><b>4.3.1</b> Named vectors</a></li>
+<li class="chapter" data-level="4.3.2" data-path="numeric-vectors.html"><a href="numeric-vectors.html#generating-sequences-of-numbers"><i class="fa fa-check"></i><b>4.3.2</b> Generating sequences of numbers</a></li>
+<li class="chapter" data-level="4.3.3" data-path="numeric-vectors.html"><a href="numeric-vectors.html#generating-repeated-sequences-of-numbers"><i class="fa fa-check"></i><b>4.3.3</b> Generating repeated sequences of numbers</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="numeric-vectors.html"><a href="numeric-vectors.html#vectorised-operations"><i class="fa fa-check"></i><b>4.4</b> Vectorised operations</a></li>
+<li class="chapter" data-level="4.5" data-path="numeric-vectors.html"><a href="numeric-vectors.html#extract-subset"><i class="fa fa-check"></i><b>4.5</b> Extracting subsets of vectors</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="other-kinds-of-vectors.html"><a href="other-kinds-of-vectors.html"><i class="fa fa-check"></i><b>5</b> Other kinds of vectors</a><ul>
+<li class="chapter" data-level="5.1" data-path="other-kinds-of-vectors.html"><a href="other-kinds-of-vectors.html#other-vectors"><i class="fa fa-check"></i><b>5.1</b> Introduction</a><ul>
+<li class="chapter" data-level="5.1.1" data-path="other-kinds-of-vectors.html"><a href="other-kinds-of-vectors.html#character-vectors"><i class="fa fa-check"></i><b>5.1.1</b> Character vectors</a></li>
+<li class="chapter" data-level="5.1.2" data-path="other-kinds-of-vectors.html"><a href="other-kinds-of-vectors.html#logical-vectors"><i class="fa fa-check"></i><b>5.1.2</b> Logical vectors</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="numeric-vectors.html"><a href="numeric-vectors.html#extract-subset"><i class="fa fa-check"></i><b>5.2</b> Extracting subsets of vectors</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="getting-help.html"><a href="getting-help.html"><i class="fa fa-check"></i><b>6</b> Getting help</a><ul>
+<li class="chapter" data-level="6.1" data-path="getting-help.html"><a href="getting-help.html#console-help"><i class="fa fa-check"></i><b>6.1</b> Introduction</a></li>
+<li class="chapter" data-level="6.2" data-path="getting-help.html"><a href="getting-help.html#browsing-the-help-system"><i class="fa fa-check"></i><b>6.2</b> Browsing the help system</a></li>
+<li class="chapter" data-level="6.3" data-path="getting-help.html"><a href="getting-help.html#searching-for-help-files"><i class="fa fa-check"></i><b>6.3</b> Searching for help files</a></li>
+<li class="chapter" data-level="6.4" data-path="getting-help.html"><a href="getting-help.html#nav-help"><i class="fa fa-check"></i><b>6.4</b> Navigating help files</a></li>
+<li class="chapter" data-level="6.5" data-path="getting-help.html"><a href="getting-help.html#vignettes"><i class="fa fa-check"></i><b>6.5</b> Vignettes and demos</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="packages.html"><a href="packages.html"><i class="fa fa-check"></i><b>7</b> Packages</a><ul>
+<li class="chapter" data-level="7.1" data-path="packages.html"><a href="packages.html#package-system"><i class="fa fa-check"></i><b>7.1</b> The R package system</a></li>
+<li class="chapter" data-level="7.2" data-path="packages.html"><a href="packages.html#task-views"><i class="fa fa-check"></i><b>7.2</b> Task views</a></li>
+<li class="chapter" data-level="7.3" data-path="packages.html"><a href="packages.html#use-packages"><i class="fa fa-check"></i><b>7.3</b> Using packages</a><ul>
+<li class="chapter" data-level="7.3.1" data-path="packages.html"><a href="packages.html#viewing-installed-packages"><i class="fa fa-check"></i><b>7.3.1</b> Viewing installed packages</a></li>
+<li class="chapter" data-level="7.3.2" data-path="packages.html"><a href="packages.html#installing-and-updating-packages"><i class="fa fa-check"></i><b>7.3.2</b> Installing and updating packages</a></li>
+<li class="chapter" data-level="7.3.3" data-path="packages.html"><a href="packages.html#loading-and-attaching-packages"><i class="fa fa-check"></i><b>7.3.3</b> Loading and attaching packages</a></li>
+<li class="chapter" data-level="7.3.4" data-path="packages.html"><a href="packages.html#an-analogy"><i class="fa fa-check"></i><b>7.3.4</b> An analogy</a></li>
+</ul></li>
+</ul></li>
+<li class="part"><span><b>II Data Wrangling</b></span></li>
+<li class="part"><span><b>III Exporing Data</b></span></li>
+<li class="chapter" data-level="8" data-path="stuff.html"><a href="stuff.html"><i class="fa fa-check"></i><b>8</b> Stuff…</a><ul>
+<li class="chapter" data-level="8.1" data-path="stuff.html"><a href="stuff.html#mathematical-functions-in-r"><i class="fa fa-check"></i><b>8.1</b> Mathematical functions in R</a></li>
+<li class="chapter" data-level="8.2" data-path="stuff.html"><a href="stuff.html#coding-conventions"><i class="fa fa-check"></i><b>8.2</b> Coding conventions</a><ul>
+<li class="chapter" data-level="8.2.1" data-path="stuff.html"><a href="stuff.html#formatting-functions"><i class="fa fa-check"></i><b>8.2.1</b> Formatting functions</a></li>
+</ul></li>
+<li class="chapter" data-level="8.3" data-path="stuff.html"><a href="stuff.html#data-structures"><i class="fa fa-check"></i><b>8.3</b> Beyond vectors</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">APS 135: Introduction to Exploratory Data Analysis with R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="getting-help" class="section level1">
+<h1><span class="header-section-number">Chapter 6</span> Getting help</h1>
+<div id="console-help" class="section level2">
+<h2><span class="header-section-number">6.1</span> Introduction</h2>
+<p>R has a comprehensive built-in help system. This system is orientated around the base R functions and packages. Every good package comes with a set of <strong>help files</strong>. At a minimum these should provide information about the individual package functions and summaries of the data included with the package. They sometimes give descriptions of how different parts of the package should be used, and if we’re lucky, one or more “vignettes” that offer a practical demonstration of how to use a package. Other files are sometimes shipped with packages. For example, these might give an overview of the mathematical or computational theory a package relies on. We will not worry about these in this course.</p>
+<p>We may as well get something out of the way early on. The word “help” in the phrase “help file” is a bit of a misnomer. It is probably more accurate to say R has an extensive <strong>documentation</strong> system. The reason we say this is that the majority help files are associated with functions, and these kinds of files are designed first and foremost to document how a particular function or group of functions are meant to be used. For example, they describe what kinds of arguments a function can take and what kind of objects it will return to us. Help files are also written in a very precise, painful-to-read manner. They contain a lot of jargon which can be hard to decipher unless you already know a lot about R or you have a computer science background.</p>
+<p>The take-home message is that R help files are aimed more at experienced users than novices. Their primary purpose is to carefully document the different elements of a package, rather than explain how a particular function or the package as whole should be used to achieve a given end. That said, help files often contain useful examples, and many package authors do try to make our life easier by providing functional demonstrations of their package (those “vignettes” we mentioned above are a vehicle for doing this). It is very important to try to get to grips with the built in help system. It contains a great deal of useful information which you need to learn how to decipher in order to start using R effectively. The road to enlightenment is bumpy though.</p>
+</div>
+<div id="browsing-the-help-system" class="section level2">
+<h2><span class="header-section-number">6.2</span> Browsing the help system</h2>
+<p>How do we access the help system? Help files are a little like mini web pages, which means we can navigate among them using hyperlinks. This makes it very easy to explore the help system. One way to begin browsing the help system uses the <code>help.start</code> function:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">help.start</span>() </code></pre></div>
+<p>If you type this now at the Console you will see the <strong>Package Index</strong> page open up in the <strong>Help</strong> tab of the bottom right pane in RStudio. This lists all the packages currently installed on your computer. We can view all the help files associated with a package by clicking on the appropriate link. For example, the functions that come with the base installation of R have a help file associated with them – click on the link to the R base package (<code>base</code>) to see these. Though you know about a few of these already, you will see <strong>a lot</strong> of functions listed here. R is huge.</p>
+<p>The packages that come with the base R installation and those that we install separately from base R have their own set of associated help files. These can be viewed by following the appropriate link on the <strong>Package Index</strong> page. We will learn how to navigate these in a moment. Take note: it is up to the developer of a package to produce usable help files. Well-designed packages like <strong>dplyr</strong> and <strong>ggplot2</strong> have an extensive help system that covers almost everything the package can do. This isn’t always the the case though, particularly with new or packages or packages that are not widely used. We will only ever use well-documented packages.</p>
+<p>Notice that the help browser has Forward, Back, and Home buttons, just like a normal web browser. If you get lost in the mire of help pages you can always navigate backward until you get back to a familiar page. Annoyingly, the Home button does not take you to the same page as <code>help.start</code>. Click the home button now if you have not already done so. You will see three sections:</p>
+<ol style="list-style-type: decimal">
+<li><p>The <strong>Manuals</strong> section looks like it might be useful for novice users. Unfortunately, it is not. Even the “Introduction to R” manual is only helpful if you already have some programming experience, since it assumes you understand what terms like “data structure” and “data type” mean. It is worth reading this manual once you have gained a little more experience though. The others manuals. are more or less impenetrable unless you already know quite a bit about computing in general.</p></li>
+<li><p>The <strong>Reference</strong> section is a little more helpful. The “Packages” link just takes you to the same page opened by <code>help.start</code> so that you can browse help pages on a package-specific basis. The “Search Engine &amp; Keywords” link takes you to a search engine page (no surprises there). You can use this to search for specific help pages, either by supplying a search term or by navigating through the different keywords. We will discuss the built-in search engine in the next subsection.</p></li>
+<li><p>The <strong>Miscellaneous Material</strong> section has a couple of potentially useful links. The “User Manuals” link lists any user manuals supplied by package authors. These tend to be aimed at more experienced users and the packages we will learn to use in this course do not provide them. However, it is worth knowing these exist as they are occasionally useful. The “Frequently Asked Questions” link is worth reviewing once you have gained a little experience of R, but again, most of the FAQs are a little difficult for novice users to fully understand.</p></li>
+</ol>
+</div>
+<div id="searching-for-help-files" class="section level2">
+<h2><span class="header-section-number">6.3</span> Searching for help files</h2>
+<p>If you spend a short amount of time browsing help files via <code>help.start</code> it will quickly become obvious that this way of searching for help is not very efficient. Quite often we know the name of the function we need to use and all we want to do is open its associated help file. We do this using the <code>help</code> function:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">help</span>(<span class="dt">topic =</span> Trig)</code></pre></div>
+<p>If you run this simple example you should see RStudio open up the help file for the trigonometry topic in the <strong>Help</strong> tab. This provides information about the various trigonometric functions such as <code>sin</code> or <code>cos</code>. We will learn how to make sense of help pages in the next subsection. For now we just need to understand how to use <code>help</code>.</p>
+<p>The <code>help</code> function needs a minimum of one argument: the name of the topic or function of interest. When we use it like this the help function searches across packages, looking for a help file whose name gives <strong>an exact match</strong> to the name we supplied. In this case, we opened the help file associated with the <code>Trig</code> topic. Most of the time we use the <code>help</code> function to find the help page for a specific function, rather than a general topic. This is fine if you can remember the name of the topic associated with different functions. Most of us cannot. Luckily, the help function will also match help pages by the name of the function(s) they cover:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">help</span>(<span class="dt">topic =</span> sin)</code></pre></div>
+<p>Here we searched for help on the <code>sin</code> function. This is part of the <code>Trig</code> topic so <code>help(topic = sin)</code> brings up the same page as the <code>help(topic = Trig)</code>.</p>
+<p>There are several arguments of <code>help</code> that we can set to alter its behaviour. We will just consider one of these. By default, the <code>help</code> function only searches for files associated with the base functions or with packages that we have loaded in the current session with the <code>library</code> function. If you wanted to search for help on the <code>mutate</code> function – which is part of the <code>dplyr</code> package – but you haven’t run <code>library(dplyr)</code> yet this will not work:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">help</span>(mutate)</code></pre></div>
+<pre><code>## Help on topic &#39;mutate&#39; was found in the following packages:
+## 
+##   Package               Library
+##   plyr                  /Library/Frameworks/R.framework/Versions/3.2/Resources/library
+##   dplyr                 /Library/Frameworks/R.framework/Versions/3.2/Resources/library
+## 
+## 
+## Using the first match ...</code></pre>
+<p>Instead, you need tell <code>help</code> where to look by setting the <code>package</code> argument:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">help</span>(mutate, <span class="dt">package =</span> dplyr)</code></pre></div>
+<p>You should try to start using <code>help</code> every time you get stuck because you cannot get a function to work. It doesn’t matter how experienced an R user you become, you will occasionally forget how to use the odd function. It is for this reason that R has a built in shortcut for <code>help</code>. This is accessed via <code>?</code>. For example, instead of typing <code>help(topic = sin)</code> (or just <code>help(sin)</code>) at the Console, we can bring up the help page for the <code>sin</code> function by using <code>?</code> like this:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">?sin</code></pre></div>
+<p>This is just a convenient shortcut that does the same thing as <code>help</code>. The only difference is that <code>?</code> does not allow us to set arguments such as <code>package</code>.</p>
+</div>
+<div id="nav-help" class="section level2">
+<h2><span class="header-section-number">6.4</span> Navigating help files</h2>
+<p>Navigating a typical help file is a little daunting at first. These files can be quite long and they contain a lot of jargon. The help files associated with functions – the most common type – have a consistent structure though. There are a number of distinct sections, whose order is always the same. Wrestling with a help file is much easier if you are at least clear about the purpose of each section. After the title, there are eight of these you need to know about:</p>
+<ol style="list-style-type: decimal">
+<li><p><strong>Description</strong> gives us a short overview of what the function is meant to be used for. If the help page covers a family of related functions it gives a collective overview of all the functions. You should always read this before diving into the rest of the help file.</p></li>
+<li><p><strong>Usage</strong> shows how the function(s) are meant to be used. It lists each member of the family as well as their common arguments. The argument names are listed on their own if they have no default, or in name-value pairs, where the value gives the default used should we choose not to set it ourselves when we call the function.</p></li>
+<li><p><strong>Arguments</strong> lists each of the allowed arguments, along with a short description of what they influence. This also tells us what what kind of data we are allowed to use with each argument, along with the allowable values (if this is relevant). You should always read this section.</p></li>
+<li><p><strong>Details</strong> describes precisely how the function(s) behave, often in painful, jargon-laden detail. It is usually the longest and hardest-to-comprehend section but is worth reading as it flags up common “gotchas”. You can sometimes get away with ignoring this section if the previous three are informative enough, but if you really want to understand a function you need to wade through this.</p></li>
+<li><p><strong>Value</strong> explains kind of data structure or object a function returns to us when it finishes doing whatever it does. You can often guess what this will be from the type of function, but it is worth checking to see if your reasoning is correct. If it is not, you probably don’t understand the function yet.</p></li>
+<li><p><strong>References</strong> just lists the key reference(s) you should read if you really need to know the hows and whys of a function. You almost never need to read this. The one exception is if the function implements a particular statistical tool. In that case it might be sensible to go away and read the literature before trying to use it.</p></li>
+<li><p><strong>See Also</strong> gives links to the help pages of related functions. These are usually functions that do something similar to the function of interest or are meant to be used in conjunction with it. You can often learn quite a bit about packages or related functions by following the links in this section.</p></li>
+<li><p><strong>Examples</strong> provides one or more examples of how to use the function. These are stand-alone examples, so there is nothing to stop you running them. This is often the most useful section of all. Seeing a function in action is a very good way to cut through the jargon and start to understand how it works.</p></li>
+</ol>
+</div>
+<div id="vignettes" class="section level2">
+<h2><span class="header-section-number">6.5</span> Vignettes and demos</h2>
+<p>The Oxford English Dictionary defines a vignette as, “A brief evocative description, account, or episode.” The purpose of a package vignette in R is to provide a relatively brief, practical account of one or more of its features. Not all packages come with vignettes, though many of the best thought out packages do. You can use the <code>vignette</code> function to view all the available vignettes in Rstudio. This will open up a tab that lists each vignette under their associated package name along with a brief description. A package will often have more than one vignette. If you just want to see the vignettes associated with a particular package, you should set the <code>package</code> argument. For example, to see the vignettes associated with <strong>dplyr</strong> you would use:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">vignette</span>(<span class="dt">package =</span> <span class="st">&quot;dplyr&quot;</span>)</code></pre></div>
+<p>Each vignette has a name (the “topic”) and is available either as a PDF or HTML file (or both). We can view a particular vignette by passing the <code>vignette</code> function the <code>package</code> and <code>topic</code> arguments. For example, to view the “data_frames” vignette in the <strong><code>dplyr</code></strong> package we would use:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">vignette</span>(<span class="dt">topic =</span> <span class="st">&quot;data_frames&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;dplyr&quot;</span>)</code></pre></div>
+<p>The <code>vignette</code> function is fine, though it is usually more convenient to browse the list of vignettes inside a web browser. This allows you to open a particular vignette directly by clicking on its link, rather than working at the Console. We can use the <code>browseVignettes</code> function to do this:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">browseVignettes</span>()</code></pre></div>
+<p>This will open a page in your browser showing the vignettes you can view. As you might expect by now, you can narrow your options to a specific package by setting the <code>package</code> argument.</p>
+<p>In addition to vignettes, some packages also include one or more demos (i.e. demonstrations). Demos are a little like vignettes, but instead of just opening a file for you to read, the demo function can actually runs a demonstration R scripts for you. We use the <code>demo</code> function without any arguments to list the available demos:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">demo</span>()</code></pre></div>
+<p>When we use the <code>demo</code> function like this it only lists the demos associated with packages that have been loaded in the current session (via <code>library</code>). If we want to see all the demos you can run you need to use the somewhat cryptic <code>demo(package = .packages(all.available = TRUE))</code>.</p>
+<p>In order to actually run a demo we use the <code>demo</code> function, setting the <code>topic</code> and <code>package</code> arguments. For example, to run the “colors” demo in the <strong>grDevices</strong> package we would use:</p>
+<pre><code>## 
+## 
+##  demo(colors)
+##  ---- ~~~~~~
+## 
+## &gt; ### ----------- Show (almost) all named colors ---------------------
+## &gt; 
+## &gt; ## 1) with traditional &#39;graphics&#39; package:
+## &gt; showCols1 &lt;- function(bg = &quot;gray&quot;, cex = 0.75, srt = 30) {
+## +     m &lt;- ceiling(sqrt(n &lt;- length(cl &lt;- colors())))
+## +     length(cl) &lt;- m*m; cm &lt;- matrix(cl, m)
+## +     ##
+## +     require(&quot;graphics&quot;)
+## +     op &lt;- par(mar=rep(0,4), ann=FALSE, bg = bg); on.exit(par(op))
+## +     plot(1:m,1:m, type=&quot;n&quot;, axes=FALSE)
+## +     text(col(cm), rev(row(cm)), cm,  col = cl, cex=cex, srt=srt)
+## + }
+## 
+## &gt; showCols1()</code></pre>
+<pre><code>## 
+## &gt; ## 2) with &#39;grid&#39; package:
+## &gt; showCols2 &lt;- function(bg = &quot;grey&quot;, cex = 0.75, rot = 30) {
+## +     m &lt;- ceiling(sqrt(n &lt;- length(cl &lt;- colors())))
+## +     length(cl) &lt;- m*m; cm &lt;- matrix(cl, m)
+## +     ##
+## +     require(&quot;grid&quot;)
+## +     grid.newpage(); vp &lt;- viewport(w = .92, h = .92)
+## +     grid.rect(gp=gpar(fill=bg))
+## +     grid.text(cm, x = col(cm)/m, y = rev(row(cm))/m, rot = rot,
+## +               vp=vp, gp=gpar(cex = cex, col = cm))
+## + }
+## 
+## &gt; showCols2()</code></pre>
+<pre><code>## Loading required package: grid</code></pre>
+<p><img src="eda-for-bio_files/figure-html/unnamed-chunk-148-1.png" width="672" /><img src="eda-for-bio_files/figure-html/unnamed-chunk-148-2.png" width="672" /></p>
+<pre><code>## 
+## &gt; showCols2(bg = &quot;gray33&quot;)</code></pre>
+<p><img src="eda-for-bio_files/figure-html/unnamed-chunk-148-3.png" width="672" /></p>
+<pre><code>## 
+## &gt; ###
+## &gt; 
+## &gt; ##&#39; @title Comparing Colors
+## &gt; ##&#39; @param col
+## &gt; ##&#39; @param nrow
+## &gt; ##&#39; @param ncol
+## &gt; ##&#39; @param txt.col
+## &gt; ##&#39; @return the grid layout, invisibly
+## &gt; ##&#39; @author Marius Hofert, originally
+## &gt; plotCol &lt;- function(col, nrow=1, ncol=ceiling(length(col) / nrow),
+## +                     txt.col=&quot;black&quot;) {
+## +     stopifnot(nrow &gt;= 1, ncol &gt;= 1)
+## +     if(length(col) &gt; nrow*ncol)
+## +         warning(&quot;some colors will not be shown&quot;)
+## +     require(grid)
+## +     grid.newpage()
+## +     gl &lt;- grid.layout(nrow, ncol)
+## +     pushViewport(viewport(layout=gl))
+## +     ic &lt;- 1
+## +     for(i in 1:nrow) {
+## +         for(j in 1:ncol) {
+## +             pushViewport(viewport(layout.pos.row=i, layout.pos.col=j))
+## +             grid.rect(gp= gpar(fill=col[ic]))
+## +             grid.text(col[ic], gp=gpar(col=txt.col))
+## +             upViewport()
+## +             ic &lt;- ic+1
+## +         }
+## +     }
+## +     upViewport()
+## +     invisible(gl)
+## + }
+## 
+## &gt; ## A Chocolate Bar of colors:
+## &gt; plotCol(c(&quot;#CC8C3C&quot;, paste0(&quot;chocolate&quot;, 2:4),
+## +           paste0(&quot;darkorange&quot;, c(&quot;&quot;,1:2)), paste0(&quot;darkgoldenrod&quot;, 1:2),
+## +           &quot;orange&quot;, &quot;orange1&quot;, &quot;sandybrown&quot;, &quot;tan1&quot;, &quot;tan2&quot;),
+## +         nrow=2)</code></pre>
+<p><img src="eda-for-bio_files/figure-html/unnamed-chunk-148-4.png" width="672" /></p>
+<pre><code>## 
+## &gt; ##&#39; Find close R colors() to a given color {original by Marius Hofert)
+## &gt; ##&#39; using Euclidean norm in (HSV / RGB / ...) color space
+## &gt; nearRcolor &lt;- function(rgb, cSpace = c(&quot;hsv&quot;, &quot;rgb255&quot;, &quot;Luv&quot;, &quot;Lab&quot;),
+## +                        dist = switch(cSpace, &quot;hsv&quot; = 0.10, &quot;rgb255&quot; = 30,
+## +                        &quot;Luv&quot; = 15, &quot;Lab&quot; = 12))
+## + {
+## +     if(is.character(rgb)) rgb &lt;- col2rgb(rgb)
+## +     stopifnot(length(rgb &lt;- as.vector(rgb)) == 3)
+## +     Rcol &lt;- col2rgb(.cc &lt;- colors())
+## +     uniqC &lt;- !duplicated(t(Rcol)) # gray9 == grey9 (etc)
+## +     Rcol &lt;- Rcol[, uniqC] ; .cc &lt;- .cc[uniqC]
+## +     cSpace &lt;- match.arg(cSpace)
+## +     convRGB2 &lt;- function(Rgb, to)
+## +         t(convertColor(t(Rgb), from=&quot;sRGB&quot;, to=to, scale.in=255))
+## +     ## the transformation,  rgb{0..255} --&gt; cSpace :
+## +     TransF &lt;- switch(cSpace,
+## +                      &quot;rgb255&quot; = identity,
+## +                      &quot;hsv&quot; = rgb2hsv,
+## +                      &quot;Luv&quot; = function(RGB) convRGB2(RGB, &quot;Luv&quot;),
+## +                      &quot;Lab&quot; = function(RGB) convRGB2(RGB, &quot;Lab&quot;))
+## +     d &lt;- sqrt(colSums((TransF(Rcol) - as.vector(TransF(rgb)))^2))
+## +     iS &lt;- sort.list(d[near &lt;- d &lt;= dist])# sorted: closest first
+## +     setNames(.cc[near][iS], format(d[near][iS], digits=3))
+## + }
+## 
+## &gt; nearRcolor(col2rgb(&quot;tan2&quot;), &quot;rgb&quot;)
+##          0.0         21.1         25.8         29.5 
+##       &quot;tan2&quot;       &quot;tan1&quot; &quot;sandybrown&quot;    &quot;sienna1&quot; 
+## 
+## &gt; nearRcolor(col2rgb(&quot;tan2&quot;), &quot;hsv&quot;)
+##       0.0000       0.0410       0.0618       0.0638       0.0667 
+##       &quot;tan2&quot;    &quot;sienna2&quot;     &quot;coral2&quot;    &quot;tomato2&quot;       &quot;tan1&quot; 
+##       0.0766       0.0778       0.0900       0.0912       0.0918 
+##      &quot;coral&quot;    &quot;sienna1&quot; &quot;sandybrown&quot;     &quot;coral1&quot;     &quot;tomato&quot; 
+## 
+## &gt; nearRcolor(col2rgb(&quot;tan2&quot;), &quot;Luv&quot;)
+##         0.00         7.42         7.48        12.41        13.69 
+##       &quot;tan2&quot;       &quot;tan1&quot; &quot;sandybrown&quot;    &quot;orange3&quot;    &quot;orange2&quot; 
+## 
+## &gt; nearRcolor(col2rgb(&quot;tan2&quot;), &quot;Lab&quot;)
+##         0.00         5.56         8.08        11.31 
+##       &quot;tan2&quot;       &quot;tan1&quot; &quot;sandybrown&quot;       &quot;peru&quot; 
+## 
+## &gt; nearRcolor(&quot;#334455&quot;)
+##          0.0867 
+## &quot;darkslategray&quot; 
+## 
+## &gt; ## Now, consider choosing a color by looking in the
+## &gt; ## neighborhood of one you know :
+## &gt; 
+## &gt; plotCol(nearRcolor(&quot;deepskyblue&quot;, &quot;rgb&quot;, dist=50))</code></pre>
+<p><img src="eda-for-bio_files/figure-html/unnamed-chunk-148-5.png" width="672" /></p>
+<pre><code>## 
+## &gt; plotCol(nearRcolor(&quot;deepskyblue&quot;, dist=.1))</code></pre>
+<p><img src="eda-for-bio_files/figure-html/unnamed-chunk-148-6.png" width="672" /></p>
+<pre><code>## 
+## &gt; plotCol(nearRcolor(&quot;tomato&quot;, &quot;rgb&quot;, dist= 50), nrow=3)</code></pre>
+<p><img src="eda-for-bio_files/figure-html/unnamed-chunk-148-7.png" width="672" /></p>
+<pre><code>## 
+## &gt; plotCol(nearRcolor(&quot;tomato&quot;, &quot;hsv&quot;, dist=.12), nrow=3)</code></pre>
+<p><img src="eda-for-bio_files/figure-html/unnamed-chunk-148-8.png" width="672" /></p>
+<pre><code>## 
+## &gt; plotCol(nearRcolor(&quot;tomato&quot;, &quot;Luv&quot;, dist= 25), nrow=3)</code></pre>
+<p><img src="eda-for-bio_files/figure-html/unnamed-chunk-148-9.png" width="672" /></p>
+<pre><code>## 
+## &gt; plotCol(nearRcolor(&quot;tomato&quot;, &quot;Lab&quot;, dist= 18), nrow=3)</code></pre>
+<p><img src="eda-for-bio_files/figure-html/unnamed-chunk-148-10.png" width="672" /> This particular demo shows off some of the pre-defined colours we might use to customise the appearance of a plot. We’ve suppressed the output though because so much is produced.</p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="other-kinds-of-vectors.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="packages.html" class="navigation navigation-next " aria-label="Next page""><i class="fa fa-angle-right"></i></a>
+
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/dzchilds/eda-for-bio/edit/master/1_07_getting_help.Rmd",
+"text": "Edit"
+},
+"download": null,
+"toc": {
+"collapse": "section"
+},
+"split_by": "section"
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    if (location.protocol !== "file:" && /^https?:/.test(script.src))
+      script.src  = script.src.replace(/^https?:/, '');
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

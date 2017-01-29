@@ -1,0 +1,138 @@
+# Using functions
+
+## Introduction {#intro-functions}
+
+Functions are a basic building block of any programming language. If you want to use R effectively---even if your needs are very simple---you need to understand how to use functions. We are not aiming to unpick the inner workings of functions in this course. That is an advanced topic that is best saved for a future time when you have gained much more experience of using them^[At some point, if you really want to understand what happens when you use a function you will need to grapple with ideas like _lazy evaluation_, _environments_ and _scoping_.]. The aim of this chapter is to explain what functions are for, how to use them, and how to avoid mistakes when doing so.
+
+The job of each function in R is to carry out some kind of calculation or computation that would typically require many lines of R code to do "from scratch". Functions allow us to reuse common computations while offering some control over the precise details of what actually happens. The best way to see what we mean by this is to see one in action. The `round` function is used to round one or more number(s) to a significant number of digits. To use it, we could type this into the Console and hit Enter:
+```{r, eval=FALSE}
+round(x = 3.141593, digits = 2)
+```
+We have suppressed the output for now so that we can unpack things a bit first. Every time we use a function we always have to work with the same basic construct (there are a few exceptions, but we can ignore these for now). We start with the name of the function, that is, we use the name of the function as the prefix. In this case, the function name is `round`. After the function name, we need a pair of opening and closing parentheses. It is this combination of name and parentheses that that alerts R to fact that we are trying to use a function. Whenever you see name followed by opening and closing parentheses you are seeing a function in action.
+
+What about the bits inside the parentheses? These are called the __arguments__ of the function. That is a horrible name, but it is the one that everyone uses so you will have to get used to it. Depending on how it was defined, a function can take zero, one, or more arguments. We will discuss this idea in more detail later in this section. 
+
+In the simple example above, we used the `round` function with two arguments. Each of these was supplied as a name-value pair, separated by a comma. When working with arguments, name-value pairs occur either side of the equals (`=`) sign, with the __name__ of the argument on the left hand side and the __value__ it takes on the right hand side (notice that the syntax highlighter we used to make this website helpfully colours the argument names differently from the values). The name serves to identify which argument we are working with, and the value is the thing that controls what that argument does in the function. 
+
+We refer to the process of associating argument names and values as "supplying the arguments" of the function (sometimes we also say "setting the arguments"). Notice the similarly between supplying function arguments and the assignment operation discussed in the last topic. The difference here is that name-value pairs are associated with the `=` symbol. This association is also temporary: it only lasts as long as it takes for the function to do whatever it does.
+
+```{block, type="warning"}
+#### Use `=` to assign arguments
+
+__Do not__ use the assignment operator ` <- ` inside the parentheses when working with functions. This is a "trust us" situation: you will end up in all kinds of difficulty if you do this.
+```
+
+The names of the arguments that we are allowed to use are typically determined for us by the function. That is, we are not free to choose whatever name we like. We say "typically", because R is a very flexible language and so there are certain exceptions to this simple rule of thumb. For now it is simpler to think of the names as pre-determined by whatever function you are using though. The arguments control the behaviour of a function. Our job as users is to set the values of the these to get the behaviour we want. By now it is now probably fairly obvious what is going to happen when we used the `round` function like this at the Console:
+
+```{r}
+round(x = 3.141593, digits = 2)
+```
+
+Remember, we said the `round` function rounds one or more numbers to a number of significant digits. The argument that specifies the focal number(s) is `x`; the second argument, `digits`, specifies the number of decimal places we require. Based on the supplied values of these arguments, `3.141593` and `2`, respectively, the `round` function spits out a value of `3.14`, which is then printed to the Console. If we had wanted to the answer to 3 significant digits we would use `digits = 3`. This is what we mean when we say the values of the supplied arguments controls the behaviour of the function.
+
+## Evaluating arguments and returning results
+
+Whenever R evaluates a function we refer to this action as "calling the function". In our simple example, we called the `round` function with arguments `x` and `digits` (in this course we treat the phrases "use the function" and "call the function" as synonyms, as the former is more natural to new users). What we have just seen---though you may not realise it yet---is that when we call functions they first __evaluate__ their arguments, then perform some kind of action, and finally (optionally) __return__ a value to us when they finish doing whatever it is they do
+
+We will discuss that word "return" in a moment. What do we mean by the word "evaluate" in this context? Take a look at this second example which uses `round` again:
+```{r}
+round(x = 2.3 + 1.4, digits = 0)
+```
+When you call a function, what typically happens is that everything on the right hand side of an `=` is first evaluated, the result of this evaluation becomes associated with the corresponding argument name, and then the function does its calculations using the resulting name-value pairs. We say "typically" because other kinds of behaviours are possible---remember, R is a very flexible language---though for the purposes of this course we can assume that what we just wrote is always true. What happened above is that R evaluated `2.3 + 1.4`, resulting in the number `3.7`, which was then associated with the argument `x`. We set `digits` to `0` this time so that `round` just returns a whole number, `4`. 
+
+The important thing to realise is that the expression(s) on the right hand side of the `=` can be anything you like. This third example essentially equivalent to the last one:
+```{r}
+myvar <- 2.3 + 1.4
+round(x = myvar, digits = 0)
+```
+This time we created a new variable called `myvar` and then supplied this as the value of the `x` argument. When we call the `round` function like this, the R interpreter spots the fact that something on the right hand side of an `=` is a variable and associates the value of this variable with `x` argument. As long as we have actually defined the numeric variable `myvar` at some point we can use it as the value of an argument. 
+
+Keeping in mind what you have just learned, take a careful look at this example:
+```{r}
+x <- 0
+round(x = 3.7, digits = x)
+```
+What is going on here? The key to understanding this is to realise that the symbol `x` is used in two different ways here. When it appears on the left hand side of the `=` it represents an argument name. When it appears on the right hand side it is treated as a variable name, which must have a value associated with it for the above to be valid. This is admittedly a slightly confusing way to use this function, but it is perfectly valid. The message here is that what matters is where things appear relative to the `=`, not the symbols used to represent them.
+
+We said at the beginning of this section that a function may optionally __return__ a value to us when they finish complete their task. That word "return" is just jargon that refers to the process by which a function outputs a value. If you use a function at the Console this will be the value printed at the end. We can use this value in other ways too. For example, there is nothing to stop you combining function calls with the arithmetic operations:
+```{r}
+2 * round(x = 2.64, digits = 0)
+```
+Here the The R interpreter first evaluates the function call, and then multiplies the value it returns by 2. As you would expect, if we want to reuse this value we have to assign the result of function call, for example:
+```{r}
+roundnum <- 2 * round(x = 2.64, digits = 0)
+```
+Using a function with ` <- ` is really no different from the examples using multiple arithmetic operations in the last topic. The R interpreter starts on the right hand side of the ` <- `, evaluates the function call there, and only then assigns the value to `roundnum`.
+
+## Functions do not have "side effects"
+
+There is one more idea about functions and their arguments that you really need to understand in order to avoid confusing yourself later on in this course. It relates to how functions modify their arguments, or more accurately, how they __do not__ modify their arguments. Take a look at this example:
+```{r}
+myvar <- 3.7
+round(x = myvar, digits = 0)
+myvar
+```
+We created a variable `myvar` with the value 3.7, rounded this to a whole number with `round`, and then printed the value of `myvar`. Notice that __the value of `myvar` has not changed__ after using it as an argument to `round`. This is important. R functions typically do not alter the values of their arguments. Again, we say "typically" because there are ways to alter this behaviour if we really want to (yes, R is a very flexible language), but we will never ever do this. The standard behaviour---that functions do not alter their arguments---is what is meant by the phrase "functions do not have side effects".
+
+If we had meant to round the value of `myvar` so that we can use this new value later on, we have to assign the result of function evaluation, like this:
+```{r}
+myvar <- 3.7
+myvar <- round(x = myvar, digits = 0)
+```
+In this example, we just overwrote the old value, but we could just as easily have created a new variable. The reason this is worth pointing out is that new users sometimes assume certain types of functions will alter their arguments. Specifically, when working with functions manipulate something called a `data.frame`, there is a tendency to assume that the function changes the `data.frame` argument. It will not. If you want to make use of the changes, rather than just see them printed to the Console, you need to assign the results. You can do this by creating a new variable or overwriting the old one. You will gain first hand experience of this in the Data Wrangling block.
+
+Remember, functions do not have side effects! Some of you will forget this and it will create all kinds of headaches. Don't be that person.
+
+## Combining functions {#combining-functions}
+
+Up until now we have not tried to do anything very complicated in our examples. Using R to actually get useful work almost always involves multiple steps, very often facilitated a number of different functions. There is more than one way to do this. Here is a simple example that takes an approach you should already understand:
+```{r}
+myvar <- sqrt(x = 10)
+round(x = myvar, digits = 0)
+```
+Hopefully you can see what happened here. We calculated the square root of the number 10 and assigned the result to `myvar`, then we rounded this to a whole number and printed the result to the Console. So one way to use a series of functions in sequence is to assign a name to the result at each step and use this as an argument to the function in the next step.
+
+Here is another way to replicate the calculation in the previous example:
+```{r}
+round(x = sqrt(x = 10), digits = 0)
+```
+The technical name for this is __function composition__ (you might recognise that phrase from secondary school mathematics). Another way of referring to this kind of expression is as a __nested function__ call: we say that the `sqrt` function is nested inside the `round` function. The way you should read these constructs is __from the inside out__. The `sqrt(x = 10)` expression is on the right hand side of an `=` symbol, so this is evaluated first, the result is associated with the `x` argument of the `round` function, and only then does the `round` function do its job.
+
+There aren't really any new ideas here. We have already seen that the R interpreter evaluates whatever is on the right hand side of the `=` symbol first before associating the resulting value with the appropriate argument name. However, new users are often confused by nested function calls, so we want you to see them in action. There is nothing to stop us using multiple levels of nesting either. Take a look at this example:
+```{r}
+round(x = sqrt(x = abs(x = -10)), digits = 0)
+```
+The `abs` function takes the absolute value of a number, i.e. removes the `-` sign if it is there. Remember, read nested calls from the inside out. In this example, first we took the absolute value of -10, then we took the square root of the resulting number (10), and then we rounded this to a whole number.
+
+Nested function calls are useful because they make our R code less verbose (we have to write less), but this comes at the cost of reduced readability. Experienced users are used to nesting so they don't mind it, but we leave it to you to decide whether to use it much. Though we aim to keep function nesting to a minimum in this course, you will occasionally have to work with the nesting construct so you should try to understand it even if you don't like using it. We will also see a much-easier-to-read method for applying a series of functions in the Data Wrangling block. 
+
+## Specifying function arguments {#function-arguments}
+
+We have only been working with functions that carry out mathematical calculations with numbers so far. We will see many more in this course as it unfolds. Some functions are designed to extract information about functions for us. For example, take a look at the `args` function:
+```{r}
+args(name = round)
+```
+You might be able to see what `args` does: it prints a summary of the main arguments of a function to the Console (it doesn't always print all the available arguments though). What can we learn from the summary of the `round` arguments? Notice that the first argument, `x`, is shown without an associated value, whereas the `digits` part of the summary is printed as `digits = 0`. **The significance of this is that `digits` has a default value**. This means that we can leave out `digits` when using the round function:
+```{r}
+round(x = 3.7)
+```
+This is obviously the same result as we would get using `round(x = 3.7, digits = 0)`. This is a very useful feature of R, as it allows us keep our R code concise. Some functions take a large number of arguments, many of which are defined with sensible defaults. Unless we need to change these default arguments, we can just ignore them when we call such functions. The `x` argument of `round` does not have a default, which means we have to supply a value. This is sensible, as the whole purpose of `round` is to round any number we give it.
+
+There is another way to simplify our use of functions. Take a look at this example:
+```{r}
+round(3.72, digits = 1)
+```
+What does this demonstrate? We do not have to specify argument names, i.e. there is no need to specify argument names. In the absence of an argument name the R interpreter uses the position of the supplied argument to work out which name to associate it with. In this example we left out the name of the argument at position 1. This is where `x` belongs, so we end up rounding 3.71 to 1 decimal place. R is even more flexible than this, as it carries out partial matching on argument names:
+```{r}
+round(3.72, dig = 1)
+```
+This also works because R can unambiguously match the argument I named `dig` to `digits`. Take note, if there were another argument to `round` that started with the letters `dig` this would have caused an error. You need to know your function arguments if you want to rely of partial matching.
+
+
+```{block, type="warning"}
+#### Be careful with your arguments
+
+Here is some advice. Do not rely on partial matching of function names. It just leads to confusion and the odd error. If you use it a lot you end up forgetting the true name of arguments, and if you abbreviate too much you create name matching conflicts. For example, if a function has arguments `arg1` and `arg2` and you use the partial name `a` for an argument, there is no way to know which argument you meant. We are pointing out partial matching so that you are aware of the behaviour. It is not worth the hassle of getting it wrong just to save on a little typing, so do not use it.
+
+What about position matching?  This can also cause problems if we're not paying attention. For example, if you forget the order of the arguments to a function and then place your arguments in the wrong place, you will either generate an error or produce a nonsensical result. It is nice not to have to type out the `name = value` construct all the time though, so our advice is to rely positional matching only for the first argument. This is a common convention in R, and it makes sense because it is often obvious what kind of information or data the first argument should carry, so the its name is redundant.
+```

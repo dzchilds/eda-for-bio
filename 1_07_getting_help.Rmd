@@ -1,0 +1,109 @@
+# Getting help
+
+## Introduction {#console-help}
+
+R has a comprehensive built-in help system. This system is orientated around the base R functions and packages. Every good package comes with a set of __help files__. At a minimum these should provide information about the individual package functions and summaries of the data included with the package. They sometimes give descriptions of how different parts of the package should be used, and if we're lucky, one or more "vignettes" that offer a practical demonstration of how to use a package. Other files are sometimes shipped with packages. For example, these might give an overview of the mathematical or computational theory a package relies on. We will not worry about these in this course. 
+
+We may as well get something out of the way early on. The word "help" in the phrase "help file" is a bit of a misnomer. It is probably more accurate to say R has an extensive __documentation__ system. The reason we say this is that the majority help files are associated with functions, and these kinds of files are designed first and foremost to document how a particular function or group of functions are meant to be used. For example, they describe what kinds of arguments a function can take and what kind of objects it will return to us. Help files are also written in a very precise, painful-to-read manner. They contain a lot of jargon which can be hard to decipher unless you already know a lot about R or you have a computer science background.
+
+The take-home message is that R help files are aimed more at experienced users than novices. Their primary purpose is to carefully document the different elements of a package, rather than explain how a particular function or the package as whole should be used to achieve a given end. That said, help files often contain useful examples, and many package authors do try to make our life easier by providing functional demonstrations of their package (those "vignettes" we mentioned above are a vehicle for doing this). It is very important to try to get to grips with the built in help system. It contains a great deal of useful information which you need to learn how to decipher in order to start using R effectively. The road to enlightenment is bumpy though.
+
+## Browsing the help system
+
+How do we access the help system? Help files are a little like mini web pages, which means we can navigate among them using hyperlinks. This makes it very easy to explore the help system. One way to begin browsing the help system uses the `help.start` function: 
+```{r, eval=FALSE}
+help.start() 
+```
+If you type this now at the Console you will see the __Package Index__ page open up in the __Help__ tab of the bottom right pane in RStudio. This lists all the packages currently installed on your computer. We can view all the help files associated with a package by clicking on the appropriate link. For example, the functions that come with the base installation of R have a help file associated with them -- click on the link to the R base package (`base`) to see these. Though you know about a few of these already, you will see __a lot__ of functions listed here. R is huge.
+
+The packages that come with the base R installation and those that we install separately from base R have their own set of associated help files. These can be viewed by following the appropriate link on the __Package Index__ page. We will learn how to navigate these in a moment. Take note: it is up to the developer of a package to produce usable help files. Well-designed packages like __dplyr__ and __ggplot2__ have an extensive help system that covers almost everything the package can do. This isn't always the the case though, particularly with new or packages or packages that are not widely used. We will only ever use well-documented packages.
+
+Notice that the help browser has Forward, Back, and Home buttons, just like a normal web browser. If you get lost in the mire of help pages you can always navigate backward until you get back to a familiar page. Annoyingly, the Home button does not take you to the same page as `help.start`. Click the home button now if you have not already done so. You will see three sections: 
+
+1. The __Manuals__ section looks like it might be useful for novice users. Unfortunately, it is not. Even the "Introduction to R" manual is only helpful if you already have some programming experience, since it assumes you understand what terms like "data structure" and "data type" mean. It is worth reading this manual once you have gained a little more experience though. The others manuals. are more or less impenetrable unless you already know quite a bit about computing in general.
+
+2. The __Reference__ section is a little more helpful. The "Packages" link just takes you to the same page opened by `help.start` so that you can browse help pages on a package-specific basis. The "Search Engine & Keywords" link takes you to a search engine page (no surprises there). You can use this to search for specific help pages, either by supplying a search term or by navigating through the different keywords. We will discuss the built-in search engine in the next subsection.
+
+3. The __Miscellaneous Material__ section has a couple of potentially useful links. The "User Manuals" link lists any user manuals supplied by package authors. These tend to be aimed at more experienced users and the packages we will learn to use in this course do not provide them. However, it is worth knowing these exist as they are occasionally useful. The "Frequently Asked Questions" link is worth reviewing once you have gained a little experience of R, but again, most of the FAQs are a little difficult for novice users to fully understand.
+
+## Searching for help files
+
+If you spend a short amount of time browsing help files via `help.start` it will quickly become obvious that this way of searching for help is not very efficient. Quite often we know the name of the function we need to use and all we want to do is open its associated help file. We do this using the `help` function:
+```{r, eval=FALSE}
+help(topic = Trig)
+```
+If you run this simple example you should see RStudio open up the help file for the trigonometry topic in the __Help__ tab. This provides information about the various trigonometric functions such as `sin` or `cos`. We will learn how to make sense of help pages in the next subsection. For now we just need to understand how to use `help`.
+
+The `help` function needs a minimum of one argument: the name of the topic or function of interest. When we use it like this the help function searches across packages, looking for a help file whose name gives __an exact match__ to the name we supplied. In this case, we opened the help file associated with the `Trig` topic. Most of the time we use the `help` function to find the help page for a specific function, rather than a general topic. This is fine if you can remember the name of the topic associated with different functions. Most of us cannot. Luckily, the help function will also match help pages by the name of the function(s) they cover:
+```{r, eval=FALSE}
+help(topic = sin)
+```
+Here we searched for help on the `sin` function. This is part of the `Trig` topic so `help(topic = sin)` brings up the same page as the `help(topic = Trig)`.
+
+There are several arguments of `help` that we can set to alter its behaviour. We will just consider one of these. By default, the `help` function only searches for files associated with the base functions or with packages that we have loaded in the current session with the `library` function. If you wanted to search for help on the `mutate` function -- which is part of the `dplyr` package -- but you haven't run `library(dplyr)` yet this will not work:
+```{r}
+help(mutate)
+```
+Instead, you need tell `help` where to look by setting the `package` argument:
+```{r, eval=FALSE}
+help(mutate, package = dplyr)
+```
+
+You should try to start using `help` every time you get stuck because you cannot get a function to work. It doesn't matter how experienced an R user you become, you will occasionally forget how to use the odd function. It is for this reason that R has a built in shortcut for `help`. This is accessed via `?`. For example, instead of typing `help(topic = sin)` (or just `help(sin)`) at the Console, we can bring up the help page for the `sin` function by using `?` like this:
+```{r, eval=FALSE}
+?sin
+```
+This is just a convenient shortcut that does the same thing as `help`. The only difference is that `?` does not allow us to set arguments such as `package`.
+
+## Navigating help files {#nav-help}
+
+Navigating a typical help file is a little daunting at first. These files can be quite long and they contain a lot of jargon. The help files associated with functions -- the most common type -- have a consistent structure though. There are a number of distinct sections, whose order is always the same. Wrestling with a help file is much easier if you are at least clear about the purpose of each section. After the title, there are eight of these you need to know about:
+
+1. __Description__  gives us a short overview of what the function is meant to be used for. If the help page covers a family of related functions it gives a collective overview of all the functions. You should always read this before diving into the rest of the help file.
+
+2. __Usage__ shows how the function(s) are meant to be used. It lists each member of the family as well as their common arguments. The argument names are listed on their own if they have no default, or in name-value pairs, where the value gives the default used should we choose not to set it ourselves when we call the function.
+
+3. __Arguments__ lists each of the allowed arguments, along with a short description of what they influence. This also tells us what what kind of data we are allowed to use with each argument, along with the allowable values (if this is relevant). You should always read this section.
+
+4. __Details__ describes precisely how the function(s) behave, often in painful, jargon-laden detail. It is usually the longest and hardest-to-comprehend section but is worth reading as it flags up common "gotchas". You can sometimes get away with ignoring this section if the previous three are informative enough, but if you really want to understand a function you need to wade through this.
+
+5. __Value__ explains kind of data structure or object a function returns to us when it finishes doing whatever it does. You can often guess what this will be from the type of function, but it is worth checking to see if your reasoning is correct. If it is not, you probably don't understand the function yet.
+
+6. __References__ just lists the key reference(s) you should read if you really need to know the hows and whys of a function. You almost never need to read this. The one exception is if the function implements a particular statistical tool. In that case it might be sensible to go away and read the literature before trying to use it.
+
+7. __See Also__ gives links to the help pages of related functions. These are usually functions that do something similar to the function of interest or are meant to be used in conjunction with it. You can often learn quite a bit about packages or related functions by following the links in this section.
+
+8. __Examples__ provides one or more examples of how to use the function. These are stand-alone examples, so there is nothing to stop you running them. This is often the most useful section of all. Seeing a function in action is a very good way to cut through the jargon and start to understand how it works. 
+
+## Vignettes and demos {#vignettes}
+
+The Oxford English Dictionary defines a vignette as, "A brief evocative description, account, or episode." The purpose of a package vignette in R is to provide a relatively brief, practical account of one or more of its features. Not all packages come with vignettes, though many of the best thought out packages do. You can use the `vignette` function to view all the available vignettes in Rstudio. This will open up a tab that lists each vignette under their associated package name along with a brief description. A package will often have more than one vignette. If you just want to see the vignettes associated with a particular package, you should set the `package` argument. For example, to see the vignettes associated with __dplyr__ you would use:
+```{r, eval=FALSE}
+vignette(package = "dplyr")
+```
+
+Each vignette has a name (the "topic") and is available either as a PDF or HTML file (or both). We can view a particular vignette by passing the `vignette` function the `package` and `topic` arguments. For example, to view the "data_frames" vignette in the __`dplyr`__ package we would use: 
+```{r, eval=FALSE}
+vignette(topic = "data_frames", package = "dplyr")
+```
+
+The `vignette` function is fine, though it is usually more convenient to browse the list of vignettes inside a web browser. This allows you to open a particular vignette directly by clicking on its link, rather than working at the Console. We can use the `browseVignettes` function to do this:
+```{r, eval=FALSE}
+browseVignettes()
+```
+This will open a page in your browser showing the vignettes you can view. As you might expect by now, you can narrow your options to a specific package by setting the `package` argument.
+
+In addition to vignettes, some packages also include one or more demos (i.e. demonstrations). Demos are a little like vignettes, but instead of just opening a file for you to read, the demo function can actually runs a demonstration R scripts for you. We use the `demo` function without any arguments to list the available demos:
+```{r, eval=FALSE}
+demo()
+```
+When we use the `demo` function like this it only lists the demos associated with packages that have been loaded in the current session (via `library`). If we want to see all the demos you can run you need to use the somewhat cryptic `demo(package = .packages(all.available = TRUE))`. 
+
+In order to actually run a demo we use the `demo` function, setting the `topic` and `package` arguments. For example, to run the "colors" demo in the __grDevices__ package we would use:
+```{r, echo=FALSE}
+demo(colors, package = "grDevices", ask = FALSE)
+```
+This particular demo shows off some of the pre-defined colours we might use to customise the appearance of a plot. We've suppressed the output though because so much is produced.
+
+
+

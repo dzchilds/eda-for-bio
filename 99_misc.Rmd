@@ -1,8 +1,4 @@
-# 
-
-## Coding conventions
-
-Although they often allow a great deal of flexibily in the way things are named, most computer languages have a well-defined set of cenventions for names. Unfortunately, R is not one of them. The R community never managed to agree on a set of conventions for how we should name things, and the R ecosystem so large that it's probably too late for this to ever happen. This doesn't  
+# Stuff...
 
 ```{block, type="info"}
 #### Values and objects
@@ -11,3 +7,40 @@ We've been using the word "value" to describe the result of a calculation. That 
 
 In R-land, the word "object" just means "a thing R knows how to represent". R objects can be stored and reused. They can as simple as a set of one or more numbers, or a more complicated construct like a statistical model or a graphical description of some data. 
 ```
+
+## Mathematical functions in R
+
+Many R functions behave in a very similar way to the mathematical functions you may have studied at secondary school. They take one or inputs (the arguments) and then map these to a unique output. Indeed, most familiar mathematical functions are available in R. These can all be used  with a single argument, named `x`. Try the following to gain a sense of how to use them:
+
+* There is very often more than one way to achieve the same result in R. See if you can find the solutions to a quadratic equation again (last topic) using R, but this time write the two required R expressions using the `sqrt` function. Which version do you find easier to read? 
+
+* Compare the behaviour of `sin` and `sinpi`. Hints: (1) R always follows scientific convention, which means angles are measured in radians. One full rotation of a circle is $2\pi$ radians. (2) The mathematical constant $\pi$ is available in r -- called `pi`. See if you can work out why we seem to have two very similar functions by comparing the results for a half-rotation.
+
+If you did not study maths past the age of 16 the second exercise might be a little tricky, so skip it if you don't feel like Googling some trigonometry.
+
+## Coding conventions
+
+Although they often allow a great deal of flexibily in the way things are named, most computer languages have a well-defined set of cenventions for names. Unfortunately, R is not one of them. The R community never managed to agree on a set of conventions for how we should name things, and the R ecosystem so large that it's probably too late for this to ever happen. This doesn't  
+
+### Formatting functions
+
+Since we are starting to use functions, now is a good time to think about basic formatting issues. Take another look at the way we wrote out `round(x = 3.141593, digits = 2)`. There are a few conventions demonstrated here that you should really try to adopt: 1) although it is perfectly valid to place a space between the function name and the parentheses -- R will be able to interpret your code -- this makes your code harder to read, so leave out the space; 2) remember to place a space after, but not before, each comma when writing out a series of arguments; 3) put a space either side of the `=` sign when writing out the name-value pairs. This may seem like nit-picking, but trust us, if you adopt these conventions you will make fewer mistakes and spend less time trying to write error-free scripts.
+
+## Beyond vectors {#data-structures}
+
+A data structure is just a particular way of organising data (e.g. numbers) on your computer, so that it can be accessed easily and efficiently. Computer languages use many different kinds of data structures, about which long and tedious books have been written. Luckily, we only need to learn about a few to use R for data analysis, and in this course only two kinds of data structure really matter. It is worth briefly reviewing the common R data structures though, in case you end up reading about them at some point.
+
+* __(Atomic) Vectors__: A vector is a "1-dimensional" object that contains an ordered collection of data objects that can be accessed by their position: position 1, position 2, position 3, and so one. When people talk about "vectors"" in R they are often actually referring to __Atomic Vectors__. These are the simplest kind of data structure in R. They are just vectors that can only contain data of one type, for example, all integers (e.g. 2, 4, 6, ...) or all characters (e.g. "A", "B", "C"). They are called "atomic" for the simple reason that they can't be broken down into anything simpler.
+
+* __Matrices and Arrays__: A matrix is essentially a 2-dimensional version of a vector. They are table-like data structures where the data is accessed via a row position and column position: row 1, column 1; row 1, column 2; row 2, column 1, and so on. Matrices crop up a lot in statistics and mathematics, so it is not surprising that they are supported in R. Arrays are a further generalisation of vectors to more than two dimensions.
+
+* __Lists__: You can think of these as another generalisation of vectors. They are (usually) a 1-dimensional object that contains an ordered collection of data objects accessed by their position. However, they can contain virtually any kind of object R can construct. For example, a list might contain an atomic vectors at position 1, a matrix at position 2, another list at position 3, and even a function at position 4. Lists are really useful because they give us a way to keep a number of different kinds of objects together.
+
+* __Data frames__: Data frames are a bit like a cross between a list and matrix. They are designed to store collections of related variables together so that we can use them with R's plotting and statistical modelling facilities. As with matrices we can access the elements of of a data frame by referencing rows and column positions. They are list-like, because different types of data can be stored in separate columns. 
+
+Don't worry to much if those descriptions don't make a whole lot of sense to you at the moment. We just want you to be aware of the main types of data structure you may run into in the future. In this course we only really care about vectors and data frames. The rest of this topic is concerned with vectors. We will deal with data frames in the next block when we start to discuss how to work with data in R.
+
+
+
+
+
