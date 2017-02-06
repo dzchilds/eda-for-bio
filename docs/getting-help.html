@@ -26,7 +26,7 @@
 <meta name="author" content="Dylan Z. Childs">
 
 
-<meta name="date" content="2017-01-29">
+<meta name="date" content="2017-02-05">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -174,13 +174,14 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="4" data-path="numeric-vectors.html"><a href="numeric-vectors.html"><i class="fa fa-check"></i><b>4</b> Numeric vectors</a><ul>
 <li class="chapter" data-level="4.1" data-path="numeric-vectors.html"><a href="numeric-vectors.html#introduction-1"><i class="fa fa-check"></i><b>4.1</b> Introduction</a></li>
 <li class="chapter" data-level="4.2" data-path="numeric-vectors.html"><a href="numeric-vectors.html#intro-vectors"><i class="fa fa-check"></i><b>4.2</b> Numeric vectors</a></li>
-<li class="chapter" data-level="4.3" data-path="numeric-vectors.html"><a href="numeric-vectors.html#making-numeric-vectors"><i class="fa fa-check"></i><b>4.3</b> Making numeric vectors</a><ul>
-<li class="chapter" data-level="4.3.1" data-path="numeric-vectors.html"><a href="numeric-vectors.html#named-vectors"><i class="fa fa-check"></i><b>4.3.1</b> Named vectors</a></li>
-<li class="chapter" data-level="4.3.2" data-path="numeric-vectors.html"><a href="numeric-vectors.html#generating-sequences-of-numbers"><i class="fa fa-check"></i><b>4.3.2</b> Generating sequences of numbers</a></li>
-<li class="chapter" data-level="4.3.3" data-path="numeric-vectors.html"><a href="numeric-vectors.html#generating-repeated-sequences-of-numbers"><i class="fa fa-check"></i><b>4.3.3</b> Generating repeated sequences of numbers</a></li>
+<li class="chapter" data-level="4.3" data-path="numeric-vectors.html"><a href="numeric-vectors.html#constructing-numeric-vectors"><i class="fa fa-check"></i><b>4.3</b> Constructing numeric vectors</a></li>
+<li class="chapter" data-level="4.4" data-path="numeric-vectors.html"><a href="numeric-vectors.html#named-vectors"><i class="fa fa-check"></i><b>4.4</b> Named vectors</a></li>
+<li class="chapter" data-level="4.5" data-path="numeric-vectors.html"><a href="numeric-vectors.html#generating-sequences-of-numbers"><i class="fa fa-check"></i><b>4.5</b> Generating sequences of numbers</a><ul>
+<li class="chapter" data-level="4.5.1" data-path="numeric-vectors.html"><a href="numeric-vectors.html#generating-sequences-of-numbers-1"><i class="fa fa-check"></i><b>4.5.1</b> Generating sequences of numbers</a></li>
+<li class="chapter" data-level="4.5.2" data-path="numeric-vectors.html"><a href="numeric-vectors.html#generating-repeated-sequences-of-numbers"><i class="fa fa-check"></i><b>4.5.2</b> Generating repeated sequences of numbers</a></li>
 </ul></li>
-<li class="chapter" data-level="4.4" data-path="numeric-vectors.html"><a href="numeric-vectors.html#vectorised-operations"><i class="fa fa-check"></i><b>4.4</b> Vectorised operations</a></li>
-<li class="chapter" data-level="4.5" data-path="numeric-vectors.html"><a href="numeric-vectors.html#extract-subset"><i class="fa fa-check"></i><b>4.5</b> Extracting subsets of vectors</a></li>
+<li class="chapter" data-level="4.6" data-path="numeric-vectors.html"><a href="numeric-vectors.html#vectorised-operations"><i class="fa fa-check"></i><b>4.6</b> Vectorised operations</a></li>
+<li class="chapter" data-level="4.7" data-path="numeric-vectors.html"><a href="numeric-vectors.html#extract-subset"><i class="fa fa-check"></i><b>4.7</b> Extracting subsets of vectors</a></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="other-kinds-of-vectors.html"><a href="other-kinds-of-vectors.html"><i class="fa fa-check"></i><b>5</b> Other kinds of vectors</a><ul>
 <li class="chapter" data-level="5.1" data-path="other-kinds-of-vectors.html"><a href="other-kinds-of-vectors.html#other-vectors"><i class="fa fa-check"></i><b>5.1</b> Introduction</a><ul>
@@ -341,10 +342,10 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 ## 
 ## &gt; showCols2()</code></pre>
 <pre><code>## Loading required package: grid</code></pre>
-<p><img src="eda-for-bio_files/figure-html/unnamed-chunk-148-1.png" width="672" /><img src="eda-for-bio_files/figure-html/unnamed-chunk-148-2.png" width="672" /></p>
+<p><img src="eda-for-bio_files/figure-html/unnamed-chunk-151-1.png" width="672" /><img src="eda-for-bio_files/figure-html/unnamed-chunk-151-2.png" width="672" /></p>
 <pre><code>## 
 ## &gt; showCols2(bg = &quot;gray33&quot;)</code></pre>
-<p><img src="eda-for-bio_files/figure-html/unnamed-chunk-148-3.png" width="672" /></p>
+<p><img src="eda-for-bio_files/figure-html/unnamed-chunk-151-3.png" width="672" /></p>
 <pre><code>## 
 ## &gt; ###
 ## &gt; 
@@ -383,7 +384,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 ## +           paste0(&quot;darkorange&quot;, c(&quot;&quot;,1:2)), paste0(&quot;darkgoldenrod&quot;, 1:2),
 ## +           &quot;orange&quot;, &quot;orange1&quot;, &quot;sandybrown&quot;, &quot;tan1&quot;, &quot;tan2&quot;),
 ## +         nrow=2)</code></pre>
-<p><img src="eda-for-bio_files/figure-html/unnamed-chunk-148-4.png" width="672" /></p>
+<p><img src="eda-for-bio_files/figure-html/unnamed-chunk-151-4.png" width="672" /></p>
 <pre><code>## 
 ## &gt; ##&#39; Find close R colors() to a given color {original by Marius Hofert)
 ## &gt; ##&#39; using Euclidean norm in (HSV / RGB / ...) color space
@@ -436,22 +437,22 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 ## &gt; ## neighborhood of one you know :
 ## &gt; 
 ## &gt; plotCol(nearRcolor(&quot;deepskyblue&quot;, &quot;rgb&quot;, dist=50))</code></pre>
-<p><img src="eda-for-bio_files/figure-html/unnamed-chunk-148-5.png" width="672" /></p>
+<p><img src="eda-for-bio_files/figure-html/unnamed-chunk-151-5.png" width="672" /></p>
 <pre><code>## 
 ## &gt; plotCol(nearRcolor(&quot;deepskyblue&quot;, dist=.1))</code></pre>
-<p><img src="eda-for-bio_files/figure-html/unnamed-chunk-148-6.png" width="672" /></p>
+<p><img src="eda-for-bio_files/figure-html/unnamed-chunk-151-6.png" width="672" /></p>
 <pre><code>## 
 ## &gt; plotCol(nearRcolor(&quot;tomato&quot;, &quot;rgb&quot;, dist= 50), nrow=3)</code></pre>
-<p><img src="eda-for-bio_files/figure-html/unnamed-chunk-148-7.png" width="672" /></p>
+<p><img src="eda-for-bio_files/figure-html/unnamed-chunk-151-7.png" width="672" /></p>
 <pre><code>## 
 ## &gt; plotCol(nearRcolor(&quot;tomato&quot;, &quot;hsv&quot;, dist=.12), nrow=3)</code></pre>
-<p><img src="eda-for-bio_files/figure-html/unnamed-chunk-148-8.png" width="672" /></p>
+<p><img src="eda-for-bio_files/figure-html/unnamed-chunk-151-8.png" width="672" /></p>
 <pre><code>## 
 ## &gt; plotCol(nearRcolor(&quot;tomato&quot;, &quot;Luv&quot;, dist= 25), nrow=3)</code></pre>
-<p><img src="eda-for-bio_files/figure-html/unnamed-chunk-148-9.png" width="672" /></p>
+<p><img src="eda-for-bio_files/figure-html/unnamed-chunk-151-9.png" width="672" /></p>
 <pre><code>## 
 ## &gt; plotCol(nearRcolor(&quot;tomato&quot;, &quot;Lab&quot;, dist= 18), nrow=3)</code></pre>
-<p><img src="eda-for-bio_files/figure-html/unnamed-chunk-148-10.png" width="672" /> This particular demo shows off some of the pre-defined colours we might use to customise the appearance of a plot. We’ve suppressed the output though because so much is produced.</p>
+<p><img src="eda-for-bio_files/figure-html/unnamed-chunk-151-10.png" width="672" /> This particular demo shows off some of the pre-defined colours we might use to customise the appearance of a plot. We’ve suppressed the output though because so much is produced.</p>
 
 </div>
 </div>

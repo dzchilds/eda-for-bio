@@ -3,60 +3,77 @@
 
 ## Introduction 
 
-[FIXME]
+A data structure is just a particular way of organising data on your computer so that it can be accessed easily and efficiently. Computer languages use many different kinds of data structures, about which long and tedious books have been written. Luckily, we only need to learn about a couple of relatively simple data structures to use R for data analysis. In fact, in this book only two kinds of data structure really matter: "vectors" and "data frames". The next couple of chapters will consider vectors. Later, in the next section of the book we'll learn how to work with collections of vectors inside data frames.
 
-Remember that we said atomic vectors are the simplest kind of data structure in R? This really is true, in that whenever you work with a number in R you are (invisibly) working with a atomic (numeric) vector of length one. Here is the very first R expression we evaluate in the last topic:
+A vector is a 1-dimensional object that contains a set of data values, which are accessible by their position: position 1, position 2, position 3, and so one. When people talk about vectors in R they're often referring to __atomic vectors__^[The other common vector is called a "list". Lists are very useful but we won't cover them in this book]. An atomic vector is the simplest kind of data structure in R. There are a few different kinds of atomic vector, but the defining feature of each one is that it can only contain data of one type. An atomic vector might contain all integers (e.g. 2, 4, 6, ...) or all characters (e.g. "A", "B", "C"), but it can't mix and match integers and characters (e.g. "A", 2, "C", 5).
+
+The word "atomic" in the name refers to the fact that an atomic vector can't be broken down into anything simpler---they are the simplest kind of data structure R knows about. Even when working with a single number we're actually dealing with an atomic vector. It just happens to be of length one. Here's the very first expression we evaluated in the first chapter:
 ```{r}
-1+1
+1 + 1
 ```
-Look at the output. It has is `[1]` at the beginning. We told you to ignore this before because we weren't in a position to understand its significance. Now we are. It is a clue that the output resulting from `1+1` is in fact an numeric vector. If you need more convincing try using the `is.atomic` and `is.numeric` functions. These check whether their argument is atomic and numeric, respectively: both `is.atomic(1+1)` and `is.numeric(1+1)` print `TRUE` to the screen. This little exercise demonstrates an important point about R, which is that unlike many other languages, there is no way to represent just a number. A single number is treated as a vector of length one. The same is true for things like character strings and logical values discussed below. 
+Look at the output. What is that `[1]` at the beginning? We ignored it before because we weren't in a position to understand its significance. The `[1]` is a clue that the output resulting from `1 + 1` is a atomic vector. We can verify this with the `is.vector` and `is.atomic` functions:
+```{r}
+x <- 1 + 1
+# what value is associated with x?
+x
+# is it a vector?
+is.vector(x)
+# is it atomic?
+is.atomic(x)
+```
+This little exercise demonstrates an important point about R. Atomic vectors really are the simplest kind of data structure in R. Unlike many other languages there is simply no way to represent just a number. Instead, a single number must be stored as a vector of length one. The same is true for things like sets of characters and logical values (`TRUE` or `FALSE`) discussed in the next chapter. 
+
+This chapter has two goals. First, we want to learn the basics of how to work with vectors. For example, we'll see how "vectorised operations" may be used to express a repeated calculation. Second, we'll learn how to construct and use __numeric vectors__ to perform various calculations. Keep in mind that although we're going to focus on numeric vectors, many of the principles we learn here can be applied to the other kinds of vectors considered later.
 
 ## Numeric vectors {#intro-vectors}
 
-The most common type of atomic vector we tend to work with in R are __numeric vectors__. In this section we will see how to make numeric vectors. We will also learn "vectorised operations", using numeric vectors to illustrate the main ideas. Keep in mind that these also apply to other kinds of vectors.
-
-Here is one of the simplest ways to make a numeric vector:
+A lot of work in R involves __numeric vectors__. After all, data analysis is all about numbers. Here's a simple way to contruct a numeric vector:
 ```{r}
 numeric(length = 50)
 ```
-What happened here? We made a numeric vector with 50 __elements__, each of which is the number 0. When we create a vector but don't assign it to a name using ` <- ` R just prints it to the Console for us, as you should expect by now. The word "element" is used to reference any object (a number in this case) that resides at a particular position. Notice what happens when the numeric vector is printed to the screen. It can't fit on one line, so it is printed over two. At the beginning of each line there is a `[X]`, where the `X` is a number that describes the position of the element at the beginning of that line.
+What happened? We made a numeric vector with 50 __elements__, each of which is the number 0. The word "element" is used to reference any object (a number in this case) that resides at a particular position in a vector. 
+
+When we create a vector but don't assign it to a name using ` <- ` R just prints it to the Console for us. Notice what happens when the vector is printed to the screen. Since the length-50 vector can't fit on one line, it was printed over two. At the beginning of each line there is a `[X]`: the `X` is a number that describes the position of the element shown at the beginning of a particular line.
 
 ```{block, type='info'}
 #### Different kinds of numbers
 
-Roughly speaking, R stores numbers in two different ways depending of whether they are whole numbers ("integers") or numbers containing decimal points ("doubles" -- don't ask). We are not going to worry about this distinction. Generally speaking, the distinction is invisible to us as users so it is easier to just think in terms of numeric vectors. 
+Roughly speaking, R stores numbers in two different ways depending of whether they are whole numbers ("integers") or numbers containing decimal points ("doubles" -- don't ask). We're not going to worry about this distinction. Most of the time the distinction is failry invisible to users so it is easier to just think in terms of numeric vectors. We can mix and match integers and doubles in R without having to worry too much about R is storing the numbers.
 ```
 
-If we need to check that we really have made a numeric vector there is a function called `is.numeric` to do this:
+If we need to check that we really have made a numeric vector we can use the `is.numeric` function to do this:
 ```{r}
+# let's create a variable that is a numeric vector 
 numvec <- numeric(length = 50)
+# check it really is a numeric vector
 is.numeric(numvec)
 ```
-This returns `TRUE` as expected (a value of `FALSE` would imply that `numvec` is some other kind of object). This probably doesn't look like the most useful function in the world, but sometimes we need simple sanity checks to root out mistakes in our scripts. 
+This returns `TRUE` as expected. A value of `FALSE` would imply that `numvec` is some other kind of object. This may not look like the most useful function in the world, but sometimes we need functions like `is.numeric` to understand what R is doing or root out mistakes in our scripts.
 
-One thing to keep in mind is that when you print a numeric vector to Console R only prints the elements to 7 significant figures by default. We can see this by printing the built in constant `pi` to the Console:
+Keep in mind that when we print a numeric vector to Console R only prints the elements to 7 significant figures by default. We can see this by printing the built in constant `pi` to the Console:
 ```{r}
 pi
 ```
-The actual value stored in `pi` is much more precise than this. 
+The actual value stored in `pi` is actually much more precise than this. We can see this by printing `pi` again using the `print` function: 
+```{r}
+print(pi, digits = 16)
+```
 
-## Making numeric vectors
+## Constructing numeric vectors
 
-We just learned how to use the `numeric` function to make a numeric vector of zeros of any length (just vary the the `length` argument). This is arguably not a particularly useful skill. Usually, we want to work with a vector whose elements have particular values. One of the more useful functions for creating these is the `c` function, where the "c" stands for combine. Take a look at this example:
+We just saw how to use the `numeric` function to make a numeric vector of zeros. The size of the vector is controlled by the `length` argument---we used `length = 50` above to make a vector with 50 elements. This is arguably not a particularly useful skill, as we usually need to work vectors of particular values (not just 0). A very useful function for creating custom vectors is the `c` function. Take a look at this example:
 ```{r}
 c(1.1, 2.3, 4.0, 5.7)
 ```
-The `c` function takes a variable number of arguments, each of which is a vector. In this example we supplied the `c` function with four arguments, each of which was a vector of length 1 (remember: a single number is treated as a length-one vector). The `c` function combines these to generate a vector of length 4. Simple. Now look at this example:
+The "c" in the function name stands for "combine". The `c` function takes a variable number of arguments, each of which must be a vector of some kind, and combines these into a single, new vector. We supplied the `c` function with four arguments, each of which was a vector of length 1 (remember: a single number is treated as a length-one vector). The `c` function combines these to generate a vector of length 4. Simple. Now look at this example:
 ```{r}
 vec1 <- c(1.1, 2.3)
-vec2 <- c(4.0, 5.7)
+vec2 <- c(4.0, 5.7, 3.6)
 c(vec1, vec2)
 ```
-This just shows that we can use the `c` function to concatenate ("stick together") two or more vectors, even if they are not of length 1.
+This shows that we can use the `c` function to concatenate ("stick together") two or more vectors, even if they are not of length 1. We combined a length-2 vector with a length-3 vector to produce a new length-5 vector.
 
-You may have noticed that we did not name the arguments in those two examples (there was no `=` involved). The `c` function is an example of one of those flexible functions that breaks the simple rules of thumb for using arguments that we set out earlier: it can take a variable number of arguments that do not have predefined names. This behaviour is  necessary if you think about how `c` has to work. In order to be at all useful it needs to be able to take any combination of arguments. We can name the arguments if we want to, resulting in a named vector. We will look at the effect of using named arguments with `c` and named vectors in general in the next section.
-
-The main limitation of the `c` function is that we have to manually construct vectors from their elements. This is not very practical if we need to construct long vectors of numeric values. This is a very common task in R. There are a couple of functions worth knowing about to help us do this. These are useful when the elements of the target vector need to follow a sequence or repeating pattern. Again, these kinds of vectors are used a lot in R.
+Notice that we did not have to name the arguments in those two examples---there were no `=` involved. The `c` function is an example of one of those flexible functions that breaks the simple rules of thumb for using arguments that we set out earlier: it can take a variable number of arguments, and these areguments do not have predefined names. This behaviour is  necessary if you think about how `c` has to work: in order to be useful it needs to be flexible enough to take any combination of arguments.
 
 ```{block, type="info"}
 #### Finding out about a vector R
@@ -64,7 +81,7 @@ The main limitation of the `c` function is that we have to manually construct ve
 Sometimes it is useful to be able to find out a little extra information about a vector you are working with, especially if it is very large. Three functions that can extract some useful information about a vector for us are `length`, `head` and `tail`. Using a variety of different vectors, experiment with these to find out what they do. Make sure you use vectors that aren't too short (e.g. with a length of at least 10). Hint: `head` and `tail` can be used with a second argument, `n`. 
 ```
 
-### Named vectors
+## Named vectors
 
 What happens if we name the arguments to `c` when constructing a vector? Take a look at this:
 ```{r}
@@ -77,9 +94,13 @@ names(namedv)
 ```
 Being able to name the elements of a vector is very useful because it enables us to more easily identify relevant information and extract the bits we need---we'll see how this works in the next chapter. 
 
+## Generating sequences of numbers
+
+The main limitation of the `c` function is that we have to manually construct vectors from their elements. This isn't very practical if we need to construct very long vectors of numeric values. There are various functions that can help with this kind of thing though. These are useful when the elements of the target vector need to follow a sequence or repeating pattern. This may not appear all that useful at first, but repeating sequences are used a lot in R.
+
 ### Generating sequences of numbers
 
-The `seq` function is (unsurprisingly) designed to generate sequences of numbers. We always have to specify at least two arguments, `from` and `to`. These specify the start and end values of the sequence we are aiming for, respectively. There are different ways to control the sequence produced by `seq`. The method is determined by our choice of arguments: `by`, `length.out` and `along.with`. You typically need to specify three out of the five main arguments of `seq`, although fewer can be used. 
+The `seq` function allows us to generate sequences of numbers. It needs at least two arguments, but there are several different ways to control the sequence produced by `seq`. The method used is determined by our choice of arguments: `from`, `to`, `by`, `length.out` and `along.with`. We don't need to use all of these though---setting 2-3 of these arguments will often work:
 
 1. Using the `by` argument generates a sequence of numbers that increase or decrease by the requested step size:
 ```{r}
@@ -93,36 +114,37 @@ You can generate a descending sequence by using a negative `by` value, like this
 ```{r}
 seq(from = 12, to = 0, by = -2)
 ```
-Just remember to make sure the `from` argument is larger than the `by` argument if you do this or you will generate an error.
 
-2. Using the `length.out` argument generates a sequence of numbers such that the resulting vector has the length specified by `length.out`:
+2. Using the `length.out` argument generates a sequence of numbers where the resulting vector has the length specified by `length.out`:
 ```{r}
-seq(from = 0, to = 12, length = 6)
+seq(from = 0, to = 12, length.out = 6)
 ```
-Using the `length.out` argument will always produce a sequence that starts and ends exactly on the values specified by `from` and `to`. Obviously, if you need a descending sequence just make sure `from` is larger than `to`.
+Using the `length.out` argument will always produce a sequence that starts and ends exactly on the values specified by `from` and `to` (if we need a descending sequence we just have to make sure `from` is larger than `to`).
 
 3. Using the `along.with` argument allows us to use another vector to determine the length of the numeric sequence we want to produce:
 ```{r}
-myvec <- c(1, 3, 7, 2, 4, 2)
-seq(from = 0, to = 12, along.with = myvec)
+# make any any vector we like
+my_vec <- c(1, 3, 7, 2, 4, 2)
+# use it to make a sequence of the same length
+seq(from = 0, to = 12, along.with = my_vec)
 ```
-It does not matter what the elements of `myvec` were in this example. It is the length of `myvec` that controls the behaviour of `seq` when we use the `along.with`. This example generated the same result as the last one because the length of `myvec` is 6.
+It doesn't matter what the elements of `myvec` are. The behaviour of `seq` is controlled by the length of `myvec` when we use `along.with`.
 
-When using the `seq` function it is conventional to leave out the `from` and `to` argument names. It is obvious what behaviour is controlled by these first two arguments, so we tend not to name them to keep our R code compact. For example, we would typically write the first example in this subsection as:
+It's conventional to leave out the `from` and `to` argument names when using the `seq` function. For example, we could rewrite the first example above as:
 ```{r}
 seq(0, 12, by = 2)
 ```
-If you leave out the name of the third argument as well, position matching or arguments ensures that it is treated as the `by` argument. This is equivalent to the previous example:
+When we leave out the name of the third argument its value is position matched to the `by` argument:
 ```{r}
 seq(0, 12, 2)
 ```
-Our advice is to explicitly name the by argument for now, rather than relying on position matching. this will remind you what you are doing and will hopefully stop you forgetting about the different control arguments.
+However, our advice is to explicitly name the `by` argument instead of relying on position matching, because this will remind you what you're doing and will stop you forgetting about the different control arguments.
 
 If we do not specify values of either `by`, `length.out` and `along.with` when using `seq` the default behaviour is to assume we meant `by = 1`:
 ```{r}
-seq(from = 0, to = 12)
+seq(from = 1, to = 12)
 ```
-Generating sequences of integers that go up or down in steps of 1 is something we frequently have to do in R. Because of this, there is a special operator to help us do this -- the colon, `:`. It is very straightforward to understand. For example, to produce the last sequence again we use:
+Generating sequences of integers that go up or down in steps of 1 is something we do a lot in R. Because of this, there is a special operator to generate these simple sequences---the colon, `:`. For example, to produce the last sequence again we use:
 ```{r}
 1:12
 ```
@@ -130,17 +152,25 @@ When we use the `:` operator the convention is to __not__ leave spaces either si
 
 ### Generating repeated sequences of numbers
 
-The `rep` function is designed to replicate the values inside a vector (no surprises there). The rep function is easy to use. The first argument (called `x`) is the vector we want to replicate. There are two other arguments that control how this is done. The `times` argument just specifies the number of times to replicate the whole vector:
+The `rep` function is designed to replicate the values inside a vector, i.e. it's short for "replicate". The first argument (called `x`) is the vector we want to replicate. There are two other arguments that control how this is done. The `times` argument specifies the number of times to replicate the whole vector:
 ```{r}
+# make a simple sequence of integers
 seqvec <- 1:4
+seqvec
+# now replicate *the whole vector* 3 times
 rep(seqvec, times = 3)
 ```
-All we did here was take a sequence of integers from 1 to 4 and replicate this end-to-end, three times. The resulting vector has length 12. Alternatively, we use the `each` argument to first replicate each element of a vector, then combine these end-to-end:
+All we did here was take a sequence of integers from 1 to 4 and replicate this end-to-end three times, resulting in a length-12 vector. Alternatively, we can use the `each` argument to replicate each element of a vector while retaining the original order:
 ```{r}
+# make a simple sequence of integers
 seqvec <- 1:4
+seqvec
+# now replicate *each element* vector 3 times
 rep(seqvec, each = 3)
 ```
-This example produced a similar vector to the previous one. It contains the same elements and has the same length, but now the order is different. All the 1's appear first, then the 2's, and so on. We can also use both the `times` and `each` arguments together if we want to:
+This example produced a similar vector to the previous one. It contains the same elements and has the same length, but now the order is different. All the 1's appear first, then the 2's, and so on. 
+
+Predictably, we can also use both the `times` and `each` arguments together if we want to:
 ```{r}
 seqvec <- 1:4
 rep(seqvec, times = 3, each = 2)
@@ -153,42 +183,56 @@ rep(rep(seqvec, each = 2), times = 3)
 
 ## Vectorised operations
 
-Most simple operators (e.g. `+` and `-`) and many functions in R are __vectorised__. All this means is that when you use a vectorised operator / function it operates on vectors on an element-by-element basis. Take a look at this example to see what we mean by this:
+All the simple arithmetic operators (e.g. `+` and `-`) and many mathematical functions are __vectorised__ in R . What this this means is that when we use a vectorised function it operates on vectors on an element-by-element basis. Take a look at this example to see what we mean by this:
 ```{r}
+# make a simple sequence
 x <- 1:10
 x
+# make another simple sequence *of the same length*
 y <- seq(0.1, 1, length = 10)
 y
+# add them
 x + y
 ```
-We constructed two numeric variables with a length of 10, `x` and `y`, where `x` is a sequence from 1 to 10 and `y` is a sequence from 0.1 to 1. When R evaluates the expression `x + y` it does this by adding the first element of `x` to the first element of `y`, the second element of `x` to the second element of `y`, and so on, working through all 10 elements of `x` and `y`. This may seem like the "obvious" thing to do, but most computer languages do not work like this. Instead we have to write a much more complicated expression to do something so simple. This is one of the reasons R is such a data analysis language: vectorisation allows us to express repetitious calculations in a simple, intuitive way. 
+We constructed two length-10 numeric vectors, called `x` and `y`, where `x` is a sequence from 1 to 10 and `y` is a sequence from 0.1 to 1. When R evaluates the expression `x + y` it does this by adding the first element of `x` to the first element of `y`, the second element of `x` to the second element of `y`, and so on, working through all 10 elements of `x` and `y`.
 
-Vectorisation is also implemented in the standard mathematical functions. For example, our friend the `round` function will round each element of vector:
+Vectorisation is also implemented in the standard mathematical functions. For example, our friend the `round` function will round each element of a numeric vector:
 ```{r}
-mynums <- seq(0, 1, length = 13)
-mynums
-round(mynums, digits = 2)
+# make a simple sequence of non-integer values
+my_nums <- seq(0, 1, length = 13)
+my_nums
+# now round the values
+round(my_nums, digits = 2)
 ```
-The same behaviour is seen with other mathematical functions like `sin`, `cos`, `exp`, and `log`. Each of these will apply the relevant function to each element of a numeric vector. Not all functions are vectorised though. For example, the `sum` function takes a vector of numbers and adds them up:
+The same behaviour is seen with other mathematical functions like `sin`, `cos`, `exp`, and `log`. Each of these will apply the relevant function to each element of a numeric vector. 
+
+Not all functions are vectorised. For example, the `sum` function takes a vector of numbers and adds them up:
 ```{r}
-sum(mynums)
+sum(my_nums)
 ```
-Although sum obviously works on a numeric vector it is not "vectorised" in the sense that it works element-by-element to return an output vector of the same length as its main argument.
+Although `sum` obviously works on a numeric vector it is not "vectorised" in the sense that it works element-by-element to return an output vector of the same length as its main argument.
 
 Many functions apply the vectorisation principle to more than one argument. Take a look at this example to see what we mean by this:
 ```{r}
-mynums <- rep(2/7, times = 6)
-round(mynums, digits = 1:6)
+# make a repeated set of non-integer values
+my_nums <- rep(2 / 7, times = 6)
+my_nums
+# round each one to a different number of decimal places
+round(my_nums, digits = 1:6)
 ```
-We constructed a length 6 vector containing the number 2/7 -- which equals approximately 0.285714 -- and then used the `round` function to round each element to a different number of decimal places. The first element was rounded to 1 decimal place, the second to two decimal places, and so on. We get this behaviour because instead of using a single number for the `digits` argument, we used a vector that is an integer sequence from 1 to 6.
+We constructed a length 6 vector containing the number 2/7 (~ 0.285714) and then used the `round` function to round each element to a different number of decimal places. The first element was rounded to 1 decimal place, the second to two decimal places, and so on. We get this behaviour because instead of using a single number for the `digits` argument, we used a vector that is an integer sequence from 1 to 6.
 
-This behaviour can save us a lot of time. It allows us to express a repetitious calculation in a single step while also varying the details of the calculation on an element-by-element basis. However, keep in mind that not every function treats its arguments in a vectorised way, so you need to check (most easily, by experimenting) whether this behaviour is available before relying on it. 
+```{block, type="info"}
+#### Vectorisation is not the norm
+
+R's vectorised behaviour may seem like the "obvious" thing to do, but most computer languages do not work like this. In other languages we typically have to write a much more complicated expression to do something so simple. This is one of the reasons R is such a data analysis language: vectorisation allows us to express repetitious calculations in a simple, intuitive way. This behaviour can save us a lot of time. However, not every function treats its arguments in a vectorised way, so we always need to check (most easily, by experimenting) whether this behaviour is available before relying on it.
+```
 
 ## Extracting subsets of vectors {#extract-subset}
 
-Extracting subsets of data is a very common task. Luckily for us, R is very good at doing this. In this last section we are going to see how to extract subsets of vectors. Actually, we are going to see how to extract subsets of atomic vectors, but that detail is not too crucial at this point. By the way, we use the word "subset" as a verb that is shorthand for "extract a subset of elements".
+At the beginning of this chapter we said that an atomic vector is a 1-dimensional object that contains an ordered collection of data values accessible by their position. Why is this useful? It means we can extract a subset of elements from a vector is we know their position in the vector.
 
-There are several ways to subset a vector. However, these always use a pair opening and closing square brackets, `[` and `]`. These should always be used together. Remember that we said a vector is a 1-dimensional object that contains an ordered collection of data objects that can be accessed by their position? This means we can use the `[` construct with a numeric vector of integer(s) to subset the elements of vector by their position. Take a look at this example:
+There are several ways to subset a vector, but we'll focus on the simplest for now. Whatever the method, we use a pair opening and closing square brackets, `[` and `]`, to express the subsetting operation. These are always used together. This means we can use the `[` construct with a numeric vector of integer(s) to subset the elements of vector by their position. Take a look at this example:
 ```{r}
 cvec <- c("Dylan", "Zachary", "Childs")
 cvec[1]
@@ -197,7 +241,8 @@ The `cvec` variable is a length 3 character vector, with elements corresponding 
 
 Remember, "the number 1" is in fact a numeric vector of length 1. This suggest we might be able to use longer vectors to extract more than one element: 
 ```{r}
-cvec <- c("Dylan", "Zachary", "Childs")
+# 
+my_vec <- seq(0, 1, by = 0.1)
 nindex <- c(1, 3)
 cvec[nindex]
 ```
