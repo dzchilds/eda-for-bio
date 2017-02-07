@@ -2,47 +2,56 @@
 
 ## Introduction {#other-vectors}
 
-We tend to use numeric vectors a lot. After all, the data we collect are often in the form of numbers, or they can at least be reduced to numerical summaries for further analysis. Sometimes however, we need to be able to represent other kinds of data. This chapter introduces two other types of atomic vector to help us do this: character vectors and logical vectors. 
+The data we collect and analyse are often in the form of numbers, so it comes as no surprise that we work with numeric vectors a lot in R. Nonethless, we also need to represent other kinds of data. This chapter introduces two other types of atomic vector to help us do this: character vectors and logical vectors. 
 
 ### Character vectors
 
-The elements of __character vectors__ are what are known as "character strings", or just "strings" if we are feeling lazy. The phrase "character string" is just computer-speak for a sequence of characters. When we want to make a character vector in R we need to use double or single quotation marks around the string(s). Here is how we can print the name "Dylan" to the Console:
+The elements of __character vectors__ are what are known as "character strings" (or just "strings" if we are feeling lazy). The term "character string" just refers a sequence of characters, such as "Treatment 1", "University of Sheffield", "Population Density".A character vector is an ordered collection of character string.
+
+When we want to construct a character vector in R we have to place double or single quotation marks around the characters. For example, we can print the name "Dylan" to the Console like this:
 ```{r}
 "Dylan"
 ```
-Notice the `[1]`. This shows that what we just printed is indeed an atomic vector of some kind. We also know it is a character vector because the output is printed with double quotes around the value. The quoting here is important. If we try to do the same thing without the quotes we generate an error:
+Notice the `[1]`. This shows that what we just printed is an atomic vector of some kind. We know it's a character vector because the output is printed with double quotes around the value. 
+
+We often need to make simple character vectors containing only one value---for example, to set the values of arguments to a function. The quoting is important. If we try to do the same thing without the quotes we produce an error:
 ```{r, error=TRUE}
 Dylan
 ```
-The reason for this should be clear if you have been following our discussions about R evaluates expressions. When the interpreter sees the word `Dylan` without quotes it assumes that this must be the name of a variable, so it goes in search of it in the global environment. We haven't made a variable called Dylan, so there is no way to evaluate the expression.
+What happened? When the interpreter sees the word `Dylan` without quotes it assumes that this must be the name of a variable, so it goes in search of it in the global environment. We haven't made a variable called Dylan, so there is no way to evaluate the expression and R spits out an error to let us know there's a problem.
 
-We often need to make simple character vectors with only one value (i.e. vectors of length 1)---usually to set the values of arguments to a function. However, we can make longer character vectors using the `c` function if we need to:
+Longer character vectors are typically constructed to represent data of some kind. The `c` function is often a good starting point for this kind of thing:
 ```{r}
-c("Dylan", "Zachary", "Childs")
+# make a length-3 character vector
+my_name <- c("Dylan", "Zachary", "Childs")
+my_name
 ```
-Here we made a length 3 character vector, with elements corresponding to a first name, a middle name, and a last name. Take note, this is __not__ the same as :
-```{r}
-c("Dylan Zachary Childs")
-```
-The only element of this character vector is a single string that contains the first, middle and last name separated by a spaces. We didn't need to use the the `c` function here because we were only ever working with a character vector of length 1. We just used only for consistency, i.e. we could have typed `"Dylan Zachary Childs"` and we would have ended up with exactly the same text printed at the Console.
+Here we made a length-3 character vector, with elements corresponding to a first name, middle name, and last name. If we want to extract one or more elements from a character vector by their position  
 
-In addition to using the `c` function, we can construct repeating character vectors with `rep`. This works on character vectors in exactly the same way as it does on numeric vectors:
+Take note, this is __not__ equivalent to the above :
 ```{r}
-cvec <- c("Dylan", "Zachary", "Childs")
-rep(cvec, each = 2, times = 3)
+my_name <- c("Dylan Zachary Childs")
+my_name
+```
+The only element of this character vector is a single character string containing the first, middle and last name separated by spaces. We didn't need to use the the `c` function here because we were only ever working with a length-1 character vector. i.e. we could have typed `"Dylan Zachary Childs"` and we would have ended up with exactly the same text printed at the Console.
+
+We can construct more compicated, repeating character vectors with `rep`. This works on character vectors in exactly the same way as it does on numeric vectors:
+```{r}
+c_vec <- c("Dylan", "Zachary", "Childs")
+rep(c_vec, each = 2, times = 3)
 ```
 Each element was replicated twice (`each = 2`), and then the whole vector was replicated three times (`times = 3`), end to end. 
 
-What about the `seq` function? Hopefully it is fairly obvious that we cannot use this function to construct character vectors. The `seq` function is designed to make sequences of numbers, from a starting value, to another. The notion of a sequence of character strings -- for example, from `"Dylan"` to `"Childs"` -- is meaningless.
+What about the `seq` function? Hopefully it is fairly obvious that we can't use this function to build a character vector. The `seq` function is designed to make sequences of numbers, from a starting value, to another. The notion of a sequence of character strings -- for example, from `"Dylan"` to `"Childs"` -- is meaningless.
 
 ### Logical vectors
 
-The elements of __logical vectors__ only take two values: `TRUE` or `FALSE`. These are called logical values. Do not let the simplicity of logical vectors fool you though: they are very useful. As with other kinds of vectors we can use the `c` function to construct short logical vectors and the `rep` function to construct repeating sequences of logical values:
+The elements of __logical vectors__ only take two values: `TRUE` or `FALSE`. Don't let the simplicity of logical vectors fool you---they're very useful. As with other kinds of atomic  vectors the `c` and `rep` functions can be used to construct logical vectors:
 ```{r}
-lvec <- c(TRUE, FALSE)
-rep(lvec, times = 2)
+l_vec <- c(TRUE, FALSE)
+rep(l_vec, times = 2)
 ```
-Nothing about this should surprise you by this point.
+Hopefuly nothing about that output is surprising by this point.
 
 So why are logical vectors useful? Their main purpose is to allow us to represent the results of questions such as, "is x greater than y". This may not sound particularly useful, but at the end of this topic we will see how such questions can implemented via logical vectors in order to extract subsets of data. Let's first look at how we use logical vectors to evaluate these kinds of questions. Before we can do that though we need to introduce __relational operators__. These sound fancy, but they are very simple: we use relational operators to evaluate the relative value of vector elements. Six are available in R:
 
