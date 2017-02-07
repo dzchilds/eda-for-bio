@@ -4,6 +4,8 @@
 
 Functions are a basic building block of any programming language. If you want to use R effectively---even if your needs are very simple---you need to understand how to use functions. We are not aiming to unpick the inner workings of functions in this course. That is an advanced topic that is best saved for a future time when you have gained much more experience of using them^[At some point, if you really want to understand what happens when you use a function you will need to grapple with ideas like _lazy evaluation_, _environments_ and _scoping_.]. The aim of this chapter is to explain what functions are for, how to use them, and how to avoid mistakes when doing so.
 
+## Functions and arguments
+
 The job of each function in R is to carry out some kind of calculation or computation that would typically require many lines of R code to do "from scratch". Functions allow us to reuse common computations while offering some control over the precise details of what actually happens. The best way to see what we mean by this is to see one in action. The `round` function is used to round one or more number(s) to a significant number of digits. To use it, we could type this into the Console and hit Enter:
 ```{r, eval=FALSE}
 round(x = 3.141593, digits = 2)

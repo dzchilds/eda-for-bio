@@ -33,8 +33,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
-<link rel="prev" href="expected-learning-outcomes.html">
-<link rel="next" href="a-quick-introduction-to-r.html">
+<link rel="prev" href="other-kinds-of-vectors.html">
+<link rel="next" href="getting-help.html">
 
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -240,118 +240,89 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="get-up-and-running-with-r-and-rstudio" class="section level1 unnumbered">
-<h1>Get up and running with R and RStudio</h1>
-<div id="what-is-r" class="section level2 unnumbered">
-<h2>What is R?</h2>
-<p>The answer to this question very much depends on who we ask. The geeky answer is something like this…</p>
-<p>R is a dialect of the S language, which was developed by John Chambers and colleagues at Bell Laboratories in the mid 1970s. It was designed to offer an interactive computing environment for statisticians and scientists to carry out data analysis. There are essentially two widely used versions of S (though others have started to appear), a commercial one called S-Plus, and the open source implementation known as R. S-Plus came first, and although it is still around, it is used less each year. Development of R was begun in the late 1990s by two academics, Ross Ihaka and Robert Gentleman, at the University of Auckland. Their motivation was to create an open source language to enable researchers in computational statistics to explore new ideas. That language quickly evolved into something that looked more and more S-like, which we now know as R (GNU R, to be overly precise).</p>
-<p>We could go on and on about the various features that R possesses. R is a functional programming language, it supports object orientation, etc etc… but these kinds of explanations are only helpful to someone who already knows about computer languages. It is useful to understand why so many people have turned to R to meet their data analysis needs. When a typical R user talks about “R” they are often referring to two things at once, the GNU R language and the ecosystem that exists around the language:</p>
-<ul>
-<li><p>R is all about data analysis. We can carry out any standard statistical analysis in R, as well as access a huge array of more sophisticated tools with impressive names like “structural equation model”, “random forests” and “penalized regression”. These days, when statisticians and computer scientists develop a new analysis tool, they often implement it in R first. This means a competent R user can always access the latest, cutting edge analysis tools. R also has the best graphics and plotting facilities of any platform. With sufficient expertise, we can make pretty much any type of figure we need (e.g. scatter plots, phylogenetic trees, spatial maps, or even <a href="http://www.r-project.org/screenshots/volcano-image.jpg">volcanoes</a>). In short, R is a very productive environment for doing data analysis.</p></li>
-<li><p>Because R is such a good environment for data analysis, a very large community of users has grown up around it. The size of this community has increased steadily since R was created, but this growth has really increased up in the last 5-10 years or so. In the early 2000s there were very few books about R and the main way to access help online was through the widely-feared R mailing lists. Now, there are probably hundreds of books about different aspects of R, online tutorials written by enthusiasts, and many websites that exist solely to help people learn R. The resulting ecosystem is vast, and though it can be difficult to navigate at times, when we run into an R-related problem the chances are that the answer is already written down somewhere<a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a>.</p></li>
-</ul>
-<p>R is not just about data analysis—though we will mostly use it this way. It is a fully-fledged programming language, meaning that once you become moderately proficient with it you can do things such as construct numerical simulation models, solve equations, query websites, send emails, <a href="http://cran.r-project.org/web/packages/rfoaas/">access the foaas web service</a>, and carry out many other tasks we don’t have time to write down. We won’t do any of this year or next but it is worth noting that R can do much more than just analyse data if we need it to.</p>
-<div id="getting-and-installing-r" class="section level3 unnumbered">
-<h3>Getting and installing R</h3>
-<p>R is open source, meaning anyone can download the source code – the collection of computer instructions that define R – and assuming they have enough time, energy and expertise, they are free to alter it as they please. Open source does not <em>necessarily</em> mean free, as in it costs £0 to download and use, but luckily R <em>is</em> free in this sense. If you are working on the University managed desktops it should already have been installed and is ready for you to use. We encourage you to install a copy on your own laptop so that you can work at home, in the library, at a café, or wherever else you find you are productive. Do not use R on its own though. Use it in combination with the RStudio IDE discussed in the next section.</p>
-<p>In order to install R you need to download the appropriate installer from the Comprehensive R Archive Network (<a href="http://cran.r-project.org">CRAN</a>). We are going to use the “base distribution” as this contains everything you need to use R under normal circumstances. There is a single <a href="http://cran.r-project.org/bin/windows/base/">installer</a> for Windows. On a Mac, it’s important to match the <a href="http://cran.r-project.org/bin/macosx/">installer</a> to the version of OS X. In either case, R uses a the standard install mechanism that should be familiar to anyone who has installed an application on their machine. There is no need to change the default settings—doing so will probably lead to problems later on.</p>
-<div class="action">
-<p>
-Go ahead and install R on your own computer now. You won’t be able to make much use of this book without it.
-</p>
+<div id="extracting-subsets-of-vectors" class="section level1">
+<h1><span class="header-section-number">Chapter 6</span> Extracting subsets of vectors</h1>
+<div id="other-vectors" class="section level2">
+<h2><span class="header-section-number">6.1</span> Introduction</h2>
+<p>At the beginning of the last chapter we said that an atomic vector is a 1-dimensional object that contains an <strong>ordered</strong> collection of data values. Why is this view of a vector useful? It means that we can extract a subset of elements from a vector once we know their position in that vector. There are are two main ways to subset atomic vectors, both of which we’ll cover in this chapter. Whatever the method we use, subsetting involves a pair opening and closing square brackets (<code>[</code> and <code>]</code>). These are always used together.</p>
 </div>
-<p>After installing R it should be visible in the Programs menu on a Windows computer or in the Applications folder on a Mac. However, it would be a good idea to read the next section before launching R…</p>
+<div id="subsetting-by-position" class="section level2">
+<h2><span class="header-section-number">6.2</span> Subsetting by position</h2>
+<p>We can use the <code>[</code> construct with a vector to subset its elements directly using their position. Take a look at this example:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">c_vec &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="fl">7.2</span>, <span class="fl">3.6</span>, <span class="fl">2.9</span>)
+c_vec[<span class="dv">2</span>]</code></pre></div>
+<pre><code>## [1] 3.6</code></pre>
+<p>The <code>c_vec</code> variable is a length 3 character vector, with elements corresponding to his first, middle and last name. In order to subset it an retain only the first element – his first name – we used the <code>[ ]</code> construct with the number 1 inside, placing <code>[1]</code> next to the name of the vector. Notice that we do not place a space anywhere in this construct. We could, but this is not conventional.</p>
+<p>Remember, “the number 1” is in fact a numeric vector of length 1. This suggest we might be able to use longer vectors to extract more than one element:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># make a numeric sequence</span>
+my_vec &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">0</span>, <span class="fl">0.5</span>, <span class="dt">by =</span> <span class="fl">0.1</span>)
+my_vec</code></pre></div>
+<pre><code>## [1] 0.0 0.1 0.2 0.3 0.4 0.5</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># make an indexing vector</span>
+i &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">3</span>)
+<span class="co"># extract a subset of values</span>
+my_vec[i]</code></pre></div>
+<pre><code>## [1] 0.0 0.2</code></pre>
+<p>We first constructed a numeric vector of length 2 called <code>index</code>, which has elements <code>1</code> and <code>3</code>. We then used this to extract his first and third value by placing <code>i</code> inside the <code>[ ]</code>. We didn’t have to carry out the subsetting operation in two steps. This achieves the same result:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">my_vec[<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">3</span>)]</code></pre></div>
+<pre><code>## [1] 0.0 0.2</code></pre>
+<p>Notice that when we subset a vector of a particular type, we get a vector of the same type back, e.g. subsetting a numeric vector produces another numeric vector.</p>
+<p>We can also subset a vector by removing certain elements. We use the <code>-</code> operator to do this. Here’s an example that produces the same result as the last example, but in a different way:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">my_vec[-<span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>)]</code></pre></div>
+<pre><code>## [1] 0.0 0.2</code></pre>
+<p>The <code>my_vec[-c(2, 4, 5, 6)]</code> expression indicates that we want all the elements of <code>c_vec</code> <strong>except</strong> those that at position 2, 4, 5, and 6.</p>
+<p>In the previous chapter we learned how use the <code>[</code> construct with a numeric vector of integer(s) to subset the elements of vector by their position. This works exactly the same way with character vectors:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">c_vec &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Dylan&quot;</span>, <span class="st">&quot;Zachary&quot;</span>, <span class="st">&quot;Childs&quot;</span>)
+c_vec[<span class="dv">1</span>]</code></pre></div>
+<pre><code>## [1] &quot;Dylan&quot;</code></pre>
+<p>The <code>c_vec</code> variable is a length 3 character vector, with elements corresponding to his first, middle and last name. We used the <code>[ ]</code> construct with the number 1 inside, to extract the first element (i.e. the first name). Longer vectors can be used to extract more than one element, and we can use negative numbers to remove elements:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># extract the first and third value</span>
+c_vec[<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">3</span>)]</code></pre></div>
+<pre><code>## [1] &quot;Dylan&quot;  &quot;Childs&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># drop the second value (equivalent)</span>
+c_vec[-<span class="dv">2</span>]</code></pre></div>
+<pre><code>## [1] &quot;Dylan&quot;  &quot;Childs&quot;</code></pre>
 </div>
-</div>
-<div id="what-is-rstudio-and-why-use-it" class="section level2 unnumbered">
-<h2>What is RStudio (and why use it)?</h2>
-<p>R and RStudio are not the same thing. We can run R without RStudio if we need to, but we cannot run RStudio without R. Remember that! R is essentially just a computer program that sits there and waits for instructions in the form of text. Those instructions can be typed in by a user like you or me, or they can be sent to it from another program. This means you can run R in a variety of different environments. The job of RStudio is to provide an environment that makes R a more pleasant and productive tool. One way to get a sense of why RStudio is a Very Good Thing is to look at what running R without it is like. The simplest way to run it on a Linux or Unix-based machine (like a Mac) is to use something called the Terminal. It’s well beyond the scope of this book to get into what this is, but in a nutshell, the Terminal provides a low-level, text-based way to interact with a computer. Here is what R looks like running inside a Terminal on a Mac:</p>
-<p><img src="images/R-terminal.png" width="682" /></p>
-<p>We can run R in much the same way on Windows using the “Command Prompt” if we need to. The key thing you need to take away from that screenshot is that running R like this is very “bare bones”. We typed the letter “R” in the Terminal and hit Enter to start R. It printed a little information as it started up and then presented us with “the prompt” (<code>&gt;</code>), waiting for input. This is where we type or paste in instructions telling R what to do. There is no other way to interact with it when we run R like this – no menus or buttons, just a lonely prompt.</p>
-<div class="warning">
-<p>
-The developers of R on Windows PCs and Macs provide a slightly nicer way to work with R. When we download and install R for either of these two operating systems, in addition to the basic R program that we just saw running in a Terminal, we also get another program that acts as a <a href="http://en.wikipedia.org/wiki/Graphical_user_interface">Graphical User Interface</a> (GUI) for R. This is the thing labelled “R” in the Programs menu on a Windows computer or the Applications folder on a Mac. If you launch the R GUI on your computer you will be presented with roughly the same thing on either a Windows PC or a Mac. There will be something called the Console, which is where you interact directly with R by typing things at the prompt (which looks like this: <code>&gt;</code>), and a few buttons and menus for managing common tasks. We will not go through these two GUIs in any more detail because we are not going to use them. We just need to know they exist so we don’t confuse them with RStudio.
-</p>
-</div>
-<p>So what is RStudio? The first thing to note is that it is a different program from R. Remember that! RStudio is installed installed separately from R and occupies its own place in the Programs menu (Windows PC) or Applications folder (Mac). In one sense RStudio is just another Graphical User Interface for R which improves on the “bare bones” experience. However, it is a GUI on steroids. It is more accurate to describe it as an <a href="http://en.wikipedia.org/wiki/Integrated_development_environment">Integrated Development Environment</a> (IDE). There is no all-encompassing definition of an IDE, but they all exist to make programmer’s lives easier by integrating various useful tools into a single piece of software. From the perspective of this book, there are four key features that we care about:</p>
-<ul>
-<li><p>The R interpreter—the thing that was running in the Terminal above—runs inside RStudio. It’s accessed via a window labelled Console. This is where we type in instructions we want to execute when we are working directly with R. The Console also shows us any output that R prints in response to these instructions. So if we just want the “bare bones” experience, we can still have it.</p></li>
-<li><p>RStudio provides facilities for working with R programs using something called a Source Code Editor. An R program ( also called a “script”)&quot; is just is a collection of instructions in the R language that have been saved to a text file. Nothing more! However, it is much easier to work with a script using a proper Source Code Editor than an ordinary text editor like Notepad.</p></li>
-<li><p>An good IDE like RStudio also gives you a visual, point-and-click means of accessing various language-specific features. This is a bit difficult to explain until we have have actually used some of these, but trust us, being able to do things like manage packages, set working directories, or inspect objects we’ve made simplifies day-to-day use of R. This especially true for new users.</p></li>
-<li><p>RStudio is cross-platform—it will run on a Windows PC, a Linux PC or a Mac. In terms of the appearance and the functionality it provides, RStudio is exactly the same on each of these platforms. If we learn to work with R via RStudio on a Windows PC, it’s no problem migrating to a Mac or Linux PC later on if we need to. This is a big advantage for those of us who work on multiple platforms.</p></li>
-</ul>
-<p>We’re only going to scratch the surface of what RStudio can do and there are certainly alternative bits of software that could meet our immediate needs. The reason for introducing a powerful tool like RStudio is because one day you may need to access things like debugging facilities, package building tools, repository management. RStudio makes it easy to use these advanced tools.</p>
-<div id="getting-and-installing-rstudio" class="section level3 unnumbered">
-<h3>Getting and installing RStudio</h3>
-<p>RStudio is developed and maintained by a for-profit company called… RStudio. They make their money by selling software tools and services related to R and RStudio. The basic desktop version of RStudio is free to download and use though. It can be downloaded from the RStudio <a href="http://www.rstudio.com/products/RStudio/#Desk">download page</a>. The one to go for is the Open Source Edition of RStudio Desktop, <strong>not</strong> the commercial version of RStudio Desktop. RStudio installs like any other piece of software, so there’s nothing to configure after installation.</p>
-<div class="action">
-<p>
-If you haven’t already done it, go ahead and install RStudio Desktop on your own computer. You are going to need it.
-</p>
-</div>
-</div>
-<div id="the-anatomy-of-rstudio" class="section level3 unnumbered">
-<h3>The anatomy of RStudio</h3>
-<p>Once it’s installed RStudio is run like any other stand-alone application, via the Programs menu or the Applications folder on a Windows PC or Mac, respectively<a href="#fn2" class="footnoteRef" id="fnref2"><sup>2</sup></a>. We’ll say this one last time—RStudio only works if we’ve also installed R. Here is how RStudio appears the first time it runs:</p>
-<p><img src="images/RStudio-3-pane.png" width="1456" /></p>
-<p>There are three panes inside a single window, which we have labelled with red numbers. Each of these has a well-defined purpose. Let’s take a quick look at these:</p>
-<ol style="list-style-type: decimal">
-<li><p>The large window on the left is the Console. We have already told you what this is for—the Console lets you know what R is doing and provides a mechanism to interact with R by typing instructions. All this happens at the prompt, <code>&gt;</code>. We will be working in the Console in a moment so won’t say any more about this here.</p></li>
-<li><p>The window at the top right contains two tabs. The first of these, labelled <strong>Environment</strong>, allows us to see all the different R objects we can access. There are also some buttons that help us to get data into and out of R. The second, labelled <strong>History</strong>, allows us to see a list of instructions we’ve previously sent to R. The buttons in this tab allow us to reuse or save these instructions.</p></li>
-<li><p>The window at the bottom right contains five tabs. The first, labelled <strong>Files</strong>, gives us a way to interact with the files and folders. The next tab, labelled <strong>Plots</strong>, is where any figures we produce are displayed. This tab also allows you to save your figures to file. The <strong>Packages</strong> tab is where we view, install and update packages used to extend the functionality of R. The <strong>Help</strong> tab is where you can access and display various different help pages. The <strong>Viewer</strong> is essentially an embedded web browser for working with interactive output—we won’t be using it in this course.</p></li>
-</ol>
-<p>Don’t be alarmed if RStudio looks different on your computer. There are a couple of reasons why this might be the case. First, the appearance of RStudio is highly customisable. Take a quick look at the <code>Tools &gt; Global Options...</code> window to see what we mean. Second, there is a fourth window that is sometimes be visible when we work with RStudio—the source code Editor we mentioned above. RStudio saves its state between different sessions, so if we have already messed about with RStudio’s appearance or left a script open last time we used it you will see these changes.</p>
-<div class="warning">
-<p>
-Keep in mind that RStudio is very actively developed, which means features tend to appear or change over time. Consequently, if you update it regularly expect the odd thing to change here and there. This is generally a good thing—it usually means new features have been added—but it does require you to occasionally adjust to new additions.
-</p>
-</div>
-</div>
-</div>
-<div id="working-at-the-console" class="section level2 unnumbered">
-<h2>Working at the Console</h2>
-<p>R was designed to be used interactively—it is what is known as an <strong>interpreted language</strong>, which we can interact with via something called a Command Line Interface (CLI). This is just a fancy way of saying that we can type an instructions to “do something” directly into the Console and those instructions will then be interpreted when we hit the Enter key. If our R expression does not contain any errors, R will then do something like read in some data, perform a calculation, make a figure, and so on. What actually happens obviously depends on what we ask it to do.</p>
-<p>Let’s briefly see what all this means by doing something very simple with R. Type <code>1 + 3</code> at the Console and hit the Enter key:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="dv">1+3</span></code></pre></div>
-<pre><code>## [1] 4</code></pre>
-<p>The first line above just reminds us what we typed into the Console. The line after that beginning with <code>##</code> shows us what R printed to the Console after reading and evaluating our instructions.</p>
-<p>What just happened? We can ignore the <code>[1]</code> bit for now (the meaning of this will become clear later in the course). What are we left with – the number 2. The instruction we gave R was in effect “evaluate the expression <code>1 + 3</code>”. R read this in, decided it was a valid R expression, evaluated the expression, and then printed the result to the Console for us. Unsurprisingly, the expression <code>1 + 3</code> is a request to add the numbers 1 and 3, and so R prints the number 4 to the Console.</p>
-<p>OK, that was not very exciting. In the next chapter we will start learning to use R to carry out more useful calculations. The important take-away from this is that this sequence of events—reading instructions, evaluating those instructions and printing their output—happens every time we type or paste something into the Console and hit Enter. The printing bit is optional by the way. Whether or not it happens depends on whether you decide to capture the output or not. Just remember, if R does not print anything to the Console it does not necessarily mean nothing has happened.</p>
-<div class="info">
-<p>
-Why do we keep using that word <em>expression</em>? It has a very specific meaning in computer science. The <a href="http://en.wikipedia.org/wiki/Expression_(computer_science)">Wikipedia page</a> says:
-</p>
-<blockquote>
-<p>
-An expression in a programming language is a combination of explicit values, constants, variables, operators, and functions that are interpreted according to the particular rules of precedence and of association for a particular programming language, which computes and then produces another value.
-</p>
-</blockquote>
-<p>
-That probably doesn’t make much sense, but it at least demonstrates why we don’t let computer scientists teach biologists about programming. In simple terms, an R expression is a small set of instructions written in human readable(ish) text that tell R to do something. That’s it. We could write “instructions” instead of “expressions” throughout this book but we may as well use the correct word. Whatever we call them, our aim is to learn how to combine sequences of expressions to Get Things Done in R. That’s what this book is about.
-</p>
-</div>
+<div id="subsetting-with-logical-operators" class="section level2">
+<h2><span class="header-section-number">6.3</span> Subsetting with logical operators</h2>
+<p>Subsetting vectors by position suffers from once major drawback—we have to know where the elements we want sit in the vector. A second way to subset a vector makes use of logical vectors alongside <code>[ ]</code>. This is usually done using two vectors of the same length: the focal vector we wish to subset, and a logical vector that specifies which elements to keep. Here is a very simple example:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">i &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="ot">TRUE</span>, <span class="ot">FALSE</span>, <span class="ot">TRUE</span>)
+c_vec[i]  </code></pre></div>
+<pre><code>## [1] &quot;Dylan&quot;  &quot;Childs&quot;</code></pre>
+<p>This should be fairly self-explanatory. The logical vector method of subsetting works element-by-element, and an element in <code>c_vec</code> is retained wherever the corresponding element in <code>i</code> contains a <code>TRUE</code>; otherwise it is discarded.</p>
+<p>Why is this better that using position indexing? After all, using a vector of positions to subset a vector is much more direct. The reason is that we can use relational operators to help us select elements according to particular criteria. This is best illustrated with an example. We’ll start by defining two vectors of the same length:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">name &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;cat&quot;</span>, <span class="st">&quot;dog&quot;</span>, <span class="st">&quot;wren&quot;</span>, <span class="st">&quot;pig&quot;</span>, <span class="st">&quot;owl&quot;</span>)
+name</code></pre></div>
+<pre><code>## [1] &quot;cat&quot;  &quot;dog&quot;  &quot;wren&quot; &quot;pig&quot;  &quot;owl&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">type &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;mammal&quot;</span>, <span class="st">&quot;mammal&quot;</span>, <span class="st">&quot;bird&quot;</span>, <span class="st">&quot;mammal&quot;</span>, <span class="st">&quot;bird&quot;</span>)
+type</code></pre></div>
+<pre><code>## [1] &quot;mammal&quot; &quot;mammal&quot; &quot;bird&quot;   &quot;mammal&quot; &quot;bird&quot;</code></pre>
+<p>The first, <code>name</code>, is a character vector containing the common names of a few animals. The second, <code>type</code>, is another character vector whose elements denote the type of animal, in this case, a bird or a mammal. The vectors are arranged such that the information is associated via the position of elements in each vector (cats and dogs are mammals, a wren is a bird, and so on).</p>
+<p>Let’s assume that we want to create a subset of <code>name</code> that only contains the names of mammals. We can do this by creating a logical vector from <code>type</code>, where the values are <code>TRUE</code> when an element is equal to <code>&quot;mammal&quot;</code> and <code>FALSE</code> otherwise. We know how to do this using the <code>==</code> operator:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">i &lt;-<span class="st"> </span>type ==<span class="st"> &quot;mammal&quot;</span>
+i</code></pre></div>
+<pre><code>## [1]  TRUE  TRUE FALSE  TRUE FALSE</code></pre>
+<p>We stored the result in a variable called <code>i</code>. Now all we need to do is use with <code>i</code> inside the <code>[ ]</code> construct to subset <code>name</code>:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">name[i]</code></pre></div>
+<pre><code>## [1] &quot;cat&quot; &quot;dog&quot; &quot;pig&quot;</code></pre>
+<p>We did this the long way to understand the logic of subsetting vectors with logical operators. This is quite verbose though, and we usually combine the two steps into a single R expression:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">name[type ==<span class="st"> &quot;mammal&quot;</span>]</code></pre></div>
+<pre><code>## [1] &quot;cat&quot; &quot;dog&quot; &quot;pig&quot;</code></pre>
+<p>We can use any of the relational operators to subset vectors like this. If we define a numeric variable that contains the mean mass (in grams) of each animal, we can use this to subset <code>names</code> according to the associated mean mass. For example, if we want a subset that contains only those animals where the mean mass is greater than 1kg we use:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mass &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">2900</span>, <span class="dv">9000</span>, <span class="dv">10</span>, <span class="dv">18000</span>, <span class="dv">2000</span>)
+name[mass &gt;<span class="st"> </span><span class="dv">1000</span>]</code></pre></div>
+<pre><code>## [1] &quot;cat&quot; &quot;dog&quot; &quot;pig&quot; &quot;owl&quot;</code></pre>
+<p>Just remember, this way of using information in one vector to create subsets of a second vector only works if the information in each is associated via the position of their respective elements. Keeping a bunch of different vectors organised like this is difficult and error prone. In the next block we’ll learn how to use something called a data frame and the <code>dplyr</code> package to make working with a collection of related vectors much easier.</p>
 
 </div>
-</div>
-
-
-
-</div>
-<div class="footnotes">
-<hr />
-<ol start="1">
-<li id="fn1"><p>The other big change is that R is finally starting to become part of the commercial landscape—learning how to use it can only improve your job prospects.<a href="get-up-and-running-with-r-and-rstudio.html#fnref1">↩</a></p></li>
-<li id="fn2"><p>If you use a computer running Linux we assume you know what you are doing when it comes to installing and running software.<a href="get-up-and-running-with-r-and-rstudio.html#fnref2">↩</a></p></li>
-</ol>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="expected-learning-outcomes.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="a-quick-introduction-to-r.html" class="navigation navigation-next " aria-label="Next page""><i class="fa fa-angle-right"></i></a>
+<a href="other-kinds-of-vectors.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="getting-help.html" class="navigation navigation-next " aria-label="Next page""><i class="fa fa-angle-right"></i></a>
 
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/lunr.js"></script>
@@ -379,7 +350,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/dzchilds/eda-for-bio/edit/master/0_02_R_and_RStudio.Rmd",
+"link": "https://github.com/dzchilds/eda-for-bio/edit/master/1_07_subset_vectors.Rmd",
 "text": "Edit"
 },
 "download": null,

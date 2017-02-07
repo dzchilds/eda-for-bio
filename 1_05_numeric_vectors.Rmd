@@ -1,9 +1,12 @@
-
 # Numeric vectors
 
 ## Introduction 
 
-A data structure is just a particular way of organising data on your computer so that it can be accessed easily and efficiently. Computer languages use many different kinds of data structures, about which long and tedious books have been written. Luckily, we only need to learn about a couple of relatively simple data structures to use R for data analysis. In fact, in this book only two kinds of data structure really matter: "vectors" and "data frames". The next couple of chapters will consider vectors. Later, in the next section of the book we'll learn how to work with collections of vectors inside data frames.
+The term "data structure" computer science jargon for a particular way of organising data on our computers, so that it can be accessed easily and efficiently. Computer languages use many different kinds of data structures, but fortunately, we only need to learn about a couple of relatively simple ones to use R for data analysis. In fact, in this book only two kinds of data structure really matter: "vectors" and "data frames". We'll learn how to work with data frames in the next section of the book. 
+
+The next three chapters will consider vectors. This chapter has two goals. First, we want to learn the basics of how to work with vectors. For example, we'll see how "vectorised operations" may be used to express a repeated calculation. Second, we'll learn how to construct and use __numeric vectors__ to perform various calculations. Keep in mind that although we're going to focus on numeric vectors, many of the principles we learn here can be applied to the other kinds of vectors considered later.
+
+## Atomic vectors
 
 A vector is a 1-dimensional object that contains a set of data values, which are accessible by their position: position 1, position 2, position 3, and so one. When people talk about vectors in R they're often referring to __atomic vectors__^[The other common vector is called a "list". Lists are very useful but we won't cover them in this book]. An atomic vector is the simplest kind of data structure in R. There are a few different kinds of atomic vector, but the defining feature of each one is that it can only contain data of one type. An atomic vector might contain all integers (e.g. 2, 4, 6, ...) or all characters (e.g. "A", "B", "C"), but it can't mix and match integers and characters (e.g. "A", 2, "C", 5).
 
@@ -21,13 +24,11 @@ is.vector(x)
 # is it atomic?
 is.atomic(x)
 ```
-This little exercise demonstrates an important point about R. Atomic vectors really are the simplest kind of data structure in R. Unlike many other languages there is simply no way to represent just a number. Instead, a single number must be stored as a vector of length one. The same is true for things like sets of characters and logical values (`TRUE` or `FALSE`) discussed in the next chapter. 
-
-This chapter has two goals. First, we want to learn the basics of how to work with vectors. For example, we'll see how "vectorised operations" may be used to express a repeated calculation. Second, we'll learn how to construct and use __numeric vectors__ to perform various calculations. Keep in mind that although we're going to focus on numeric vectors, many of the principles we learn here can be applied to the other kinds of vectors considered later.
+This little exercise demonstrates an important point about R. Atomic vectors really are the simplest kind of data structure in R. Unlike many other languages there is simply no way to represent just a number. Instead, a single number must be stored as a vector of length one^[The same is true for things like sets of characters (`"dog"`, `"cat"`, `"fish"`, ...) and logical values (`TRUE` or `FALSE`) discussed in the next two chapters.].
 
 ## Numeric vectors {#intro-vectors}
 
-A lot of work in R involves __numeric vectors__. After all, data analysis is all about numbers. Here's a simple way to contruct a numeric vector:
+A lot of work in R involves __numeric vectors__. After all, data analysis is all about numbers. Here's a simple way to construct a numeric vector:
 ```{r}
 numeric(length = 50)
 ```
@@ -38,7 +39,7 @@ When we create a vector but don't assign it to a name using ` <- ` R just prints
 ```{block, type='info'}
 #### Different kinds of numbers
 
-Roughly speaking, R stores numbers in two different ways depending of whether they are whole numbers ("integers") or numbers containing decimal points ("doubles" -- don't ask). We're not going to worry about this distinction. Most of the time the distinction is failry invisible to users so it is easier to just think in terms of numeric vectors. We can mix and match integers and doubles in R without having to worry too much about R is storing the numbers.
+Roughly speaking, R stores numbers in two different ways depending of whether they are whole numbers ("integers") or numbers containing decimal points ("doubles" -- don't ask). We're not going to worry about this distinction. Most of the time the distinction is fairly invisible to users so it is easier to just think in terms of numeric vectors. We can mix and match integers and doubles in R without having to worry too much about R is storing the numbers.
 ```
 
 If we need to check that we really have made a numeric vector we can use the `is.numeric` function to do this:
@@ -73,7 +74,7 @@ c(vec1, vec2)
 ```
 This shows that we can use the `c` function to concatenate ("stick together") two or more vectors, even if they are not of length 1. We combined a length-2 vector with a length-3 vector to produce a new length-5 vector.
 
-Notice that we did not have to name the arguments in those two examples---there were no `=` involved. The `c` function is an example of one of those flexible functions that breaks the simple rules of thumb for using arguments that we set out earlier: it can take a variable number of arguments, and these areguments do not have predefined names. This behaviour is  necessary if you think about how `c` has to work: in order to be useful it needs to be flexible enough to take any combination of arguments.
+Notice that we did not have to name the arguments in those two examples---there were no `=` involved. The `c` function is an example of one of those flexible functions that breaks the simple rules of thumb for using arguments that we set out earlier: it can take a variable number of arguments, and these arguments do not have predefined names. This behaviour is  necessary if you think about how `c` has to work: in order to be useful it needs to be flexible enough to take any combination of arguments.
 
 ```{block, type="info"}
 #### Finding out about a vector R
@@ -227,36 +228,3 @@ We constructed a length 6 vector containing the number 2/7 (~ 0.285714) and then
 
 R's vectorised behaviour may seem like the "obvious" thing to do, but most computer languages do not work like this. In other languages we typically have to write a much more complicated expression to do something so simple. This is one of the reasons R is such a data analysis language: vectorisation allows us to express repetitious calculations in a simple, intuitive way. This behaviour can save us a lot of time. However, not every function treats its arguments in a vectorised way, so we always need to check (most easily, by experimenting) whether this behaviour is available before relying on it.
 ```
-
-## Extracting subsets of vectors {#extract-subset}
-
-At the beginning of this chapter we said that an atomic vector is a 1-dimensional object that contains an ordered collection of data values accessible by their position. Why is this useful? It means we can extract a subset of elements from a vector is we know their position in the vector.
-
-There are several ways to subset a vector, but we'll focus on the simplest for now. Whatever the method, we use a pair opening and closing square brackets, `[` and `]`, to express the subsetting operation. These are always used together. This means we can use the `[` construct with a vector to subset the elements of vector by their position. Take a look at this example:
-```{r}
-cvec <- c(7.2, 3.6, 2.9)
-cvec[2]
-```
-The `cvec` variable is a length 3 character vector, with elements corresponding to his first, middle and last name. In order to subset it an retain only the first element -- his first name -- we used the `[ ]` construct with the number 1 inside, placing `[1]` next to the name of the vector. Notice that we do not place a space anywhere in this construct. We could, but this is not conventional.
-
-Remember, "the number 1" is in fact a numeric vector of length 1. This suggest we might be able to use longer vectors to extract more than one element: 
-```{r}
-# make a numeric sequence
-my_vec <- seq(0, 0.5, by = 0.1)
-my_vec
-# make an indexing vector
-i <- c(1, 3)
-# extract a subset of values
-my_vec[i]
-```
-We first constructed a numeric vector of length 2 called `index`, which has elements `1` and `3`. We then used this to extract his first and third value by placing `i` inside the `[ ]`. We didn't have to carry out the subsetting operation in two steps. This achieves the same result:
-```{r}
-my_vec[c(1, 3)]
-```
-Notice that when we subset a vector of a particular type, we get a vector of the same type back, e.g. subsetting a numeric vector produces another numeric vector.
-
-We can also subset a vector by removing certain elements. We use the `-` operator to do this. Here's an example that produces the same result as the last example, but in a different way:
-```{r}
-my_vec[-c(2, 4, 5, 6)]
-```
-The `my_vec[-c(2, 4, 5, 6)]` expression indicates that we want all the elements of `cvec` __except__ those that at position 2, 4, 5, and 6. 

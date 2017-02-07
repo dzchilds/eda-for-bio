@@ -26,7 +26,7 @@
 <meta name="author" content="Dylan Z. Childs">
 
 
-<meta name="date" content="2017-02-05">
+<meta name="date" content="2017-02-07">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -34,7 +34,7 @@
   
   
 <link rel="prev" href="numeric-vectors.html">
-<link rel="next" href="getting-help.html">
+<link rel="next" href="extracting-subsets-of-vectors.html">
 
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -166,55 +166,59 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul></li>
 <li class="chapter" data-level="3" data-path="using-functions.html"><a href="using-functions.html"><i class="fa fa-check"></i><b>3</b> Using functions</a><ul>
 <li class="chapter" data-level="3.1" data-path="using-functions.html"><a href="using-functions.html#intro-functions"><i class="fa fa-check"></i><b>3.1</b> Introduction</a></li>
-<li class="chapter" data-level="3.2" data-path="using-functions.html"><a href="using-functions.html#evaluating-arguments-and-returning-results"><i class="fa fa-check"></i><b>3.2</b> Evaluating arguments and returning results</a></li>
-<li class="chapter" data-level="3.3" data-path="using-functions.html"><a href="using-functions.html#functions-do-not-have-side-effects"><i class="fa fa-check"></i><b>3.3</b> Functions do not have “side effects”</a></li>
-<li class="chapter" data-level="3.4" data-path="using-functions.html"><a href="using-functions.html#combining-functions"><i class="fa fa-check"></i><b>3.4</b> Combining functions</a></li>
-<li class="chapter" data-level="3.5" data-path="using-functions.html"><a href="using-functions.html#function-arguments"><i class="fa fa-check"></i><b>3.5</b> Specifying function arguments</a></li>
+<li class="chapter" data-level="3.2" data-path="using-functions.html"><a href="using-functions.html#functions-and-arguments"><i class="fa fa-check"></i><b>3.2</b> Functions and arguments</a></li>
+<li class="chapter" data-level="3.3" data-path="using-functions.html"><a href="using-functions.html#evaluating-arguments-and-returning-results"><i class="fa fa-check"></i><b>3.3</b> Evaluating arguments and returning results</a></li>
+<li class="chapter" data-level="3.4" data-path="using-functions.html"><a href="using-functions.html#functions-do-not-have-side-effects"><i class="fa fa-check"></i><b>3.4</b> Functions do not have “side effects”</a></li>
+<li class="chapter" data-level="3.5" data-path="using-functions.html"><a href="using-functions.html#combining-functions"><i class="fa fa-check"></i><b>3.5</b> Combining functions</a></li>
+<li class="chapter" data-level="3.6" data-path="using-functions.html"><a href="using-functions.html#function-arguments"><i class="fa fa-check"></i><b>3.6</b> Specifying function arguments</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="numeric-vectors.html"><a href="numeric-vectors.html"><i class="fa fa-check"></i><b>4</b> Numeric vectors</a><ul>
 <li class="chapter" data-level="4.1" data-path="numeric-vectors.html"><a href="numeric-vectors.html#introduction-1"><i class="fa fa-check"></i><b>4.1</b> Introduction</a></li>
-<li class="chapter" data-level="4.2" data-path="numeric-vectors.html"><a href="numeric-vectors.html#intro-vectors"><i class="fa fa-check"></i><b>4.2</b> Numeric vectors</a></li>
-<li class="chapter" data-level="4.3" data-path="numeric-vectors.html"><a href="numeric-vectors.html#constructing-numeric-vectors"><i class="fa fa-check"></i><b>4.3</b> Constructing numeric vectors</a></li>
-<li class="chapter" data-level="4.4" data-path="numeric-vectors.html"><a href="numeric-vectors.html#named-vectors"><i class="fa fa-check"></i><b>4.4</b> Named vectors</a></li>
-<li class="chapter" data-level="4.5" data-path="numeric-vectors.html"><a href="numeric-vectors.html#generating-sequences-of-numbers"><i class="fa fa-check"></i><b>4.5</b> Generating sequences of numbers</a><ul>
-<li class="chapter" data-level="4.5.1" data-path="numeric-vectors.html"><a href="numeric-vectors.html#generating-sequences-of-numbers-1"><i class="fa fa-check"></i><b>4.5.1</b> Generating sequences of numbers</a></li>
-<li class="chapter" data-level="4.5.2" data-path="numeric-vectors.html"><a href="numeric-vectors.html#generating-repeated-sequences-of-numbers"><i class="fa fa-check"></i><b>4.5.2</b> Generating repeated sequences of numbers</a></li>
+<li class="chapter" data-level="4.2" data-path="numeric-vectors.html"><a href="numeric-vectors.html#atomic-vectors"><i class="fa fa-check"></i><b>4.2</b> Atomic vectors</a></li>
+<li class="chapter" data-level="4.3" data-path="numeric-vectors.html"><a href="numeric-vectors.html#intro-vectors"><i class="fa fa-check"></i><b>4.3</b> Numeric vectors</a></li>
+<li class="chapter" data-level="4.4" data-path="numeric-vectors.html"><a href="numeric-vectors.html#constructing-numeric-vectors"><i class="fa fa-check"></i><b>4.4</b> Constructing numeric vectors</a></li>
+<li class="chapter" data-level="4.5" data-path="numeric-vectors.html"><a href="numeric-vectors.html#named-vectors"><i class="fa fa-check"></i><b>4.5</b> Named vectors</a></li>
+<li class="chapter" data-level="4.6" data-path="numeric-vectors.html"><a href="numeric-vectors.html#generating-sequences-of-numbers"><i class="fa fa-check"></i><b>4.6</b> Generating sequences of numbers</a><ul>
+<li class="chapter" data-level="4.6.1" data-path="numeric-vectors.html"><a href="numeric-vectors.html#generating-sequences-of-numbers-1"><i class="fa fa-check"></i><b>4.6.1</b> Generating sequences of numbers</a></li>
+<li class="chapter" data-level="4.6.2" data-path="numeric-vectors.html"><a href="numeric-vectors.html#generating-repeated-sequences-of-numbers"><i class="fa fa-check"></i><b>4.6.2</b> Generating repeated sequences of numbers</a></li>
 </ul></li>
-<li class="chapter" data-level="4.6" data-path="numeric-vectors.html"><a href="numeric-vectors.html#vectorised-operations"><i class="fa fa-check"></i><b>4.6</b> Vectorised operations</a></li>
-<li class="chapter" data-level="4.7" data-path="numeric-vectors.html"><a href="numeric-vectors.html#extract-subset"><i class="fa fa-check"></i><b>4.7</b> Extracting subsets of vectors</a></li>
+<li class="chapter" data-level="4.7" data-path="numeric-vectors.html"><a href="numeric-vectors.html#vectorised-operations"><i class="fa fa-check"></i><b>4.7</b> Vectorised operations</a></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="other-kinds-of-vectors.html"><a href="other-kinds-of-vectors.html"><i class="fa fa-check"></i><b>5</b> Other kinds of vectors</a><ul>
-<li class="chapter" data-level="5.1" data-path="other-kinds-of-vectors.html"><a href="other-kinds-of-vectors.html#other-vectors"><i class="fa fa-check"></i><b>5.1</b> Introduction</a><ul>
-<li class="chapter" data-level="5.1.1" data-path="other-kinds-of-vectors.html"><a href="other-kinds-of-vectors.html#character-vectors"><i class="fa fa-check"></i><b>5.1.1</b> Character vectors</a></li>
-<li class="chapter" data-level="5.1.2" data-path="other-kinds-of-vectors.html"><a href="other-kinds-of-vectors.html#logical-vectors"><i class="fa fa-check"></i><b>5.1.2</b> Logical vectors</a></li>
+<li class="chapter" data-level="5.1" data-path="other-kinds-of-vectors.html"><a href="other-kinds-of-vectors.html#other-vectors"><i class="fa fa-check"></i><b>5.1</b> Introduction</a></li>
+<li class="chapter" data-level="5.2" data-path="other-kinds-of-vectors.html"><a href="other-kinds-of-vectors.html#character-vectors"><i class="fa fa-check"></i><b>5.2</b> Character vectors</a></li>
+<li class="chapter" data-level="5.3" data-path="other-kinds-of-vectors.html"><a href="other-kinds-of-vectors.html#logical-vectors"><i class="fa fa-check"></i><b>5.3</b> Logical vectors</a></li>
 </ul></li>
-<li class="chapter" data-level="5.2" data-path="numeric-vectors.html"><a href="numeric-vectors.html#extract-subset"><i class="fa fa-check"></i><b>5.2</b> Extracting subsets of vectors</a></li>
+<li class="chapter" data-level="6" data-path="extracting-subsets-of-vectors.html"><a href="extracting-subsets-of-vectors.html"><i class="fa fa-check"></i><b>6</b> Extracting subsets of vectors</a><ul>
+<li class="chapter" data-level="6.1" data-path="other-kinds-of-vectors.html"><a href="other-kinds-of-vectors.html#other-vectors"><i class="fa fa-check"></i><b>6.1</b> Introduction</a></li>
+<li class="chapter" data-level="6.2" data-path="extracting-subsets-of-vectors.html"><a href="extracting-subsets-of-vectors.html#subsetting-by-position"><i class="fa fa-check"></i><b>6.2</b> Subsetting by position</a></li>
+<li class="chapter" data-level="6.3" data-path="extracting-subsets-of-vectors.html"><a href="extracting-subsets-of-vectors.html#subsetting-with-logical-operators"><i class="fa fa-check"></i><b>6.3</b> Subsetting with logical operators</a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="getting-help.html"><a href="getting-help.html"><i class="fa fa-check"></i><b>6</b> Getting help</a><ul>
-<li class="chapter" data-level="6.1" data-path="getting-help.html"><a href="getting-help.html#console-help"><i class="fa fa-check"></i><b>6.1</b> Introduction</a></li>
-<li class="chapter" data-level="6.2" data-path="getting-help.html"><a href="getting-help.html#browsing-the-help-system"><i class="fa fa-check"></i><b>6.2</b> Browsing the help system</a></li>
-<li class="chapter" data-level="6.3" data-path="getting-help.html"><a href="getting-help.html#searching-for-help-files"><i class="fa fa-check"></i><b>6.3</b> Searching for help files</a></li>
-<li class="chapter" data-level="6.4" data-path="getting-help.html"><a href="getting-help.html#nav-help"><i class="fa fa-check"></i><b>6.4</b> Navigating help files</a></li>
-<li class="chapter" data-level="6.5" data-path="getting-help.html"><a href="getting-help.html#vignettes"><i class="fa fa-check"></i><b>6.5</b> Vignettes and demos</a></li>
+<li class="chapter" data-level="7" data-path="getting-help.html"><a href="getting-help.html"><i class="fa fa-check"></i><b>7</b> Getting help</a><ul>
+<li class="chapter" data-level="7.1" data-path="getting-help.html"><a href="getting-help.html#console-help"><i class="fa fa-check"></i><b>7.1</b> Introduction</a></li>
+<li class="chapter" data-level="7.2" data-path="getting-help.html"><a href="getting-help.html#browsing-the-help-system"><i class="fa fa-check"></i><b>7.2</b> Browsing the help system</a></li>
+<li class="chapter" data-level="7.3" data-path="getting-help.html"><a href="getting-help.html#searching-for-help-files"><i class="fa fa-check"></i><b>7.3</b> Searching for help files</a></li>
+<li class="chapter" data-level="7.4" data-path="getting-help.html"><a href="getting-help.html#nav-help"><i class="fa fa-check"></i><b>7.4</b> Navigating help files</a></li>
+<li class="chapter" data-level="7.5" data-path="getting-help.html"><a href="getting-help.html#vignettes"><i class="fa fa-check"></i><b>7.5</b> Vignettes and demos</a></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="packages.html"><a href="packages.html"><i class="fa fa-check"></i><b>7</b> Packages</a><ul>
-<li class="chapter" data-level="7.1" data-path="packages.html"><a href="packages.html#package-system"><i class="fa fa-check"></i><b>7.1</b> The R package system</a></li>
-<li class="chapter" data-level="7.2" data-path="packages.html"><a href="packages.html#task-views"><i class="fa fa-check"></i><b>7.2</b> Task views</a></li>
-<li class="chapter" data-level="7.3" data-path="packages.html"><a href="packages.html#use-packages"><i class="fa fa-check"></i><b>7.3</b> Using packages</a><ul>
-<li class="chapter" data-level="7.3.1" data-path="packages.html"><a href="packages.html#viewing-installed-packages"><i class="fa fa-check"></i><b>7.3.1</b> Viewing installed packages</a></li>
-<li class="chapter" data-level="7.3.2" data-path="packages.html"><a href="packages.html#installing-and-updating-packages"><i class="fa fa-check"></i><b>7.3.2</b> Installing and updating packages</a></li>
-<li class="chapter" data-level="7.3.3" data-path="packages.html"><a href="packages.html#loading-and-attaching-packages"><i class="fa fa-check"></i><b>7.3.3</b> Loading and attaching packages</a></li>
-<li class="chapter" data-level="7.3.4" data-path="packages.html"><a href="packages.html#an-analogy"><i class="fa fa-check"></i><b>7.3.4</b> An analogy</a></li>
+<li class="chapter" data-level="8" data-path="packages.html"><a href="packages.html"><i class="fa fa-check"></i><b>8</b> Packages</a><ul>
+<li class="chapter" data-level="8.1" data-path="packages.html"><a href="packages.html#package-system"><i class="fa fa-check"></i><b>8.1</b> The R package system</a></li>
+<li class="chapter" data-level="8.2" data-path="packages.html"><a href="packages.html#task-views"><i class="fa fa-check"></i><b>8.2</b> Task views</a></li>
+<li class="chapter" data-level="8.3" data-path="packages.html"><a href="packages.html#use-packages"><i class="fa fa-check"></i><b>8.3</b> Using packages</a><ul>
+<li class="chapter" data-level="8.3.1" data-path="packages.html"><a href="packages.html#viewing-installed-packages"><i class="fa fa-check"></i><b>8.3.1</b> Viewing installed packages</a></li>
+<li class="chapter" data-level="8.3.2" data-path="packages.html"><a href="packages.html#installing-and-updating-packages"><i class="fa fa-check"></i><b>8.3.2</b> Installing and updating packages</a></li>
+<li class="chapter" data-level="8.3.3" data-path="packages.html"><a href="packages.html#loading-and-attaching-packages"><i class="fa fa-check"></i><b>8.3.3</b> Loading and attaching packages</a></li>
+<li class="chapter" data-level="8.3.4" data-path="packages.html"><a href="packages.html#an-analogy"><i class="fa fa-check"></i><b>8.3.4</b> An analogy</a></li>
 </ul></li>
 </ul></li>
 <li class="part"><span><b>II Data Wrangling</b></span></li>
 <li class="part"><span><b>III Exporing Data</b></span></li>
-<li class="chapter" data-level="8" data-path="stuff.html"><a href="stuff.html"><i class="fa fa-check"></i><b>8</b> Stuff…</a><ul>
-<li class="chapter" data-level="8.1" data-path="stuff.html"><a href="stuff.html#mathematical-functions-in-r"><i class="fa fa-check"></i><b>8.1</b> Mathematical functions in R</a></li>
-<li class="chapter" data-level="8.2" data-path="stuff.html"><a href="stuff.html#coding-conventions"><i class="fa fa-check"></i><b>8.2</b> Coding conventions</a><ul>
-<li class="chapter" data-level="8.2.1" data-path="stuff.html"><a href="stuff.html#formatting-functions"><i class="fa fa-check"></i><b>8.2.1</b> Formatting functions</a></li>
+<li class="chapter" data-level="9" data-path="stuff.html"><a href="stuff.html"><i class="fa fa-check"></i><b>9</b> Stuff…</a><ul>
+<li class="chapter" data-level="9.1" data-path="stuff.html"><a href="stuff.html#mathematical-functions-in-r"><i class="fa fa-check"></i><b>9.1</b> Mathematical functions in R</a></li>
+<li class="chapter" data-level="9.2" data-path="stuff.html"><a href="stuff.html#coding-conventions"><i class="fa fa-check"></i><b>9.2</b> Coding conventions</a><ul>
+<li class="chapter" data-level="9.2.1" data-path="stuff.html"><a href="stuff.html#formatting-functions"><i class="fa fa-check"></i><b>9.2.1</b> Formatting functions</a></li>
 </ul></li>
-<li class="chapter" data-level="8.3" data-path="stuff.html"><a href="stuff.html#data-structures"><i class="fa fa-check"></i><b>8.3</b> Beyond vectors</a></li>
+<li class="chapter" data-level="9.3" data-path="stuff.html"><a href="stuff.html#data-structures"><i class="fa fa-check"></i><b>9.3</b> Beyond vectors</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -240,40 +244,48 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <h1><span class="header-section-number">Chapter 5</span> Other kinds of vectors</h1>
 <div id="other-vectors" class="section level2">
 <h2><span class="header-section-number">5.1</span> Introduction</h2>
-<p>We tend to use numeric vectors a lot. After all, the data we collect are often in the form of numbers, or they can at least be reduced to numerical summaries for further analysis. Sometimes however, we need to be able to represent other kinds of data. This chapter introduces two other types of atomic vector to help us do this: character vectors and logical vectors.</p>
-<div id="character-vectors" class="section level3">
-<h3><span class="header-section-number">5.1.1</span> Character vectors</h3>
-<p>The elements of <strong>character vectors</strong> are what are known as “character strings”, or just “strings” if we are feeling lazy. The phrase “character string” is just computer-speak for a sequence of characters. When we want to make a character vector in R we need to use double or single quotation marks around the string(s). Here is how we can print the name “Dylan” to the Console:</p>
+<p>The data we collect and analyse are often in the form of numbers, so it comes as no surprise that we work with numeric vectors a lot in R. Nonetheless, we also sometimes need to represent other kinds of vectors, either to represent different types of data, or to help us manipulate our data. This chapter introduces two new types of atomic vector to help us do this: character vectors and logical vectors.</p>
+</div>
+<div id="character-vectors" class="section level2">
+<h2><span class="header-section-number">5.2</span> Character vectors</h2>
+<p>The elements of <strong>character vectors</strong> are what are known as a “character string” (or “string” if we are feeling lazy). The term “character string” refers a sequence of characters, such as “Treatment 1”, “University of Sheffield”, “Population Density”. A character vector is an atomic vector that stores an ordered collection of one or more character strings.</p>
+<p>If we want to construct a character vector in R we have to place double (<code>&quot;</code>) or single (<code>'</code>) quotation marks around the characters. For example, we can print the name “Dylan” to the Console like this:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="st">&quot;Dylan&quot;</span></code></pre></div>
 <pre><code>## [1] &quot;Dylan&quot;</code></pre>
-<p>Notice the <code>[1]</code>. This shows that what we just printed is indeed an atomic vector of some kind. We also know it is a character vector because the output is printed with double quotes around the value. The quoting here is important. If we try to do the same thing without the quotes we generate an error:</p>
+<p>Notice the <code>[1]</code>. This shows that what we just printed is an atomic vector of some kind. We know it’s a character vector because the output is printed with double quotes around the value. We often need to make simple character vectors containing only one value—for example, to set the values of arguments to a function.</p>
+<p>The quotation marks are not optional—they tell R we want to treat whatever is inside them as a literal value. The quoting is important. If we try to do the same thing as above without the quotes we end up with an error:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">Dylan</code></pre></div>
 <pre><code>## Error in eval(expr, envir, enclos): object &#39;Dylan&#39; not found</code></pre>
-<p>The reason for this should be clear if you have been following our discussions about R evaluates expressions. When the interpreter sees the word <code>Dylan</code> without quotes it assumes that this must be the name of a variable, so it goes in search of it in the global environment. We haven’t made a variable called Dylan, so there is no way to evaluate the expression.</p>
-<p>We often need to make simple character vectors with only one value (i.e. vectors of length 1)—usually to set the values of arguments to a function. However, we can make longer character vectors using the <code>c</code> function if we need to:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">c</span>(<span class="st">&quot;Dylan&quot;</span>, <span class="st">&quot;Zachary&quot;</span>, <span class="st">&quot;Childs&quot;</span>)</code></pre></div>
+<p>What happened? When the interpreter sees the word <code>Dylan</code> without quotes it assumes that this must be the name of a variable, so it goes in search of it in the global environment. We haven’t made a variable called Dylan, so there is no way to evaluate the expression and R spits out an error to let us know there’s a problem.</p>
+<p>Longer character vectors are typically constructed to represent data of some kind. The <code>c</code> function is often a good starting point for this kind of thing:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># make a length-3 character vector</span>
+my_name &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Dylan&quot;</span>, <span class="st">&quot;Zachary&quot;</span>, <span class="st">&quot;Childs&quot;</span>)
+my_name</code></pre></div>
 <pre><code>## [1] &quot;Dylan&quot;   &quot;Zachary&quot; &quot;Childs&quot;</code></pre>
-<p>Here we made a length 3 character vector, with elements corresponding to a first name, a middle name, and a last name. Take note, this is <strong>not</strong> the same as :</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">c</span>(<span class="st">&quot;Dylan Zachary Childs&quot;</span>)</code></pre></div>
+<p>Here we made a length-3 character vector, with elements corresponding to a first name, middle name, and last name. If we want to extract one or more elements from a character vector by their position</p>
+<p>Take note, this is <strong>not</strong> equivalent to the above :</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">my_name &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Dylan Zachary Childs&quot;</span>)
+my_name</code></pre></div>
 <pre><code>## [1] &quot;Dylan Zachary Childs&quot;</code></pre>
-<p>The only element of this character vector is a single string that contains the first, middle and last name separated by a spaces. We didn’t need to use the the <code>c</code> function here because we were only ever working with a character vector of length 1. We just used only for consistency, i.e. we could have typed <code>&quot;Dylan Zachary Childs&quot;</code> and we would have ended up with exactly the same text printed at the Console.</p>
-<p>In addition to using the <code>c</code> function, we can construct repeating character vectors with <code>rep</code>. This works on character vectors in exactly the same way as it does on numeric vectors:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">cvec &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Dylan&quot;</span>, <span class="st">&quot;Zachary&quot;</span>, <span class="st">&quot;Childs&quot;</span>)
-<span class="kw">rep</span>(cvec, <span class="dt">each =</span> <span class="dv">2</span>, <span class="dt">times =</span> <span class="dv">3</span>)</code></pre></div>
+<p>The only element of this character vector is a single character string containing the first, middle and last name separated by spaces. We didn’t need to use the the <code>c</code> function here because we were only ever working with a length-1 character vector. i.e. we could have typed <code>&quot;Dylan Zachary Childs&quot;</code> and we would have ended up with exactly the same text printed at the Console.</p>
+<p>We can construct more complicated, repeating character vectors with <code>rep</code>. This works on character vectors in exactly the same way as it does on numeric vectors:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">c_vec &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Dylan&quot;</span>, <span class="st">&quot;Zachary&quot;</span>, <span class="st">&quot;Childs&quot;</span>)
+<span class="kw">rep</span>(c_vec, <span class="dt">each =</span> <span class="dv">2</span>, <span class="dt">times =</span> <span class="dv">3</span>)</code></pre></div>
 <pre><code>##  [1] &quot;Dylan&quot;   &quot;Dylan&quot;   &quot;Zachary&quot; &quot;Zachary&quot; &quot;Childs&quot;  &quot;Childs&quot;  &quot;Dylan&quot;  
 ##  [8] &quot;Dylan&quot;   &quot;Zachary&quot; &quot;Zachary&quot; &quot;Childs&quot;  &quot;Childs&quot;  &quot;Dylan&quot;   &quot;Dylan&quot;  
 ## [15] &quot;Zachary&quot; &quot;Zachary&quot; &quot;Childs&quot;  &quot;Childs&quot;</code></pre>
 <p>Each element was replicated twice (<code>each = 2</code>), and then the whole vector was replicated three times (<code>times = 3</code>), end to end.</p>
-<p>What about the <code>seq</code> function? Hopefully it is fairly obvious that we cannot use this function to construct character vectors. The <code>seq</code> function is designed to make sequences of numbers, from a starting value, to another. The notion of a sequence of character strings – for example, from <code>&quot;Dylan&quot;</code> to <code>&quot;Childs&quot;</code> – is meaningless.</p>
+<p>What about the <code>seq</code> function? Hopefully it is fairly obvious that we can’t use this function to build a character vector. The <code>seq</code> function is designed to make sequences of numbers, from a starting value, to another. The notion of a sequence of character strings – for example, from <code>&quot;Dylan&quot;</code> to <code>&quot;Childs&quot;</code> – is meaningless.</p>
 </div>
-<div id="logical-vectors" class="section level3">
-<h3><span class="header-section-number">5.1.2</span> Logical vectors</h3>
-<p>The elements of <strong>logical vectors</strong> only take two values: <code>TRUE</code> or <code>FALSE</code>. These are called logical values. Do not let the simplicity of logical vectors fool you though: they are very useful. As with other kinds of vectors we can use the <code>c</code> function to construct short logical vectors and the <code>rep</code> function to construct repeating sequences of logical values:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lvec &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="ot">TRUE</span>, <span class="ot">FALSE</span>)
-<span class="kw">rep</span>(lvec, <span class="dt">times =</span> <span class="dv">2</span>)</code></pre></div>
+<div id="logical-vectors" class="section level2">
+<h2><span class="header-section-number">5.3</span> Logical vectors</h2>
+<p>The elements of <strong>logical vectors</strong> only take two values: <code>TRUE</code> or <code>FALSE</code>. Don’t let the simplicity of logical vectors fool you—they’re very useful. As with other kinds of atomic vectors the <code>c</code> and <code>rep</code> functions can be used to construct a logical vector:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">l_vec &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="ot">TRUE</span>, <span class="ot">FALSE</span>)
+<span class="kw">rep</span>(l_vec, <span class="dt">times =</span> <span class="dv">2</span>)</code></pre></div>
 <pre><code>## [1]  TRUE FALSE  TRUE FALSE</code></pre>
-<p>Nothing about this should surprise you by this point.</p>
-<p>So why are logical vectors useful? Their main purpose is to allow us to represent the results of questions such as, “is x greater than y”. This may not sound particularly useful, but at the end of this topic we will see how such questions can implemented via logical vectors in order to extract subsets of data. Let’s first look at how we use logical vectors to evaluate these kinds of questions. Before we can do that though we need to introduce <strong>relational operators</strong>. These sound fancy, but they are very simple: we use relational operators to evaluate the relative value of vector elements. Six are available in R:</p>
+<p>Hopefully nothing about that output is surprising by this point.</p>
+<p>So why are logical vectors useful? Their allow us to represent the results of questions such as, “is x greater than y” or “is x equal to y”. The results of such comparisons may then be used to carry out various kinds of subsetting operations based.</p>
+<p>Let’s first look at how we use logical vectors to evaluate comparisons. Before we can do that though we need to introduce <strong>relational operators</strong>. These sound fancy, but they are very simple: we use relational operators to evaluate the relative value of vector elements. Six are available in R:</p>
 <ul>
 <li><code>x &lt; y</code>: is x less than y?</li>
 <li><code>x &gt; y</code>: is x greater than y?</li>
@@ -282,84 +294,29 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li><code>x == y</code>: is x equal to y?</li>
 <li><code>x != y</code>: is x not equal to y?</li>
 </ul>
-<p>The easiest way to understand how these work is just use them. We most often use relational operators with numeric vectors, so let’s make a couple of numeric variables to illustrate their use:</p>
+<p>The easiest way to understand how these work is to simply use them. We need a couple of numeric variables first:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="dv">11</span>:<span class="dv">20</span>
 y &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">3</span>, <span class="dv">30</span>, <span class="dt">by =</span> <span class="dv">3</span>)
 x</code></pre></div>
 <pre><code>##  [1] 11 12 13 14 15 16 17 18 19 20</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">y</code></pre></div>
 <pre><code>##  [1]  3  6  9 12 15 18 21 24 27 30</code></pre>
-<p>Now, if we need to evaluate and represent a question like, “is x greater than y”, we can use either <code>&lt;</code> or <code>&gt;</code>:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;<span class="st"> </span>y</code></pre></div>
-<pre><code>##  [1] FALSE FALSE FALSE FALSE FALSE  TRUE  TRUE  TRUE  TRUE  TRUE</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">y &gt;<span class="st"> </span>x</code></pre></div>
-<pre><code>##  [1] FALSE FALSE FALSE FALSE FALSE  TRUE  TRUE  TRUE  TRUE  TRUE</code></pre>
-<p>These are both equivalent as long as we get the order of the <code>x</code> and <code>y</code> vectors right in each case. What do you notice about this simple example? Not surprisingly, it produces a logical vector, with <code>TRUE</code> values associated with elements in <code>x</code> are less than <code>y</code>, and <code>FALSE</code> otherwise. In this example, x is less than y until we reach the value of 15 in each sequence. Notice that this shows that relational operators are vectorised: the work on an element by element basis. They would be much less useful if this were not true.</p>
-<p>What does the <code>==</code> operator do? You can probably guess: it compares the elements of two vectors to determine if they are exactly equal:</p>
+<p>Now, if we need to evaluate and represent a question like, “is x greater than than y”, we can use either <code>&lt;</code> or <code>&gt;</code>:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &gt;<span class="st"> </span>y</code></pre></div>
+<pre><code>##  [1]  TRUE  TRUE  TRUE  TRUE FALSE FALSE FALSE FALSE FALSE FALSE</code></pre>
+<p>What do you notice about this simple example? The <code>x &gt; y</code> expression produces a logical vector, with <code>TRUE</code> values associated with elements in <code>x</code> are less than <code>y</code>, and <code>FALSE</code> otherwise. In this example, x is less than y until we reach the value of 15 in each sequence. Notice that that relational operators are vectorised: the work on an element by element basis. They wouldn’t be much use if this were not the case.</p>
+<p>What does the <code>==</code> operator do? It compares the elements of two vectors to determine if they are exactly equal:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x ==<span class="st"> </span>y</code></pre></div>
 <pre><code>##  [1] FALSE FALSE FALSE FALSE  TRUE FALSE FALSE FALSE FALSE FALSE</code></pre>
-<p>The output of this comparison is true only for one element, the number 15, which is at the 5<sup>th</sup> position in both <code>x</code> and <code>y</code>. Most of the other relational operators are self-explanatory so we will not illustrate their use. If you are in any doubt about how they work though experiment using the <code>x</code> and <code>y</code> above with them.</p>
+<p>The output of this comparison is true only for one element, the number 15, which is at the 5<sup>th</sup> position in both <code>x</code> and <code>y</code>. The <code>!=</code> operator is essentially the opposite of <code>==</code>. It identifies cases where two elements are not exactly equal. We could step through each of the different the other relational operators, but hopefully they are self-explanatory at this point (if not, experiment with them).</p>
 <div class="warning">
 <h4 id="and-are-not-the-same">
 <code>=</code> and <code>==</code> are not the same
 </h4>
 <p>
-If you want to test for equivalence between the elements of two vectors you must use double equals, <code>==</code>. If you forget this and use a single equals, <code>=</code>, you will run into problems. This is because the <code>=</code> symbol already has a use in R – assigning name-value pairs – so using it to compare vectors would lead to ambiguity in our R scripts. Forgetting this and using <code>=</code> when you meant to use <code>==</code> is a <strong>very</strong> common mistake. If you make it, this mistake will lead to all kinds of difficult-to-comprehend problems with your scripts. Try not to do it.
+If we want to test for equivalence between the elements of two vectors we must use double equals (<code>==</code>), not single equals (<code>=</code>). Forgetting to do this <code>==</code> instead of <code>=</code> is a very common source of mistakes. The <code>=</code> symbol already has a use in R—assigning name-value pairs—so it can’t also be used to compare vectors because this would lead to ambiguity in our R scripts. Using <code>=</code> when you meant to use <code>==</code> is a very common mistake. If you make it, this will lead to all kinds of difficult-to-comprehend problems with your scripts. Try to remember the difference!
 </p>
 </div>
-</div>
-</div>
-<div id="extract-subset" class="section level2">
-<h2><span class="header-section-number">5.2</span> Extracting subsets of vectors</h2>
-<p>Extracting subsets of data is a very common task. Luckily for us, R is very good at doing this. In this last section we are going to see how to extract subsets of vectors. Actually, we are going to see how to extract subsets of atomic vectors, but that detail is not too crucial at this point. By the way, we use the word “subset” as a verb that is shorthand for “extract a subset of elements”.</p>
-<p>There are several ways to subset a vector. However, these always use a pair opening and closing square brackets, <code>[</code> and <code>]</code>. These should always be used together. Remember that we said a vector is a 1-dimensional object that contains an ordered collection of data objects that can be accessed by their position? This means we can use the <code>[</code> construct with a numeric vector of integer(s) to subset the elements of vector by their position. Take a look at this example:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">cvec &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Dylan&quot;</span>, <span class="st">&quot;Zachary&quot;</span>, <span class="st">&quot;Childs&quot;</span>)
-cvec[<span class="dv">1</span>]</code></pre></div>
-<pre><code>## [1] &quot;Dylan&quot;</code></pre>
-<p>The <code>cvec</code> variable is a length 3 character vector, with elements corresponding to his first, middle and last name. In order to subset it an retain only the first element – his first name – we used the <code>[ ]</code> construct with the number 1 inside, placing <code>[1]</code> next to the name of the vector. Notice that we do not place a space anywhere in this construct. We could, but this is not conventional.</p>
-<p>Remember, “the number 1” is in fact a numeric vector of length 1. This suggest we might be able to use longer vectors to extract more than one element:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">cvec &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Dylan&quot;</span>, <span class="st">&quot;Zachary&quot;</span>, <span class="st">&quot;Childs&quot;</span>)
-nindex &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">3</span>)
-cvec[nindex]</code></pre></div>
-<pre><code>## [1] &quot;Dylan&quot;  &quot;Childs&quot;</code></pre>
-<p>We first constructed a numeric vector of length 2 called <code>index</code>, which has elements <code>1</code> and <code>3</code>. We then used this to extract his first and last name by placing the its name inside the <code>[]</code>. We did not have to do this in two steps though. This achieves the same result:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">cvec[<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">3</span>)]</code></pre></div>
-<pre><code>## [1] &quot;Dylan&quot;  &quot;Childs&quot;</code></pre>
-<p>You may have noticed something important. When we subset a vector of a particular type, we get a vector of the same type back, e.g. subsetting a character vector produces a character vector.</p>
-<p>We can also subset a vector by removing its elements if we need to. We use the <code>-</code> operator to do this. Here is an example that produces the same result as the last example, but in a different way:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">cvec[-<span class="dv">2</span>]</code></pre></div>
-<pre><code>## [1] &quot;Dylan&quot;  &quot;Childs&quot;</code></pre>
-<p>Hopefully you can see why this works. The <code>cvec[-2]</code> construct indicates that we want all the elements of <code>cvec</code> <strong>except</strong> that at position 2. If we want to remove more than one element we just use a longer numeric vector inside the <code>[ ]</code>. For example, this leaves just his first name in the resulting character vector:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">cvec[-<span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">3</span>)]</code></pre></div>
-<pre><code>## [1] &quot;Dylan&quot;</code></pre>
-<p>A second way to subset a vector makes use of logical vectors inside the <code>[ ]</code>. This is usually done using two vectors of the same length: the focal vector we wish to subset, and a logical vector that specifies which elements to keep. Here is a very simple example:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lindex &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="ot">TRUE</span>, <span class="ot">FALSE</span>, <span class="ot">TRUE</span>)
-cvec[lindex]  </code></pre></div>
-<pre><code>## [1] &quot;Dylan&quot;  &quot;Childs&quot;</code></pre>
-<p>This should be fairly self-explanatory. The logical vector method of subsetting works element-by-element. An element in <code>cvec</code> is retained wherever the corresponding element in <code>lindex</code> contains a <code>TRUE</code>, otherwise it is discarded.</p>
-<p>Why is this useful? After all, using a integer vector of positions to subset a vector is much more direct. The reason is that we can use relational operators to help us select elements according to particular criteria. This is best illustrated with an example. We will start by defining two vectors of the same length:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">name &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;cat&quot;</span>, <span class="st">&quot;dog&quot;</span>, <span class="st">&quot;wren&quot;</span>, <span class="st">&quot;pig&quot;</span>, <span class="st">&quot;owl&quot;</span>)
-name</code></pre></div>
-<pre><code>## [1] &quot;cat&quot;  &quot;dog&quot;  &quot;wren&quot; &quot;pig&quot;  &quot;owl&quot;</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">type &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;mammal&quot;</span>, <span class="st">&quot;mammal&quot;</span>, <span class="st">&quot;bird&quot;</span>, <span class="st">&quot;mammal&quot;</span>, <span class="st">&quot;bird&quot;</span>)
-type</code></pre></div>
-<pre><code>## [1] &quot;mammal&quot; &quot;mammal&quot; &quot;bird&quot;   &quot;mammal&quot; &quot;bird&quot;</code></pre>
-<p>The first, <code>name</code>, is a character vector containing the common names of a few animals. The second, <code>type</code>, is another character vector whose elements denote the type of animal, in this case, a bird or a mammal. The vectors are arranged such that the information is associated via the position of elements in each vector.</p>
-<p>Let’s assume that we want to create a subset of <code>name</code> that only contains the names of mammals. We can do this by creating a logical vector from <code>type</code>, where the values are <code>TRUE</code> if an element is equal to <code>&quot;mammal&quot;</code> and <code>FALSE</code> otherwise. We know how to do this using the <code>==</code> operator:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lindex &lt;-<span class="st"> </span>type ==<span class="st"> &quot;mammal&quot;</span>
-lindex</code></pre></div>
-<pre><code>## [1]  TRUE  TRUE FALSE  TRUE FALSE</code></pre>
-<p>We stored the result in a variable called <code>lindex</code>. Now all we need to do is use with <code>lindex</code> inside the <code>[ ]</code> construct to subset <code>name</code>:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">name[lindex]</code></pre></div>
-<pre><code>## [1] &quot;cat&quot; &quot;dog&quot; &quot;pig&quot;</code></pre>
-<p>We have done this the long way so that you can understand the logic of how subsetting vectors with logical operators. This is quite verbose, so we would usually combine the two steps into a single R expression:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">name[type ==<span class="st"> &quot;mammal&quot;</span>]</code></pre></div>
-<pre><code>## [1] &quot;cat&quot; &quot;dog&quot; &quot;pig&quot;</code></pre>
-<p>We can use all of the relational operators like this. If we define a numeric variable that contains the mean mass (in grams) of each animal, we can use this to subset <code>names</code> according to the associated mean mass. For example, if we want a subset that contains only those animals where the mean mass is greater than 1kg we use:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mass &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">2900</span>, <span class="dv">9000</span>, <span class="dv">10</span>, <span class="dv">18000</span>, <span class="dv">2000</span>)
-name[mass &gt;<span class="st"> </span><span class="dv">1000</span>]</code></pre></div>
-<pre><code>## [1] &quot;cat&quot; &quot;dog&quot; &quot;pig&quot; &quot;owl&quot;</code></pre>
-<p>Just remember, this way of using information in one vector to create subsets of a second vector only works if the information in each is associated via the position of their respective elements. Keeping a bunch of different vectors organised like this is difficult and error prone. In the next block we’ll learn how to use something called a data frame and the <code>dplyr</code> package to make working with a collection of related vectors much easier.</p>
 
 </div>
 </div>
@@ -369,7 +326,7 @@ name[mass &gt;<span class="st"> </span><span class="dv">1000</span>]</code></pre
         </div>
       </div>
 <a href="numeric-vectors.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="getting-help.html" class="navigation navigation-next " aria-label="Next page""><i class="fa fa-angle-right"></i></a>
+<a href="extracting-subsets-of-vectors.html" class="navigation navigation-next " aria-label="Next page""><i class="fa fa-angle-right"></i></a>
 
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/lunr.js"></script>
