@@ -4,7 +4,7 @@
 
 ### Basic arithmetic
 
-At the end of the last chapter we saw that R can apparently handle familiar arithmetic operations: addition, subtraction, multiplication, division. If we want to add or subtract a pair of numbers just place the `+` or `-` symbol in between two numbers, hit Enter, and R will read the expression, evaluate it, and print the result to the Console. This works exactly as we expect it to:
+The end of the [Get up and running with R and RStudio] chapter demonstrated that R can handle familiar arithmetic operations: addition, subtraction, multiplication, division. If we want to add or subtract a pair of numbers just place the `+` or `-` symbol in between two numbers, hit Enter, and R will read the expression, evaluate it, and print the result to the Console. This works exactly as we expect it to:
 ```{r}
 3 + 2
 5 - 1

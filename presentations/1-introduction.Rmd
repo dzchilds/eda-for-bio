@@ -1,0 +1,497 @@
+---
+title: "Introduction to R and RStudio"
+author: "Dylan Z. Childs"
+date: "8 February 2017"
+output:
+  ioslides_presentation:
+    css: extras.css
+    smaller: no
+    wide: yes
+highlighter: pygments
+---
+
+```{r, echo=FALSE}
+show_ans <- TRUE
+```
+
+Course overview   
+======================================================================================
+
+## Before we start...
+
+DO THIS NOW!
+
+- Go to the APS 135 MOLE site and open today's lecture ("Lecture 1"). You can navigate through this with the arrow keys.
+
+- Open up RStudio from the Programs Menu on your PC. Grab a TA for help if there seems to be a problem.
+
+- The attendance sheet will be passed around the room. Please don't forget to sign this before you leave.
+
+## Course structure {.build}
+
+__Three blocks of related content__
+
+- Introduction to R and Rstudio
+- Data wrangling (`dplyr`)
+- Exploratory data analysis (`ggplot2`) 
+
+__Each block is 2 weeks long__
+
+- Two 2-hour IT sessions
+- Reading the [online course book](http://dzchilds.github.io/eda-for-bio/index.html) <-- take a quick look
+- Lectures (sometimes!)
+
+__Assessment__
+
+- One set of roughly 20 questions in week 3 of semester 2B
+
+## What are we aiming to do 
+
+We have __three related aims__ in this course:
+
+- Introduce specific tools (`dplyr` + `ggplot2`) to facilitate exploratory data analysis.
+- Provide a foundation for using R next year to help you learn statistics. You will have to use it!
+- Give you enough experience of basic R to start using it to Get Things Done, now next year, and beyond.
+
+We could list a 4^th^ aim here as well. We hope that you will learn how to __help one another__ solve your R and data analysis problems. 
+
+
+R and Rstudio | What are they? Why use them?
+======================================================================================
+
+## What is R? Why use R? {.build}
+
+<div>
+"R" is shorthand for "[GNU R](http://www.r-project.org)":
+
+- An interactive programming language
+- Focus on data analysis: data manipulation, data visualisation, and statistics
+- This year is about the first two
+</div>
+
+<div>
+"R" is also shorthand for the ecosystem around this language
+
+- Ordinary useRs like me and you
+- Bloggers
+- Book authors
+- Package developers
+</div>
+
+Learning to use R will make you __more efficient__ and facilitate use of __advanced data analysis tools__
+
+## What is Rstudio {.build}
+
+<div>
+RStudio is an Integrated Development Environment. Makes working with R much easier:
+
+- Console to run R
+- Editor to work with scripts 
+- Package management
+- Many more features...
+</div>
+
+<div class="red2"> Don't mix up R and RStudio. </div>
+
+## Anatomy of RStudio {.build}
+
+<div class="columns-2">
+
+  <img src="../images/RStudio-3-pane.png" alt="RStudio" title="RStudio", width="450">
+
+  What is in these three panes?
+  
+  #. Console
+  #. Global Environment and History
+  #. Everything else (e.g. file browser)
+  
+  Note: there is a 4^th^ pane that we will get to in a moment.
+
+</div>
+
+We will explore some of the core features of RStudio in this course. We are only going to scratch the surface of what RStudio can do, but we will cover enough for you to use it with confidence.
+
+## Getting started {.build}
+
+Let's get ready to use R and RStudio. Do the following:
+
+  #. Open up RStudio `All Programs > RStudio`
+  #. Maximise the RStudio window (always do this!)
+  #. Click the Console pane
+  #. Type `3 + 2` at the prompt `>`
+  #. Hit Enter
+  
+What happened?
+
+```{r}
+3 + 2
+```
+
+
+Mathematical calculations | R is a big calculator
+======================================================================================
+
+## Arithmetic operations {.build}
+
+<div>
+You will not be surprised that R is very good at sums. It has all the arithmetic operators you would expect to see:
+
+- `+`: addition 
+- `-`: subtraction
+- `*`: multiplication
+- `/`: division
+- `^`: exponentiation
+</div>
+
+<div>
+__Remember__:
+
+R does exponentiation first, multiplication and division next, and then addition and subtraction. If you need to change __the order of evaluation__ use parentheses --- `(` and `)` --- to group calculations.
+</div>
+
+## Exercise {.build}
+
+<div id="exercise-box">
+__Basic arithmetic__
+<div id="box-text">
+Do the following **in one step** in R:
+
+1. Add the numbers 2 and 3
+2. Multiple the resulting number by 2
+3. Take the square of the second result.
+</div>
+</div>
+
+<div>
+```{r, include=show_ans}
+((2 + 3) * 2) ^ 2
+```
+</div>
+
+Now type the &#8593; key. What happened?
+
+## Exercise {.build}
+
+<div id="exercise-box">
+__Combining calculations__
+<div id="box-text">
+Remember Pythagoras's theorem for the length of the hypotenuse of a right-angled triangle? Here's the formula:
+
+$L_C = \sqrt(L_A^2 + L_B^2)$?
+
+Use this to equation to calculate the length of the hypotenuse when $L_A = 2$ and $L_B = 3$. Make sure R does all the work for you.
+
+Hint: Remember that the square root of a number $x$ is equal to $x^{1/2}$
+</div>
+</div>
+
+<div>
+```{r, include=show_ans}
+(2^2 + 3^2)^(1/2)
+```
+</div>
+
+## Assignment {.build}
+
+<div>
+We usually want to do more with R than just perform a few simple calculations. This means we need a way to store intermediate results. We do this with the assignment operator: `<-`. There will always be two parts to an assignment, sitting either side of the `<-`:
+
+1. __Right hand side__: any valid R expression
+2. __Left hand side__: the name to assign the result to
+</div>
+
+```{r}
+x <- 3
+x
+```
+
+In this example `x` is called the __name__. We have associated it with the __value__ 3.
+
+## More assignment {.build}
+
+```{r}
+x <- 2
+x
+```
+What happened to the old value of x?
+
+```{r}
+y <- x * 10^2
+y
+```
+
+<div>
+Once we have assigned a value a name we can reuse it. You can use the assignment operator with __any kind of object (a value)__ R knows how to make---not just numbers.
+</div>
+
+## Exercise {.build}
+
+<div id="exercise-box">
+__Using assignment__
+<div id="box-text">
+Let's look at the Pythagoras's theorem example again. 
+
+1. Assign the value 2 to `A` and the value 3 to `B`.
+2. Now rewrite the calculation to calculate the length of the hypotenuse as an R expression using `A` and `B`. 
+
+Remember: $L_C = \sqrt(L_A^2 + L_B^2)$ 
+</div>
+</div>
+
+```{r, include=show_ans}
+a <- 2
+b <- 3
+(a^2 + b^2)^(1/2)
+```
+
+
+Using functions | Starting to make use of R's power 
+======================================================================================
+
+## Examples of using functions {.build}
+
+```{r}
+round(x = 3.141593)
+```
+
+Here the name of the argument is `x`. We gave it the value `3.141593`. What did R do with this?
+
+```{r}
+round(3.141593)
+```
+
+You do not have to name arguments in R -- it will match them up by position. More on this in a moment...
+
+## Functions {.build}
+
+A function in R is very much like a mathematical function. They (usually) takes one or more inputs, does something to them and then returns the result to us. Using a function looks like this:
+
+```{r, eval=FALSE}
+my_func_name(arg1 = val1, arg2 = val2, ...)
+```
+
+<div>
+__Details__
+
+- `my_func_name`: the name of the function (e.g. `round`)
+- `arg1`: name of the first __argument__
+- `val1`: value of the first __argument__
+
+A function may have 0, 1, or more "arguments". The arguments are the inputs (name value pairs) to the function. Remember: name on the left, value of the right.
+</div>
+
+## Exercise {.build}
+
+<div id="exercise-box">
+__Using functions__
+<div id="box-text">
+Experiment with the following functions to convince yourself you know what they do:
+
+- `sin`
+- `log`
+- `exp`
+- `log10`
+- `floor`
+
+Hint: Don't just use whole numbers.
+</div>
+</div>
+
+## Exercise {.build .smaller}
+
+<div id="exercise-box">
+__Using functions__
+<div id="box-text">
+We will use a built in constant `pi` in this exercise. Type `pi` into the prompt and hit return. I hope you recognise `pi`. We are going to round $\pi$ to 2 significant places. Experiment with the following uses of the `round` function.
+
+- `round(x = pi, digits = 2)`
+- `round(pi, digits = 2)`
+- `round(x = pi, 2)`
+- `round(pi, 2)`
+- `round(digits = 2, x = pi)`
+- `round(2, x = pi)`
+- `round(digits = 2, pi)`
+- `round(2, pi)`
+
+Work out which ones give us the wrong answer. Why?
+</div>
+</div>
+
+Scripts | Reusing your hard work later
+======================================================================================
+
+## Working with a script
+
+STEP 1: Do the following:
+
+1. Navigate through RStudio's menus to `File > New File > R Script`.
+2. A new pane should open up. Type this series of calculations from earlier into it:
+```{r, eval=FALSE}
+# short sides of the triangle
+a <- 2
+b <- 3
+# length of the hypotenuse
+(a^2 + b^2)^(1/2)
+```
+3. Now highlight those three lines and then hit `Ctrl+Enter`
+
+What happened? What does the text in your script look like?
+
+## Working with a script
+
+<div>
+STEP 2: Do the following:
+
+1. Save your script using the familiar `File > Save` route. Make sure it is somewhere you can find it again!
+2. Close the tab containing the script you just saved.
+3. Close down RStudio (do not "save the workspace image""). 
+4. Reopen RStudio and then open your script using `File > Open file...`
+5. Now highlight those three lines and then hit `Ctrl+Enter`
+</div>
+
+You just made a script: a reusable computer program that you can share with collaborators or edit / extend as needed. __This__ is why using R will save you time in the long run.
+
+
+Vectors | The simplest objects in R
+======================================================================================
+
+## Vectors {.build .smaller}
+
+This is what you need to know: vectors are the simplest type of "object" in R----there is no such thing as just a single number. 
+
+<div>
+What does this do?
+
+```{r}
+print(5)
+```
+
+Look at the `[1]`. This says we made a numeric vector of length 1 (the `print` isn't very important). 
+</div>
+
+<div>
+Now look at what the `:` operator does:
+
+```{r}
+5:35
+```
+
+How many __elements__ are in the thing we made here? What does the `[24]` signify?
+</div>
+
+## Making and using vectors {.build .small}
+
+Think of vectors as collections of simple things (e.g. numbers) that are ordered. We can create vectors from other vectors using the `c` function:
+
+```{r}
+c(3, 4, 1:3)
+```
+
+We can use the assignment operator to associate a name with our vectors so that we can reuse them:
+
+```{r}
+myvec <- c(3, 4, 1:3)
+myvec
+```
+
+## Exercise {.build}
+
+<div id="exercise-box">
+__Different kinds of vectors__
+<div id="box-text">
+Add this line to your script and send it to the Console: `char_vec <- c("dog","cat","ape")`. Print `char_vec` to the Console. This builds a __character vector__. We know this because the elements are all in quotes.
+
+Now use the `c` function to combine the number 4 with `char_vec`. What happens? What kind of vector does this produce?
+</div>
+</div>
+
+<div>
+```{r, include=show_ans}
+char_vec <- c("dog","cat","ape")
+c(4, char_vec)
+```
+
+Notice that the `4` is quoted. R turned the number 4 it into a character and then combined it with `char_vec`. The lesson: __all the elements in a vector must be of the same type__.
+</div>
+
+## Extracting elements of vectors {.build}
+
+R has a few built in vectors that we can access all the time (if we know their name). One of these is `LETTERS`. What does it contain?
+
+```{r}
+LETTERS
+```
+
+How do extract the first element from this (the letter `A`). Here is how to do it:
+
+```{r}
+LETTERS[1]
+```
+
+__Use the square brakets to subset vectors__. Notice that all we did was make a new vector -- there is nothing simpler, remember?
+
+## Extracting elements of vectors {.build}
+
+What do we do if we need more than one element? Here is how to get elements in position 3 through to 10:
+
+```{r}
+LETTERS[3:10]
+```
+
+Remember what the `:` operator does? Take a look:
+
+```{r}
+3:10
+```
+
+Can you see how `LETTERS[3:10]` works now?
+
+## Exercise {.build}
+
+<div id="exercise-box">
+__Extracting elements ("subsetting") vectors__
+<div id="box-text">
+See if you can make a vector with the sequence of letters `C`, `E` and `J` using `LETTERS` and the square brackets, `[ ]`.
+</div>
+</div>
+
+<div>
+```{r, include=show_ans}
+LETTERS[c(3, 5, 10)]
+```
+</div>
+
+## Using numeric vectors {.build .small}
+
+<div id="exercise-box">
+__Vectorised operations__
+<div id="box-text">
+Make a vector containing elements in a sequence from 10 to 20 (use `:`). Now add the number 2 to that vector. 
+
+Do you understand what happened?
+</div>
+</div>
+
+<div>
+```{r, include=show_ans}
+myvec <- 10:20
+myvec + 2
+```
+</div>
+
+__Arithmetic operations are vectorised__
+
+And finally...
+==============
+
+## What happens next? {.build}
+
+<div>
+1. __Lecture tomorrow__. We're going to survey the facilities provided by R, set out what you'll be learning in level 1 and level 2, and explain why you care about learning some basic programming.
+</div>
+<div>
+2. __Read through through the the online course book__ over next 1-2 weeks. Take note: nobody is expecting everything to make perfect sense yet (!), but you should try to at least familiarise yourself with the book.
+</div>
+<div>
+3. __Dylan is away next week__. There will be a practise / help session to reinforce some of today's ideas. If you are having trouble with R / RStudio on your own machine this is a good time to get help. Attendance is compulsory.
+</div>

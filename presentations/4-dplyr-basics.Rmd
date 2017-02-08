@@ -1,0 +1,464 @@
+---
+title: Data wrangling with dplyr
+author: Dylan Childs
+date: March 3, 2016
+highlighter: pygments
+output: 
+  ioslides_presentation:
+    css: extras.css
+    smaller: true
+---
+
+```{r, include=FALSE}
+showAnswers <- TRUE
+library(dplyr)
+library(nasaweather)
+```
+
+Overview of `dplyr` and `tbl` | Getting to grips with the basics 
+====================================================================
+
+## Why use dplyr?
+
+`dplyr` implements a __grammar of data manipulation__ to help you extract useful information from a dataset (e.g. group means).
+
+__Advantages of using `dplyr`__
+ 
+- Provides a consistent and easy to understand framework for data manipulation
+- Designed to work well with the `ggplot2` plotting system
+- Fast compared to many base R functions 
+- Allows you to work with data stored in many ways (e.g. in a database)
+
+## The five key verbs {.build} 
+
+<div>
+__`dplyr` has five main "verbs", each of which corresponds to a function:__
+
+- `select`: Extract a subset of variables
+- `filter`: Extract a subset of rows
+- `arrange`: Reorder rows 
+- `mutate`: Construct new variables 
+- `summarize`: Calculate information about groups
+
+(+ a few other important functions that we need too, e.g. `slice`, `rename` and `group_by`)
+</div>
+
+<div>
+<br>
+__It is helpful to classify the verbs according to what they work on:__
+
+- observations (rows): `filter` & `slice` & `arrange`
+- variables (columns): `select` & `rename` & `mutate`
+- summarise: `summarize` (or `summarise`)
+
+(This classification only works if your data are __tidy__. Make sure you read about this)
+</div>
+
+## Before we start {.build}
+
+Required packages and data:
+
+- `dplyr`: obviously
+- `storms.csv`: climate data for Central America (on MOLE)
+
+**1. Load the `dplyr` package**
+
+```{r, message=FALSE}
+library(dplyr)
+```
+
+This should already be installed. If you see errors, you may have to install it, e.g.
+
+```{r, eval=FALSE}
+install.packages("dplyr")
+```
+
+__2. Read in the storms data__
+
+Download the `storms.csv` data from MOLE. Set your working directory to the correct location. and then use `read.csv` to read the data in, giving it the name `storms`.
+
+__3. Use `View` to examine the `storms` data__
+
+## Making and using `tbl` objects
+
+A `tbl` is essentially a special kind of data frame. It works the same as a data frame, but adds a few extra useful features like compact printing:
+
+```{r}
+storms <- tbl_df(storms)
+storms
+```
+
+## Looking at your `tbl` (or `data.frame`)
+
+In addition to printing a `tbl` or `data.frame`, we can use the `glimpse` function with these objects to obtain different summary information about variables:
+
+```{r}
+glimpse(storms)
+```
+
+Glimpse tells us what variables are in `storm` as well as the type of each variable.
+
+
+Using `select` | Extracting a subset of variables 
+====================================================================
+
+## Basic usage
+
+We use `select` to to extract a subset of variables for further analysis. Using `select` looks like this:
+
+```{r, eval=FALSE}
+select(data, Variable1, Variable2, ...)
+```
+
+__Arguments__
+
+- `data`: a `data.frame` or `tbl` object 
+- `VariableX`: names of variables in `data`
+
+## Exercise {.build}
+
+<div id="exercise-box">
+__Selecting two variables__
+<div id="box-text">
+Use the `select` function with the `storms` dataset to make a new `tbl` containing only `name` and `year`. Assign this new `tbl` a name, and then check that it contains the right variables using the `glimpse` function.
+</div>
+</div>
+
+```{r, eval=showAnswers, echo=showAnswers}
+s2 <- select(storms, name, year)
+glimpse(s2)
+```
+
+## Selecting & dropping variable ranges {.build}
+
+The `select` function makes selecting/removing groups of variables easy:
+
+- Use `:` to select a sequence of variables 
+- Use `-` to drop a sequence of variables 
+
+The sequence can be specified using numbers (for position) or names.
+
+<div>
+__Usage:__
+
+```{r, eval=FALSE}
+select(data, Var1:Var5)
+select(data, 1:5)
+
+select(data, -(Var1:Var5))
+select(data, -(1:5))
+```
+</div>
+
+<div>
+__Example:__
+
+```{r, eval=FALSE}
+iris.vrange <- select(tbl_df(iris), Petal.Length:Species)
+glimpse(iris.vrange)
+```
+</div>
+
+## Exercise {.build}
+
+<div id="exercise-box">
+__Selecting a range of variables__
+<div id="box-text">
+Use the `select` function with the `storms` dataset to select __just__ the variables `name`, `year` and `month` variables. Do this in two ways: 1) Select these three variables using `:` to do this; 2) use both `:` and `-` to remove variables, leaving only `name`, `year` and `month`.
+</div>
+</div>
+
+```{r, eval=showAnswers, echo=showAnswers}
+glimpse(select(storms, name:month))
+```
+
+```{r, eval=showAnswers, echo=showAnswers}
+glimpse(select(storms, -(day:seasday)))
+```
+
+## Helper functions {.build}
+
+There are several helper functions that work with `select` to simplify common variable selection tasks:
+
+- `starts_with("xyz")`: every name that starts with `"xyz"`
+- `ends_with("xyz")`: every name that ends with `"xyz"`
+- `contains("xyz")`: every name that contains `"xyz"`
+- `matches("xyz")`: every name that matches `"xyz"`
+- `one_of(names)`: every name that appears in `names` (character vector).
+
+<div>
+__Usage:__
+
+```{r, eval=FALSE}
+select(data, help_func("xyz"))
+```
+</div>
+
+<div>
+__Example:__
+
+```{r, eval=FALSE}
+iris.petal <- select(tbl_df(iris), starts_with("Petal"))
+glimpse(iris.petal)
+```
+</div>
+
+## Exercise {.build}
+
+<div id="exercise-box">
+__Using select with helper functions__
+<div id="box-text">
+Use the `select` function with the `storms` dataset to create a new dataset containing just the `lat` and `long` variables. Do this using the `starts_with` helper function inside select. Then see if you can work out how to select just the `name` and `type` variables using the `one_of` helper function.
+</div>
+</div>
+
+```{r, eval=showAnswers, echo=showAnswers}
+glimpse(select(storms, starts_with("l")))
+```
+
+```{r, eval=showAnswers, echo=showAnswers}
+glimpse(select(storms, one_of("name", "type")))
+```
+
+
+Using `select` and `rename` | Renaming variables
+====================================================================
+
+## Renaming while selecting {.build}
+
+We can use `select` to rename variables as we select them using the `newName = varName` construct.
+
+<div>
+__Usage:__
+
+```{r, eval=FALSE}
+select(data, newName1 = Var1, newName2 = Var2, ...)
+```
+</div>
+
+<div>
+__Example:__
+
+```{r, eval=TRUE}
+glimpse(select(iris, PetalLength = Petal.Length))
+```
+</div>
+
+## Renaming without selecting {.build}
+
+Use `rename` to rename variables while keeping all variables using the `newName = varName` construct.
+
+<div>
+__Usage:__
+
+```{r, eval=FALSE}
+rename(data, newName1 = Var1, newName2 = Var2, ...)
+```
+</div>
+
+<div>
+__Example:__
+
+```{r}
+glimpse(rename(iris, PetalLength = Petal.Length, PetalWidth = Petal.Width))
+```
+</div>
+
+
+Using `mutate` | Making new variables 
+====================================================================
+
+## Basic usage {.build}
+
+<div>
+We use `mutate` to __add variables__ for further analysis. This is how we use `mutate`:
+
+```{r, eval=FALSE}
+mutate(data, NewVar = <expression>, ...)
+```
+</div>
+
+<div>
+__Arguments__
+
+- `data`: a `data.frame` or `tbl` object 
+- `NewVar`: name of a new variable to create
+- `<expression>`: an R expression that references variables in `data`
+</div>
+
+<div>
+__Comments__
+
+- The `<expression>` which appears on the right hand side of the `=` can be any valid R expression that uses variables in `data`.
+- You can also include variables from the global environment in `<expression>` if you really want to, but this is usually a bad idea.
+- You may use more than one `NewVar = <expression>` at a time if you need to construct several new variables.
+</div>
+
+## Exercise {.build}
+
+<div id="exercise-box">
+__Making a new variable__
+<div id="box-text">
+Use the `mutate` function with the `iris` dataset to make a new variable which is the petal area, $(Area = Length \times Width)$.
+</div>
+</div>
+
+```{r, eval=showAnswers, echo=showAnswers}
+glimpse(mutate(iris, Petal.Area = Petal.Length * Petal.Width))
+```
+
+## Multiple calculations {.build}
+
+<div>
+We can add more than one variable at a time using `mutate`. Each new variable can also use one or more variables created in a previous step.
+</div>
+
+<div>
+__Usage:__
+
+```{r, eval=FALSE}
+mutate(data, NewVar1 = <expression1>, 
+             NewVar2 = <expression2 using NewVar1>)
+```
+</div>
+
+<div>
+__Example:__
+
+```{r, eval=TRUE}
+glimpse(mutate(iris, Sepal.Eccentricity = Sepal.Length / Sepal.Width,
+                     Petal.Eccentricity = Petal.Length / Petal.Width,
+                     Eccentricity.Diff  = Sepal.Eccentricity - Petal.Eccentricity))
+```
+</div>
+
+## Exercise {.build}
+
+<div id="exercise-box">
+__Making several new variables__
+<div id="box-text">
+Use the `mutate` function with the `iris` dataset to make two new area variables, one for petal and one for sepal. Create a third variable which is the ratio of the petal and sepal areas. Do all of this in one call to `mutate`, i.e. use `mutate` only once to do all of this.
+</div>
+</div>
+
+```{r, eval=showAnswers, echo=showAnswers}
+glimpse(mutate(iris, Sepal.Area = Sepal.Length * Sepal.Width,
+                     Petal.Area = Petal.Length * Petal.Width,
+                     PS.Area.Ratio = Petal.Area / Sepal.Area))
+```
+
+
+Using `filter` | Selecting subsets of observations 
+====================================================================
+
+## Basic usage {.build}
+
+<div>
+We use `filter` to select a subset of rows for further analysis, based on the result(s) of one or more logical comparisons. Using `filter` looks like this:
+
+```{r, eval=FALSE}
+filter(data, <expression>)
+```
+</div>
+
+<div>
+__Arguments__
+
+- `data`: a `data.frame` or `tbl` object 
+- `<expression>`: an R expression that implements a logical comparison using variables in `data`
+</div>
+
+<div>
+__Comments__
+
+- The `<expression>` can be any valid R expression that uses variables in `data` and returns a logical vector of `TRUE` / `FALSE` values.
+- The `<expression>` typically uses a combination of __relational__ (e.g. `<` and `==`) and __logical__ (e.g. `&` and `|`) operators
+</div>
+
+## Exercise {.build}
+
+<div id="exercise-box">
+__Subsetting observations on one variable__
+<div id="box-text">
+Use the `filter` function with the `storms` dataset to create a new dataset containing just the observations associated with storms classified as Hurricanes.
+
+Hint: use `glimpse` to remind yourself of the variable names in `storms`. You need to work out which one contains information about the storm category.
+</div>
+</div>
+
+```{r, eval=showAnswers, echo=showAnswers}
+filter(storms, type=="Hurricane")
+```
+
+## Exercise {.build}
+
+<div id="exercise-box">
+__Subsetting observations on more than one variable__
+<div id="box-text">
+Repeat the last exercise, but now extract the observations associated with Hurricanes that took place in 1997 or later.
+</div>
+</div>
+
+```{r, eval=showAnswers, echo=showAnswers}
+filter(storms, type == "Hurricane" & year >= 1997) # or filter(storms, type == "Hurricane", year >= 1997)
+```
+
+
+Using `arrange` | Reordering observations 
+====================================================================
+
+## Basic usage {.build}
+
+<div>
+We use `arrange` to reorder the rows of our dataset. This can help us see associations among our variables. Using `arrange` looks like this:
+
+```{r, eval=FALSE}
+arrange(data, Variable1, Variable2, ...)
+```
+</div>
+
+<div>
+__Arguments__
+
+- `data`: a `data.frame` or `tbl` object 
+- `VariableX`: names of variables in `data`
+</div>
+
+<div>
+__Comments__
+
+- The order of sorting corresponds to the order that variables appear in `arrange`, meaning `data` is sorted according to `Variable1`, then `Variable2`, then `Variable3`, etc
+- The sort order is from smallest to largest (ascending). If you want to reverse the sort order to go from largest to smallest (descending) use `desc(VariableX)`.
+</div>
+
+## Exercise {.build}
+
+<div id="exercise-box">
+__Reording observations__
+<div id="box-text">
+Use the `arrange` function to reorder the observations in the `storms` dataset, according to the pressure variable. Store the resulting dataset and use then use the `View` function to examine it. What can you say about the association between atmospheric pressure and storm category?
+</div>
+</div>
+
+```{r, eval=showAnswers, echo=showAnswers}
+storm.sort <- arrange(storms, pressure)
+```
+
+```{r, eval=FALSE}
+View(storm.sort)
+```
+
+Finished | Any questions?.... 
+====================================================================
+
+
+
+
+
+
+
+
+
+
+
+

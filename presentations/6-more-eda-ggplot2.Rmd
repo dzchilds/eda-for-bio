@@ -1,0 +1,369 @@
+---
+title: Plotting with ggplot2
+author: Dylan Childs
+date: March 17, 2016
+highlighter: pygments
+output: 
+  ioslides_presentation:
+    css: extras.css
+    smaller: true
+---
+
+```{r, include = FALSE}
+showAnswers <- TRUE
+library(dplyr)
+library(ggplot2)
+library(nasaweather)
+library(grid)
+library(knitr)
+
+opts_chunk$set(fig.width=4.5, fig.height=3.3, warning=FALSE, message=FALSE, 
+               dev.args = list(bg = 'transparent'), fig.align='center')
+
+my_theme <- theme_gray() + theme(
+  plot.background = element_rect(fill = "transparent", colour = NA),
+  axis.title.x = element_text(vjust=-0.5),
+  axis.title.y = element_text(vjust=+1.5)
+  )
+theme_set(my_theme)
+```
+
+## Before we start
+
+Required packages and data:
+
+- `dplyr`: obviously
+- `ggplot2`: new package
+- `storms.csv`: climate data for Central America (on MOLE)
+
+**1. Load the `dplyr` and `ggplot2` packages**
+
+```{r, message=FALSE}
+library("ggplot2", "dplyr")
+```
+
+These should already be installed. If you see errors, you may have to install one or both of them, e.g.
+
+```{r, eval=FALSE}
+install.packages("ggplot2")
+```
+
+__2. Read in the storms data__
+
+Download the `storms.csv` data from MOLE. Set your working directory to the correct location. and then use `read.csv` to read the data in, giving it the name `storms`. 
+
+Revision | How `ggplot2` works
+====================================================================
+
+## Revision: Scatter plots
+
+Scatter plots are used to show the relationship between 2 continuous variables. Using the `iris` dataset, let's examine the relationship between petal length and petal width. 
+
+__STEP 1__:
+
+We use the `aes` function inside the `ggplot` function to specify which variables we plan to display. We also have to specify where the data are: 
+```{r}
+plt <- ggplot(iris, aes(x = Petal.Width, y = Petal.Length))
+```
+All we did here was make a `ggplot` object. We can try to make the plot using the `print` function: 
+```{r, eval=FALSE}
+print(plt)
+```
+This produces an empty plot, because we haven't added a layer using a `geom_` function yet.
+
+## Revision: Scatter plots
+
+__STEP 2__:
+
+We want to make a scatter plot so we need to use the `geom_point` function:
+```{r}
+plt <- plt + geom_point()
+```
+Notice that all we do is "add" the required layer. Now we have something to plot:
+```{r, eval=FALSE}
+print(plt)
+```
+```{r, fig.height=2.6, fig.width=3.2, echo=FALSE}
+print(plt)
+```
+
+## Revision: Scatter plots
+
+__STEP 3__:
+
+Maybe we should improve the axis labels? To do this, we need to "add" a new labels layer using the `labs` function
+```{r, eval=FALSE}
+plt <- plt + labs(x = "Petal Width", y = "Petal Length")
+print(plt)
+```
+This just adds some new information about labelling to the prexisting `ggplot` object. Now it prints with improved axis labels:
+```{r, fig.height=2.6, fig.width=3.2, echo=FALSE}
+plt <- plt + labs(x = "Petal Width", y = "Petal Length")
+print(plt  )
+```
+
+## Making things more informative
+
+We can...
+
+1. Customise the plot by setting arguments of a `geom_` function.
+
+2. Add more information by including an additional aesthetic mapping.
+
+```{r, fig.height=3.2, fig.width=4.8, echo=FALSE}
+ggplot(iris, aes(x = Petal.Width, y = Petal.Length, colour = Species)) + 
+  geom_point(size = 2, alpha = 0.5) + 
+  labs(x = "Petal Width", y = "Petal Length")
+```
+
+N.B. We didn't have to store the the plot objects (we did it in one go here).
+
+Histograms | Visualising a single variable
+====================================================================
+
+## What are histograms?
+
+Histograms summarise the relative frequency of different values of a variable. Look at the first 56 values of `pressure` variable in `storms`:
+
+```{r}
+storms $ pressure[1:56]
+```
+
+To get a sense of how frequent different values are we can "bin" the data. Here are the frequencies of `pressure` variable values, using 8 bins:
+
+```{r}
+table(cut(storms $ pressure, breaks = 8))
+```
+
+(You do not need to rememeber this code)
+
+## What are histograms?
+
+We use histograms to understand the __distribution__ of a variable. They summarise the number of observations occuring in a contiguous series of bins. Use `geom_histogram` to construct a histogram. Here is an example:
+
+```{r}
+ggplot(storms, aes(x = pressure)) + 
+  geom_histogram(colour = "darkgrey", fill = "grey", binwidth=10) + 
+  labs(x = "Pressure", y = "Count")  
+```
+
+## Exercise
+
+<div id="exercise-box">
+__Plotting histograms__
+<div id="box-text">
+Working with the `iris` dataset, construct a histogram of the ratio of petal length to petal width. See if you can make you histogram look like the one below. Hint: you can carry out the calculation with `Petal.Length` and `Petal.Width` inside `aes` (you don't have to first use `mutate` from `dplyr`)
+</div>
+</div>
+
+```{r, echo=FALSE}
+ggplot(iris, aes(x = Petal.Length / Petal.Width)) + 
+  geom_histogram(binwidth=0.5) + 
+  labs(x = "Petal Eccentricity", y = "Count")  
+```
+
+## Answer
+
+```{r, eval=showAnswers, echo=showAnswers}
+ggplot(iris, aes(x = Petal.Length / Petal.Width)) + 
+  geom_histogram(binwidth=0.5) + 
+  labs(x = "Petal Eccentricity", y = "Count")  
+```
+
+Alternative to histograms | visualising small data
+====================================================================
+
+## Dot plots
+
+We use dot plots to explore the __distribution__ of variables when we have relatively few observatins (e.g. < 100). Here is an example:
+
+```{r}
+setosa <- filter(iris, Species == "setosa")
+ggplot(setosa, aes(x = Sepal.Length)) + 
+  geom_dotplot()  
+```
+
+Boxplots | Relationships between categorical and continuous data
+====================================================================
+
+## What are box and whiskers plots?
+
+Box and whisker plots summarise the distributions of a variable at different levels of a categorical variable. Here is an example:
+
+```{r, fig.width=3, eval=TRUE, echo=FALSE}
+ggplot(iris, aes(x = Species, y = Petal.Length/Petal.Width))  + 
+  geom_boxplot() + 
+  labs(x = "Species", y = "Eccentricty")  
+```
+
+Each box-and-whisker shows us the group median (horizontal line) and the interquartile range ("boxes"). The vertical lines ("whiskers") are used to highlight the range of (most of) the rest of the data in each group. Points that may be outliers are plotted individually.
+
+## Making box and whiskers plots
+
+We can make the box and whiskers plot from the last example using `geom_boxplot` (are you starting to see the pattern)?:
+
+```{r, fig.width=3}
+ggplot(iris, aes(x = Species, y = Petal.Length/Petal.Width)) + 
+  geom_boxplot() + 
+  labs(x = "Species", y = "Eccentricty")  
+```
+
+## Exercise
+
+<div id="exercise-box">
+__Box and whiskers plots__
+<div id="box-text">
+Working with the `storms` dataset, construct a box and whiskers plot to summarise wind speed (`wind`) for each year (`year`).
+
+Hint: you will need to convert `year` into something called a factor object using the `factor` function (we will learn more about factors next year). You can do this inside the `aes` function.
+</div>
+</div>
+
+```{r, fig.width=6, echo=FALSE}
+ggplot(storms, aes(x = factor(year), y = wind)) + 
+  geom_boxplot() + 
+  labs(x = "Year", y = "Wind Speed")  
+```
+
+## Answer
+
+```{r, fig.width=6, eval=showAnswers, echo=showAnswers}
+ggplot(storms, aes(x = factor(year), y = wind)) + 
+  geom_boxplot() + 
+  labs(x = "Year", y = "Wind Speed")  
+```
+
+
+Barplots | Summaries statistics for groups
+====================================================================
+
+## What are bar plots?
+
+We typically use a barplot to summarise differences in summary statistics (like the mean) among groups. We use `geom_bar` to make barplots. When we `geom_bar` on raw data it will simply count the number of observations:
+
+```{r, fig.height=2.5}
+ggplot(storms, aes(x = factor(year))) + 
+  geom_bar() + 
+  labs(x = "Year", y = "Number of Storms")  
+```
+
+This is not really all that useful. Usually we use a bar plot to compare **summary statistics**.
+
+## Using bar plots to compare means {.build}
+
+If we want to compare a summary statistic (e.g. the mean) across groups we need to first calculate this quantity. We can do this with the `group_by` and `summarise` function from the `dplyr` package. We then use the resulting dataset to plot the means. For example:
+
+```{r, echo=TRUE, eval=FALSE}
+# step 1
+pl.means <- 
+  iris %>%
+  group_by(Species) %>% 
+  summarise(mean.pl = mean(Petal.Length))
+# step 2 
+ggplot(pl.means, aes(x = Species, y = mean.pl)) + 
+  geom_bar(stat="identity") + 
+  labs(y = "Mean Petal Length")
+```
+
+<div class="columns-2">
+```{r, fig.width=2.5, fig.height=2, echo=FALSE}
+# step 1 - use dplyr to calculate the means
+pl.means <- 
+  iris %>% group_by(Species) %>% 
+  summarise(mean.pl = mean(Petal.Length))
+# step 2 - make the plot
+ggplot(pl.means, aes(x = Species, y = mean.pl)) + 
+  geom_bar(stat="identity") + 
+  labs(y = "Mean Petal Length")
+```
+
+Notice that we use `stat="identity"` as an argument to `geom_bar`. This is needed to avoid plotting the counts like last time.
+</div>
+
+## Exercise
+
+<div id="exercise-box">
+__Making a barplot of means__
+<div id="box-text">
+Working with the `storms` dataset, construct a bar plot to summarises the mean wind speed (`wind`) associated with storms in each year (`year`). If that was too easy, see if you can change the `fill` colour of the bars to grey.
+</div>
+</div>
+
+```{r, echo=FALSE}
+# step 1 - use dplyr to calculate the means
+wind.means <- 
+  storms %>% group_by(year) %>% 
+  summarise(wind = mean(wind))
+# step 2 - make the plot
+ggplot(wind.means, aes(x = year, y = wind)) + 
+  geom_bar(stat="identity", fill="darkgrey")
+```
+
+## Answer
+
+```{r, echo=FALSE, eval=showAnswers, echo=showAnswers}
+# step 1 - use dplyr to calculate the means
+wind.means <- 
+  storms %>% group_by(year) %>% 
+  summarise(wind = mean(wind))
+# step 2 - make the plot
+ggplot(wind.means, aes(x = year, y = wind)) + 
+  geom_bar(stat="identity", fill="darkgrey")
+```
+
+We're done!
+====================================================================
+
+## 
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/5_sfnQDr1-o" frameborder="0" allowfullscreen></iframe>
+
+Miscellaneous stuff (not used)
+====================================================================
+
+## Density plots
+
+We use density plots to explore the __distribution__ of variables when we have a large number of observations (e.g. 1000s). Here is an example:
+
+```{r}
+dplot <- ggplot(storms, aes(x = pressure))
+dplot <- dplot + geom_density() + labs(x = "Pressure", y = "Density")  
+print(dplot)
+```
+
+## Density plots
+
+We can also plot several different density plots at the same time using the `group` argument in `aes`. We can (optionally) colour these seperately using the `colour` argument in `aes`. Here is an example:
+
+```{r, fig.width=5}
+dplot <- ggplot(storms, aes(x = pressure, colour = type))
+dplot <- dplot + geom_density() + labs(x = "Pressure", y = "Density")  
+print(dplot)
+```
+
+## Exercise 
+
+<div id="exercise-box">
+__Plotting histograms__
+<div id="box-text">
+Working with the `diamonds` dataset, construct a single figure that shows density plots of `price` for each `cut` class. Use a log transformation of `price`. See if you can make your figure look like the one below.
+</div>
+</div>
+
+```{r, echo=FALSE}
+dplot <- ggplot(diamonds, aes(x = log10(price), group = cut, colour = cut))
+dplot <- dplot + geom_density() + 
+                 labs(x = "Price", y = "Density")  
+print(dplot)
+```
+
+## Answer
+
+```{r, eval=showAnswers, echo=showAnswers}
+denplot <- ggplot(diamonds, aes(x = log10(price), group = cut, colour = cut))
+denplot <- denplot + geom_density() + labs(x = "Price", y = "Density")  
+print(denplot)
+```
+
+
+

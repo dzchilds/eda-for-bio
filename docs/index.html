@@ -26,7 +26,7 @@
 <meta name="author" content="Dylan Z. Childs">
 
 
-<meta name="date" content="2017-02-07">
+<meta name="date" content="2017-02-08">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -34,7 +34,7 @@
   
   
 
-<link rel="next" href="expected-learning-outcomes.html">
+<link rel="next" href="get-up-and-running-with-r-and-rstudio.html">
 
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -126,13 +126,13 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li><a href="./">APS 135 (R course)</a></li>
 
 <li class="divider"></li>
-<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Course information and overview</a><ul>
-<li class="chapter" data-level="" data-path="index.html"><a href="index.html#organisation"><i class="fa fa-check"></i>Organisation</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Information and overview</a><ul>
+<li class="chapter" data-level="0.1" data-path="index.html"><a href="index.html#aims"><i class="fa fa-check"></i><b>0.1</b> Aims</a><ul>
+<li class="chapter" data-level="0.1.1" data-path="index.html"><a href="index.html#topics"><i class="fa fa-check"></i><b>0.1.1</b> Topics</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="expected-learning-outcomes.html"><a href="expected-learning-outcomes.html"><i class="fa fa-check"></i>Expected learning outcomes</a><ul>
-<li class="chapter" data-level="" data-path="expected-learning-outcomes.html"><a href="expected-learning-outcomes.html#introduction-to-r"><i class="fa fa-check"></i>Introduction to R</a></li>
-<li class="chapter" data-level="" data-path="expected-learning-outcomes.html"><a href="expected-learning-outcomes.html#data-wrangling"><i class="fa fa-check"></i>Data Wrangling</a></li>
-<li class="chapter" data-level="" data-path="expected-learning-outcomes.html"><a href="expected-learning-outcomes.html#exporing-data"><i class="fa fa-check"></i>Exporing Data</a></li>
+<li class="chapter" data-level="0.2" data-path="index.html"><a href="index.html#howto-use"><i class="fa fa-check"></i><b>0.2</b> How to use the book</a></li>
+<li class="chapter" data-level="0.3" data-path="index.html"><a href="index.html#help"><i class="fa fa-check"></i><b>0.3</b> Getting help</a></li>
+<li class="chapter" data-level="0.4" data-path="index.html"><a href="index.html#updates"><i class="fa fa-check"></i><b>0.4</b> Updates</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="get-up-and-running-with-r-and-rstudio.html"><a href="get-up-and-running-with-r-and-rstudio.html"><i class="fa fa-check"></i>Get up and running with R and RStudio</a><ul>
 <li class="chapter" data-level="" data-path="get-up-and-running-with-r-and-rstudio.html"><a href="get-up-and-running-with-r-and-rstudio.html#what-is-r"><i class="fa fa-check"></i>What is R?</a><ul>
@@ -213,13 +213,6 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul></li>
 <li class="part"><span><b>II Data Wrangling</b></span></li>
 <li class="part"><span><b>III Exporing Data</b></span></li>
-<li class="chapter" data-level="9" data-path="stuff.html"><a href="stuff.html"><i class="fa fa-check"></i><b>9</b> Stuff…</a><ul>
-<li class="chapter" data-level="9.1" data-path="stuff.html"><a href="stuff.html#mathematical-functions-in-r"><i class="fa fa-check"></i><b>9.1</b> Mathematical functions in R</a></li>
-<li class="chapter" data-level="9.2" data-path="stuff.html"><a href="stuff.html#coding-conventions"><i class="fa fa-check"></i><b>9.2</b> Coding conventions</a><ul>
-<li class="chapter" data-level="9.2.1" data-path="stuff.html"><a href="stuff.html#formatting-functions"><i class="fa fa-check"></i><b>9.2.1</b> Formatting functions</a></li>
-</ul></li>
-<li class="chapter" data-level="9.3" data-path="stuff.html"><a href="stuff.html#data-structures"><i class="fa fa-check"></i><b>9.3</b> Beyond vectors</a></li>
-</ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 
@@ -243,30 +236,74 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div id="header">
 <h1 class="title">APS 135: Introduction to Exploratory Data Analysis with R</h1>
 <h4 class="author"><em>Dylan Z. Childs</em></h4>
-<h4 class="date"><em>2017-02-07</em></h4>
+<h4 class="date"><em>2017-02-08</em></h4>
 </div>
-<div id="course-information-and-overview" class="section level1 unnumbered">
-<h1>Course information and overview</h1>
-<p>This is the online course book for the <strong>Introduction to Exploratory Data Analysis with R</strong> component of (<a href="https://www.shef.ac.uk/aps/currentug/level2/aps135">APS 135</a>) module. You can view this book in any modern desktop browser, as well as on your phone or tablet device. The site is self-contained—it contains all the material you are expected to learn this year.</p>
-<p><a href="https://www.shef.ac.uk/aps/staff-and-students/acadstaff/childs">Dylan Childs</a> is the course co-coordinator. Please <a href="mailto:d.childs@sheffield.ac.uk?Subject=APS%20133%20general%20query">email him</a> if you have have any general queries about the course. The Teaching Assistants (‘TAs’) this year are Ross Booton, Matthew Hethcoat, Bethan Hindle, Tamora James, Felix Lim, and Simon Mills.</p>
-<div id="organisation" class="section level2 unnumbered">
-<h2>Organisation</h2>
+<div id="information-and-overview" class="section level1 unnumbered">
+<h1>Information and overview</h1>
+<p>This is the online course book for the <strong>Introduction to Exploratory Data Analysis with R</strong> component of (<a href="https://www.shef.ac.uk/aps/currentug/level2/aps135">APS 135</a>) module. You can view this book in any modern desktop browser, as well as on your phone or tablet device. The site is self-contained—it contains all the material you are expected to learn this year. <a href="https://www.shef.ac.uk/aps/staff-and-students/acadstaff/childs">Dylan Childs</a> is the author. Please <a href="mailto:d.childs@sheffield.ac.uk?Subject=APS%20133%20general%20query">email him</a> if you spot any problems.</p>
+<div id="aims" class="section level2">
+<h2><span class="header-section-number">0.1</span> Aims</h2>
+<ol style="list-style-type: decimal">
+<li><p>You will be introduced to the R ecosystem. R is now very widely used by biologists and environmental scientists to access data, carry out interactive data analysis, build mathematical models and produce high quality figures. We will teach you a little basic R programming so that you are in a position to address these needs in future if you need to. You don’t have to become an expert programmer to have a successful career in science, but knowing a little bit about programming has become (almost) a prerequisite for doing biological research in the 21<sup>st</sup> century.</p></li>
+<li><p>You will learn how to begin using R to carry out data manipulation and visualisation. Designing good experiments, collecting data, and analysis are hard, and these activities often takes a great deal time and money. If you want to effectively communicate your hard-won, latest, greatest results, it is difficult to beat a good figure or diagram (conversely, if you want to be ignored, put everything into a boring table). R is really good at producing figures, so even if you end up just using it as a platform for visualising data, your time hasn’t been wasted.</p></li>
+<li><p>This book provides a foundation for learning statistics later on. If you want to be a biologist, particularly one involved in research, there is really no way to avoid using statistics. You might be able to dodge it by becoming a theoretician, but if that really is your primary interest you should probably being studying for a mathematics degree. For the rest of us who collect data, or at least analyse other people’s data, knowing about statistics is essential: it allows us to distinguish between real patterns (the “signal”) and chance variation (the “noise”).</p></li>
+</ol>
+<div id="topics" class="section level3">
+<h3><span class="header-section-number">0.1.1</span> Topics</h3>
+<p>The topics we will cover in this book are divided into three sections:</p>
+<p>The <strong>Getting Started with R</strong> block introduces the R language and the RStudio environment for working with R. We aim to run through much of what you need to know to start using R to improve your productivity. This includes some basic terminology, how to use R packages, and how to access help. As noted earlier, we are not trying to turn you into an expert programmer. That takes too long (not everyone enjoys programming, though many of you may be surprised to discover that you do in fact like it). By the end of this block you will know enough about R to begin learning the more practical material that follows.</p>
+<p>The <strong>Data Wrangling with R</strong> block aims to show you how to manipulate your data with R. The truth is that if you regularly work with data, a large amount of time will inevitably be spent getting data into the format you need. The informal name for this is “data wrangling”. This is a topic that is not often taught well to undergraduates, which is a shame, because mastering the art of data wrangling saves you a lot of time in the long run. This block will briefly cover two R packages to help you do this: <strong>dplyr</strong> and <strong>tidyr</strong>. We’ll learn how to get data into and out of R, makes subsets of important variables, create new variables, summarise your data, and so on.</p>
+<p>The <strong>Exploratory Data Analysis</strong> block is all about using R to help you understand and describe your data. The first step in any analysis after you have managed to wrangle the data into shape almost always involves some kind of visualisation and/or numerical summary (or at least that should be the next step if you are serious about getting your analysis right). In this block you will learn how to do this using one of the best plotting systems in R: <strong>ggplot2</strong>. We will review the different kinds of variables you might have to analyse, discuss the different ways you can describe them, both visually and with numbers, and learn how to explore relationships between variables.</p>
+</div>
+</div>
+<div id="howto-use" class="section level2">
+<h2><span class="header-section-number">0.2</span> How to use the book</h2>
+<p>This website covers all the material you need to get to grips with this year, some of which we will not have time to cover in the practicals. <strong>No one is expecting you to memorise everything in the book</strong>. It is designed to serve as a resource for you to refer to over the next 2-3 years (and beyond) as needed. However, you should aim to familiarise yourself with the content so that you know where to look for information or examples when needed. Try to understand the important concepts and then worry about the specific details.</p>
+<p>What should you be doing as you read about each topic? There is a lot of R code embedded in the website, most of which you can just copy and paste into RStudio and then run. You are strongly encouraged to do this when you first work through a topic. The best way to learn something like R is to use it actively, not just read about it. Experimenting with different code snippets by changing them is also a very good way to learn what they do. You can’t really break R (well you can, but it is quite hard), and working out why something does or does not work will help you learn to use it.</p>
+<div id="text-instructions-and-explanations" class="section level4">
+<h4><span class="header-section-number">0.2.0.1</span> Text, instructions, and explanations</h4>
+<p>Normal text, instructions, explanations etc. are written in the same type as this document, we will tend to use bold for emphasis and italics to highlight specific technical terms when they are first introduced (italics will also crop up with Latin names from time to time, but this is unlikely to produce too much confusion!)</p>
+<p>At various points in the text you will come across text in different coloured boxes. These are designed to highlight stand-alone exercises or little pieces of supplementary information that might otherwise break the flow. There are three different kinds of boxes:</p>
 <div class="action">
 <p>
-This is an <strong>action</strong> box.
+This is an <strong>action</strong> box. We use these when we want to say something important. For example, we might be summarising a key learning outcome or giving you instructions to do something.
 </p>
 </div>
 <div class="warning">
 <p>
-This is a <strong>warning</strong> box.
+This is a <strong>warning</strong> box. These contain a warning or a common “gotcha”. There are a number of common pitfalls that trip up new users of R. These boxes aim to highlight these and show you how to avoid them. It’s a good idea to pay attension to these.
 </p>
 </div>
 <div class="info">
 <p>
-This is an <strong>information</strong> box.
+This is an <strong>information</strong> box. These aim to offer a not-too-technical discussion of how or why something works the way it does. You do not necessarily have to completely understand these boxes, but it may help you use R more effectively.
 </p>
 </div>
-<p>Some text…</p>
+</div>
+<div id="r-code-and-output-on-this-website" class="section level4">
+<h4><span class="header-section-number">0.2.0.2</span> R code and output on this website</h4>
+<p>We will try to illustrate as many ideas as we can using snippets of real R code. Stand alone snippets will be formatted like this:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">tmp &lt;-<span class="st"> </span><span class="dv">1</span>
+<span class="kw">print</span>(tmp)</code></pre></div>
+<pre><code>## [1] 1</code></pre>
+<p>At this point it does not matter what the above actually means. You just need to understand how the formatting of R code on this website works. The lines that start with <code>##</code> show us what R prints to the screen after it evaluates an instruction and does whatever was asked of it, that is, they show the output. The lines that <strong>do not</strong> start with <code>##</code> show us the instructions, that is, they show us the input. So remember, the absence of <code>##</code> shows us what we are asking R to do, otherwise we are looking at something R prints in response to these instructions.</p>
+<p><code>This typeface</code> is used to distinguish R code within a sentence of text: e.g. “We use the <code>mutate</code> function to change or add new variables.”</p>
+<p>A sequence of selections from an RStudio menu is indicated as follows: e.g. <strong>File ▶ New File ▶ R Script</strong></p>
+<p>File names referred to in general text are given in upper case in the normal typeface: e.g. MYFILE.CSV.</p>
+</div>
+</div>
+<div id="help" class="section level2">
+<h2><span class="header-section-number">0.3</span> Getting help</h2>
+<p>You will learn various ways of finding help about R in this book. If you find yourself stuck at any point these should your first port of call. If you are still struggling, try the following, in this order:</p>
+<ol style="list-style-type: decimal">
+<li><p>Google is your friend. One of the nice consequences of R’s growing popularity and the rise of blogging – take a look at <a href="http://www.r-bloggers.com">R Bloggers</a> for a flavour of R-specific blogs – is that the web is now packed full of useful tutorials and tips, many of which are aimed at beginners. One of the objectives of this book is turn you into a self sufficient useR. Learning how to solve your own R-related problems is an essential pre-requisite for this to happen. Solving your own problems will also help you learn how to use R more effectively.</p></li>
+<li><p>If an hour of Googling does not solve a problem, post a question on the <a href="https://www.facebook.com/groups/UoSaps133/">APS 135 Facebook page</a>. If you find something difficult, the chances are that someone else finds it difficult too. You are strongly encouraged to try to address one anothers’ problems via this page. Thinking through and explaining the answer to a question someone else has posed is a <strong>really</strong> good way of learning. Dylan will check the Facebook page from time to time, and will offer a solution if no-one else has suggested one. We would much prefer you to help each other though.</p></li>
+<li><p>We encourage you to try options 1 and 2 first. Nonetheless, on occasion Google may turn out not to be your friend and a post to the Facebook page might not elicit a satisfactory response. In these instances you are welcome to <a href="mailto:d.childs@sheffield.ac.uk?Subject=APS%20133%20Question">email Dylan</a> with your query. You are unlikely to receive an answer at the weekend though.</p></li>
+</ol>
+</div>
+<div id="updates" class="section level2">
+<h2><span class="header-section-number">0.4</span> Updates</h2>
+<p>We may occasionally decide to update the website in light of the results of comments and questions we receive from you. This is another reason why it is important for you to ask or post questions—it allows us to see where people are struggling. It is also a motivation for choosing to use a website rather than a static document—we can very easily adapt or extend the content to address problems as they arise. If we do update the website, we will let you know what has changed.</p>
 
 </div>
 </div>
@@ -276,7 +313,7 @@ This is an <strong>information</strong> box.
         </div>
       </div>
 
-<a href="expected-learning-outcomes.html" class="navigation navigation-next navigation-unique" aria-label="Next page""><i class="fa fa-angle-right"></i></a>
+<a href="get-up-and-running-with-r-and-rstudio.html" class="navigation navigation-next navigation-unique" aria-label="Next page""><i class="fa fa-angle-right"></i></a>
 
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/lunr.js"></script>
