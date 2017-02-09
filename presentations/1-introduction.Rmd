@@ -14,9 +14,6 @@ highlighter: pygments
 show_ans <- TRUE
 ```
 
-Course overview   
-======================================================================================
-
 ## Before we start...
 
 DO THIS NOW!
@@ -26,6 +23,9 @@ DO THIS NOW!
 - Open up RStudio from the Programs Menu on your PC. Grab a TA for help if there seems to be a problem.
 
 - The attendance sheet will be passed around the room. Please don't forget to sign this before you leave.
+
+Course overview   
+======================================================================================
 
 ## Course structure {.build}
 
@@ -248,20 +248,6 @@ b <- 3
 Using functions | Starting to make use of R's power 
 ======================================================================================
 
-## Examples of using functions {.build}
-
-```{r}
-round(x = 3.141593)
-```
-
-Here the name of the argument is `x`. We gave it the value `3.141593`. What did R do with this?
-
-```{r}
-round(3.141593)
-```
-
-You do not have to name arguments in R -- it will match them up by position. More on this in a moment...
-
 ## Functions {.build}
 
 A function in R is very much like a mathematical function. They (usually) takes one or more inputs, does something to them and then returns the result to us. Using a function looks like this:
@@ -279,6 +265,20 @@ __Details__
 
 A function may have 0, 1, or more "arguments". The arguments are the inputs (name value pairs) to the function. Remember: name on the left, value of the right.
 </div>
+
+## Examples of using functions {.build}
+
+```{r}
+round(x = 3.141593)
+```
+
+Here the name of the argument is `x`. We gave it the value `3.141593`. What did R do with this?
+
+```{r}
+round(3.141593)
+```
+
+You do not have to name arguments in R -- it will match them up by position. More on this in a moment...
 
 ## Exercise {.build}
 
@@ -394,7 +394,7 @@ myvec <- c(3, 4, 1:3)
 myvec
 ```
 
-## Exercise {.build}
+## Exercise {.build .smaller}
 
 <div id="exercise-box">
 __Different kinds of vectors__
@@ -407,7 +407,28 @@ Now use the `c` function to combine the number 4 with `char_vec`. What happens? 
 
 <div>
 ```{r, include=show_ans}
+# make a character vector
 char_vec <- c("dog","cat","ape")
+char_vec
+# 'c'ombine it with the number 4
+c(4, char_vec)
+```
+
+
+## Exercise {.smaller}
+
+<div id="exercise-box">
+__Different kinds of vectors__
+<div id="box-text">
+Add this line to your script and send it to the Console: `char_vec <- c("dog","cat","ape")`. Print `char_vec` to the Console. This builds a __character vector__. We know this because the elements are all in quotes.
+
+Now use the `c` function to combine the number 4 with `char_vec`. What happens? What kind of vector does this produce?
+</div>
+</div>
+
+<div>
+```{r, include=show_ans}
+# 'c'ombine it with the number 4
 c(4, char_vec)
 ```
 
