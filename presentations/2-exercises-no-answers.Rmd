@@ -49,22 +49,6 @@ c) 6
 
 Now write some R code to calculate how much bigger the radius 5 sphere is compared to the radius 4 sphere.
 
-#### Answer
-
-This is a straightforward calculation, and since division (`/`) and exponentiation (`^`) have precedence over multiplication (`*`), we do not even need to use parentheses to control the order of evaluation:
-
-```{r}
-# volumes
-V4 <- 4/3 * pi * 4^3
-V4
-V5 <- 4/3 * pi * 5^3
-V5
-V6 <- 4/3 * pi * 6^3
-V6
-# ratio of V5 to V4
-V5/V4
-```
-
 ### Question `r {i <- i + 1; i}`
 
 Relevant chapters: `r url_functions` and `r url_num_vecs`
@@ -78,22 +62,6 @@ Make a vector of the first 100 integers ("whole numbers"). It should look like t
 Find the mean and standard deviation of the elements of this vector. Hopefully you know what the mean is. The standard deviation of a set of numbers is a measure of how variable they are. Ask a TA to explain it if you have not come across it before and want to know more. In either case, some Googling should lead you to the right functions...
 
 **Hint:** Don't try to do the calculations by looking up the formulas for the mean and variance. You will need to find the names of the functions that calculate these quantities. 
-
-#### Answer
-
-There isn't much to say about this question. First we use `:` to make the numerical sequence:
-
-```{r}
-x <- 1:100
-```
-
-We'll learn a bit more about means and variances later in this course and next year. For now, we just needed to know which functions calculate these numbers from a numeric vector. A little bit of Googling or guesswork should have led you to the `mean` and `sd` functions:
-
-```{r}
-
-mean(x)
-sd(x)
-```
 
 ### Question `r {i <- i + 1; i}`
 
@@ -116,35 +84,6 @@ X) 1, 2
 
 Add this to the `A` vector. What happens when you add numeric vectors with different lengths?
 
-#### Answer
-
-We first need to use the `c` function to make the required `A` and `B` vectors:
-
-```{r}
-# make `A`
-A <- c(7, 2, 5, 3, 1)
-A
-# make `B`
-B <- c(1, 4, 8, 3, 9)
-B
-```
-
-The first set of calculations are easy to do: 
-
-```{r}
-A + B
-A + B + 6
-```
-
-The first calculation reminds us that when we add two vectors in R, the calculation is done "element-wise". The second calculation shows that when we add a single number (i.e. a length-one numeric vector), the single number is recycled. The third calculation shows that recycling also applies to any length vector. Since the `X` vector only has a length of two, the values 1 and 2 are recycled element-by-element over the addition to `A`:
-
-```{r, warning=TRUE}
-X <- 1:2
-A + X
-```
-
-Notice that a warning (not an error!) is generated telling us that recycling has occurred. This is because we do not often intentionally use recycling.
-
 ### Question `r {i <- i + 1; i}`
 
 Relevant chapters: `r url_num_vecs`
@@ -158,35 +97,6 @@ Now create a second vector, called `multip`, that produces the following vector 
 c(3, 5, 7, 9) * c(1, 2, 3, 4)
 ```
 
-#### Answer
-
-First use either the `c` or `seq` function to make the requested  `my_nums` numeric vector:
-```{r}
-# make the sequence with `c`
-my_nums <- c(3, 5, 7, 9)
-# or use `seq`
-my_nums <- seq(from = 3, to = 9, by = 2)
-```
-
-Then use `c`, `:` or `seq` to make another vector with the values we need to multiple each element of `my_nums` by:
-
-```{r}
-# make the second sequence with `c`
-multip <- c(1, 2, 3, 4)
-# or use the `:` (could also use `seq`)
-multip <- 1:4
-```
-
-Finally, verify that we get the right answer when we multiply these two vectors together:
-```{r}
-my_nums * multip
-```
-
-This works because multiplication occurs element-by-element. As usual, this could all be done in one step without storing the intermediate results, e.g.
-```{r}
-c(3, 5, 7, 9) * 1:4
-```
-
 ### Question `r {i <- i + 1; i}`
 
 Relevant chapters: `r url_num_vecs`
@@ -194,15 +104,6 @@ Relevant chapters: `r url_num_vecs`
 Construct a vector that contains an ascending sequence of numbers where first element of the vector is 0 and the last element is 101, with successive numbers increasing in steps of 0.01 units. Assign the vector a name so that it is stored in the Global Environment. Look at the Environment tab in RStudio. Can you see how long the vector is (i.e. find out how many elements the vector contains)? Now use R to calculate the length of this vector.
 
 **Hint:** You can often guess the name of functions that carry out a particular task. Foe example, `seq` makes a sequence and `rep` makes repeated/replicated sequences. You can guess the name of the function that calculates the length of something in R...
-
-#### Answer
-
-This question requires us to first use the `seq` function to construct the ascending sequence of numbers, setting the `from` argument to 0, the `to` argument to 101, and the `by` argument to 0.01. If we assign the result of this calculation a name, we can then use the `length` argument to calculate the length of the resulting numeric vector (obviously we could work this out by hand, but that is likely to be a more error prone method). The R code to do this is just...
-
-```{r}
-num_seq <-seq(from = 0, to = 101, by = 0.01)
-length(x = num_seq)
-```
 
 ### Question `r {i <- i + 1; i}`
 
@@ -213,10 +114,6 @@ Make a repeated sequence of whole numbers ("integers") that has the following pa
 rep(1:3, each = 2, times = 4)
 ```
 This is only a partial sequence. Your vector should contain this repeating sequence but have exactly 240 elements.
-
-#### Answer
-
-Since we need to make a repeated sequence, we need to use the `rep` function. There are a couple of different ways to approach the problem. The "cleanest" approach makes use of the `x`, `each` and `times` arguments. The `x` argument is just the starting vector that we want to work on. This should be a vector containing the numbers 1, 2 and 3 in ascending order. We want **each** element of this to first be repeated twice, so we assign the `each` argument a value of 2. We then want the resulting vector to be repeated 40 **times**. This leads to:
 
 ### Question `r {i <- i + 1; i}`
 
@@ -233,14 +130,6 @@ my_vec[2]
 
 Imagine that you want to access the last element of a vector, but you don't know how long it is (i.e. you can;t use `my_vec[4]`). How would you do it? Use the `my_vec` vector above to illustrate the solution.
 
-#### Answer
-
-The hint makes this one is fairly easy. The `length` function returns the length of a vector, i.e. it tells us how many elements a vector has. If we want to access the the last element of a vector we can just use the `length` function on the vector to reference the position of its last element (this is the same thing as its length). The R code to extract the last element of a vector just combines the `[` construct and length, for example...
-
-```{r}
-my_vec[length(my_vec)]
-```
-
 ### Question `r {i <- i + 1; i}`
 
 Relevant chapters: `r url_num_vecs` and `r url_subsets`
@@ -253,27 +142,6 @@ num_seq <- rep(1:3, each = 5, times = 5)
 
 Now prepare some R code to subset the `rep_seq` vector so that you keep every other element, starting at the element in position 2, i.e. subset `rep_seq` so that you end up with the second element, the fourth element, the sixth element, and so on.
 
-#### Answer
-
-This question requires that we use the square bracket construct (`[`) to subset the correct elements of the `rep_seq` vector. Since we want every other element, starting at the second, we need to use `seq` to first construct a vector of numbers that reference these positions. We also need to make sure the sequence ends in the right place. Here is one way to do this:
-
-```{r}
-# store the length of the vector
-vec_len <- length(num_seq)
-# make a position index vector
-positions <- seq(from = 2, to = vec_len, by = 2)
-# print it to the Console
-positions
-```
-
-Notice that we used the `length` function with `rep_seq` to work out how long it is. Once the `positions` vector has been constructed, it's easy to extract the required elements:
-
-```{r}
-num_seq[positions]
-```
-
-This could also have been done in a single step using `rep_seq[seq(from = 2, to = length(rep_seq), by = 2)]`, but that isn't very easy to read unless you're already quite comfortable with R code.
-
 ### Question `r {i <- i + 1; i}`
 
 Relevant chapters: `r url_num_vecs` and `r url_subsets`
@@ -281,28 +149,6 @@ Relevant chapters: `r url_num_vecs` and `r url_subsets`
 Create a numeric vector containing a decreasing sequence of integers ("whole numbers") from 14 to 3. Assign this to a name of your choice, and then change the 6th element to have a value of 14. 
 
 **Hint:** We can combine the subsetting operator `[` with assignment (` <- `) to change the individual elements of a vector.
-
-#### Answer
-
-We first use the `seq` function to construct the required sequence. This is easy once you realise that a descending sequence can be generated by assigning a negative number to the `by` argument:
-
-```{r}
-my_seq <- seq(from = 14, to = 3, by = -1)
-my_seq
-```
-
-Alternatively, we could create the integer sequence using the `:` operator:
-```{r}
-my_seq <- 14:3
-my_seq
-```
-
-We called the result `my_seq`. In order to assign a new value of a specific element of `my_seq` we have to combine the square bracket subsetting construct (`[`) with assignment (`<-`):
-
-```{r}
-my_seq[6] <- 14
-my_seq
-```
 
 ### Question `r {i <- i + 1; i}`
 
@@ -324,48 +170,11 @@ Use these two vectors to create a **logical vector** indicating which elements i
 
 **Hint:** This requires you to know about  __relational operators__. These are discussed in the relevant chapter.
 
-#### Answer
-
-The first numeric sequence is easy to make using the `:` operator. The second sequence can be constructed using the `seq` function again, assigning a value of 10 to the `length` argument to control the length (surprise, surprise):
-
-```{r}
-# make x
-x <- 0:9
-# make y
-y <- seq(from = 3, to = 7, length = 10)
-```
-
-It is then just a matter of using the "greater than" operator (`>`) to calculate the required logical vector:
-
-```{r}
-x > y
-```
-
 ### Question `r {i <- i + 1; i}`
 
 The pH of a solution is given by the negative of the logarithm (base 10) of the concentration of hydrogen ions, measured in moles per liter,  Calculate the pH of a river sample with a H+ concentration of 2.57 x 10^-7^ M l^-1^. Round your answer to 2 decimal places.
 
 **Hint:** This is a simple calculation, but you first have to understand how R deals with very large and very small numbers. This means you have to understand [scientific notation](https://en.wikipedia.org/wiki/Scientific_notation) in R. It's impractical to write out all the zeros when writing a small number like 0.0000012, so instead we usually write such numbers as 1.2 x 10^-6^ in text. R allows us to represent such a number as `1.2e-06`---the "e-06" here stands for "x 10^-6^", i.e. it moves the decimal 7 places to the left.
-
-#### Answer
-
-Once we know how to use scientific notation in R this calculation is simple. First we calculate the pH with the `log10` function (not `log`!), assigning the result the name `pH` (we can use any name we like---`pH` is an obvious choice here):
-
-```{r}
-pH <- -log10(2.57e-7)
-```
-
-Then we use the `round` function to round your answer to 2 decimal places:
-
-```{r}
-round(pH, digits = 2)
-```
-
-Note that we can do this calculation in a single step by placing the `log10` function inside the `round` (this is called function nesting):
-
-```{r}
-round(log10(2.57e-7), 2)
-```
 
 ### Question `r {i <- i + 1; i}`
 
@@ -391,21 +200,6 @@ Do you understand the difference between the `sinpi` and `sin` functions? Are th
 
 **Hint:** Remember that R uses [radians](https://en.wikipedia.org/wiki/Radian) to define angles. Mathematicians don't measure angles in degrees. Instead, they measure angles in units called radians. There are 360 degrees in one rotation of a circle, but one full rotation of a circle corresponds to $2\pi$ radians. 
 
-#### Answer
-
-This exercise is easy to do, but can be difficult to understand, especially if you haven't studied A-level maths. The `x` argument of the `sinpi` function is defined in such a way that "sinpi" = $sin(\pi x)$. This means that assigning a value of 1 to `x` corresponds to an angle of $\pi$ radians. If you understand this, then you might expect the sequence from -1 to +1 when used `sinpi` to give the same results as the equivalent sequence from $-\pi$ to $pi$ used with `sin`. This isn't quite true though...
-
-```{r}
-#
-my_seq1 <- seq(from = -1, to = +1, by = 0.25)
-sinpi(x = my_seq1)
-# 
-my_seq2 <- seq(from = -pi, to = +pi, length = 9)
-sin(x = my_seq2)
-```
-
-The small discrepancy is due to the way computers store numbers with decimals. To cut a long story short, most of the time they can't store these kinds of numbers exactly, which sometimes leads to odd results when we carry out calculations on non-integer numbers. It isn't really that important that you understand the whys and hows of this, but knowing about it may help you understand seemingly odd results.
-
 ### Question `r {i <- i + 1; i}`
 
 Relevant chapters: `r url_other_vecs` and `r url_subsets`
@@ -423,39 +217,11 @@ LETTERS[c(4, 25, 12, 1, 14)]
 
 **Hint:** This question uses ideas from the `r url_other_vecs` and `r url_subsets` chapters.
 
-#### Answer
-
-This question requires that we use the square bracket construct (`[`) to subset the correct elements of the `LETTERS` vector (which is just the alphabet in upper case). We can do this in two steps as follows. Let's say your first name is Dylan. The letters "D", "Y", "L", "A" and "N" are at positions 4, 25, 12, 1 and 14 in the alphabet. We first manually construct a numeric vector with these numbers, using the `c` function, and then assign this a name so that we can reuse it:
-
-```{r}
-letter.positions <- c(4, 25, 12, 1, 14)
-```
-
-Now all we need to do is extract the corresponding letters from the `LETTERS` vector by their position in that vector, using the `[` construct:
-
-```{r}
-LETTERS[letter.positions]
-```
-
-Obviously the same procedure can be used to extract the letters of a different name. We could also have done this in a single step if we prefer not to store the intermediate step (either approach is fine):
-
-```{r}
-LETTERS[c(4, 25, 12, 1, 14)]
-```
-
 ### Question `r {i <- i + 1; i}`
 
 Create a vector containing the letters of the alphabet in reverse order. 
 
 **Hint:** use the `:` operator or the `seq` function to extract elements of the built-in vector `LETTERS` (or `letters`, either is fine).
-
-#### Answer
-
-If we know that there are 26 letters in the alphabet (we hope you do) then there isn't really very much to this question. We just have to remember that `:` and `seq` can generate descending sequences of numbers and well as ascending sequences:
-
-```{r}
-LETTERS[26:1]
-```
 
 ### Question `r {i <- i + 1; i}` (Optional extended exercise)
 
@@ -476,62 +242,3 @@ e)	Use square bracket (`[]`) indexing and your answer to (d) to pick out the let
 f)	Combine your answers to (c) and (e) to replace a random element with another. **Hint:** use assignment---the thing on the left to be replaced by the thing on the right.
 
 g)	Run the last step (f) a further 9 times, what has happened to the species richness? What would happen to this community given enough time steps?
-
-#### Answer
-
-This exercise combines many of the ideas explored in the previous questions. We will just list the R code used to solve the problem, rather than going through each step. Feel free to ask a TA for more help if you are unsure how any of it works.
-
-a) 
-
-```{r}
-comm <- letters[1:10]
-```
-
-b) 
-
-```{r}
-length(unique(comm))
-```
-
-c) 
-
-```{r}
-sample(x = comm, size = 1)
-```
-
-d) 
-
-```{r}
-sample(x = 1:10, size = 1)
-```
-
-e)
-
-```{r}
-comm[sample(x = 1:10, size = 1)]
-```
-
-f) 
-
-```{r}
-comm[sample(x = 1:10, size = 1)] <- sample(x = comm, size = 1)
-```
-
-g)
-
-```{r}
-length(x = unique(x = comm))
-```
-
-**Summary answer**
-
-Species richness decreases as species "die" and "reproduce", and the community will ultimately become a monoculture (there will be only one species left). This is because in neutral theory we usually also add a term that allows migration of new species into the community. Without migration, one species will come to dominate due to random drift (i.e. at any point in time, the most abundant species will have the highest chance of being selected to successfully reproduce)
-
-
-
-
-
-
-
-
-

@@ -1,0 +1,33 @@
+---
+layout: default
+title: Exercises - functions and vectors 
+---
+
+```{r global_options, include=FALSE}
+library(knitr)
+opts_chunk$set(fig.width=7, fig.height=8, warning=TRUE, error=TRUE, prompt=FALSE)
+```
+
+### Question XXXX
+
+Take the natural log of 5 and round this to 3 decimal places. Do this with just one line of R code, i.e. make sure you do the whole calculation in one step.
+
+#### Answer
+
+The `log` function takes the natural log of a number (or more accurately, it takes the natural log of the elements of a numeric vector). This function only needs a single argument (called `x`), which is the numeric vector. The `round` function rounds the elements of a numeric vector to a user-specified number of decimal places. This takes two arguments: `x` is the numeric vector, and `digits` is an integer specifying the decimal places. In order to use these two functions together you have to remember to use function nesting, like this:
+
+```{r}
+round(x = log(5), digits = 3)
+```
+
+You could also have done this without naming either of the arguments...
+
+```{r}
+round(log(5), 3)
+```
+
+...though it is generally safer to name all but the first argument...
+
+```{r}
+round(log(5), digits = 3)
+```
