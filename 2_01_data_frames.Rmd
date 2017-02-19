@@ -29,10 +29,13 @@ The simplest way to get a feel for data frames is to make one. Data frames are u
 Here's some R code to generate these three vectors (it doesn't matter what the actual values are, they're made up):
 ```{r}
 trt <- rep(c("Control","Fertilser"), each = 3) 
-trt
 bms <- c(284, 328, 291, 956, 954, 685)
-bms
 div <- c(8, 12, 11, 8, 4, 5)
+```
+```{r}
+trt
+bms
+div
 ```
 Notice that the information about different observations are linked by their positions in these vectors. For example, the third control plot had a biomass of '291' and a species diversity '11'.
 

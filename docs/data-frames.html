@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>APS 135: Introduction to Exploratory Data Analysis with R</title>
+  <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+  <meta name="description" content="Course book for Introduction to Exploratory Data Analysis with R (APS 135) in the Department of Animal and Plant Sciences, University of Sheffield.">
+  <meta name="generator" content="bookdown 0.3 and GitBook 2.6.7">
+
+  <meta property="og:title" content="APS 135: Introduction to Exploratory Data Analysis with R" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="Course book for Introduction to Exploratory Data Analysis with R (APS 135) in the Department of Animal and Plant Sciences, University of Sheffield." />
+  <meta name="github-repo" content="dzchilds/eda-for-bio" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="APS 135: Introduction to Exploratory Data Analysis with R" />
+  
+  <meta name="twitter:description" content="Course book for Introduction to Exploratory Data Analysis with R (APS 135) in the Department of Animal and Plant Sciences, University of Sheffield." />
+  
+
+<meta name="author" content="Dylan Z. Childs">
+
+
+<meta name="date" content="2017-02-19">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="packages.html">
+
+
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+<style type="text/css">
+
+.action, .warning, .info, .speed {
+  padding: 1em 1em 1em 4em;
+  margin-bottom: 10px;
+  background: #f5f5f5 5px center/3em no-repeat;
+}
+.action {
+  background-image: url("./images/action.png");
+}
+.warning {
+  background-image: url("./images/warning.png");
+}
+.info {
+  background-image: url("./images/info.png");
+}
+.speed {
+  background-image: url("./images/speed.png");
+}
+
+
+</style>
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">APS 135 (R course)</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Information and overview</a><ul>
+<li class="chapter" data-level="0.1" data-path="index.html"><a href="index.html#aims"><i class="fa fa-check"></i><b>0.1</b> Aims</a><ul>
+<li class="chapter" data-level="0.1.1" data-path="index.html"><a href="index.html#topics"><i class="fa fa-check"></i><b>0.1.1</b> Topics</a></li>
+</ul></li>
+<li class="chapter" data-level="0.2" data-path="index.html"><a href="index.html#howto-use"><i class="fa fa-check"></i><b>0.2</b> How to use the book</a></li>
+<li class="chapter" data-level="0.3" data-path="index.html"><a href="index.html#help"><i class="fa fa-check"></i><b>0.3</b> Getting help</a></li>
+<li class="chapter" data-level="0.4" data-path="index.html"><a href="index.html#updates"><i class="fa fa-check"></i><b>0.4</b> Updates</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="get-up-and-running-with-r-and-rstudio.html"><a href="get-up-and-running-with-r-and-rstudio.html"><i class="fa fa-check"></i>Get up and running with R and RStudio</a><ul>
+<li class="chapter" data-level="" data-path="get-up-and-running-with-r-and-rstudio.html"><a href="get-up-and-running-with-r-and-rstudio.html#what-is-r"><i class="fa fa-check"></i>What is R?</a><ul>
+<li class="chapter" data-level="" data-path="get-up-and-running-with-r-and-rstudio.html"><a href="get-up-and-running-with-r-and-rstudio.html#getting-and-installing-r"><i class="fa fa-check"></i>Getting and installing R</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="get-up-and-running-with-r-and-rstudio.html"><a href="get-up-and-running-with-r-and-rstudio.html#what-is-rstudio-and-why-use-it"><i class="fa fa-check"></i>What is RStudio (and why use it)?</a><ul>
+<li class="chapter" data-level="" data-path="get-up-and-running-with-r-and-rstudio.html"><a href="get-up-and-running-with-r-and-rstudio.html#getting-and-installing-rstudio"><i class="fa fa-check"></i>Getting and installing RStudio</a></li>
+<li class="chapter" data-level="" data-path="get-up-and-running-with-r-and-rstudio.html"><a href="get-up-and-running-with-r-and-rstudio.html#the-anatomy-of-rstudio"><i class="fa fa-check"></i>The anatomy of RStudio</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="get-up-and-running-with-r-and-rstudio.html"><a href="get-up-and-running-with-r-and-rstudio.html#working-at-the-console"><i class="fa fa-check"></i>Working at the Console</a></li>
+</ul></li>
+<li class="part"><span><b>I Introduction to R</b></span></li>
+<li class="chapter" data-level="1" data-path="a-quick-introduction-to-r.html"><a href="a-quick-introduction-to-r.html"><i class="fa fa-check"></i><b>1</b> A quick introduction to R</a><ul>
+<li class="chapter" data-level="1.1" data-path="a-quick-introduction-to-r.html"><a href="a-quick-introduction-to-r.html#r-calculator"><i class="fa fa-check"></i><b>1.1</b> Using R as a big calculator</a><ul>
+<li class="chapter" data-level="1.1.1" data-path="a-quick-introduction-to-r.html"><a href="a-quick-introduction-to-r.html#basic-arithmetic"><i class="fa fa-check"></i><b>1.1.1</b> Basic arithmetic</a></li>
+<li class="chapter" data-level="1.1.2" data-path="a-quick-introduction-to-r.html"><a href="a-quick-introduction-to-r.html#problematic-calculations"><i class="fa fa-check"></i><b>1.1.2</b> Problematic calculations</a></li>
+</ul></li>
+<li class="chapter" data-level="1.2" data-path="a-quick-introduction-to-r.html"><a href="a-quick-introduction-to-r.html#assignment"><i class="fa fa-check"></i><b>1.2</b> Storing and reusing results</a></li>
+<li class="chapter" data-level="1.3" data-path="a-quick-introduction-to-r.html"><a href="a-quick-introduction-to-r.html#how-does-assignment-work"><i class="fa fa-check"></i><b>1.3</b> How does assignment work?</a></li>
+<li class="chapter" data-level="1.4" data-path="a-quick-introduction-to-r.html"><a href="a-quick-introduction-to-r.html#global-environment"><i class="fa fa-check"></i><b>1.4</b> Global environment</a></li>
+<li class="chapter" data-level="1.5" data-path="a-quick-introduction-to-r.html"><a href="a-quick-introduction-to-r.html#naming-rules-and-conventions"><i class="fa fa-check"></i><b>1.5</b> Naming rules and conventions</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="scripts.html"><a href="scripts.html"><i class="fa fa-check"></i><b>2</b> Building scripts</a><ul>
+<li class="chapter" data-level="2.1" data-path="scripts.html"><a href="scripts.html#introduction"><i class="fa fa-check"></i><b>2.1</b> Introduction</a></li>
+<li class="chapter" data-level="2.2" data-path="scripts.html"><a href="scripts.html#writing-scripts-in-rstudio"><i class="fa fa-check"></i><b>2.2</b> Writing scripts in RStudio</a></li>
+<li class="chapter" data-level="2.3" data-path="scripts.html"><a href="scripts.html#running-scripts-in-rstudio"><i class="fa fa-check"></i><b>2.3</b> Running scripts in RStudio</a></li>
+<li class="chapter" data-level="2.4" data-path="scripts.html"><a href="scripts.html#spotting-problems"><i class="fa fa-check"></i><b>2.4</b> Spotting problems</a><ul>
+<li class="chapter" data-level="2.4.1" data-path="scripts.html"><a href="scripts.html#the-dreaded"><i class="fa fa-check"></i><b>2.4.1</b> The dreaded <code>+</code></a></li>
+<li class="chapter" data-level="2.4.2" data-path="scripts.html"><a href="scripts.html#errors"><i class="fa fa-check"></i><b>2.4.2</b> Errors</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="using-functions.html"><a href="using-functions.html"><i class="fa fa-check"></i><b>3</b> Using functions</a><ul>
+<li class="chapter" data-level="3.1" data-path="using-functions.html"><a href="using-functions.html#intro-functions"><i class="fa fa-check"></i><b>3.1</b> Introduction</a></li>
+<li class="chapter" data-level="3.2" data-path="using-functions.html"><a href="using-functions.html#functions-and-arguments"><i class="fa fa-check"></i><b>3.2</b> Functions and arguments</a></li>
+<li class="chapter" data-level="3.3" data-path="using-functions.html"><a href="using-functions.html#evaluating-arguments-and-returning-results"><i class="fa fa-check"></i><b>3.3</b> Evaluating arguments and returning results</a></li>
+<li class="chapter" data-level="3.4" data-path="using-functions.html"><a href="using-functions.html#functions-do-not-have-side-effects"><i class="fa fa-check"></i><b>3.4</b> Functions do not have “side effects”</a></li>
+<li class="chapter" data-level="3.5" data-path="using-functions.html"><a href="using-functions.html#combining-functions"><i class="fa fa-check"></i><b>3.5</b> Combining functions</a></li>
+<li class="chapter" data-level="3.6" data-path="using-functions.html"><a href="using-functions.html#function-arguments"><i class="fa fa-check"></i><b>3.6</b> Specifying function arguments</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="numeric-vectors.html"><a href="numeric-vectors.html"><i class="fa fa-check"></i><b>4</b> Numeric vectors</a><ul>
+<li class="chapter" data-level="4.1" data-path="numeric-vectors.html"><a href="numeric-vectors.html#introduction-1"><i class="fa fa-check"></i><b>4.1</b> Introduction</a></li>
+<li class="chapter" data-level="4.2" data-path="numeric-vectors.html"><a href="numeric-vectors.html#atomic-vectors"><i class="fa fa-check"></i><b>4.2</b> Atomic vectors</a></li>
+<li class="chapter" data-level="4.3" data-path="numeric-vectors.html"><a href="numeric-vectors.html#intro-vectors"><i class="fa fa-check"></i><b>4.3</b> Numeric vectors</a></li>
+<li class="chapter" data-level="4.4" data-path="numeric-vectors.html"><a href="numeric-vectors.html#constructing-numeric-vectors"><i class="fa fa-check"></i><b>4.4</b> Constructing numeric vectors</a></li>
+<li class="chapter" data-level="4.5" data-path="numeric-vectors.html"><a href="numeric-vectors.html#named-vectors"><i class="fa fa-check"></i><b>4.5</b> Named vectors</a></li>
+<li class="chapter" data-level="4.6" data-path="numeric-vectors.html"><a href="numeric-vectors.html#generating-sequences-of-numbers"><i class="fa fa-check"></i><b>4.6</b> Generating sequences of numbers</a><ul>
+<li class="chapter" data-level="4.6.1" data-path="numeric-vectors.html"><a href="numeric-vectors.html#generating-sequences-of-numbers-1"><i class="fa fa-check"></i><b>4.6.1</b> Generating sequences of numbers</a></li>
+<li class="chapter" data-level="4.6.2" data-path="numeric-vectors.html"><a href="numeric-vectors.html#generating-repeated-sequences-of-numbers"><i class="fa fa-check"></i><b>4.6.2</b> Generating repeated sequences of numbers</a></li>
+</ul></li>
+<li class="chapter" data-level="4.7" data-path="numeric-vectors.html"><a href="numeric-vectors.html#vectorised-operations"><i class="fa fa-check"></i><b>4.7</b> Vectorised operations</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="other-kinds-of-vectors.html"><a href="other-kinds-of-vectors.html"><i class="fa fa-check"></i><b>5</b> Other kinds of vectors</a><ul>
+<li class="chapter" data-level="5.1" data-path="other-kinds-of-vectors.html"><a href="other-kinds-of-vectors.html#other-vectors"><i class="fa fa-check"></i><b>5.1</b> Introduction</a></li>
+<li class="chapter" data-level="5.2" data-path="other-kinds-of-vectors.html"><a href="other-kinds-of-vectors.html#character-vectors"><i class="fa fa-check"></i><b>5.2</b> Character vectors</a></li>
+<li class="chapter" data-level="5.3" data-path="other-kinds-of-vectors.html"><a href="other-kinds-of-vectors.html#logical-vectors"><i class="fa fa-check"></i><b>5.3</b> Logical vectors</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="extracting-subsets-of-vectors.html"><a href="extracting-subsets-of-vectors.html"><i class="fa fa-check"></i><b>6</b> Extracting subsets of vectors</a><ul>
+<li class="chapter" data-level="6.1" data-path="other-kinds-of-vectors.html"><a href="other-kinds-of-vectors.html#other-vectors"><i class="fa fa-check"></i><b>6.1</b> Introduction</a></li>
+<li class="chapter" data-level="6.2" data-path="extracting-subsets-of-vectors.html"><a href="extracting-subsets-of-vectors.html#subsetting-by-position"><i class="fa fa-check"></i><b>6.2</b> Subsetting by position</a></li>
+<li class="chapter" data-level="6.3" data-path="extracting-subsets-of-vectors.html"><a href="extracting-subsets-of-vectors.html#subsetting-with-logical-operators"><i class="fa fa-check"></i><b>6.3</b> Subsetting with logical operators</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="getting-help.html"><a href="getting-help.html"><i class="fa fa-check"></i><b>7</b> Getting help</a><ul>
+<li class="chapter" data-level="7.1" data-path="getting-help.html"><a href="getting-help.html#console-help"><i class="fa fa-check"></i><b>7.1</b> Introduction</a></li>
+<li class="chapter" data-level="7.2" data-path="getting-help.html"><a href="getting-help.html#browsing-the-help-system"><i class="fa fa-check"></i><b>7.2</b> Browsing the help system</a></li>
+<li class="chapter" data-level="7.3" data-path="getting-help.html"><a href="getting-help.html#searching-for-help-files"><i class="fa fa-check"></i><b>7.3</b> Searching for help files</a></li>
+<li class="chapter" data-level="7.4" data-path="getting-help.html"><a href="getting-help.html#nav-help"><i class="fa fa-check"></i><b>7.4</b> Navigating help files</a></li>
+<li class="chapter" data-level="7.5" data-path="getting-help.html"><a href="getting-help.html#vignettes"><i class="fa fa-check"></i><b>7.5</b> Vignettes and demos</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="packages.html"><a href="packages.html"><i class="fa fa-check"></i><b>8</b> Packages</a><ul>
+<li class="chapter" data-level="8.1" data-path="packages.html"><a href="packages.html#package-system"><i class="fa fa-check"></i><b>8.1</b> The R package system</a></li>
+<li class="chapter" data-level="8.2" data-path="packages.html"><a href="packages.html#task-views"><i class="fa fa-check"></i><b>8.2</b> Task views</a></li>
+<li class="chapter" data-level="8.3" data-path="packages.html"><a href="packages.html#use-packages"><i class="fa fa-check"></i><b>8.3</b> Using packages</a><ul>
+<li class="chapter" data-level="8.3.1" data-path="packages.html"><a href="packages.html#viewing-installed-packages"><i class="fa fa-check"></i><b>8.3.1</b> Viewing installed packages</a></li>
+<li class="chapter" data-level="8.3.2" data-path="packages.html"><a href="packages.html#installing-and-updating-packages"><i class="fa fa-check"></i><b>8.3.2</b> Installing and updating packages</a></li>
+<li class="chapter" data-level="8.3.3" data-path="packages.html"><a href="packages.html#loading-and-attaching-packages"><i class="fa fa-check"></i><b>8.3.3</b> Loading and attaching packages</a></li>
+<li class="chapter" data-level="8.3.4" data-path="packages.html"><a href="packages.html#an-analogy"><i class="fa fa-check"></i><b>8.3.4</b> An analogy</a></li>
+</ul></li>
+</ul></li>
+<li class="part"><span><b>II Data Wrangling</b></span></li>
+<li class="chapter" data-level="9" data-path="data-frames.html"><a href="data-frames.html"><i class="fa fa-check"></i><b>9</b> Data frames</a><ul>
+<li class="chapter" data-level="9.1" data-path="data-frames.html"><a href="data-frames.html#introduction-2"><i class="fa fa-check"></i><b>9.1</b> Introduction</a></li>
+<li class="chapter" data-level="9.2" data-path="data-frames.html"><a href="data-frames.html#data-frames-intro"><i class="fa fa-check"></i><b>9.2</b> Data frames</a></li>
+<li class="chapter" data-level="9.3" data-path="data-frames.html"><a href="data-frames.html#exploring-data-frames"><i class="fa fa-check"></i><b>9.3</b> Exploring data frames</a></li>
+<li class="chapter" data-level="9.4" data-path="data-frames.html"><a href="data-frames.html#extract-data"><i class="fa fa-check"></i><b>9.4</b> Extracting data from data frames</a><ul>
+<li class="chapter" data-level="9.4.1" data-path="data-frames.html"><a href="data-frames.html#extracting-and-adding-a-single-variable"><i class="fa fa-check"></i><b>9.4.1</b> Extracting and adding a single variable</a></li>
+<li class="chapter" data-level="9.4.2" data-path="data-frames.html"><a href="data-frames.html#adding-a-variable-to-a-data-frame"><i class="fa fa-check"></i><b>9.4.2</b> Adding a variable to a data frame</a></li>
+<li class="chapter" data-level="9.4.3" data-path="data-frames.html"><a href="data-frames.html#subsetting-data-frames"><i class="fa fa-check"></i><b>9.4.3</b> Subsetting data frames</a></li>
+<li class="chapter" data-level="9.4.4" data-path="data-frames.html"><a href="data-frames.html#base-r-functions-for-manipulating-data-frames"><i class="fa fa-check"></i><b>9.4.4</b> Base R functions for manipulating data frames</a></li>
+</ul></li>
+</ul></li>
+<li class="part"><span><b>III Exporing Data</b></span></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">APS 135: Introduction to Exploratory Data Analysis with R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="data-frames" class="section level1">
+<h1><span class="header-section-number">Chapter 9</span> Data frames</h1>
+<div id="introduction-2" class="section level2">
+<h2><span class="header-section-number">9.1</span> Introduction</h2>
+<p>We learned in the <a href="a-quick-introduction-to-r.html#a-quick-introduction-to-r">A quick introduction to R</a> chapter that the word “variable” is used as short hand for any kind of named object. For example, we can make a variable called <code>num_vec</code> that refers to a simple numeric vector using:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">num_vec &lt;-<span class="st"> </span><span class="dv">1</span>:<span class="dv">10</span></code></pre></div>
+<p>When a computer scientist talks about variables they’re usually refering to these sorts of name-value associations. However, the word “variable”&quot; has a second, more abstract meaning in the world data analysis and statistics: it refers to anything we can control or measure. For example, if our data comes from an experiment, the data will typically involve variables whose values describe the experimental conditions (e.g. “control plots” vs. “fertiliser plots”) and the quantities we chose to measure (e.g. species biomass and diversity).</p>
+<p>These kinds of abstract variables are often called “statistical variables”. Statistical variables can be further broken down into a range of different types. We’ll discuss these later in the book. The reason we’re pointing out the dual meaning of the word “variable” now is because we need to be able to work with both interpretations. The dual meaning is confusing at first, but both meanings are in such widespread use that we just have to get used to them. We’ll try to minimise confusion by using the phrase “statistical variable” when we are referring to data, rather than R objects.</p>
+<p>We’re introducing these ideas now because we’re going to consider a new type of data object in R: the <strong>data frame</strong>. Real world data analysis involves collections of data (“data sets”) that involve several related statistical variables. We’ve seen that an atomic vector can only be used to store one type of data such as a collection of numbers. This means a vector can be used to store a single statistical variable, How should we keep a large collection of variables organised? We could work with them seperately but this is very error prone. Ideally, we need a way to keep related variables together. This is the problem that <strong>data frames</strong> and are designed to manage.</p>
+</div>
+<div id="data-frames-intro" class="section level2">
+<h2><span class="header-section-number">9.2</span> Data frames</h2>
+<p>Data frames are one of those R features that mark it out as a particularly good environment for data analysis. You can think of a data frame as table-like objects with rows and columns. They collect together different statistical variables, storing each of them as a different column. Related observations are all found in the same row. This will make more sense in a moment. Let’s consider the columns first.</p>
+<p>Each column is a vector of some kind. These are usually simple vectors containing numbers or character strings, though it is also possible to include more complicated vectors inside data frames. We’ll only work with data frames made up of relatively simple vectors in this book. The key constraint that a data frame applies is that each vector must have the same length. This is what gives a data frame it table-like structure.</p>
+<p>The simplest way to get a feel for data frames is to make one. Data frames are usually constructed by reading some external data into R, but for the purposes of learning about them it is better to build one from from its component parts. We’ll make some artificial data describing a hypothetical experiment to do this. Imagine that we’ve conducted a small expweriment to examine biomass and community diversity in six field plots. Three plots were subjected to fertiliser enrichment. The other three plots act as experimental controls. We could store the data describing this experiment in three vectors:</p>
+<ul>
+<li><p><code>trt</code> (short for “treatment”) shows whether an observation corresponds to a control or fertiliser manipulation.</p></li>
+<li><p><code>bms</code> (short for “biomass”) shows the total biomass measured at the end of the experiment.</p></li>
+<li><p><code>div</code> (short for “diversity”) shows the number of species present at the end of the experiment.</p></li>
+</ul>
+<p>Here’s some R code to generate these three vectors (it doesn’t matter what the actual values are, they’re made up):</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">trt &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="kw">c</span>(<span class="st">&quot;Control&quot;</span>,<span class="st">&quot;Fertilser&quot;</span>), <span class="dt">each =</span> <span class="dv">3</span>) 
+bms &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">284</span>, <span class="dv">328</span>, <span class="dv">291</span>, <span class="dv">956</span>, <span class="dv">954</span>, <span class="dv">685</span>)
+div &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">8</span>, <span class="dv">12</span>, <span class="dv">11</span>, <span class="dv">8</span>, <span class="dv">4</span>, <span class="dv">5</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">trt</code></pre></div>
+<pre><code>## [1] &quot;Control&quot;   &quot;Control&quot;   &quot;Control&quot;   &quot;Fertilser&quot; &quot;Fertilser&quot; &quot;Fertilser&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">bms</code></pre></div>
+<pre><code>## [1] 284 328 291 956 954 685</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">div</code></pre></div>
+<pre><code>## [1]  8 12 11  8  4  5</code></pre>
+<p>Notice that the information about different observations are linked by their positions in these vectors. For example, the third control plot had a biomass of ‘291’ and a species diversity ‘11’.</p>
+<p>We can use the <code>data.frame</code> function to construct a data frame from one or more vectors. To build a data frame from the three vectors we created and print these to the Console, we use:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">experim.data &lt;-<span class="st"> </span><span class="kw">data.frame</span>(trt, bms, div)
+experim.data</code></pre></div>
+<pre><code>##         trt bms div
+## 1   Control 284   8
+## 2   Control 328  12
+## 3   Control 291  11
+## 4 Fertilser 956   8
+## 5 Fertilser 954   4
+## 6 Fertilser 685   5</code></pre>
+<p>Notice what happens when we print the data frame: it is displayed as though it has rows and columns. That’s what we meant when we said a data frame is a table-like structure. The <code>data.frame</code> function takes a variable number of arguments. We used the <code>trt</code>, <code>bms</code> and <code>div</code> vectors as arguments, resulting in a data frame with three columns. Each of these vectors has 6 elements, so the resulting data frame has 6 rows. The names of the vectors were used to name its columns. The rows do not have names, but they are numbered to reflect their position.</p>
+<p>The words <code>trt</code>, <code>bms</code> and <code>div</code> are not very informative. If we prefer to work with more informative column names—this is always a good idea—then we have to name the <code>data.frame</code> arguments:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">experim.data &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">Treatment =</span> trt, <span class="dt">Biomass =</span> bms, <span class="dt">Diversity =</span> div)
+experim.data</code></pre></div>
+<pre><code>##   Treatment Biomass Diversity
+## 1   Control     284         8
+## 2   Control     328        12
+## 3   Control     291        11
+## 4 Fertilser     956         8
+## 5 Fertilser     954         4
+## 6 Fertilser     685         5</code></pre>
+<p>The new data frame contains the same data as the previous one but now the column names correspond to the names we chose. These names are better because they describe each variable using a human-readable word.</p>
+<div class="warning">
+<p>
+We can also name the rows of a data frame using the <code>row.names</code> argument of the <code>data.frame</code> function. We won’t bother to show an example of this though. Why? The short answer is that we can’t easily work with the information in row names so there’s not much point adding it. If we need to include row-specific data in a data frame it’s best to include an additional variable, i.e. an extra column.
+</p>
+</div>
+</div>
+<div id="exploring-data-frames" class="section level2">
+<h2><span class="header-section-number">9.3</span> Exploring data frames</h2>
+<p>One of the first things we should do when presented with a new data set is explore its structure to understand what we’re dealing with. This is easy to do if it is stored in a data frame. You should check new data frames even if they contain data you have collected, as something unexpected may have happened when you read it into R. If the dataset is reasonably small you could just print it to the Console as we did above. This is not very practical for even moderate-sized datasets though. The <code>head</code> and <code>tail</code> functions extract the first and last few rows of a dataset. These can be used to print part of a dataset, rather than the whole thing. We use the <code>n</code> argument to control the number of rows in each case:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(experim.data, <span class="dt">n =</span> <span class="dv">3</span>)</code></pre></div>
+<pre><code>##   Treatment Biomass Diversity
+## 1   Control     284         8
+## 2   Control     328        12
+## 3   Control     291        11</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tail</span>(experim.data, <span class="dt">n =</span> <span class="dv">3</span>)</code></pre></div>
+<pre><code>##   Treatment Biomass Diversity
+## 4 Fertilser     956         8
+## 5 Fertilser     954         4
+## 6 Fertilser     685         5</code></pre>
+<p>You can also use the <code>View</code> function to help you visualise the dataset as a table. For example:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">View</span>(experim.data)</code></pre></div>
+<p>This shows the rows and columns of the data frame argument in a table- or spreadsheet-like format. Try this now in RStudio and you should see a new tab open up with the <code>experim.data</code> data inside it. You can’t do anything to the data using <code>View</code> – it is only designed to allow you to view the rows and columns.</p>
+<p>There are quite a few base R functions that enable us to extract information about the structure of a data frame. The <code>nrow</code> and <code>ncol</code> functions return the number of rows and columns, respectively:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">nrow</span>(experim.data)</code></pre></div>
+<pre><code>## [1] 6</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ncol</span>(experim.data)</code></pre></div>
+<pre><code>## [1] 3</code></pre>
+<p>The <code>colnames</code> function is used to extract the column names from a data frame</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">colnames</span>(experim.data)</code></pre></div>
+<pre><code>## [1] &quot;Treatment&quot; &quot;Biomass&quot;   &quot;Diversity&quot;</code></pre>
+<p>The <code>experim.data</code> data frame has three columns, so <code>colnames</code> returns a character vector of length three, where each element corresponds to a column name. There is also a <code>rownames</code> function if you need that too. <code>nrow</code>, <code>ncol</code>, <code>colnames</code> and <code>rownames</code> are all functions that return a vector. This means you can assign the result if you need to use it later on. For example, if we need to extract and store the column names for some reason we could use <code>varnames &lt;- colnames(experim.data)</code>.</p>
+</div>
+<div id="extract-data" class="section level2">
+<h2><span class="header-section-number">9.4</span> Extracting data from data frames</h2>
+<p>Recall what we said about data structures in the first block: a data structure is just a particular way of organising data on your computer so that it can be accessed easily and efficiently. A data frame would not be much use if we could not extract and modify the data in them. In this section we will briefly review how to carry out these kinds of operations using base R functions.</p>
+<div id="extracting-and-adding-a-single-variable" class="section level3">
+<h3><span class="header-section-number">9.4.1</span> Extracting and adding a single variable</h3>
+<p>Since a data frame can be viewed as a collection of statistical variables stored as columns, it should not surprise you to hear that R provides a way to extract these. In fact there are several ways to extract variables. If you just want to extract a single variable you have two options.</p>
+<p>The first method uses the <code>$</code> operator. For example, to extract the <code>Biomass</code> variable – a column in the <code>experim.data</code> data frame – we use:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">experim.data$Biomass</code></pre></div>
+<pre><code>## [1] 284 328 291 956 954 685</code></pre>
+<p>This shows that we use the <code>$</code> operator by placing the name of the data frame we want to work with on the left hand side and and the name of the column (i.e. the variable) we want to extract on the right hand side. What kind of object does this produce? By now you should be able to tell just by looking at what was printed to the Console. It is a numeric vector. If you need further convincing, try <code>is.numeric(bms)</code>.</p>
+<p>Notice that you do not have to put quotes around the variable name when using the <code>$</code> operator. You can if you want to though, that is, <code>experim.data$&quot;Biomass&quot;</code> also works. Either way, if you want to do something with this variable you need to assign the result:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">bmass &lt;-<span class="st"> </span>experim.data$Biomass
+bmass^<span class="dv">2</span></code></pre></div>
+<pre><code>## [1]  80656 107584  84681 913936 910116 469225</code></pre>
+<p>In this example we extract the <code>Biomass</code> variable, assigned it to <code>bmass</code>, and then square this. The value of <code>Biomass</code> variable inside the <code>experim.data</code> data frame is unchanged. That is, we made a copy of it and then worked with this.</p>
+<p>The second way of extracting a column/variable from a data frame uses a <strong>double</strong> square brackets construct (single square brackets are also used with data frames, but they are used generally used to select a subset of rows and/or columns from a the data frame – see next subsection). For example, we can again extract the <code>Biomass</code> variable from our example data frame with the double square brackets like this:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">experim.data[[<span class="st">&quot;Biomass&quot;</span>]]</code></pre></div>
+<pre><code>## [1] 284 328 291 956 954 685</code></pre>
+<p>This again returns a numeric vector containing the information in the <code>Biomass</code> column. Notice that this time we quoted the the name. If you do not so this, R will assume that <code>Biomass</code> is the name of an object and go in search of it in the global environment. Since we haven’t stored something called <code>Biomass</code> in the global environment, this bit of R code would generate an error:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">experim.data[[Biomass]]</code></pre></div>
+<p>On the other hand, this example does work:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">vname &lt;-<span class="st"> &quot;Biomass&quot;</span>
+experim.data[[vname]]</code></pre></div>
+<p>This works because we first defined <code>vname</code>. It is a character vector of length one, whose value is the name of a variable in <code>experim.data</code>.</p>
+<p>So why is there more than one way to extract/add variables from/to a data frame? To be honest, there is no simple way to answer this question without getting into the details of how R represents data frames, so we are not going to try. The <code>$</code> method is a bit easier to read, so we tend to use that, though <code>[[</code> is more flexible. We have shown you both in case you run into them in the future.</p>
+</div>
+<div id="adding-a-variable-to-a-data-frame" class="section level3">
+<h3><span class="header-section-number">9.4.2</span> Adding a variable to a data frame</h3>
+<p>How do we add a new variable to an existing data frame? Thankfully this does not really require any new ideas. It turns out that the <code>$</code> operator can also be used to add new variables to a data frame. We just have to combine it with the assignment operator. Using it this way is fairly intuitive. For example, if we want to add a new (made up) variable called <code>Elevation</code> to <code>experim.data</code>, we do it like this:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">experim.data$Elevation &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">364</span>, <span class="dv">294</span>, <span class="dv">321</span>, <span class="dv">358</span>, <span class="dv">298</span>, <span class="dv">312</span>)</code></pre></div>
+<p>In this example we assigned some fake elevation data to a new variable in <code>experim.data</code> using the <code>$</code> operator. The new variable is called <code>Elevation</code> because that was the name we used on the right hand side of <code>$</code>. The <code>[[</code> operator can also be used like with <code>&lt;-</code> to add variables to a data frame. We won’t bother to show you an example, as you should be able to guess how to do this now and we will not use this method in this course.</p>
+</div>
+<div id="subsetting-data-frames" class="section level3">
+<h3><span class="header-section-number">9.4.3</span> Subsetting data frames</h3>
+<p>What do we do if instead of just extracting a single variable from a data frame, we need to subset the data frame? That is, how do we select a subset of rows or columns? We use the single square brackets construct, <code>[ ]</code>, to do this. We can use the single square brackets construct in two different ways.</p>
+<p>The first use of <code>[ ]</code> allows us to subset one or more columns while keeping all the rows. This works exactly as the <code>[ ]</code> does for vectors. Just think of columns as the elements of the data frame. For example, if we want to subset <code>experim.data</code> such that we are only left with the first and second columns (<code>Treatment</code> and <code>Biomass</code>), we use:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">experim.data[<span class="kw">c</span>(<span class="dv">1</span>:<span class="dv">2</span>)]</code></pre></div>
+<pre><code>##   Treatment Biomass
+## 1   Control     284
+## 2   Control     328
+## 3   Control     291
+## 4 Fertilser     956
+## 5 Fertilser     954
+## 6 Fertilser     685</code></pre>
+<p>This is not a very good way to subset columns though, as we have to remember the position of each variable. A better approach uses a character vector of column names inside the <code>[]</code>:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">experim.data[<span class="kw">c</span>(<span class="st">&quot;Treatment&quot;</span>, <span class="st">&quot;Biomass&quot;</span>)]</code></pre></div>
+<pre><code>##   Treatment Biomass
+## 1   Control     284
+## 2   Control     328
+## 3   Control     291
+## 4 Fertilser     956
+## 5 Fertilser     954
+## 6 Fertilser     685</code></pre>
+<p>The second use of <code>[ ]</code> is designed primarily to allow us to subset rows and columns at the same time. We have to specify both the rows and the columns we require to do this, using a comma (“<code>,</code>”) to separate a row and column index vector. This will probably make sense once you see an example:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">rindex &lt;-<span class="st"> </span><span class="dv">1</span>:<span class="dv">3</span>
+cindex &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Treatment&quot;</span>, <span class="st">&quot;Biomass&quot;</span>)
+experim.data[rindex, cindex]</code></pre></div>
+<pre><code>##   Treatment Biomass
+## 1   Control     284
+## 2   Control     328
+## 3   Control     291</code></pre>
+<p>In this example we extracted a subset of <code>experim.data</code> corresponding to rows 1 through 3 and columns called “Treatment” and “Biomass”. The <code>rindex</code> is a numeric vector of row positions, and <code>cindex</code> is a character vector of column names. This shows that rows and columns can be selected by referencing their position or their names. The rows are not named in <code>experim.data</code>, so we had to use positions in this example.</p>
+<p>Notice that subsetting with the <code>[rindex, cindex]</code> construct produces another data frame. this should be apparent from the way the last example was printed. This is <strong>usually</strong> how this construct works. We say usually, because subsetting just one column produces a vector. This is very unfortunate, as is it a frequent source of confusion among new R users. Don’t ask us why someone thought this behaviour was a good idea.</p>
+<p>Storing the index vectors first is quite a long-winded way of subsetting a data frame. However, there is nothing to stop us doing everything in one step:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">experim.data[<span class="dv">1</span>:<span class="dv">3</span>, <span class="kw">c</span>(<span class="st">&quot;Treatment&quot;</span>, <span class="st">&quot;Biomass&quot;</span>)]</code></pre></div>
+<pre><code>##   Treatment Biomass
+## 1   Control     284
+## 2   Control     328
+## 3   Control     291</code></pre>
+<p>If we need to subset just rows or columns we just leave out the appropriate index vector:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">experim.data[<span class="dv">1</span>:<span class="dv">3</span>, ]</code></pre></div>
+<pre><code>##   Treatment Biomass Diversity Elevation
+## 1   Control     284         8       364
+## 2   Control     328        12       294
+## 3   Control     291        11       321</code></pre>
+<p>The absence of an index vector before/after the comma indicates that we want to keep every row/column. Here we kept all the columns but only the first three rows.</p>
+<p>The <code>[ ]</code> operator works with three types of index vectors. We have already seen that the index vector can be a numeric or character type. The third option is to use a logical index vector. For example, we can subset the <code>experim.data</code> data frame, keeping just the rows where the <code>Treatment</code> variable is equal to “Control”, using:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">rindex &lt;-<span class="st"> </span>experim.data $<span class="st"> </span>Treatment ==<span class="st"> &quot;Control&quot;</span>
+rindex</code></pre></div>
+<pre><code>## [1]  TRUE  TRUE  TRUE FALSE FALSE FALSE</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">experim.data[rindex, ]</code></pre></div>
+<pre><code>##   Treatment Biomass Diversity Elevation
+## 1   Control     284         8       364
+## 2   Control     328        12       294
+## 3   Control     291        11       321</code></pre>
+<p>Notice that we construct the logical <code>rindex</code> vector by extracting the <code>Treatment</code> variable with the <code>$</code> operator and using the <code>==</code> operator to test for equality with “Control”.</p>
+</div>
+<div id="base-r-functions-for-manipulating-data-frames" class="section level3">
+<h3><span class="header-section-number">9.4.4</span> Base R functions for manipulating data frames</h3>
+<p>In the last two subsections we saw how to extract/add variables and subset data frames using the <code>$</code> and <code>[ ]</code> operators. The last example also showed that we can use a combination of relational operators (e.g. <code>==</code>, <code>!=</code> or <code>&gt;=</code>) and the square brackets construct to subset a data frame according to one or more criteria. We have shown you these approaches because they are widely used, so it is important to know how this way of subsetting works in case you run into it in the future.</p>
+<p>There are also a number of base R functions that allow us to manipulate data frames in a slightly more intuitive way. There is a function called <code>transform</code> that adds new variables and changes existing ones, and a function called <code>subset</code> to select variables and subset rows in a data frame according to the values of its variables. Again, it is worth having heard of these because they are so widely used.</p>
+<p>In this course we will rely on the <code>dplyr</code> package to handle operations like subsetting and transforming variables. This provides a much cleaner, less error prone framework for manipulating data frames, and can be used to work with other kinds of objects that store data in consistent way.</p>
+
+</div>
+</div>
+</div>
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="packages.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/dzchilds/eda-for-bio/edit/master/2_01_data_frames.Rmd",
+"text": "Edit"
+},
+"download": null,
+"toc": {
+"collapse": "section"
+},
+"split_by": "section"
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    if (location.protocol !== "file:" && /^https?:/.test(script.src))
+      script.src  = script.src.replace(/^https?:/, '');
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
