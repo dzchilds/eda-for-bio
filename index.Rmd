@@ -22,7 +22,7 @@ description: "Course book for Introduction to Exploratory Data Analysis with R (
 
 This is the online course book for the __Introduction to Exploratory Data Analysis with R__ component of ([APS 135](https://www.shef.ac.uk/aps/currentug/level2/aps135)) module. You can view this book in any modern desktop browser, as well as on your phone or tablet device. The site is self-contained---it contains all the material you are expected to learn this year. [Dylan Childs](https://www.shef.ac.uk/aps/staff-and-students/acadstaff/childs) is the author. Please [email him](mailto:d.childs@sheffield.ac.uk?Subject=APS%20133%20general%20query) if you spot any problems.
 
-## Aims {#aims}
+## Aims {-}
 
 1. You will be introduced to the R ecosystem. R is now very widely used by biologists and environmental scientists to access data, carry out interactive data analysis, build mathematical models and produce high quality figures. We will teach you a little basic R programming so that you are in a position to address these needs in future if you need to. You don't have to become an expert programmer to have a successful career in science, but knowing a little bit about programming has become (almost) a prerequisite for doing biological research in the 21^st^ century.
 
@@ -30,7 +30,7 @@ This is the online course book for the __Introduction to Exploratory Data Analys
 
 3. This book provides a foundation for learning statistics later on. If you want to be a biologist, particularly one involved in research, there is really no way to avoid using statistics. You might be able to dodge it by becoming a theoretician, but if that really is your primary interest you should probably being studying for a mathematics degree. For the rest of us who collect data, or at least analyse other people's data, knowing about statistics is essential: it allows us to distinguish between real patterns (the "signal") and chance variation (the "noise").
 
-### Topics {#topics}
+### Topics {-}
 
 The topics we will cover in this book are divided into three sections:
 
@@ -40,13 +40,13 @@ The __Data Wrangling with R__ block aims to show you how to manipulate your data
 
 The __Exploratory Data Analysis__ block is all about using R to help you understand and describe your data. The first step in any analysis after you have managed to wrangle the data into shape almost always involves some kind of visualisation and/or numerical summary (or at least that should be the next step if you are serious about getting your analysis right). In this block you will learn how to do this using one of the best plotting systems in R: __ggplot2__. We will review the different kinds of variables you might have to analyse, discuss the different ways you can describe them, both visually and with numbers, and learn how to explore relationships between variables.
 
-## How to use the book {#howto-use}
+## How to use the book {-}
 
-This website covers all the material you need to get to grips with this year, some of which we will not have time to cover in the practicals. **No one is expecting you to memorise everything in the book**. It is designed to serve as a resource for you to refer to over the next 2-3 years (and beyond) as needed. However, you should aim to familiarise yourself with the content so that you know where to look for information or examples when needed. Try to understand the important concepts and then worry about the specific details.
+This book covers all the material you need to get to grips with this year, some of which we will not have time to cover in the practicals. **No one is expecting you to memorise everything in the book**. It is designed to serve as a resource for you to refer to over the next 2-3 years (and beyond) as needed. However, you should aim to familiarise yourself with the content so that you know where to look for information or examples when needed. Try to understand the important concepts and then worry about the specific details.
 
-What should you be doing as you read about each topic? There is a lot of R code embedded in the website, most of which you can just copy and paste into RStudio and then run. You are strongly encouraged to do this when you first work through a topic. The best way to learn something like R is to use it actively, not just read about it. Experimenting with different code snippets by changing them is also a very good way to learn what they do. You can't really break R (well you can, but it is quite hard), and working out why something does or does not work will help you learn to use it.
+What should you be doing as you read about each topic? There is a lot of R code embedded in the book, most of which you can just copy and paste into RStudio and then run. You are strongly encouraged to do this when you first work through a topic. The best way to learn something like R is to use it actively, not just read about it. Experimenting with different code snippets by changing them is also a very good way to learn what they do. You can't really break R (well you can, but it is quite hard), and working out why something does or does not work will help you learn to use it.
 
-#### Text, instructions, and explanations
+#### Text, instructions, and explanations {-}
 
 Normal text, instructions, explanations etc. are written in the same type as this document, we will tend to use bold for emphasis and italics to highlight specific technical terms when they are first introduced (italics will also crop up with Latin names from time to time, but this is unlikely to produce too much confusion!)
 
@@ -64,7 +64,7 @@ This is a **warning** box. These contain a warning or a common "gotcha". There a
 This is an **information** box. These aim to offer a not-too-technical discussion of how or why something works the way it does. You do not necessarily have to completely understand these boxes, but it may help you use R more effectively.
 ```
 
-#### R code and output in this book
+#### R code and output in this book {-}
 
 We will try to illustrate as many ideas as we can using snippets of real R code. Stand alone snippets will be formatted like this: 
 
@@ -73,7 +73,7 @@ tmp <- 1
 print(tmp)
 ```
 
-At this point it does not matter what the above actually means. You just need to understand how the formatting of R code on this website works. The lines that start with `## ` show us what R prints to the screen after it evaluates an instruction and does whatever was asked of it, that is, they show the output. The lines that __do not__ start with `## ` show us the instructions, that is, they show us the input. So remember, the absence of `## ` shows us what we are asking R to do, otherwise we are looking at something R prints in response to these instructions.
+At this point it does not matter what the above actually means. You just need to understand how the formatting of R code in this book works. The lines that start with `## ` show us what R prints to the screen after it evaluates an instruction and does whatever was asked of it, that is, they show the output. The lines that __do not__ start with `## ` show us the instructions, that is, they show us the input. So remember, the absence of `## ` shows us what we are asking R to do, otherwise we are looking at something R prints in response to these instructions.
 
 `This typeface` is used to distinguish R code within a sentence of text: e.g. "We use the `mutate` function to change or add new variables."
 
@@ -91,6 +91,6 @@ You will learn various ways of finding help about R in this book. If you find yo
 
 3. We encourage you to try options 1 and 2 first. Nonetheless, on occasion Google may turn out not to be your friend and a post to the Facebook page might not elicit a satisfactory response. In these instances you are welcome to [email Dylan](mailto:d.childs@sheffield.ac.uk?Subject=APS%20133%20Question) with your query. You are unlikely to receive an answer at the weekend though.
 
-## Updates {#updates}
+## Updates {-}
 
-We may occasionally decide to update the website in light of the results of comments and questions we receive from you. This is another reason why it is important for you to ask or post questions---it allows us to see where people are struggling. It is also a motivation for choosing to use a website rather than a static document---we can very easily adapt or extend the content to address problems as they arise. If we do update the website, we will let you know what has changed.
+We may occasionally decide to update the book in light of the results of comments and questions we receive from you. This is another reason why it is important for you to ask or post questions---it allows us to see where people are struggling. It is also a motivation for choosing to use a website rather than a static document---we can very easily adapt or extend the content to address problems as they arise. If we do update the book, we will let you know what has changed.
