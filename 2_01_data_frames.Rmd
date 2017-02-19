@@ -20,7 +20,7 @@ Each column is a vector of some kind. These are usually simple vectors containin
 
 The simplest way to get a feel for data frames is to make one. Data frames are usually constructed by reading some external data into R, but for the purposes of learning about them it is better to build one from from its component parts. We'll make some artificial data describing a hypothetical experiment to do this. Imagine that we've conducted a small expweriment to examine biomass and community diversity in six field plots. Three plots were subjected to fertiliser enrichment. The other three plots act as experimental controls. We could store the data describing this experiment in three vectors: 
 
--   `trt` (short for "treatment") shows whether an observation corresponds to a control or fertiliser manipulation.
+-   `trt` (short for "treatment") shows which experimental manipulation was used.
 
 -   `bms` (short for "biomass") shows the total biomass measured at the end of the experiment.
 
@@ -54,102 +54,120 @@ experim.data
 The new data frame contains the same data as the previous one but now the column names correspond to the names we chose. These names are better because they describe each variable using a human-readable word. 
 
 ```{block, type="warning"}
-We can also name the rows of a data frame using the `row.names` argument of the `data.frame` function. We won't bother to show an example of this though. Why? The short answer is that we can't easily work with the information in row names so there's not much point adding it. If we need to include row-specific data in a data frame it's best to include an additional variable, i.e. an extra column.
+#### Don't bother with row names
+
+We can also name the rows of a data frame using the `row.names` argument of the `data.frame` function. We won't bother to show an example of this though. Why? We can't easily work with the information in row names so there's not much point adding it. If we need to include row-specific data in a data frame it's best to include an additional variable, i.e. an extra column.
 ```
 
 ## Exploring data frames
 
-One of the first things we should do when presented with a new data set is explore its structure to understand what we're dealing with. This is easy to do if it is stored in a data frame. You should check new data frames even if they contain data you have collected, as something unexpected may have happened when you read it into R. If the dataset is reasonably small you could just print it to the Console as we did above. This is not very practical for even moderate-sized datasets though. The `head` and `tail` functions extract the first and last few rows of a dataset. These can be used to print part of a dataset, rather than the whole thing. We use the `n` argument to control the number of rows in each case:
+The first things we should do when presented with a new data set is explore its structure to understand what we're dealing with. This is easy when the data is stored in a data frame. If the dataset is reasonably small we can just print it to the Console. This is not very practical for even moderate-sized datasets though. The `head` and `tail` functions extract the first and last few rows of a dataset, so these can be used to print part of a dataset. The `n` argument controls the number of rows printed:
 ```{r}
 head(experim.data, n = 3)
 tail(experim.data, n = 3)
 ```
 
-You can also use the `View` function to help you visualise the dataset as a table. For example:
+The `View` function can be used to visualise the whole dataset in a spreadsheet like view:
 ```{r, eval=FALSE}
 View(experim.data)
 ```
-This shows the rows and columns of the data frame argument in a table- or spreadsheet-like format. Try this now in RStudio and you should see a new tab open up with the `experim.data` data inside it. You can't do anything to the data using `View` -- it is only designed to allow you to view the rows and columns.
+This shows the rows and columns of the data frame argument in a table- or spreadsheet-like format. When we run this in RStudio a new tab opens up with the `experim.data` data inside it. 
 
-There are quite a few base R functions that enable us to extract information about the structure of a data frame. The `nrow` and `ncol` functions return the number of rows and columns, respectively:
+```{block, type=""}
+#### `View` only displays the data
+
+The `View` function is designed to allow us to display the data in a data frame as a table of rows and columns. We can't change the data in any way with the `View` function. We can reorder the way the data are presented, but keep in mind that this won't alter the underlying data. 
+```
+
+There are quite a few different R functions that will extract information about a data frame. The `nrow` and `ncol` functions return the number of rows and columns, respectively:
 ```{r}
 nrow(experim.data)
 ncol(experim.data)
 ```
-The `colnames` function is used to extract the column names from a data frame 
+The `names` function is used to extract the column names from a data frame:
 ```{r}
 colnames(experim.data)
 ```
-The `experim.data` data frame has three columns, so `colnames` returns a character vector of length three, where each element corresponds to a column name. There is also a `rownames` function if you need that too. `nrow`, `ncol`, `colnames` and `rownames` are all functions that return a vector. This means you can assign the result if you need to use it later on. For example, if we need to extract and store the column names for some reason we could use `varnames <- colnames(experim.data)`. 
+The `experim.data` data frame has three columns, so `names` returns a character vector of length three, where each element corresponds to a column name. There is also a `rownames` function if you need that too. The `nrow`, `ncol`, `names` and `rownames` functions each return a vector, so we can assign the result if we need to use it later. For example, if we want to extract and store the column names for any reason we could use `varnames <- names(experim.data)`. 
 
 ## Extracting data from data frames {#extract-data}
 
-Recall what we said about data structures in the first block: a data structure is just a particular way of organising data on your computer so that it can be accessed easily and efficiently. A data frame would not be much use if we could not extract and modify the data in them. In this section we will briefly review how to carry out these kinds of operations using base R functions.
+Data frames would not be much use if we could not extract and modify the data in them. In this section we will briefly review how to carry out these kinds of operations using basic R functions.
 
 ### Extracting and adding a single variable
 
-Since a data frame can be viewed as a collection of statistical variables stored as columns, it should not surprise you to hear that R provides a way to extract these. In fact there are several ways to extract variables. If you just want to extract a single variable you have two options. 
+A data frame is just a collection of variables stored in columns, where each column is a vector of some kind. There are several ways to extract these variables from a data frame. If we just want to extract a single variable we have two options.
 
-The first method uses the `$` operator. For example, to extract the `Biomass` variable -- a column in the `experim.data` data frame -- we use:
+The first way of extracting a variable from a data frame uses a double square brackets construct, `[[`. For example, we extract the `Biomass` variable from our example data frame with the double square brackets like this:
 ```{r}
-experim.data$Biomass
+experim.data[["Biomass"]]
+``` 
+This prints whatever is in the `Biomass` column to the Console. What kind of object is this? It's a numeric vector:
+```{r}
+is.numeric(experim.data[["Biomass"]])
 ```
-This shows that we use the `$` operator by placing the name of the data frame we want to work with on the left hand side and and the name of the column (i.e. the variable) we want to extract on the right hand side. What kind of object does this produce? By now you should be able to tell just by looking at what was printed to the Console. It is a numeric vector. If you need further convincing, try `is.numeric(bms)`.
-
-Notice that you do not have to put quotes around the variable name when using the `$` operator. You can if you want to though, that is, `experim.data$"Biomass"` also works. Either way, if you want to do something with this variable you need to assign the result:
+A data frame really is nothing more than a collection of vectors. Notive that all we did was print the resulting vector to the Console. If we want to actually do something with this numeric vector we need to assign the result:
 ```{r}
 bmass <- experim.data$Biomass
 bmass^2
 ```
-In this example we extract the `Biomass` variable, assigned it to `bmass`, and then square this. The value of `Biomass` variable inside the `experim.data` data frame is unchanged. That is, we made a copy of it and then worked with this. 
+Here, we extracted the `Biomass` variable, assigned it to `bmass`, and then squared this. The value of `Biomass` variable inside the `experim.data` data frame is unchanged.
 
-The second way of extracting a column/variable from a data frame uses a __double__ square brackets construct (single square brackets are also used with data frames, but they are used generally used to select a subset of rows and/or columns from a the data frame -- see next subsection). For example, we can again extract the `Biomass` variable from our example data frame with the double square brackets like this:
-```{r}
-experim.data[["Biomass"]]
-``` 
-This again returns a numeric vector containing the information in the `Biomass` column. Notice that this time we quoted the the name. If you do not so this, R will assume that `Biomass` is the name of an object and go in search of it in the global environment. Since we haven't stored something called `Biomass` in the global environment, this bit of R code would generate an error:
-```{r, eval=FALSE}
+Notice that we used `"Biomass"` instead of `Biomass` inside the double square brackets, i.e.  we quoted the name of the variable. This is because we want R to treat the word "Biomass" as a literal value. This little detail is important! If we don't quote the name then R will assume that `Biomass` is the name of an object and go in search of it in the global environment. Since we haven't created something called `Biomass`, leaving out the quotes generates an error:
+```{r, error=TRUE}
 experim.data[[Biomass]]
 ``` 
-On the other hand, this example does work:
-```{r, eval=FALSE}
+The error message is telling us that R can't find a variable called `Biomass` in the global environment. On the other hand, this example does work:
+```{r, eval=TRUE}
 vname <- "Biomass"
 experim.data[[vname]]
 ``` 
-This works because we first defined `vname`. It is a character vector of length one, whose value is the name of a variable in `experim.data`. 
+This works because we first defined `vname` to be a character vector of length one, whose value is the name of a variable in `experim.data`. When R encounters `vname` inside the `[[` construct it goes and finds the value associated with it and uses this value to determine the variable to extract.
 
-So why is there more than one way to extract/add variables from/to a data frame? To be honest, there is no simple way to answer this question without getting into the details of how R represents data frames, so we are not going to try. The `$` method is a bit easier to read, so we tend to use that, though `[[` is more flexible. We have shown you both in case you run into them in the future.
+The second method for extracting a variable from a data frame uses the `$` operator. For example, to extract the `Biomass` column from the `experim.data` data frame, we use:
+```{r}
+experim.data$Biomass
+```
+Wwe use the `$` operator by placing the name of the data frame we want to work with on the left hand side and and the name of the column (i.e. the variable) we want to extract on the right hand side. Notice that this time we didn't have to put quotes around the variable name when using the `$` operator. We can do this if we want to---i.e. `experim.data$"Biomass"` also works---but `$` doesn;t require it.
+
+Why is there more than one way to extract variables from a data frame? There's no simple way to answer this question without getting into the details of how R represents data frames. The simple answer is that `$` and `[[` are not actually equivalent, even though they appear to do much the same thing. We've looked at the two extraction methods because they are both widely used. However, the `$` method is a bit easier to read and people tend to prefer it for interactive data analysis tasks (the `[[` construct tends to be used when we need a bit more felxibility).
 
 ### Adding a variable to a data frame
 
-How do we add a new variable to an existing data frame? Thankfully this does not really require any new ideas. It turns out that the `$` operator can also be used to add new variables to a data frame. We just have to combine it with the assignment operator. Using it this way is fairly intuitive. For example, if we want to add a new (made up) variable called `Elevation` to `experim.data`, we do it like this:
+How do we add a new variable to an existing data frame? It turns out that the `$` operator is also be used for this job by combining it with the assignment operator. Using it this way is fairly intuitive. For example, if we want to add a new (made up) variable called `Elevation` to `experim.data`, we do it like this:
 ```{r}
 experim.data$Elevation <- c(364, 294, 321, 358, 298, 312)
 ```
-In this example we assigned some fake elevation data to a new variable in `experim.data` using the `$` operator. The new variable is called `Elevation` because that was the name we used on the right hand side of `$`. The `[[` operator can also be used like with ` <- ` to add variables to a data frame. We won't bother to show you an example, as you should be able to guess how to do this now and we will not use this method in this course.
+This assigns some fake elevation data to a new variable in `experim.data` using the `$` operator. The new variable is called `Elevation` because that was the name we used on the right hand side of `$`. This changes `experim.data`, such that it now contains four columns (variables):
+```{r}
+head(experim.data, n = 3)
+```
+
+The `[[` operator can also be used with ` <- ` to add variables to a data frame. We won't bother to show an example, as it works in exactly the same way as `$` and we won't be using the `[[` method in this book.
 
 ### Subsetting data frames
 
-What do we do if instead of just extracting a single variable from a data frame, we need to subset the data frame? That is, how do we select a subset of rows or columns? We use the single square brackets construct, `[ ]`, to do this. We can use the single square brackets construct in two different ways. 
+What do we do if, instead of just extracting a single variable from a data frame, we need to select a subset of rows and/or columns? We use the single square brackets construct, `[`, to do this. There are two different ways we can use single square brackets, both of whihc involve the use of indexing vector(s) inside the `[` construct.
 
-The first use of `[ ]` allows us to subset one or more columns while keeping all the rows. This works exactly as the `[ ]` does for vectors. Just think of columns as the elements of the data frame. For example, if we want to subset `experim.data` such that we are only left with the first and second columns (`Treatment` and `Biomass`), we use:
+The first use of `[` allows us to subset one or more columns while keeping all the rows. This works exactly as the `[` does for vectors. Just think of columns as the elements of the data frame. For example, if we want to subset `experim.data` such that we are only left with the first and second columns (`Treatment` and `Biomass`), we can use a numeric indexing vector:
 ```{r}
 experim.data[c(1:2)]
 ```
-This is not a very good way to subset columns though, as we have to remember the position of each variable. A better approach uses a character vector of column names inside the `[]`:
+However, this is not a very good way to subset columns because we have to know the position of each variable. If for some reason we change the order of the columns, we have to update our R code accordingly. A better approach uses a character vector of column names inside the `[`:
 ```{r}
 experim.data[c("Treatment", "Biomass")]
 ```
 
-The second use of `[ ]` is designed primarily to allow us to subset rows and columns at the same time. We have to specify both the rows and the columns we require to do this, using a comma ("`,`") to separate a row and column index vector. This will probably make sense once you see an example:
+The second use of `[ ]` is designed to allow us to subset rows and columns at the same time. We have to specify both the rows and the columns we require, using a comma ("`,`") to separate a row and column index vector. This is easiest to understand with an example:
 ```{r}
+# row index
 rindex <- 1:3
+# column index 
 cindex <- c("Treatment", "Biomass")
+# subset the data farme
 experim.data[rindex, cindex]
 ```
-In this example we extracted a subset of `experim.data` corresponding to rows 1 through 3 and columns called "Treatment" and "Biomass". The `rindex` is a numeric vector of row positions, and `cindex` is a character vector of column names. This shows that rows and columns can be selected by referencing their position or their names. The rows are not named in `experim.data`, so we had to use positions in this example.
-
-Notice that subsetting with the `[rindex, cindex]` construct produces another data frame. this should be apparent from the way the last example was printed. This is __usually__ how this construct works. We say usually, because subsetting just one column produces a vector. This is very unfortunate, as is it a frequent source of confusion among new R users. Don't ask us why someone thought this behaviour was a good idea.
+This example extracts a subset of `experim.data` corresponding to rows 1 through 3, and columns "Treatment" and "Biomass". The `rindex` is a numeric vector of row positions, and `cindex` is a character vector of column names. This shows that rows and columns can be selected by referencing their position or their names. The rows are not named in `experim.data`, so we specified the positions.
 
 Storing the index vectors first is quite a long-winded way of subsetting a data frame. However, there is nothing to stop us doing everything in one step:
 ```{r}
@@ -161,20 +179,24 @@ experim.data[1:3, ]
 ```
 The absence of an index vector before/after the comma indicates that we want to keep every row/column. Here we kept all the columns but only the first three rows.
 
-The `[ ]` operator works with three types of index vectors. We have already seen that the index vector can be a numeric or character type. The third option is to use a logical index vector. For example, we can subset the `experim.data` data frame, keeping just the rows where the `Treatment` variable is equal to "Control", using:
+```{block, type="warning"}
+#### Be careful with `[`
+
+Subsetting with the `[rindex, cindex]` construct produces another data frame. This should be apparent from the way the last example was printed. This is __usually__ how this construct works. We say usually, because subsetting just one column produces a vector. This is very unfortunate, as it produces unpredictable behaviour if we're not paying attention.
+```
+
+The `[` construct works with three types of index vectors. We've just seen that the index vector can be a numeric or character type. The third approach uses a logical index vector. For example, we can subset the `experim.data` data frame, keeping just the rows where the `Treatment` variable is equal to "Control", using:
 ```{r}
+# make a logical index vector
 rindex <- experim.data $ Treatment == "Control"
 rindex
+# 
 experim.data[rindex, ]
 ```
-Notice that we construct the logical `rindex` vector by extracting the `Treatment` variable with the `$` operator and using the `==` operator to test for equality with "Control".
+Notice that we construct the logical `rindex` vector by extracting the `Treatment` variable with the `$` operator and using the `==` operator to test for equality with "Control". Don't worry too much if that seems confusing. We combined many different ideas in that example. We're going to learn a much more transparent way to achieve the same result in later chapters.
 
-### Base R functions for manipulating data frames
+## Final words
 
-In the last two subsections we saw how to extract/add variables and subset data frames using the `$` and `[ ]` operators. The last example also showed that we can use a combination of relational operators (e.g. `==`, `!=` or `>=`) and the square brackets construct to subset a data frame according to one or more criteria. We have shown you these approaches because they are widely used, so it is important to know how this way of subsetting works in case you run into it in the future.
+We've seen how to extract/add variables and subset data frames using the `$`, `[[` and `[` constructs. The last example also showed that we can use a combination of relational operators (e.g. `==`, `!=` or `>=`) and the square brackets construct to subset a data frame according to one or more criteria.  There are also a number of base R functions that allow us to manipulate data frames in a slightly more intuitive way. For example, there is a function called `transform` that adds new variables and changes existing ones, and a function called `subset` to select variables and subset rows in a data frame according to the values of its variables. 
 
-There are also a number of base R functions that allow us to manipulate data frames in a slightly more intuitive way. There is a function called `transform` that adds new variables and changes existing ones, and a function called `subset` to select variables and subset rows in a data frame according to the values of its variables. Again, it is worth having heard of these because they are so widely used.
-
-In this course we will rely on the `dplyr` package to handle operations like subsetting and transforming variables. This provides a much cleaner, less error prone framework for manipulating data frames, and can be used to work with other kinds of objects that store data in consistent way.
-
-
+We've shown you these approaches because they are still used by many people. However, we will rely on the **dplyr** package to handle operations like subsetting and transforming data frame variables in this book. The **dplyr** package provides a much cleaner, less error prone framework for manipulating data frames, and can be used to work with similar kinds of objects that store data in consistent way. Before we can do that though, we need to learn a little bit about how to organise and import data into R.
