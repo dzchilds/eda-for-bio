@@ -64,7 +64,7 @@ This is a **warning** box. These contain a warning or a common "gotcha". There a
 This is an **information** box. These aim to offer a not-too-technical discussion of how or why something works the way it does. You do not necessarily have to completely understand these boxes, but it may help you use R more effectively.
 ```
 
-#### R code and output on this website
+#### R code and output in this book
 
 We will try to illustrate as many ideas as we can using snippets of real R code. Stand alone snippets will be formatted like this: 
 
