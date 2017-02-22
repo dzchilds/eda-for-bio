@@ -53,15 +53,15 @@ Normal text, instructions, explanations etc. are written in the same type as thi
 At various points in the text you will come across text in different coloured boxes. These are designed to highlight stand-alone exercises or little pieces of supplementary information that might otherwise break the flow. There are three different kinds of boxes:
 
 ```{block, type="action"}
-This is an **action** box. We use these when we want to say something important. For example, we might be summarising a key learning outcome or giving you instructions to do something. 
+This is an **action** box. We use these when we want to say something important. For example, we might be summarising a key learning outcome or giving you instructions to do something.  
 ```
 
 ```{block, type="warning"}
-This is a **warning** box. These contain a warning or a common "gotcha". There are a number of common pitfalls that trip up new users of R. These boxes aim to highlight these and show you how to avoid them. It's a good idea to pay attension to these.
+This is a **warning** box. These contain a warning or a common "gotcha". There are a number of common pitfalls that trip up new users of R. These boxes aim to highlight these and show you how to avoid them. It's a good idea to pay attention to these.
 ```
 
 ```{block, type="info"}
-This is an **information** box. These aim to offer a not-too-technical discussion of how or why something works the way it does. You do not necessarily have to completely understand these boxes, but it may help you use R more effectively.
+This is an **information** box. These aim to offer a not-too-technical discussion of how or why something works the way it does. You do not have to understand everything in these boxes to use R, but the information will help you understand how it works.
 ```
 
 #### R code and output in this book {-}
