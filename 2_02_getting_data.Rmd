@@ -1,0 +1,127 @@
+# Working directories and data files
+
+## Introduction 
+
+R can access data from a huge number of different sources. With the right tools, we can use R to pull in data from various different kinds of data bases, web sites, or just plain old text files. We aren't going to evaluate the many different packages and functions used to pull data into R---a whole book could be written about this topic alone. Instead, we'll examine the one method an R user absolutely must to be able to use: reading in data from a CSV text file on a local machine. We'll also briefly look at how to access data stored in packages. Before we can do any of this though we need to learn a bit about how R searches for files.
+
+## The working directory
+
+We need to introduce the important concept of the "working directory" before we can start thinking about data import. "Directory" is just another word for "folder". The working directory is simply a default location (i.e. a folder) on our hard drive that R will use when searching for files. The working directory must always be set, and there are standard rules which govern how this is chosen when a new R session starts. For example, if we start R by double clicking on an script file (i.e. a file with a ".R" extension), R will typically set the working directory to be the location of the R script. We say typically, because this behaviour can be overridden. 
+
+There's no need to learn the rules for how the working directory is chosen, because we can always use R/RStudio to find out which folder is currently set as the working directory. Here are a couple of options:
+
+1. When RStudio first starts up, the __Files__ tab in the bottom right window shows us the contents (i.e. the files and folders) of the working directory. Be careful though, if we use the file viewer to navigate to a new location this does not change the working directory.
+
+2. The `getwd` function will print the location to the working directory to the Console. It does this by displaying a __file path__. If you're comfortable with file paths then the output of `getwd` will make perfect sense. If not, it doesn't matter too much. Use the RStudio __Files__ tab instead.
+
+Why does any of this matter? We need to know where R will look for files if we plan to read in data! If the working directory isn't set up correctly R won't be able to find our files. Luckily, it's easy to change the working directory to a new location if we need to: 
+
+1. Using RStudio, we can set the working directory via the `Session > Set Working Directory... > Choose Directory...` menu. Once this menu item is selected we're presented with the standard file/folder dialogue box to choose the working directory.
+
+2. Alternatively, we can use a function called `setwd` at the Console, though once again, we have to be comfortable with file paths to use this. Using RStudio is easier, so we won't demonstrate how to use `setwd`.
+
+## Data files: the CSV format
+
+Just about every piece of software that stores data in some kind of table-like structure can export those data to a CSV file. The CSV acronym stands for "Comma Separated Values". CSV files are just ordinary text files. The only thing that makes them a CSV file is the fact that they store data in a particular format. This format is very simple: each row of a CSV file corresponds to a row in the data, and each value in a row (corresponding to a different column) is separated by a comma. Here is what the artificial data from the last chapter looks like in CSV format:
+
+```{r, echo=FALSE}
+trt <- rep(c("Control","Fertilser"), each = 3) 
+bms <- c(284, 328, 291, 956, 954, 685)
+div <- c(8, 12, 11, 8, 4, 5)
+experim.data <- data.frame(trt, bms, div)
+write.csv(experim.data, row.names = FALSE)
+```
+
+The first line contains the variable names, with each name separated by a comma. It's usually a good idea to include the variable names in a CSV file, though this is optional. After the variable names, each new line is a row of data. Values which are not numbers have double quotation marks around them; numeric values lack these quotes. Notice that this is the same convention that applies to the elements of atomic vectors. Quoting non-numeric values is actually optional, but reading CSV files into R works best when non-numeric values are in quotes because this reduces ambiguity. 
+
+### Exporting CSV files from Excel
+
+Those who work with small or moderate data sets (i.e. 100s-1000s of lines) often use Excel to manage and store their data. There are good reasons for why this isn't necessarily a sensible thing to do---for example, Excel has a nasty habit of "helpfully" formatting data values. Nonetheless, Excel is a ubiquitous and convenient tool for data management, so it's important to know how to pull data into R from Excel. It is possible to read data directly from Excel into R, but this way of doing things can be error prone for an inexperienced user and requires us to use an external package (the **readxl** package is currently the best option). Instead, the simplest way to transfer data from Excel to R is to first export the relevant worksheet to a CSV file, and then import this new file using R's standard file import tools. 
+
+We'll discuss the import tools in a moment. The initial export step is just a matter of selecting the Excel worksheet that contains the relevant data, navigating to `Save As...`, choosing the `Comma Separated Values (.csv)`, and following the familiar file save routine. That's it. After following this step our data are free of Excel and ready to be read into R.
+
+```{block, type="warning"}
+#### Always check your Excel worksheet
+
+Importing data from Excel can turn into a frustrating process if we're not careful. Most problems have their origin in the Excel worksheet used to store the data, rather than R. Problems usually arise because we haven't been paying close attention to a worksheet. For example, imagine we're working with a very simple data set, which contains three columns of data and a few hundred rows. If at some point we accidentally (or even intentionally) add a value to a cell in the forth column, Excel will assume the fourth column is "real" data. When we then export the worksheet to CSV, instead of the expected three columns of data, we end up with four columns, where most of the fourth column is just missing information. This kind of mistake is surprisingly common and is a frequent source of confusion. The take-home message is that when Excel is used to hold raw data should be used to do just that---the worksheet containing our raw data should hold only that, and nothing else.
+```
+
+## Importing data with `read.csv`
+
+Now that we know roughly what a CSV file looks like, we obviously need to understand how to read the data stored in one of these files into R. That is, once we've exported some data to a CSV file, the next step is to read this into a data frame. The standard R function for reading in CSVs file is called `read.csv`. There are a few other options (e.g. `read_csv` from the **readr** package), but we'll use `read.csv` because it's part of the base R distribution, which means we can use it without relying on an external package. 
+
+The `read.csv` function does one thing: given the location of a CSV file, it will read the data into R and return it to us as a data frame. There are a couple of different strategies for using `read.csv`. One is considered good practise and is fairly robust. The second is widely used, but creates more problems than it solves. We'll discuss both, and then explain why the first strategy is generally better than the second.
+  
+#### Strategy 1---set the working directory first
+
+Remember, the working directory is the default location that R uses to search for files. This means that if we set the working directory to be wherever our data file lives, we can use the `read.csv` function without having to tell R where to look for it. Let's assume our data is in a CSV file called "my-great-data.csv". We should be able to see "my-great-data.csv" in the __Files__ tab in RStudio if the working directory is set correctly. If we can't see it there, the working directory still needs to be set (e.g. via `Session > Set Working Directory... > Choose Directory...`). Once we've set the working directory to this location, reading the "my-great-data.csv" file into R is simple:
+```{r, eval=FALSE}
+mydata <- read.csv(file = "my-great-data.csv", stringsAsFactors = FALSE)
+```
+
+-   We have to assign the output a name (`mydata` in this example), otherwise all that will happen is the resulting data frame is read in and printed to the Console.
+
+-   R knows where to find the file because we first set the working directory to be the location of the file. If we forget to do this R will complain and throw an error. 
+
+#### Strategy 2---use the full path to the CSV file
+
+If you are comfortable with "file paths" then `read.csv` is easy to use. For example, if we have a CSV file called "my-great-data.csv" on the Desktop of our Mac we can read it into a data frame using:
+```{r, eval=FALSE}
+mydata <- read.csv(file = "~/Desktop/my-great-data.csv", stringsAsFactors = FALSE)
+```
+When used like this, we have to give `read.csv` the full path to the file. This assumes of course that you understand how to construct a file path. This approach can also be a pain if you move your data around a lot or work on different machines, as the file paths will need to be changed in each new situation. You probably **do not** want to use this method.
+
+#### Why use the first strategy?
+
+Whichever strategy we use, after running the code at the Console we should end up with an object called `mydata` in the global environment, which is a data frame containing the data in the "my-great-data.csv" file.
+
+This method has the advantage that it will be robust to changes. For example, if you move all your data to a new directory, you just have to reset the working directory to the new location and your carefully prepared script will still work. You probably **do** want to use this strategy.
+
+Many novice R users with no experience of programming struggle with file paths.
+
+## Importing data with RStudio (Avoid this!)
+
+Consequently, it seems simpler to use the RStudio GUI to read in data from a CSV file. Here are the steps you would to follow to do this:
+
+1. Click on the __Environment__ tab in the top right pane of RStudio
+
+2. Select `Import Dataset > From Text File...`
+
+3. Select the CSV file you want to read in to R and click Open
+
+4. Enter a name (no spaces allowed) or stick with the default and click Import
+
+If we go through this process using "my-great-data.csv" on a Mac, RStudio generates two lines of R code, and runs them at the console for us. These are:
+```{r, eval=FALSE}
+mydata <- read.csv("~/Desktop/my-great-data.csv")
+View(mydata)
+```
+This creates a data frame `mydata` in the global environment, containing the data in the "my-great-data.csv" file. RStudio also helpfully opens this up in the data viewer for us so that we can check everything is as expected -- this is the second line, `View(my.great.data)`. 
+
+There is one thing to keep in mind about this process. All RStudio does is here generate the correct usage of `read.csv` and evaluate this at the Console. If you are building an R script to carry out an analysis of data in a CSV file, you probably do not want to manually read in the data every time you need to run the script. This means you should copy the R code it generates into your script if you want the script to replicate your work. You will almost certainly forget to do this. Take our word for it. This RStudio-focussed way of reading data into R is very error prone. We recommend that you **do not use it**. We mention it because you would probably have discovered it if we hadn't discussed it, and you might have decided it is a good time saver. It is not, and it will just lead you to make a lot of mistakes if you use it.
+
+## Package data
+
+Remember what Hadley Wickam said about packages? "... <Packages> include reusable R functions, the documentation that describes how to use them, __and sample data__." Many packages come with one or more sample data sets. These can be very useful, as they're used in examples and package vignettes---we'll use a couple of them later to demonstrate how to work with the **dplyr** and **ggplot2** packages.
+
+We use the `data` function to get R to list the datasets hiding away in packages:
+```{r, eval=FALSE}
+data(package = .packages(all.available = TRUE))
+```
+The mysterious `.packages(all.available = TRUE)` part of this call to `data` generates a character vector with the names of all the installed packages in it. If we only use `data()` then R only lists the datasets found in a package called `datasets`, and in packages we have loaded and attached in the current R session using the `library` function.
+
+The `datasets` package is part of the base R distribution. It exists only to store example datasets. `datasets` is automatically loaded when we start R. There is no need to use `library` to access it, meaning any data stored in this package can be accessed every time you start up R.
+
+We are going to use two datasets to learn about `dplyr`. The first, called `iris`, is in the `datasets ` package so it is available as soon as you start R. If you need convincing, try this:
+```{r}
+head(iris)
+```
+The second, called `storms`, is part of the `nasaweather` package. This package is not part of the base R distribution so we have to install `nasaweather` before we can use the `storms` data. You do this using:
+```{r, eval=FALSE}
+install.packages("nasaweather")
+```
+Make sure you do this or you will not be able to do the exercises in this block. Remember, every time you start up R you have to run `library(nasaweather)` to ensure the data in `nasaweather` can be used. Once you do this you will be able to access `storms`:
+```{r}
+head(storms)
+```
+Remember to put `library(nasaweather)` at the top of any scripts you build while working through this block. 

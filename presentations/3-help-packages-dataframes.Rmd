@@ -1,12 +1,12 @@
 ---
 title: Packages, help and data frames
 author: Dylan Childs
-date: February 25, 2016
+date: February 23, 2017
 highlighter: pygments
 output: 
   ioslides_presentation:
     css: extras.css
-    smaller: true
+    smaller: false
 ---
 
 ```{r, echo=FALSE}
@@ -55,7 +55,7 @@ num2 <- seq(5, 15, 1)
 ```
 
 <div>
-```{r, eval=showAnswers, echo=showAnswers}
+```{r, include=showAnswers}
 num1
 num2
 
@@ -65,13 +65,13 @@ num2
 ## Exercise {.build}
 
 <div>
-```{r, eval=showAnswers, echo=showAnswers}
+```{r, include=showAnswers}
 num1
 num2
 ```
 </div>
 
-```{r, eval=showAnswers, echo=showAnswers}
+```{r, include=showAnswers}
 num1 == num2
 num1 != num2
 ```
@@ -79,18 +79,18 @@ num1 != num2
 ## Exercise {.build}
 
 <div>
-```{r, eval=showAnswers, echo=showAnswers}
+```{r, include=showAnswers}
 num1
 num2
 ```
 </div>
 
-```{r, eval=showAnswers, echo=showAnswers}
+```{r, include=showAnswers}
 num1 <  num2
 num1 <= num2
 ```
 
-## Combining comparisons {.build}
+## Combining comparisons {.build .smaller}
 
 <div>
 We use __logical operators__ to combine logical statements:
@@ -126,8 +126,6 @@ A quick overview of what it is and how to work with it...
 - YOU should set the working directory EVERY time you start R/RStudio. Setting your working directory should be the first thing you do.
 
 - Don't do this using R code in your script. Instead, do it via the Console (hard and error prone) or using the RStudio menu system (easy and reliable).
-
-<br><br>
 
 <div>
 **Set your working directory now using...** 
@@ -202,9 +200,10 @@ R has many datasets built into it, stored as data frames. One of these is the fa
 </div>
 
 <div>
-```{r}
+```{r, include=showAnswers}
 iris$Sepal.Width
 ```
+</div>
 
 ## Two views of data frames {.build}
 
@@ -232,7 +231,7 @@ See if you can use the `[,]` construct to get the elements in rows 2 to 3 __and_
 </div>
 
 <div>
-```{r}
+```{r, include=showAnswers}
 iris[2:3, 1:4]
 ```
 </div>
@@ -260,7 +259,7 @@ How many columns ("variables") and rows ("observations") are there?
 
 We're ready...
 
-## Getting data from Excel into R {.build}
+## Getting data from Excel into R {.build .smaller}
 
 Essentially a two step process
 
@@ -301,21 +300,25 @@ __This is how to import data in a CSV file using RStudio:__
 R packages | The other great source of confusion 
 ====================================================================
 
-## A (very) quick overview 
+## A (very) quick overview {.build}
 
+<div>
 Packages extend what base R can do. Two things have to happen before you can use a package:
 
 1. You have to **install** it. This is a "do once" operation. After a package is installed you can close down and reopen R and it is still installed.
 
 2. You have to **load and attach** it. This is a "do every time" operation. You have to load and attach the package every time you start a new session (= open R).
+</div>
 
-<br><br><br><hr>
+<hr>
 
+<div>
 A mobile phone App analogy: 
 
 - installing a package <=> getting an App from an App store
 
 - loading and attaching a package <=> opening the App on your phone
+</div>
 
 ## How do we access packages?
 
@@ -329,24 +332,24 @@ A mobile phone App analogy:
 
 - You can also install a package via the Packages tab in RStudio. It is fine to use this if you don't like using `install.packages`.
 
-## Exercise {.build}
+## Exercise {.smaller}
 
 <div id="exercise-box">
 __Working with packages__
 <div id="box-text">
-We want to use the `fortune` function (singular!), which resides in the `fortunes` package (plural!). Do the following, in the order given, working only in the Console (i.e. don't use your script):
+We want to use the `fortune` function (singular!) that resides in the **fortunes** package (plural!). Do the following, in the order given, working directly in the Console:
 
-1. Try to use the `fortune` function, i.e. type `fortune()` straight into the Console. Why doesn't this work?
+1. Try to use the `fortune` function, i.e. type `fortune()` straight into the Console. Does this work or do you see an error?
 
-2. Try to use `library` to load and attach the `fortunes` package. Why doesn't this work?
+2. Try to use `library` to load and attach the **fortunes** package. Does this work or do you see an error?
 
-3. Install the `fortunes` package with `install.packages`. What happens?
+3. Look in the **Packages** tab in RStudio. Can you see anything called fortunes? Now install the **fortunes** package with `install.packages`. Look for it the **Packages** tab again. 
 
-4. Try again to use the `fortune` function. Why does this still not work?
+4. Try again to use the `fortune` function. Does this work? If not, why not?
 
-5. Use `library` to load and attach the `fortunes` package (plural!). What happens?
+5. Use `library` to load and attach the **fortunes** package (plural!). What happens?
 
-6. Try again to use the `fortune` function. What happens?
+6. Try again to use the `fortune` function. Does this work or do you see an error?
 </div>
 </div>
 
@@ -371,4 +374,41 @@ Help files are really **documentation** files:
 - Examples
 
 Let's step though the help for `round`...
+
+## Other sources of help {.smaller .build}
+
+The internet is packed full of helpful resources:
+
+1. **Google** -- this might be obvious, but you have to work on your "Google-fu" to find what you want. The key is to pick the right search terms:
+
+    - include the function or package name
+    
+    - include the letter R!
+    
+    - be selective about which sites you look at...
+
+<div>
+2. **Stack Overflow** -- probably the best question and answer site for computing stuff. People can be a bit blunt though:
+
+    - check whether your question has been asked before (Google)
+    
+    - read the community guidelines
+    
+    - provide example code with your questions
+</div>
+
+## What happens next?
+
+<br><br>
+
+1. __No lecture__ tomorrow.
+
+2. Keep reading through the online course book.
+
+3. Reminder: DZC office hours are 12-3pm every Tuesday.
+
+4. We'll start getting the useful stuff next week. I promise!
+
+
+
 
