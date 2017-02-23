@@ -238,6 +238,28 @@ iris[2:3, 1:4]
 
 __Note__: this produced a new data frame.
 
+## Exercise {.build .smaller}
+
+<div id="exercise-box">
+__Examining a data frame__
+<div id="box-text">
+We've seen that `View(iris)` can be used to examine a data frame in a spreadsheet like view. There are many other functions that allow us to examine the structure of a data frame. Using the `iris` data, experiment with the `head`, `tail`, and `str` functions to see what they do.
+</div>
+</div>
+
+<div>
+```{r, include=showAnswers}
+head(iris, n = 2)
+```
+</div>
+
+<div>
+```{r, include=showAnswers}
+str(iris)
+```
+</div>
+
+
 Reading in data | A great source of confusion
 ====================================================================
 
@@ -278,7 +300,7 @@ __STEP 2. Now import the CSV file into using RStudio:__
 - Include the following line in your script, and send it to the Console
 
 ```{r, eval = FALSE}
-my.iris <- read.csv("iris_morphology.csv")
+my.iris <- read.csv("iris_morphology.csv", stringsAsFactors = FALSE)
 my.iris
 ```
 
