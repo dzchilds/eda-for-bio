@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>APS 135: Introduction to Exploratory Data Analysis with R</title>
+  <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+  <meta name="description" content="Course book for Introduction to Exploratory Data Analysis with R (APS 135) in the Department of Animal and Plant Sciences, University of Sheffield.">
+  <meta name="generator" content="bookdown 0.3 and GitBook 2.6.7">
+
+  <meta property="og:title" content="APS 135: Introduction to Exploratory Data Analysis with R" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="Course book for Introduction to Exploratory Data Analysis with R (APS 135) in the Department of Animal and Plant Sciences, University of Sheffield." />
+  <meta name="github-repo" content="dzchilds/eda-for-bio" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="APS 135: Introduction to Exploratory Data Analysis with R" />
+  
+  <meta name="twitter:description" content="Course book for Introduction to Exploratory Data Analysis with R (APS 135) in the Department of Animal and Plant Sciences, University of Sheffield." />
+  
+
+<meta name="author" content="Dylan Z. Childs">
+
+
+<meta name="date" content="2017-02-23">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="working-directories-and-data-files.html">
+<link rel="next" href="placeholder-1.html">
+
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+<style type="text/css">
+
+.action, .warning, .info, .speed {
+  padding: 1em 1em 1em 4em;
+  margin-bottom: 10px;
+  background: #f5f5f5 5px center/3em no-repeat;
+}
+.action {
+  background-image: url("./images/action.png");
+}
+.warning {
+  background-image: url("./images/warning.png");
+}
+.info {
+  background-image: url("./images/info.png");
+}
+.speed {
+  background-image: url("./images/speed.png");
+}
+
+
+</style>
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">APS 135 (R course)</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Information and overview</a></li>
+<li class="chapter" data-level="" data-path="get-up-and-running-with-r-and-rstudio.html"><a href="get-up-and-running-with-r-and-rstudio.html"><i class="fa fa-check"></i>Get up and running with R and RStudio</a></li>
+<li class="part"><span><b>I Introduction to R</b></span></li>
+<li class="chapter" data-level="1" data-path="placeholder.html"><a href="placeholder.html"><i class="fa fa-check"></i><b>1</b> Placeholder</a></li>
+<li class="chapter" data-level="2" data-path="a-quick-introduction-to-r.html"><a href="a-quick-introduction-to-r.html"><i class="fa fa-check"></i><b>2</b> A quick introduction to R</a></li>
+<li class="chapter" data-level="3" data-path="scripts.html"><a href="scripts.html"><i class="fa fa-check"></i><b>3</b> Building scripts</a></li>
+<li class="chapter" data-level="4" data-path="using-functions.html"><a href="using-functions.html"><i class="fa fa-check"></i><b>4</b> Using functions</a></li>
+<li class="chapter" data-level="5" data-path="numeric-vectors.html"><a href="numeric-vectors.html"><i class="fa fa-check"></i><b>5</b> Numeric vectors</a></li>
+<li class="chapter" data-level="6" data-path="other-kinds-of-vectors.html"><a href="other-kinds-of-vectors.html"><i class="fa fa-check"></i><b>6</b> Other kinds of vectors</a></li>
+<li class="chapter" data-level="7" data-path="extracting-subsets-of-vectors.html"><a href="extracting-subsets-of-vectors.html"><i class="fa fa-check"></i><b>7</b> Extracting subsets of vectors</a></li>
+<li class="chapter" data-level="8" data-path="getting-help.html"><a href="getting-help.html"><i class="fa fa-check"></i><b>8</b> Getting help</a></li>
+<li class="chapter" data-level="9" data-path="packages.html"><a href="packages.html"><i class="fa fa-check"></i><b>9</b> Packages</a></li>
+<li class="part"><span><b>II Data Wrangling</b></span></li>
+<li class="chapter" data-level="10" data-path="data-frames.html"><a href="data-frames.html"><i class="fa fa-check"></i><b>10</b> Data frames</a></li>
+<li class="chapter" data-level="11" data-path="working-directories-and-data-files.html"><a href="working-directories-and-data-files.html"><i class="fa fa-check"></i><b>11</b> Working directories and data files</a></li>
+<li class="chapter" data-level="12" data-path="dplyr-and-the-tidy-data-concept.html"><a href="dplyr-and-the-tidy-data-concept.html"><i class="fa fa-check"></i><b>12</b> <strong>dplyr</strong> and the tidy data concept</a><ul>
+<li class="chapter" data-level="12.1" data-path="dplyr-and-the-tidy-data-concept.html"><a href="dplyr-and-the-tidy-data-concept.html#introduction"><i class="fa fa-check"></i><b>12.1</b> Introduction</a></li>
+<li class="chapter" data-level="12.2" data-path="dplyr-and-the-tidy-data-concept.html"><a href="dplyr-and-the-tidy-data-concept.html#why-dplyr"><i class="fa fa-check"></i><b>12.2</b> The value of <strong>dplyr</strong></a></li>
+<li class="chapter" data-level="12.3" data-path="dplyr-and-the-tidy-data-concept.html"><a href="dplyr-and-the-tidy-data-concept.html#tidy-data"><i class="fa fa-check"></i><b>12.3</b> Tidy data</a></li>
+<li class="chapter" data-level="12.4" data-path="dplyr-and-the-tidy-data-concept.html"><a href="dplyr-and-the-tidy-data-concept.html#more-dplyr"><i class="fa fa-check"></i><b>12.4</b> A few basic <code>dplyr</code> features</a><ul>
+<li class="chapter" data-level="12.4.1" data-path="dplyr-and-the-tidy-data-concept.html"><a href="dplyr-and-the-tidy-data-concept.html#tbl-objects"><i class="fa fa-check"></i><b>12.4.1</b> <code>tbl</code> objects</a></li>
+<li class="chapter" data-level="12.4.2" data-path="dplyr-and-the-tidy-data-concept.html"><a href="dplyr-and-the-tidy-data-concept.html#the-glimpse-function"><i class="fa fa-check"></i><b>12.4.2</b> The <code>glimpse</code> function</a></li>
+</ul></li>
+</ul></li>
+<li class="part"><span><b>III Exporing Data</b></span></li>
+<li class="chapter" data-level="13" data-path="placeholder-1.html"><a href="placeholder-1.html"><i class="fa fa-check"></i><b>13</b> Placeholder</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">APS 135: Introduction to Exploratory Data Analysis with R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="dplyr-and-the-tidy-data-concept" class="section level1">
+<h1><span class="header-section-number">Chapter 12</span> <strong>dplyr</strong> and the tidy data concept</h1>
+<div id="introduction" class="section level2">
+<h2><span class="header-section-number">12.1</span> Introduction</h2>
+<p>[Blah]</p>
+</div>
+<div id="why-dplyr" class="section level2">
+<h2><span class="header-section-number">12.2</span> The value of <strong>dplyr</strong></h2>
+<p>The <strong>dplyr</strong> package has been very carefully designed to make it easy to manipulate data frames<a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a>. One reason for its ease-of-use is that <strong>dplyr</strong> is very consistent in the way its functions are designed. For example, the first argument of the main <strong>dplyr</strong> functions is always an object containing our data. This consistency makes it very easy to get to grips with each function—we can quite often understand how one works by seeing just one or two examples.</p>
+<p>A second reason for favouring <strong>dplyr</strong> is that it is orientated around a few key functions, each of which is designed to do one thing well. The key <strong>dplyr</strong> functions are often referred to as “verbs”, in recognition of the fact that they “do something” to data: (1) <code>select</code> is used to obtain a subset of variables; (2) <code>filter</code> is used to obtain a subset of rows; (3) <code>arrange</code> is used to reorder rows; (4) <code>mutate</code> is used to construct new variables; and (5) <code>summarize</code> is used to calculate information about groups. The other topics in this block will cover each of these verbs in detail, as well as a couple of additional functions, <code>rename</code> and <code>group_by</code>.</p>
+<p>The developers of RStudio have produced a <a href="http://www.rstudio.com/resources/cheatsheets/">handy cheat sheat</a> that summarises data wrangling with <strong>dplyr</strong>. Our advice is to download this, print out a copy and refer to this as you work through the remaining topics in this block.</p>
+<p>Apart from being easy to use, <strong>dplyr</strong> is also fast compared to base R functions. This will not matter much for the kinds of data we plan to use, but if you find yourself working with very big datasets <strong>dplyr</strong> is a better option than related base R functions. <strong>dplyr</strong> also allows you to work with data stored in different ways. For example, <strong>dplyr</strong> can interact directly with a number of database systems. This is well beyond the scope of this course, but it is worth knowing you can do this in case you find yourself faced with a real database one day.</p>
+</div>
+<div id="tidy-data" class="section level2">
+<h2><span class="header-section-number">12.3</span> Tidy data</h2>
+<p><strong>dplyr</strong> is at its most powerful when your data are <a href="http://vita.had.co.nz/papers/tidy-data.pdf">tidy</a>. The word tidy has a very specific meaning in the context of data analysis. Tidy datasets have a specific structure that makes them easy to manipulate, model and visualise. In a tidy dataset each variable is a column and each observation is a row. This might seem like the “obvious” way to organise data, but in our experience many people fail to adopt this convention.</p>
+<p>We do not really have time in this course to explore the idea of tidy data in great detail. However, the basic principles are not difficult to understand, especially after seeing an example. Let’s return to the made-up experiment that investigated the response of field plots to fertilizer addition. This time, imagine that we only measured biomass, but that we did this twice over the course of the experiment.</p>
+<p>We will make up some data for this experiment again and then look at two way to store it to help us understand tidy data. The first way uses a separate column for each biomass measurement:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">trt &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="kw">c</span>(<span class="st">&quot;Control&quot;</span>,<span class="st">&quot;Fertilser&quot;</span>), <span class="dt">each =</span> <span class="dv">3</span>) 
+bms1 &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">284</span>, <span class="dv">328</span>, <span class="dv">291</span>, <span class="dv">956</span>, <span class="dv">954</span>, <span class="dv">685</span>)
+bms2 &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">324</span>, <span class="dv">400</span>, <span class="dv">355</span>, <span class="dv">1197</span>, <span class="dv">1012</span>, <span class="dv">859</span>)
+experim.data &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">Treatment =</span> trt, <span class="dt">BiomassT1 =</span> bms1, <span class="dt">BiomassT2 =</span> bms2)
+experim.data</code></pre></div>
+<pre><code>##   Treatment BiomassT1 BiomassT2
+## 1   Control       284       324
+## 2   Control       328       400
+## 3   Control       291       355
+## 4 Fertilser       956      1197
+## 5 Fertilser       954      1012
+## 6 Fertilser       685       859</code></pre>
+<p>This may seem like a reasonable way to store the data, especially if you use Excel a lot to store and graph data. However, this format is not <strong>tidy</strong> because the biomass variable has been split across two columns. This means each row corresponds to two observations.</p>
+<p>We won’t go into the details here, but take our word for it – this format makes it difficult to efficiently work with your data in R. Incidentally, this is not an R-specific problem – this format is also non-optimal in many other data analysis environments.</p>
+<p>A tidy version of the example dataset would still have three columns, but now these would be: “Treatment”, denoting the experimental treatment applied; “Time”, denoting the sampling occasion; and “Biomass”, denoting the biomass measured. A data frame in the tidy format can be constructed like this:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">trt &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="kw">c</span>(<span class="st">&quot;Control&quot;</span>,<span class="st">&quot;Fertilser&quot;</span>), <span class="dt">each =</span> <span class="dv">3</span>, <span class="dt">times =</span> <span class="dv">2</span>) 
+stm &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="kw">c</span>(<span class="st">&quot;T1&quot;</span>,<span class="st">&quot;T2&quot;</span>), <span class="dt">each =</span> <span class="dv">6</span>)
+bms &lt;-<span class="st"> </span><span class="kw">c</span>(bms1, bms2)
+experim.data &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">Treatment =</span> trt, <span class="dt">Time =</span> stm, <span class="dt">Biomass =</span> bms)
+experim.data</code></pre></div>
+<pre><code>##    Treatment Time Biomass
+## 1    Control   T1     284
+## 2    Control   T1     328
+## 3    Control   T1     291
+## 4  Fertilser   T1     956
+## 5  Fertilser   T1     954
+## 6  Fertilser   T1     685
+## 7    Control   T2     324
+## 8    Control   T2     400
+## 9    Control   T2     355
+## 10 Fertilser   T2    1197
+## 11 Fertilser   T2    1012
+## 12 Fertilser   T2     859</code></pre>
+<p>It does not really matter how we constructed this data frame. What is important is that you understand the the resulting format: each variable is in one column, and each observation has its own row. This data is tidy and ready to use with <strong>dplyr</strong>.</p>
+<p>The best way to make sure your data are tidy is to store in that format <strong>as soon as you collect and record it</strong>. There are packages that can help convert messy data into tidy data (e.g. <code>tidyr</code>), but your life will be much simpler if you just make sure your data are tidy from the very beginning.</p>
+</div>
+<div id="more-dplyr" class="section level2">
+<h2><span class="header-section-number">12.4</span> A few basic <code>dplyr</code> features</h2>
+<p>Now that we know about the <code>iris</code> and <code>storms</code> datasets we can finish up this topic by reviewing a couple more features of the <code>dplyr</code> package. <code>dplyr</code> is not part of the base R installation, so we must install it first:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">install.packages</span>(<span class="st">&quot;dplyr&quot;</span>)</code></pre></div>
+<p>Remember to also add <code>library(nasaweather)</code> at the top of any scripts you build while working through this block.</p>
+<div id="tbl-objects" class="section level3">
+<h3><span class="header-section-number">12.4.1</span> <code>tbl</code> objects</h3>
+<p>The main purpose of the <code>dplyr</code> package is to make manipulating data easier. In order to facilitate this kind of activity <code>dplyr</code> also implements a special kind of data object called a “table”. These are <code>tbl</code> objects. You can think of a table is as a special data frame with a few extra whistles and bells. We can make a table from a data frame by using the <code>tbl_df</code> function.</p>
+<p>When a table is printed to the Console it does so in a compact way, rather than trying to print every row to the Console. To see this, we can convert the <code>iris</code> dataset to a table using <code>tbl_df</code> and then print the resulting object to the Console:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tbl_df</span>(iris)</code></pre></div>
+<pre><code>## # A tibble: 150 × 5
+##    Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+##           &lt;dbl&gt;       &lt;dbl&gt;        &lt;dbl&gt;       &lt;dbl&gt;  &lt;fctr&gt;
+## 1           5.1         3.5          1.4         0.2  setosa
+## 2           4.9         3.0          1.4         0.2  setosa
+## 3           4.7         3.2          1.3         0.2  setosa
+## 4           4.6         3.1          1.5         0.2  setosa
+## 5           5.0         3.6          1.4         0.2  setosa
+## 6           5.4         3.9          1.7         0.4  setosa
+## 7           4.6         3.4          1.4         0.3  setosa
+## 8           5.0         3.4          1.5         0.2  setosa
+## 9           4.4         2.9          1.4         0.2  setosa
+## 10          4.9         3.1          1.5         0.1  setosa
+## # ... with 140 more rows</code></pre>
+<p>Notice that only the first 10 rows are printed. This is much nicer than trying to wade through every row of a data frame. However, the main purpose of a table is to help us work with variables when we need to do grouped operations. We will learn about this in the last topic of this block.</p>
+</div>
+<div id="the-glimpse-function" class="section level3">
+<h3><span class="header-section-number">12.4.2</span> The <code>glimpse</code> function</h3>
+<p>Sometimes we just need a quick, compact summary of a data frame or table object. This is the job of the <code>glimpse</code> function from <code>dplyr</code>. There isn’t really much to say about this:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">glimpse</span>(iris)</code></pre></div>
+<pre><code>## Observations: 150
+## Variables: 5
+## $ Sepal.Length &lt;dbl&gt; 5.1, 4.9, 4.7, 4.6, 5.0, 5.4, 4.6, 5.0, 4.4, 4.9,...
+## $ Sepal.Width  &lt;dbl&gt; 3.5, 3.0, 3.2, 3.1, 3.6, 3.9, 3.4, 3.4, 2.9, 3.1,...
+## $ Petal.Length &lt;dbl&gt; 1.4, 1.4, 1.3, 1.5, 1.4, 1.7, 1.4, 1.5, 1.4, 1.5,...
+## $ Petal.Width  &lt;dbl&gt; 0.2, 0.2, 0.2, 0.2, 0.2, 0.4, 0.3, 0.2, 0.2, 0.1,...
+## $ Species      &lt;fctr&gt; setosa, setosa, setosa, setosa, setosa, setosa, ...</code></pre>
+<p>The <code>glimpse</code> function takes one argument – the name of a data frame or table – and tells us how many rows it has, what the variables are called, and what kind of data are associated with each variable. This function is useful if you are working with a dataset containing many variables.</p>
+
+</div>
+</div>
+</div>
+
+
+
+<div class="footnotes">
+<hr />
+<ol start="1">
+<li id="fn1"><p>There and a few kinds of table-like objects that <strong>dplyr</strong> can work with, as well as a number of different data base systems. We’re not going to cover these in this book, but it’s worth being aware of this facility.<a href="dplyr-and-the-tidy-data-concept.html#fnref1">↩</a></p></li>
+</ol>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="working-directories-and-data-files.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="placeholder-1.html" class="navigation navigation-next " aria-label="Next page""><i class="fa fa-angle-right"></i></a>
+
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/dzchilds/eda-for-bio/edit/master/2_03_tidy_data_dplyr_intro.Rmd",
+"text": "Edit"
+},
+"download": null,
+"toc": {
+"collapse": "section"
+},
+"split_by": "section"
+});
+});
+</script>
+
+</body>
+
+</html>

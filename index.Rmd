@@ -81,7 +81,7 @@ A sequence of selections from an RStudio menu is indicated as follows: e.g. **Fi
 
 File names referred to in general text are given in upper case in the normal typeface: e.g. MYFILE.CSV.
 
-## Getting help {#help}
+## Getting help {-}
 
 You will learn various ways of finding help about R in this book. If you find yourself stuck at any point these should your first port of call. If you are still struggling, try the following, in this order:
 

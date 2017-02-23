@@ -40,6 +40,22 @@ A data structure is just a particular way of organising data (e.g. numbers) on y
 
 Don't worry to much if those descriptions don't make a whole lot of sense to you at the moment. We just want you to be aware of the main types of data structure you may run into in the future. In this course we only really care about vectors and data frames. The rest of this topic is concerned with vectors. We will deal with data frames in the next block when we start to discuss how to work with data in R.
 
+## Prepping for `dplyr`
+
+We're going to use two datasets to learn about `dplyr`. The first, called `iris`, is in the `datasets ` package so it is always available. If you need convincing, try this:
+```{r}
+head(iris)
+```
+The second, called `storms`, is part of the `nasaweather` package. This package is not part of the base R distribution so we have to install `nasaweather` before we can use the `storms` data. You do this using:
+```{r, eval=FALSE}
+install.packages("nasaweather")
+```
+Make sure you do this or you will not be able to do the exercises in this block. Remember, every time you start up R you have to run `library(nasaweather)` to ensure the data in `nasaweather` can be used. Once you do this you will be able to access `storms`:
+```{r}
+head(storms)
+```
+Remember to put `library(nasaweather)` at the top of any scripts you build while working through this block. 
+
 
 
 

@@ -6,11 +6,11 @@ We learned in the [A quick introduction to R] chapter that the word "variable" i
 ```{r}
 num_vec <- 1:10
 ```
-When a computer scientist talks about variables they're usually refering to these sorts of name-value associations. However, the word "variable"" has a second, more abstract meaning in the world data analysis and statistics: it refers to anything we can control or measure. For example, if our data comes from an experiment, the data will typically involve variables whose values describe the experimental conditions (e.g. "control plots" vs. "fertiliser plots") and the quantities we chose to measure (e.g. species biomass and diversity). 
+When a computer scientist talks about variables they're usually referring to these sorts of name-value associations. However, the word "variable"" has a second, more abstract meaning in the world data analysis and statistics: it refers to anything we can control or measure. For example, if our data comes from an experiment, the data will typically involve variables whose values describe the experimental conditions (e.g. "control plots" vs. "fertiliser plots") and the quantities we chose to measure (e.g. species biomass and diversity). 
 
 These kinds of abstract variables are often called "statistical variables". Statistical variables can be further broken down into a range of different types. We'll discuss these later in the book. The reason we're pointing out the dual meaning of the word "variable" now is because we need to be able to work with both interpretations. The dual meaning is confusing at first, but both meanings are in such widespread use that we just have to get used to them. We'll try to minimise confusion by using the phrase "statistical variable" when we are referring to data, rather than R objects.
 
-We're introducing these ideas now because we're going to consider a new type of data object in R: the __data frame__. Real world data analysis involves collections of data ("data sets") that involve several related statistical variables. We've seen that an atomic vector can only be used to store one type of data such as a collection of numbers. This means a vector can be used to store a single statistical variable, How should we keep a large collection of variables organised? We could work with them seperately but this is very error prone. Ideally, we need a way to keep related variables together. This is the problem that __data frames__ and are designed to manage.
+We're introducing these ideas now because we're going to consider a new type of data object in R: the __data frame__. Real world data analysis involves collections of data ("data sets") that involve several related statistical variables. We've seen that an atomic vector can only be used to store one type of data such as a collection of numbers. This means a vector can be used to store a single statistical variable, How should we keep a large collection of variables organised? We could work with them separately but this is very error prone. Ideally, we need a way to keep related variables together. This is the problem that __data frames__ and are designed to manage.
 
 ## Data frames {#data-frames-intro}
 
@@ -18,7 +18,7 @@ Data frames are one of those R features that mark it out as a particularly good 
 
 Each column is a vector of some kind. These are usually simple vectors containing numbers or character strings, though it is also possible to include more complicated vectors inside data frames. We'll only work with data frames made up of relatively simple vectors in this book. The key constraint that a data frame applies is that each vector must have the same length. This is what gives a data frame it table-like structure. 
 
-The simplest way to get a feel for data frames is to make one. Data frames are usually constructed by reading some external data into R, but for the purposes of learning about them it is better to build one from from its component parts. We'll make some artificial data describing a hypothetical experiment to do this. Imagine that we've conducted a small expweriment to examine biomass and community diversity in six field plots. Three plots were subjected to fertiliser enrichment. The other three plots act as experimental controls. We could store the data describing this experiment in three vectors: 
+The simplest way to get a feel for data frames is to make one. Data frames are usually constructed by reading some external data into R, but for the purposes of learning about them it is better to build one from from its component parts. We'll make some artificial data describing a hypothetical experiment to do this. Imagine that we've conducted a small experiment to examine biomass and community diversity in six field plots. Three plots were subjected to fertiliser enrichment. The other three plots act as experimental controls. We could store the data describing this experiment in three vectors: 
 
 -   `trt` (short for "treatment") shows which experimental manipulation was used.
 
@@ -61,13 +61,13 @@ We can also name the rows of a data frame using the `row.names` argument of the 
 
 ## Exploring data frames
 
-The first things we should do when presented with a new data set is explore its structure to understand what we're dealing with. This is easy when the data is stored in a data frame. If the dataset is reasonably small we can just print it to the Console. This is not very practical for even moderate-sized datasets though. The `head` and `tail` functions extract the first and last few rows of a dataset, so these can be used to print part of a dataset. The `n` argument controls the number of rows printed:
+The first things we should do when presented with a new data set is explore its structure to understand what we're dealing with. This is easy when the data is stored in a data frame. If the data set is reasonably small we can just print it to the Console. This is not very practical for even moderate-sized data sets though. The `head` and `tail` functions extract the first and last few rows of a data set, so these can be used to print part of a data set. The `n` argument controls the number of rows printed:
 ```{r}
 head(experim.data, n = 3)
 tail(experim.data, n = 3)
 ```
 
-The `View` function can be used to visualise the whole dataset in a spreadsheet like view:
+The `View` function can be used to visualise the whole data set in a spreadsheet like view:
 ```{r, eval=FALSE}
 View(experim.data)
 ```
@@ -106,7 +106,7 @@ This prints whatever is in the `Biomass` column to the Console. What kind of obj
 ```{r}
 is.numeric(experim.data[["Biomass"]])
 ```
-A data frame really is nothing more than a collection of vectors. Notive that all we did was print the resulting vector to the Console. If we want to actually do something with this numeric vector we need to assign the result:
+A data frame really is nothing more than a collection of vectors. Notice that all we did was print the resulting vector to the Console. If we want to actually do something with this numeric vector we need to assign the result:
 ```{r}
 bmass <- experim.data$Biomass
 bmass^2
@@ -128,9 +128,9 @@ The second method for extracting a variable from a data frame uses the `$` opera
 ```{r}
 experim.data$Biomass
 ```
-Wwe use the `$` operator by placing the name of the data frame we want to work with on the left hand side and and the name of the column (i.e. the variable) we want to extract on the right hand side. Notice that this time we didn't have to put quotes around the variable name when using the `$` operator. We can do this if we want to---i.e. `experim.data$"Biomass"` also works---but `$` doesn;t require it.
+We use the `$` operator by placing the name of the data frame we want to work with on the left hand side and and the name of the column (i.e. the variable) we want to extract on the right hand side. Notice that this time we didn't have to put quotes around the variable name when using the `$` operator. We can do this if we want to---i.e. `experim.data$"Biomass"` also works---but `$` doesn't require it.
 
-Why is there more than one way to extract variables from a data frame? There's no simple way to answer this question without getting into the details of how R represents data frames. The simple answer is that `$` and `[[` are not actually equivalent, even though they appear to do much the same thing. We've looked at the two extraction methods because they are both widely used. However, the `$` method is a bit easier to read and people tend to prefer it for interactive data analysis tasks (the `[[` construct tends to be used when we need a bit more felxibility).
+Why is there more than one way to extract variables from a data frame? There's no simple way to answer this question without getting into the details of how R represents data frames. The simple answer is that `$` and `[[` are not actually equivalent, even though they appear to do much the same thing. We've looked at the two extraction methods because they are both widely used. However, the `$` method is a bit easier to read and people tend to prefer it for interactive data analysis tasks (the `[[` construct tends to be used when we need a bit more flexibility).
 
 ### Adding a variable to a data frame
 
@@ -147,7 +147,7 @@ The `[[` operator can also be used with ` <- ` to add variables to a data frame.
 
 ### Subsetting data frames
 
-What do we do if, instead of just extracting a single variable from a data frame, we need to select a subset of rows and/or columns? We use the single square brackets construct, `[`, to do this. There are two different ways we can use single square brackets, both of whihc involve the use of indexing vector(s) inside the `[` construct.
+What do we do if, instead of just extracting a single variable from a data frame, we need to select a subset of rows and/or columns? We use the single square brackets construct, `[`, to do this. There are two different ways we can use single square brackets, both of which involve the use of indexing vector(s) inside the `[` construct.
 
 The first use of `[` allows us to subset one or more columns while keeping all the rows. This works exactly as the `[` does for vectors. Just think of columns as the elements of the data frame. For example, if we want to subset `experim.data` such that we are only left with the first and second columns (`Treatment` and `Biomass`), we can use a numeric indexing vector:
 ```{r}
