@@ -10,7 +10,7 @@
 
 
 
-  <meta name="date" content="2016-02-25" />
+  <meta name="date" content="2017-02-23" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -95,13 +95,13 @@
       <h1 data-config-title><!-- populated from slide_config.json --></h1>
       <h2 data-config-subtitle><!-- populated from slide_config.json --></h2>
       <p data-config-presenter><!-- populated from slide_config.json --></p>
-            <p style="margin-top: 6px; margin-left: -2px;">February 25, 2016</p>
+            <p style="margin-top: 6px; margin-left: -2px;">February 23, 2017</p>
           </hgroup>
   </slide>
 
-<slide class='segue dark nobackground level1'><hgroup class = 'auto-fadein'><h2>One last bit of the basics&#8230; </h2><h3> Logical comparisons</h3></hgroup><article  id="one-last-bit-of-the-basics...-logical-comparisons" class="smaller ">
+<slide class='segue dark nobackground level1'><hgroup class = 'auto-fadein'><h2>One last bit of the basics&#8230; </h2><h3> Logical comparisons</h3></hgroup><article  id="one-last-bit-of-the-basics...-logical-comparisons">
 
-</article></slide><slide class=''><hgroup><h2>Comparing vectors</h2></hgroup><article  id="comparing-vectors" class="smaller build smaller">
+</article></slide><slide class=''><hgroup><h2>Comparing vectors</h2></hgroup><article  id="comparing-vectors" class="build smaller">
 
 <div>
 <p>We use <strong>relational operators</strong> to compare the elements of numeric vectors:</p>
@@ -126,7 +126,7 @@ x == y</pre>
 
 <pre >## [1] FALSE FALSE FALSE FALSE  TRUE FALSE FALSE FALSE FALSE</pre></div>
 
-</article></slide><slide class=''><hgroup><h2>Exercise</h2></hgroup><article  id="exercise" class="smaller build">
+</article></slide><slide class=''><hgroup><h2>Exercise</h2></hgroup><article  id="exercise" class="build">
 
 <div id="exercise-box">
 <strong>Using relational operators</strong>
@@ -143,7 +143,7 @@ x == y</pre>
 
 <pre >##  [1]  5  6  7  8  9 10 11 12 13 14 15</pre></div>
 
-</article></slide><slide class=''><hgroup><h2>Exercise</h2></hgroup><article  id="exercise-1" class="smaller build">
+</article></slide><slide class=''><hgroup><h2>Exercise</h2></hgroup><article  id="exercise-1" class="build">
 
 <div>
 <pre class = 'prettyprint lang-r'>num1</pre>
@@ -162,7 +162,7 @@ x == y</pre>
 
 <pre >##  [1]  TRUE  TRUE  TRUE  TRUE  TRUE FALSE  TRUE  TRUE  TRUE  TRUE  TRUE</pre>
 
-</article></slide><slide class=''><hgroup><h2>Exercise</h2></hgroup><article  id="exercise-2" class="smaller build">
+</article></slide><slide class=''><hgroup><h2>Exercise</h2></hgroup><article  id="exercise-2" class="build">
 
 <div>
 <pre class = 'prettyprint lang-r'>num1</pre>
@@ -181,7 +181,7 @@ x == y</pre>
 
 <pre >##  [1]  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE FALSE FALSE FALSE FALSE FALSE</pre>
 
-</article></slide><slide class=''><hgroup><h2>Combining comparisons</h2></hgroup><article  id="combining-comparisons" class="smaller build">
+</article></slide><slide class=''><hgroup><h2>Combining comparisons</h2></hgroup><article  id="combining-comparisons" class="build smaller">
 
 <div>
 <p>We use <strong>logical operators</strong> to combine logical statements:</p>
@@ -207,9 +207,9 @@ x &amp; y</pre>
 
 <pre >## [1]  TRUE  TRUE FALSE  TRUE</pre></div>
 
-</article></slide><slide class='segue dark nobackground level1'><hgroup class = 'auto-fadein'><h2>The working directory </h2><h3> Where R &quot;looks&quot; for files</h3></hgroup><article  id="the-working-directory-where-r-looks-for-files" class="smaller ">
+</article></slide><slide class='segue dark nobackground level1'><hgroup class = 'auto-fadein'><h2>The working directory </h2><h3> Where R &quot;looks&quot; for files</h3></hgroup><article  id="the-working-directory-where-r-looks-for-files">
 
-</article></slide><slide class=''><hgroup><h2>What is the working directory?</h2></hgroup><article  id="what-is-the-working-directory" class="smaller build">
+</article></slide><slide class=''><hgroup><h2>What is the working directory?</h2></hgroup><article  id="what-is-the-working-directory" class="build">
 
 <p>A quick overview of what it is and how to work with it&#8230;</p>
 
@@ -220,14 +220,12 @@ x &amp; y</pre>
 <li><p>Don&#39;t do this using R code in your script. Instead, do it via the Console (hard and error prone) or using the RStudio menu system (easy and reliable).</p></li>
 </ul>
 
-<p><br><br></p>
-
 <div>
 <p><strong>Set your working directory now using&#8230;</strong> <strong><code>Session &gt; Set Working Directory &gt; Choose Directory...</code></strong></p></div>
 
-</article></slide><slide class='segue dark nobackground level1'><hgroup class = 'auto-fadein'><h2>Data frames </h2><h3> A place for your data</h3></hgroup><article  id="data-frames-a-place-for-your-data" class="smaller ">
+</article></slide><slide class='segue dark nobackground level1'><hgroup class = 'auto-fadein'><h2>Data frames </h2><h3> A place for your data</h3></hgroup><article  id="data-frames-a-place-for-your-data">
 
-</article></slide><slide class=''><hgroup><h2>Two views of data frames</h2></hgroup><article  id="two-views-of-data-frames" class="smaller build">
+</article></slide><slide class=''><hgroup><h2>Two views of data frames</h2></hgroup><article  id="two-views-of-data-frames" class="build">
 
 <p>The first view: <strong>Data frames are a collection of vectors</strong>. These may be different types (numeric, character, others), but they must all be the same length.</p>
 
@@ -245,7 +243,7 @@ mydf</pre>
 
 <p>Data frames are central to data analysis in R. You can think of each vector as corresponding to a <strong>statistical variable</strong> that we want to analyse (more on that in the course book).</p></div>
 
-</article></slide><slide class=''><hgroup><h2>Selecting vectors from data frames</h2></hgroup><article  id="selecting-vectors-from-data-frames" class="smaller build">
+</article></slide><slide class=''><hgroup><h2>Selecting vectors from data frames</h2></hgroup><article  id="selecting-vectors-from-data-frames" class="build">
 
 <p>We can extract a vector from a data frame in a few different ways:</p>
 
@@ -263,7 +261,7 @@ mydf</pre>
 <li>Using the position and the <code>[[ ]]</code> operator</li>
 </ul></div>
 
-</article></slide><slide class=''><hgroup><h2>Selecting vectors from data frames</h2></hgroup><article  id="selecting-vectors-from-data-frames-1" class="smaller ">
+</article></slide><slide class=''><hgroup><h2>Selecting vectors from data frames</h2></hgroup><article  id="selecting-vectors-from-data-frames-1">
 
 <p>We can extract a vector from a data frame in a few different ways:</p>
 
@@ -280,7 +278,7 @@ mydf</pre>
 <li>Using the position and the <code>[[ ]]</code> operator</li>
 </ul>
 
-</article></slide><slide class=''><hgroup><h2>Selecting vectors from data frames</h2></hgroup><article  id="selecting-vectors-from-data-frames-2" class="smaller ">
+</article></slide><slide class=''><hgroup><h2>Selecting vectors from data frames</h2></hgroup><article  id="selecting-vectors-from-data-frames-2">
 
 <p>We can extract a vector from a data frame in a few different ways:</p>
 
@@ -300,7 +298,7 @@ mydf</pre>
 
 <p>N.B. We will only use the first version in this course. Remember what <code>$</code> does. You <strong>will</strong> need to use it.</p>
 
-</article></slide><slide class=''><hgroup><h2>Exercise</h2></hgroup><article  id="exercise-3" class="smaller build">
+</article></slide><slide class=''><hgroup><h2>Exercise</h2></hgroup><article  id="exercise-3" class="build">
 
 <div id="exercise-box">
 <strong>Extracting vectors from data frames</strong>
@@ -309,8 +307,6 @@ mydf</pre>
 <p>R has many datasets built into it, stored as data frames. One of these is the famous <code>iris</code> data. Type this into your Console: <code>View(iris)</code>. How many vectors (i.e. columns) are stored in <code>iris</code>? Extract the one named <code>Sepal.Width</code>.</p></div></div>
 
 <div>
-
-
 <pre class = 'prettyprint lang-r'>iris$Sepal.Width</pre>
 
 <pre >##   [1] 3.5 3.0 3.2 3.1 3.6 3.9 3.4 3.4 2.9 3.1 3.7 3.4 3.0 3.0 4.0 4.4 3.9
@@ -321,9 +317,9 @@ mydf</pre>
 ##  [86] 3.4 3.1 2.3 3.0 2.5 2.6 3.0 2.6 2.3 2.7 3.0 2.9 2.9 2.5 2.8 3.3 2.7
 ## [103] 3.0 2.9 3.0 3.0 2.5 2.9 2.5 3.6 3.2 2.7 3.0 2.5 2.8 3.2 3.0 3.8 2.6
 ## [120] 2.2 3.2 2.8 2.8 2.7 3.3 3.2 2.8 3.0 2.8 3.0 2.8 3.8 2.8 2.8 2.6 3.0
-## [137] 3.4 3.1 3.0 3.1 3.1 3.1 2.7 3.2 3.3 3.0 2.5 3.0 3.4 3.0</pre>
+## [137] 3.4 3.1 3.0 3.1 3.1 3.1 2.7 3.2 3.3 3.0 2.5 3.0 3.4 3.0</pre></div>
 
-</article></slide><slide class=''><hgroup><h2>Two views of data frames</h2></hgroup><article  id="two-views-of-data-frames-1" class="smaller build">
+</article></slide><slide class=''><hgroup><h2>Two views of data frames</h2></hgroup><article  id="two-views-of-data-frames-1" class="build">
 
 <p>The second view: <strong>Data frames are table-like objects</strong>. Take another look at our simple data frame:</p>
 
@@ -343,7 +339,7 @@ mydf</pre>
 
 <p><strong>[Row #, Col #]</strong>: This extracted the element in the second row and third column.</p>
 
-</article></slide><slide class=''><hgroup><h2>Exercise</h2></hgroup><article  id="exercise-4" class="smaller build">
+</article></slide><slide class=''><hgroup><h2>Exercise</h2></hgroup><article  id="exercise-4" class="build">
 
 <div id="exercise-box">
 <strong>Extracting elements from data frames</strong>
@@ -360,9 +356,34 @@ mydf</pre>
 
 <p><strong>Note</strong>: this produced a new data frame.</p>
 
-</article></slide><slide class='segue dark nobackground level1'><hgroup class = 'auto-fadein'><h2>Reading in data </h2><h3> A great source of confusion</h3></hgroup><article  id="reading-in-data-a-great-source-of-confusion" class="smaller ">
+</article></slide><slide class=''><hgroup><h2>Exercise</h2></hgroup><article  id="exercise-5" class="build smaller">
 
-</article></slide><slide class=''><hgroup><h2>We need some data&#8230;.</h2></hgroup><article  id="we-need-some-data...." class="smaller ">
+<div id="exercise-box">
+<strong>Examining a data frame</strong>
+
+<div id="box-text">
+<p>We&#39;ve seen that <code>View(iris)</code> can be used to examine a data frame in a spreadsheet like view. There are many other functions that allow us to examine the structure of a data frame. Using the <code>iris</code> data, experiment with the <code>head</code>, <code>tail</code>, and <code>str</code> functions to see what they do.</p></div></div>
+
+<div>
+<pre class = 'prettyprint lang-r'>head(iris, n = 2)</pre>
+
+<pre >##   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+## 1          5.1         3.5          1.4         0.2  setosa
+## 2          4.9         3.0          1.4         0.2  setosa</pre></div>
+
+<div>
+<pre class = 'prettyprint lang-r'>str(iris)</pre>
+
+<pre >## &#39;data.frame&#39;:    150 obs. of  5 variables:
+##  $ Sepal.Length: num  5.1 4.9 4.7 4.6 5 5.4 4.6 5 4.4 4.9 ...
+##  $ Sepal.Width : num  3.5 3 3.2 3.1 3.6 3.9 3.4 3.4 2.9 3.1 ...
+##  $ Petal.Length: num  1.4 1.4 1.3 1.5 1.4 1.7 1.4 1.5 1.4 1.5 ...
+##  $ Petal.Width : num  0.2 0.2 0.2 0.2 0.2 0.4 0.3 0.2 0.2 0.1 ...
+##  $ Species     : Factor w/ 3 levels &quot;setosa&quot;,&quot;versicolor&quot;,..: 1 1 1 1 1 1 1 1 1 1 ...</pre></div>
+
+</article></slide><slide class='segue dark nobackground level1'><hgroup class = 'auto-fadein'><h2>Reading in data </h2><h3> A great source of confusion</h3></hgroup><article  id="reading-in-data-a-great-source-of-confusion">
+
+</article></slide><slide class=''><hgroup><h2>We need some data&#8230;.</h2></hgroup><article  id="we-need-some-data....">
 
 <p><strong>1. Grab the &quot;iris_morphology.xlsx&quot; file from MOLE</strong>:</p>
 
@@ -380,7 +401,7 @@ mydf</pre>
 
 <p>We&#39;re ready&#8230;</p>
 
-</article></slide><slide class=''><hgroup><h2>Getting data from Excel into R</h2></hgroup><article  id="getting-data-from-excel-into-r" class="smaller build">
+</article></slide><slide class=''><hgroup><h2>Getting data from Excel into R</h2></hgroup><article  id="getting-data-from-excel-into-r" class="build smaller">
 
 <p>Essentially a two step process</p>
 
@@ -400,14 +421,14 @@ mydf</pre>
 <li>Include the following line in your script, and send it to the Console</li>
 </ul>
 
-<pre class = 'prettyprint lang-r'>my.iris &lt;- read.csv(&quot;iris_morphology.csv&quot;)
+<pre class = 'prettyprint lang-r'>my.iris &lt;- read.csv(&quot;iris_morphology.csv&quot;, stringsAsFactors = FALSE)
 my.iris</pre>
 
 <ul>
 <li>What happened? Did you see any error messages? If you did, check your spelling and make sure your working directory is set to the right place.</li>
 </ul></div>
 
-</article></slide><slide class=''><hgroup><h2>The other way&#8230;</h2></hgroup><article  id="the-other-way..." class="smaller ">
+</article></slide><slide class=''><hgroup><h2>The other way&#8230;</h2></hgroup><article  id="the-other-way...">
 
 <p><strong>This is how to import data in a CSV file using RStudio:</strong></p>
 
@@ -419,29 +440,29 @@ my.iris</pre>
 
 <p><strong>Some advice: Don&#39;t use this method!!!</strong> You have to remember do it everytime you want to run your script. This is very error prone.</p>
 
-</article></slide><slide class='segue dark nobackground level1'><hgroup class = 'auto-fadein'><h2>R packages </h2><h3> The other great source of confusion</h3></hgroup><article  id="r-packages-the-other-great-source-of-confusion" class="smaller ">
+</article></slide><slide class='segue dark nobackground level1'><hgroup class = 'auto-fadein'><h2>R packages </h2><h3> The other great source of confusion</h3></hgroup><article  id="r-packages-the-other-great-source-of-confusion">
 
-</article></slide><slide class=''><hgroup><h2>A (very) quick overview</h2></hgroup><article  id="a-very-quick-overview" class="smaller ">
+</article></slide><slide class=''><hgroup><h2>A (very) quick overview</h2></hgroup><article  id="a-very-quick-overview" class="build">
 
+<div>
 <p>Packages extend what base R can do. Two things have to happen before you can use a package:</p>
 
 <ol>
 <li><p>You have to <strong>install</strong> it. This is a &quot;do once&quot; operation. After a package is installed you can close down and reopen R and it is still installed.</p></li>
-<li><p>You have to <strong>load and attach</strong> it. This is a &quot;do every time&quot; operation. You have to load and attach the package every time you start a new session (= open R).</p></li>
-</ol>
-
-<br><br><br>
+<li>You have to <strong>load and attach</strong> it. This is a &quot;do every time&quot; operation. You have to load and attach the package every time you start a new session (= open R).</li>
+</ol></div>
 
 <hr>
 
+<div>
 <p>A mobile phone App analogy:</p>
 
 <ul>
 <li><p>installing a package &lt;=&gt; getting an App from an App store</p></li>
-<li><p>loading and attaching a package &lt;=&gt; opening the App on your phone</p></li>
-</ul>
+<li>loading and attaching a package &lt;=&gt; opening the App on your phone</li>
+</ul></div>
 
-</article></slide><slide class=''><hgroup><h2>How do we access packages?</h2></hgroup><article  id="how-do-we-access-packages" class="smaller ">
+</article></slide><slide class=''><hgroup><h2>How do we access packages?</h2></hgroup><article  id="how-do-we-access-packages">
 
 <ol>
 <li><p>We <strong>install</strong> a package with the <code>install.packages</code> function</p></li>
@@ -455,26 +476,26 @@ my.iris</pre>
 <li><p>You can also install a package via the Packages tab in RStudio. It is fine to use this if you don&#39;t like using <code>install.packages</code>.</p></li>
 </ul>
 
-</article></slide><slide class=''><hgroup><h2>Exercise</h2></hgroup><article  id="exercise-5" class="smaller build">
+</article></slide><slide class=''><hgroup><h2>Exercise</h2></hgroup><article  id="exercise-6" class="smaller">
 
 <div id="exercise-box">
 <strong>Working with packages</strong>
 
 <div id="box-text">
-<p>We want to use the <code>fortune</code> function (singular!), which resides in the <code>fortunes</code> package (plural!). Do the following, in the order given, working only in the Console (i.e. don&#39;t use your script):</p>
+<p>We want to use the <code>fortune</code> function (singular!) that resides in the <strong>fortunes</strong> package (plural!). Do the following, in the order given, working directly in the Console:</p>
 
 <ol>
-<li><p>Try to use the <code>fortune</code> function, i.e. type <code>fortune()</code> straight into the Console. Why doesn&#39;t this work?</p></li>
-<li><p>Try to use <code>library</code> to load and attach the <code>fortunes</code> package. Why doesn&#39;t this work?</p></li>
-<li><p>Install the <code>fortunes</code> package with <code>install.packages</code>. What happens?</p></li>
-<li><p>Try again to use the <code>fortune</code> function. Why does this still not work?</p></li>
-<li><p>Use <code>library</code> to load and attach the <code>fortunes</code> package (plural!). What happens?</p></li>
-<li>Try again to use the <code>fortune</code> function. What happens?</li>
+<li><p>Try to use the <code>fortune</code> function, i.e. type <code>fortune()</code> straight into the Console. Does this work or do you see an error?</p></li>
+<li><p>Try to use <code>library</code> to load and attach the <strong>fortunes</strong> package. Does this work or do you see an error?</p></li>
+<li><p>Look in the <strong>Packages</strong> tab in RStudio. Can you see anything called fortunes? Now install the <strong>fortunes</strong> package with <code>install.packages</code>. Look for it the <strong>Packages</strong> tab again.</p></li>
+<li><p>Try again to use the <code>fortune</code> function. Does this work? If not, why not?</p></li>
+<li><p>Use <code>library</code> to load and attach the <strong>fortunes</strong> package (plural!). What happens?</p></li>
+<li>Try again to use the <code>fortune</code> function. Does this work or do you see an error?</li>
 </ol></div></div>
 
-</article></slide><slide class='segue dark nobackground level1'><hgroup class = 'auto-fadein'><h2>Getting help </h2><h3> Learning about a function</h3></hgroup><article  id="getting-help-learning-about-a-function" class="smaller ">
+</article></slide><slide class='segue dark nobackground level1'><hgroup class = 'auto-fadein'><h2>Getting help </h2><h3> Learning about a function</h3></hgroup><article  id="getting-help-learning-about-a-function">
 
-</article></slide><slide class=''><hgroup><h2>Help files</h2></hgroup><article  id="help-files" class="smaller ">
+</article></slide><slide class=''><hgroup><h2>Help files</h2></hgroup><article  id="help-files">
 
 <p>Do the following:</p>
 
@@ -491,7 +512,43 @@ my.iris</pre>
 <li>Examples</li>
 </ul>
 
-<p>Let&#39;s step though the help for <code>round</code>&#8230;</p></article></slide>
+<p>Let&#39;s step though the help for <code>round</code>&#8230;</p>
+
+</article></slide><slide class=''><hgroup><h2>Other sources of help</h2></hgroup><article  id="other-sources-of-help" class="smaller build">
+
+<p>The internet is packed full of helpful resources:</p>
+
+<ol>
+<li><p><strong>Google</strong> &#8211; this might be obvious, but you have to work on your &quot;Google-fu&quot; to find what you want. The key is to pick the right search terms:</p>
+
+<ul>
+<li><p>include the function or package name</p></li>
+<li><p>include the letter R!</p></li>
+<li><p>be selective about which sites you look at&#8230;</p></li>
+</ul></li>
+</ol>
+
+<div>
+<ol>
+<li><p><strong>Stack Overflow</strong> &#8211; probably the best question and answer site for computing stuff. People can be a bit blunt though:</p>
+
+<ul>
+<li><p>check whether your question has been asked before (Google)</p></li>
+<li><p>read the community guidelines</p></li>
+<li>provide example code with your questions</li>
+</ul></li>
+</ol></div>
+
+</article></slide><slide class=''><hgroup><h2>What happens next?</h2></hgroup><article  id="what-happens-next">
+
+<p><br><br></p>
+
+<ol>
+<li><p><strong>No lecture</strong> tomorrow.</p></li>
+<li><p>Keep reading through the online course book.</p></li>
+<li><p>Reminder: DZC office hours are 12-3pm every Tuesday.</p></li>
+<li><p>We&#39;ll start getting the useful stuff next week. I promise!</p></li>
+</ol></article></slide>
 
 
   <slide class="backdrop"></slide>

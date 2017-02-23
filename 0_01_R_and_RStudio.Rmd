@@ -79,6 +79,8 @@ There are three panes inside a single window, which we have labelled with red nu
 Don't be alarmed if RStudio looks different on your computer. There are a couple of reasons why this might be the case. First, the appearance of RStudio is highly customisable. Take a quick look at the `Tools > Global Options...` window to see what we mean. Second, there is a fourth window that is sometimes be visible when we work with RStudio---the source code Editor we mentioned above. RStudio saves its state between different sessions, so if we have already messed about with RStudio's appearance or left a script open last time we used it you will see these changes.
 
 ```{block, type="warning"}
+#### RStudio will change over time
+
 Keep in mind that RStudio is very actively developed, which means features tend to appear or change over time. Consequently, if you update it regularly expect the odd thing to change here and there. This is generally a good thing---it usually means new features have been added---but it does require you to occasionally adjust to new additions.
 ```
 

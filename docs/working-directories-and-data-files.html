@@ -33,8 +33,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
-<link rel="prev" href="numeric-vectors.html">
-<link rel="next" href="extracting-subsets-of-vectors.html">
+<link rel="prev" href="data-frames.html">
+
 
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -254,93 +254,120 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="other-kinds-of-vectors" class="section level1">
-<h1><span class="header-section-number">Chapter 5</span> Other kinds of vectors</h1>
-<div id="other-vectors" class="section level2">
-<h2><span class="header-section-number">5.1</span> Introduction</h2>
-<p>The data we collect and analyse are often in the form of numbers, so it comes as no surprise that we work with numeric vectors a lot in R. Nonetheless, we also sometimes need to represent other kinds of vectors, either to represent different types of data, or to help us manipulate our data. This chapter introduces two new types of atomic vector to help us do this: character vectors and logical vectors.</p>
+<div id="working-directories-and-data-files" class="section level1">
+<h1><span class="header-section-number">Chapter 10</span> Working directories and data files</h1>
+<div id="introduction-3" class="section level2">
+<h2><span class="header-section-number">10.1</span> Introduction</h2>
+<p>R is able to access data from a huge range of different data storage formats and repositories. With the right tools, we can use R to pull in data from various data bases, proprietary storage formats (e.g. Excel), online web sites, or plain old text files. We aren’t going to evaluate the many packages and functions used to pull data into R—a whole book could be written about this topic alone. Instead, we’re going to examine the simplest method for data import: reading in data from a text file. We’ll also briefly look at how to access data stored in packages.</p>
 </div>
-<div id="character-vectors" class="section level2">
-<h2><span class="header-section-number">5.2</span> Character vectors</h2>
-<p>The elements of <strong>character vectors</strong> are what are known as a “character string” (or “string” if we are feeling lazy). The term “character string” refers a sequence of characters, such as “Treatment 1”, “University of Sheffield”, “Population Density”. A character vector is an atomic vector that stores an ordered collection of one or more character strings.</p>
-<p>If we want to construct a character vector in R we have to place double (<code>&quot;</code>) or single (<code>'</code>) quotation marks around the characters. For example, we can print the name “Dylan” to the Console like this:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="st">&quot;Dylan&quot;</span></code></pre></div>
-<pre><code>## [1] &quot;Dylan&quot;</code></pre>
-<p>Notice the <code>[1]</code>. This shows that what we just printed is an atomic vector of some kind. We know it’s a character vector because the output is printed with double quotes around the value. We often need to make simple character vectors containing only one value—for example, to set the values of arguments to a function.</p>
-<p>The quotation marks are not optional—they tell R we want to treat whatever is inside them as a literal value. The quoting is important. If we try to do the same thing as above without the quotes we end up with an error:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">Dylan</code></pre></div>
-<pre><code>## Error in eval(expr, envir, enclos): object &#39;Dylan&#39; not found</code></pre>
-<p>What happened? When the interpreter sees the word <code>Dylan</code> without quotes it assumes that this must be the name of a variable, so it goes in search of it in the global environment. We haven’t made a variable called Dylan, so there is no way to evaluate the expression and R spits out an error to let us know there’s a problem.</p>
-<p>Longer character vectors are typically constructed to represent data of some kind. The <code>c</code> function is often a good starting point for this kind of thing:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># make a length-3 character vector</span>
-my_name &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Dylan&quot;</span>, <span class="st">&quot;Zachary&quot;</span>, <span class="st">&quot;Childs&quot;</span>)
-my_name</code></pre></div>
-<pre><code>## [1] &quot;Dylan&quot;   &quot;Zachary&quot; &quot;Childs&quot;</code></pre>
-<p>Here we made a length-3 character vector, with elements corresponding to a first name, middle name, and last name. If we want to extract one or more elements from a character vector by their position</p>
-<p>Take note, this is <strong>not</strong> equivalent to the above :</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">my_name &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Dylan Zachary Childs&quot;</span>)
-my_name</code></pre></div>
-<pre><code>## [1] &quot;Dylan Zachary Childs&quot;</code></pre>
-<p>The only element of this character vector is a single character string containing the first, middle and last name separated by spaces. We didn’t need to use the the <code>c</code> function here because we were only ever working with a length-1 character vector. i.e. we could have typed <code>&quot;Dylan Zachary Childs&quot;</code> and we would have ended up with exactly the same text printed at the Console.</p>
-<p>We can construct more complicated, repeating character vectors with <code>rep</code>. This works on character vectors in exactly the same way as it does on numeric vectors:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">c_vec &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Dylan&quot;</span>, <span class="st">&quot;Zachary&quot;</span>, <span class="st">&quot;Childs&quot;</span>)
-<span class="kw">rep</span>(c_vec, <span class="dt">each =</span> <span class="dv">2</span>, <span class="dt">times =</span> <span class="dv">3</span>)</code></pre></div>
-<pre><code>##  [1] &quot;Dylan&quot;   &quot;Dylan&quot;   &quot;Zachary&quot; &quot;Zachary&quot; &quot;Childs&quot;  &quot;Childs&quot;  &quot;Dylan&quot;  
-##  [8] &quot;Dylan&quot;   &quot;Zachary&quot; &quot;Zachary&quot; &quot;Childs&quot;  &quot;Childs&quot;  &quot;Dylan&quot;   &quot;Dylan&quot;  
-## [15] &quot;Zachary&quot; &quot;Zachary&quot; &quot;Childs&quot;  &quot;Childs&quot;</code></pre>
-<p>Each element was replicated twice (<code>each = 2</code>), and then the whole vector was replicated three times (<code>times = 3</code>), end to end.</p>
-<p>What about the <code>seq</code> function? Hopefully it is fairly obvious that we can’t use this function to build a character vector. The <code>seq</code> function is designed to make sequences of numbers, from a starting value, to another. The notion of a sequence of character strings – for example, from <code>&quot;Dylan&quot;</code> to <code>&quot;Childs&quot;</code> – is meaningless.</p>
-</div>
-<div id="logical-vectors" class="section level2">
-<h2><span class="header-section-number">5.3</span> Logical vectors</h2>
-<p>The elements of <strong>logical vectors</strong> only take two values: <code>TRUE</code> or <code>FALSE</code>. Don’t let the simplicity of logical vectors fool you—they’re very useful. As with other kinds of atomic vectors the <code>c</code> and <code>rep</code> functions can be used to construct a logical vector:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">l_vec &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="ot">TRUE</span>, <span class="ot">FALSE</span>)
-<span class="kw">rep</span>(l_vec, <span class="dt">times =</span> <span class="dv">2</span>)</code></pre></div>
-<pre><code>## [1]  TRUE FALSE  TRUE FALSE</code></pre>
-<p>Hopefully nothing about that output is surprising by this point.</p>
-<p>So why are logical vectors useful? Their allow us to represent the results of questions such as, “is x greater than y” or “is x equal to y”. The results of such comparisons may then be used to carry out various kinds of subsetting operations based.</p>
-<p>Let’s first look at how we use logical vectors to evaluate comparisons. Before we can do that though we need to introduce <strong>relational operators</strong>. These sound fancy, but they are very simple: we use relational operators to evaluate the relative value of vector elements. Six are available in R:</p>
-<ul>
-<li><code>x &lt; y</code>: is x less than y?</li>
-<li><code>x &gt; y</code>: is x greater than y?</li>
-<li><code>x &lt;= y</code>: is x less than or equal to y?</li>
-<li><code>x &gt;= y</code>: is x greater than or equal to y?</li>
-<li><code>x == y</code>: is x equal to y?</li>
-<li><code>x != y</code>: is x not equal to y?</li>
-</ul>
-<p>The easiest way to understand how these work is to simply use them. We need a couple of numeric variables first:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="dv">11</span>:<span class="dv">20</span>
-y &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">3</span>, <span class="dv">30</span>, <span class="dt">by =</span> <span class="dv">3</span>)
-x</code></pre></div>
-<pre><code>##  [1] 11 12 13 14 15 16 17 18 19 20</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">y</code></pre></div>
-<pre><code>##  [1]  3  6  9 12 15 18 21 24 27 30</code></pre>
-<p>Now, if we need to evaluate and represent a question like, “is x greater than than y”, we can use either <code>&lt;</code> or <code>&gt;</code>:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &gt;<span class="st"> </span>y</code></pre></div>
-<pre><code>##  [1]  TRUE  TRUE  TRUE  TRUE FALSE FALSE FALSE FALSE FALSE FALSE</code></pre>
-<p>What do you notice about this simple example? The <code>x &gt; y</code> expression produces a logical vector, with <code>TRUE</code> values associated with elements in <code>x</code> are less than <code>y</code>, and <code>FALSE</code> otherwise. In this example, x is less than y until we reach the value of 15 in each sequence. Notice that that relational operators are vectorised: the work on an element by element basis. They wouldn’t be much use if this were not the case.</p>
-<p>What does the <code>==</code> operator do? It compares the elements of two vectors to determine if they are exactly equal:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x ==<span class="st"> </span>y</code></pre></div>
-<pre><code>##  [1] FALSE FALSE FALSE FALSE  TRUE FALSE FALSE FALSE FALSE FALSE</code></pre>
-<p>The output of this comparison is true only for one element, the number 15, which is at the 5<sup>th</sup> position in both <code>x</code> and <code>y</code>. The <code>!=</code> operator is essentially the opposite of <code>==</code>. It identifies cases where two elements are not exactly equal. We could step through each of the different the other relational operators, but hopefully they are self-explanatory at this point (if not, experiment with them).</p>
+<div id="data-files-the-csv-format" class="section level2">
+<h2><span class="header-section-number">10.2</span> Data files: the CSV format</h2>
+<p>Just about every piece of software that stores data in some kind of table-like structure can export those data to a CSV file. The CSV acronym stands for “Comma Separated Values”. CSV files are just ordinary text files. The only thing that makes them a CSV file is the fact that they store data in a particular format. This format is very simple: each row of a CSV file corresponds to a row in the data, and each value in a row (corresponding to a different column) is separated by a comma. Here is what the artificial data from the last chapter looks like in CSV format:</p>
+<pre><code>## &quot;trt&quot;,&quot;bms&quot;,&quot;div&quot;
+## &quot;Control&quot;,284,8
+## &quot;Control&quot;,328,12
+## &quot;Control&quot;,291,11
+## &quot;Fertilser&quot;,956,8
+## &quot;Fertilser&quot;,954,4
+## &quot;Fertilser&quot;,685,5</code></pre>
+<p>The first line contains the variable names, with each name separated by a comma. It’s usually a good idea to include the variable names in a CSV file, though this is optional. After the variable names, each new line is a row of data. Values which are not numbers have double quotation marks around them; numeric values lack these quotes. Notice that this is the same convention that applies to the elements of atomic vectors. Quoting non-numeric values is actually optional, but reading CSV files into R works best when non-numeric values are in quotes because this reduces ambiguity.</p>
+<div id="exporting-csv-files-from-excel" class="section level3">
+<h3><span class="header-section-number">10.2.1</span> Exporting CSV files from Excel</h3>
+<p>Those who work with small or moderate data sets (i.e. 100s-1000s of lines) often use Excel to manage and store their data. There are good reasons for why this isn’t necessarily a sensible thing to do—for example, Excel has a nasty habit of “helpfully” formatting data values. Nonetheless, Excel is a ubiquitous and convenient tool for data management, so it’s important to know how to pull data into R from Excel. It is possible to read data directly from Excel into R, but this way of doing things can be error prone for an inexperienced user and requires us to use an external package (the <strong>readxl</strong> package is currently the best option). Instead, the simplest way to transfer data from Excel to R is to first export the relevant worksheet to a CSV file, and then import this new file using R’s standard file import tools.</p>
+<p>We’ll discuss the import tools in a moment. The initial export step is just a matter of selecting the Excel worksheet that contains the relevant data, navigating to <code>Save As...</code>, choosing the <code>Comma Separated Values (.csv)</code>, and following the familiar file save routine. That’s it. After following this step our data are free of Excel and ready to be read into R.</p>
 <div class="warning">
-<h4 id="and-are-not-the-same">
-<code>=</code> and <code>==</code> are not the same
+<h4 id="always-check-your-excel-worksheet">
+Always check your Excel worksheet
 </h4>
 <p>
-If we want to test for equivalence between the elements of two vectors we must use double equals (<code>==</code>), not single equals (<code>=</code>). Forgetting to do this <code>==</code> instead of <code>=</code> is a very common source of mistakes. The <code>=</code> symbol already has a use in R—assigning name-value pairs—so it can’t also be used to compare vectors because this would lead to ambiguity in our R scripts. Using <code>=</code> when you meant to use <code>==</code> is a very common mistake. If you make it, this will lead to all kinds of difficult-to-comprehend problems with your scripts. Try to remember the difference!
+Importing data from Excel can turn into a frustrating process if we’re not careful. Most problems have their origin in the Excel worksheet used to store the data, rather than R. Problems usually arise because we haven’t been paying close attention to a worksheet. For example, imagine we’re working with a very simple data set, which contains three columns of data and a few hundred rows. If at some point we accidentally (or even intentionally) add a value to a cell in the forth column, Excel will assume the fourth column is “real” data. When we then export the worksheet to CSV, instead of the expected three columns of data, we end up with four columns, where most of the fourth column is just missing information. This kind of mistake is surprisingly common and is a frequent source of confusion. The take-home message is that when Excel is used to hold raw data should be used to do just that—the worksheet containing our raw data should hold only that, and nothing else.
 </p>
 </div>
+</div>
+</div>
+<div id="the-working-directory" class="section level2">
+<h2><span class="header-section-number">10.3</span> The working directory</h2>
+<p>Before we start worrying about data import, we first need to learn a bit about how R searches for the files that reside on our computer’s hard drive. The key concept is that of the “working directory”. A “directory” is just another word for “folder”. The working directory is simply a default location (i.e. a folder) R uses when searching for files. The working directory must always be set, and there are standard rules that govern how this is chosen when a new R session starts. For example, if we start R by double clicking on an script file (i.e. a file with a “.R” extension), R will typically set the working directory to be the location of the R script. We say typically, because this behaviour can be overridden.</p>
+<p>There’s no need to learn the rules for how the default working directory is chosen, because we can always use R/RStudio to find out which folder is currently set as the working directory. Here are a couple of options:</p>
+<ol style="list-style-type: decimal">
+<li><p>When RStudio first starts up, the <strong>Files</strong> tab in the bottom right window shows us the contents (i.e. the files and folders) of the working directory. Be careful though, if we use the file viewer to navigate to a new location this does not change the working directory.</p></li>
+<li><p>The <code>getwd</code> function will print the location to the working directory to the Console. It does this by displaying a <strong>file path</strong>. If you’re comfortable with file paths then the output of <code>getwd</code> will make perfect sense. If not, it doesn’t matter too much. Use the RStudio <strong>Files</strong> tab instead.</p></li>
+</ol>
+<p>Why does any of this matter? We need to know where R will look for files if we plan to read in data. Fortunately, it’s easy to change the working directory to a new location if we need to do this:</p>
+<ol style="list-style-type: decimal">
+<li><p>Using RStudio, we can set the working directory via the <code>Session &gt; Set Working Directory... &gt; Choose Directory...</code> menu. Once this menu item is selected we’re presented with the standard file/folder dialogue box to choose the working directory.</p></li>
+<li><p>Alternatively, we can use a function called <code>setwd</code> at the Console, though once again, we have to be comfortable with file paths to use this. Using RStudio is easier, so we won’t demonstrate how to use <code>setwd</code>.</p></li>
+</ol>
+</div>
+<div id="importing-data-with-read.csv" class="section level2">
+<h2><span class="header-section-number">10.4</span> Importing data with <code>read.csv</code></h2>
+<p>Now that we know roughly how a CSV file is formatted, and where R will look for such files, we need to understand how to read them into R. The standard R function for reading in a CSV file is called <code>read.csv</code>. There are a few other options (e.g. <code>read_csv</code> from the <strong>readr</strong> package), but we’ll use <code>read.csv</code> because it’s part of the base R distribution, which means we can use it without relying on an external package.</p>
+<p>The <code>read.csv</code> function does one thing: given the location of a CSV file, it will read the data into R and return it to us as a data frame. There are a couple of different strategies for using <code>read.csv</code>. One is considered good practice and is fairly robust. The second is widely used, but creates more problems than it solves. We’ll discuss both, and then explain why the first strategy is generally better than the second.</p>
+<div id="strategy-1set-the-working-directory-first" class="section level4">
+<h4><span class="header-section-number">10.4.0.1</span> Strategy 1—set the working directory first</h4>
+<p>Remember, the working directory is the default location used by R to search for files. This means that if we set the working directory to be wherever our data file lives, we can use the <code>read.csv</code> function without having to tell R where to look for it. Let’s assume our data is in a CSV file called “my-great-data.csv”. We should be able to see “my-great-data.csv” in the <strong>Files</strong> tab in RStudio if the working directory is set to its location. If we can’t see it there, the working directory still needs to be set (e.g. via <code>Session &gt; Set Working Directory... &gt; Choose Directory...</code>).</p>
+<p>Once we’ve set the working directory to this location, reading the “my-great-data.csv” file into R is simple:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">my_data &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="dt">file =</span> <span class="st">&quot;my-great-data.csv&quot;</span>, <span class="dt">stringsAsFactors =</span> <span class="ot">FALSE</span>)</code></pre></div>
+<p>R knows where to find the file because we first set the working directory to be the location of the file. If we forget to do this R will complain and throw an error. We have to assign the output a name so that we can actually use the new data frame (<code>my_data</code> in this example), otherwise all that will happen is the resulting data frame is read in and printed to the Console.</p>
+</div>
+<div id="strategy-2use-the-full-path-to-the-csv-file" class="section level4">
+<h4><span class="header-section-number">10.4.0.2</span> Strategy 2—use the full path to the CSV file</h4>
+<p>If we are comfortable with “file paths” then <code>read.csv</code> can be used without bothering to set the working directory. For example, if we have the CSV file called “my-great-data.csv” on the in a folder called “r_data”, then on a Unix machine we might read it into a data frame using something like:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">my_data &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="dt">file =</span> <span class="st">&quot;~/r_data/my-great-data.csv&quot;</span>, <span class="dt">stringsAsFactors =</span> <span class="ot">FALSE</span>)</code></pre></div>
+<p>When used like this, we have to give <code>read.csv</code> the full path to the file. This assumes of course that we understand how to construct a file path—the details vary depending on the operating system.</p>
+</div>
+<div id="why-use-the-first-strategy" class="section level4">
+<h4><span class="header-section-number">10.4.0.3</span> Why use the first strategy?</h4>
+<p>Both methods get to the same end point: after running the code at the Console we should end up with an object called <code>my_data</code> in the global environment, which is a data frame containing the data in the “my-great-data.csv” file. So why should we prefer</p>
+<ol style="list-style-type: decimal">
+<li><p>Many novice R users with no experience of programming struggle with file paths, leading to a lot of frustration and wasted time trying to specify them. The first method only requires us to set the working directory with RStudio and know the name of the file we want to read in. There’s no need to deal with file paths.</p></li>
+<li><p>The second strategy creates problems when we move your data around or work on different machines, as the file paths will need to be changed in each new situation. The first strategy is robust to such changes. For example, if we move all our data to a new location, we just have to set the working directory to the new location and our R code will still work.</p></li>
+</ol>
+</div>
+</div>
+<div id="importing-data-with-rstudio-avoid-this" class="section level2">
+<h2><span class="header-section-number">10.5</span> Importing data with RStudio (Avoid this!)</h2>
+<p>It is also possible to import data from a CSV file into R using RStudio. The steps are as follows:</p>
+<ol style="list-style-type: decimal">
+<li><p>Click on the <strong>Environment</strong> tab in the top right pane of RStudio</p></li>
+<li><p>Select <code>Import Dataset &gt; From Text File...</code></p></li>
+<li><p>Select the CSV file you want to read in to R and click Open</p></li>
+<li><p>Enter a name (no spaces allowed) or stick with the default and click Import</p></li>
+</ol>
+<p>We’re only pointing out this method because new users are often tempted to use it—we <strong>do not</strong> recommend it. Why? It creates the same kinds of problems as the second strategy discussed above. All RStudio does generate the correct usage of a function called <code>read_csv</code> (from the <strong>readr</strong> package) and evaluate this at the Console. The code isn’t part of a script so we have to do this every time we want to work with the data file. It’s easy to make a mistake using this approach, e.g. by accidentally misnaming the data frame or reading in the wrong data. It may be tempting to copy the generated R code into a script. However, we still have the portability problem outlined above to deal with. Take our word for it. The RStudio-focussed way of reading data into R just creates more problems than it solves. Don’t use it.</p>
+</div>
+<div id="package-data" class="section level2">
+<h2><span class="header-section-number">10.6</span> Package data</h2>
+<p>Remember what Hadley Wickam said about packages? “… <Packages> include reusable R functions, the documentation that describes how to use them, <strong>and sample data</strong>.” Many packages come with one or more sample data sets. These are very handy, as they’re used in examples and package vignettes. We can use the <code>data</code> function to get R to list the data sets hiding away in packages:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">data</span>(<span class="dt">package =</span> <span class="kw">.packages</span>(<span class="dt">all.available =</span> <span class="ot">TRUE</span>))</code></pre></div>
+<p>The mysterious <code>.packages(all.available = TRUE)</code> part of this generates a character vector with the names of all the installed packages in it. If we only use <code>data()</code> then R only lists the data sets found in a package called <code>datasets</code>, and in packages we have loaded and attached in the current R session using the <code>library</code> function.</p>
+<p>The <code>datasets</code> package is part of the base R distribution. It exists only to store example data sets. The package is automatically loaded when we start R, i.e. there’s no need to use <code>library</code> to access it, meaning any data stored in this package can be accessed every time we start R. We’ll use a couple of data sets in the <code>datasets</code> package later to demonstrate how to work with the <strong>dplyr</strong> and <strong>ggplot2</strong> packages.</p>
 
 </div>
 </div>
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
             </section>
 
           </div>
         </div>
       </div>
-<a href="numeric-vectors.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="extracting-subsets-of-vectors.html" class="navigation navigation-next " aria-label="Next page""><i class="fa fa-angle-right"></i></a>
+<a href="data-frames.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
 
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/lunr.js"></script>
@@ -368,7 +395,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/dzchilds/eda-for-bio/edit/master/1_06_more_vectors.Rmd",
+"link": "https://github.com/dzchilds/eda-for-bio/edit/master/2_02_getting_data.Rmd",
 "text": "Edit"
 },
 "download": null,
