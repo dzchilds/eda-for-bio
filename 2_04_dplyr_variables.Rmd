@@ -1,0 +1,154 @@
+# Working directories and data files
+
+## Introduction 
+
+```{r, include=FALSE}
+library("dplyr")
+library("nasaweather")
+```
+
+This chapter will explore the the **dplyr** `select` and `mutate` verbs, as well as the related `rename` and `transmute` verbs. These four verbs are considered together because they all operate on the variables (i.e. the columns) of a data frames or tibble:
+
+- The `select` function selects a subset of variables to retain and (optionally) renames them in the process. 
+
+- The `mutate` function creates new variables from preexisting ones and retains the original variables.
+
+- The `rename` function renames one or more variables while keeping the remaining variable names unchanged.
+
+- The `transmute` function creates new variables from preexisting ones and drops the original variables.
+
+### Getting ready
+
+Any script that uses **dplyr** needs to start by loading and attaching the package:
+```{r, eval=FALSE}
+library("dplyr")
+```
+Obviously we need to have first installed `dplyr` package (e.g. with `install.packages`) for this to work. 
+
+We're goint to use two data sets to illustrate the ideas in this chapter: the `iris` data set in the `datasets` package and the `storms` data set in the `nasaweather` package. The `datasets` package ships with R and is loaded and attached at start up, so there's no need to do anything to make `iris` available.
+```{r, eval=FALSE}
+library("dplyr")
+library("nasaweather")
+```
+The `iris` data set is an ordinary data frame. Before we start, we need to convert this to table so that it prints to the Console in a more compact way:
+```{r}
+iris_tbl <- tbl_df(iris)
+```
+We will use the `iris` dataset in the `datasets` package and `storms` dataset in the `nasaweather` package to learn about `select` and `mutate`. 
+```{r, eval=FALSE}
+library("dplyr")
+library("nasaweather")
+```
+
+
+## Subset variables with `select`
+
+We use `select` to __select variables__ from a data frame or tibble. This is typically used when we have a data set with many variables but only need to work with a subset of these. Basic usage of `select` looks like this:
+```{r, eval=FALSE}
+select(data_set, vname1, vname2, ...)
+```
+This is not an example you can run---it's designed to show, in general terms, how we use `select`:
+
+- The first argument, `data_set` ("data object"), must be the name of the object containing our data. 
+
+- We then include a series of one or more additional arguments, where each of these should be the name of a variable in `data_set`. We've expressed this as `vname1, vname2, ...`, where `vname1` and `vname2` are names of the first two variables, and the `...` is acting as placeholder for the remaining variables (there could be any number of these).
+
+It's easiest to understand how a function like `select` works by seeing it in action. We select the `Species`, `Petal.Length` and `Petal.Width` variables from `iris_tbl` like this:
+```{r}
+select(iris_tbl, Species, Petal.Length, Petal.Width)
+```
+Hopefully nothing about this example is surprising or confusing. There are a few things to notice about how `select` works though:
+
+* The `select` function is one of those non-standard functions we briefly mentioned in the [Using functions] chapter. This means the variable names do not need to be surrounded by quotes unless they have spaces in them (which is best avoided).
+
+* The `select` function is just like other R functions: it does not have "side effects", meaning it does not change the original `iris_tbl` in any way. We printed the result produced by `select` to the Console. This means we cannot access the new data set as we did not assign the result a name (using ` <- `).  
+
+* The order of variables (i.e. the column order) in the resulting object is the same as the order in which they were supplied as arguments. This means we can easily reorder variables at the same time as selecting them if we need to.
+
+* The `select` function will return the same kind of data object it is working on. It returns a data frame if our data was originally in a data frame and a table if it was a table. In this example, R prints a table because we had converted `iris_tbl` from a data frame to a table.
+
+Sometimes it's more convenient to subset variables specifying those we do __not__ need, rather than in terms of the ones we would like to keep. We use the `-` operator indicate that variables should be dropped. For example, to drop the `Petal.Width` and `Petal.Length` columns, we use:
+```{r}
+select(iris_tbl, -Petal.Width, -Petal.Length)
+```
+This returns a table with just the remaining variables:`Sepal.Length`, `Sepal.Width` and `Species`.
+
+It can sometimes be quicker to select (or drop) a set of variables positioned in a next to one another. We work with a series of adjacent variables using the `:` operator. This is used with two variable names, one on the left hand side and one on the right. When we use `:` like this `select` will subset both those variables along with any others that fall in between them. For example, if we need the two `Petal` variables and `Species`, we use:
+```{r}
+select(iris_tbl, Petal.Length:Species)
+```
+The `:` operator can be combined with `-` if we need to drop a series of variables according to their position in a data frame or table.
+
+### Renaming variables with `select` and `rename`
+
+In addition to selecting a subset of variables, the `select` function can also rename variables at the same time. We have to name the arguments with `=`, placing the new name on the left hand side, to do this. For example, to select the`Species`, `Petal.Length` and `Petal.Width` variables from `iris_tbl`, but also rename `Petal.Length` and `Petal.Width` to `PetalLength` and `PetalWidth`, we use:
+```{r}
+select(iris_tbl, Species, PetalLength = Petal.Length, PetalWidth = Petal.Width)
+```
+
+Renaming variables is common task when working with data frames and tables. In many cases the _only_ thing we would like to do is rename a variable or two. That is, we would like to certain rename variables without selecting a subset. The `select` function is not very good at this because you have to supply every variable in the focal data object as an argument to avoid dropping it. The `dplyr` provides an additional function called `rename` for this reason. The sole purpose of the `rename` function is to rename certain variables while retaining any others. It works exactly as you would expect it to. For example, in order to rename `Petal.Length` and `Petal.Width` to `PetalLength` and `PetalWidth`, we use:
+```{r}
+rename(iris_tbl, PetalLength = Petal.Length, PetalWidth = Petal.Width)
+```
+Notice that the rename function also preserves the order of the variables as found in the original data.
+
+## Creating variables with `mutate`
+
+We use `mutate` to __add new variables__ to a data frame or tibble. This is useful when we need to construct one or more derived variables to support an analysis. Basic usage of `mutate` looks like this:
+```{r, eval=FALSE}
+mutate(data_set, <expression1>, <expression2>, ...)
+```
+Again, this is not an example we can run. It's intended to highlight in general terms how we use `mutate`. As is always the case with `dplyr` functions, the first argument, `data_set` ("data object"), should be the name of the object containing our data. We then include a series of one or more additional arguments, where each of these is a valid R expression involving one or more variables in `data_set`. I have expressed these as `<expression1>, <expression2>`, where `<expression1>` and `<expression2>` represent the first two expressions, and the `...` is acting as placeholder for the remaining expressions. This is not valid R code -- remember, it is just intended to show you the general form of `mutate`.
+
+To see `mutate` in action, let's construct a new version of `iris_tbl` that contains a variable summarising the approximate area of sepals:
+```{r}
+mutate(iris_tbl, Sepal.Width * Sepal.Length)
+```
+This created a copy of `iris_tbl` with a new column called `Sepal.Width * Sepal.Length` (it is mentioned at the bottom of the printed output). Most of the rules that apply to `select` also apply to `mutate`:
+
+* The expression that performs the required calculation is not surrounded by quotes. This makes sense, because an expression is meant to be evaluated so that it "does something". It is not a value. 
+
+* Once again, we just printed the result produced by `mutate` to the Console, rather than assigning the result a name using ` <- `. The `mutate` function does not have side effects, meaning it does not change the original `iris_tbl` in any way. 
+
+* The `select` function returns the same kind of data object as the one it is working on: a data frame if our data was originally in a data frame, a table if it was a table.
+
+Creating a variable called something like `Sepal.Width * Sepal.Length` is not exactly ideal. Happily, the `mutate` function can name variables at the same time as they are created. We have to name the arguments using `=`, placing the name on the left hand side, to do this. We can use this construct to name the area variable `Sepal.Area`:
+```{r}
+mutate(iris_tbl, Sepal.Area = Sepal.Width * Sepal.Length)
+```
+
+We can create more than one variable by supplying `mutate` multiple (named) arguments:
+```{r}
+mutate(iris_tbl, 
+       Sepal.Area = Sepal.Width * Sepal.Length,
+       Petal.Area = Petal.Width * Petal.Length,
+       Area.Ratio = Petal.Area / Petal.Area)
+```
+Notice that I placed each argument on a new line (remembering the comma to separate arguments). There is nothing to stop us doing this -- R does not care about white space. This is useful because it makes long function calls easier to read.
+
+This last example reveals a nice feature of `mutate`: we can use newly created variables in further calculations. Here we constructed approximate sepal and petal area variables, and then used these to construct a third variable containing the ratio of these two quantities, `Area.Ratio`.
+
+### Transforming and dropping variables
+
+Occasionally we may want to construct one or more new variables, and then drop all other variables in the original dataset. The `transmute` function is designed to do this:
+```{r}
+transmute(iris_tbl,
+          Sepal.Area = Sepal.Width * Sepal.Length,
+          Petal.Area = Petal.Width * Petal.Length,
+          Area.Ratio = Petal.Area / Petal.Area)
+```
+Here we repeated the previous example, but now only the new variables were retained in the resulting table. If we also want to retain one or more variables without altering them we just have to pass them as unnamed arguments. For example, if we need to retain species identity in the output, we use: 
+```{r}
+transmute(iris_tbl,
+          Species,
+          Sepal.Area = Sepal.Width * Sepal.Length,
+          Petal.Area = Petal.Width * Petal.Length,
+          Area.Ratio = Petal.Area / Petal.Area)
+```
+
+
+
+
+
+
+

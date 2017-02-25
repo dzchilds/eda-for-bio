@@ -1,0 +1,37 @@
+# Helper functions
+
+## Introduction 
+
+There are a number of __helper functions__ supplied by **dplyr**. Many of these are shown in the handy **dplyr** [cheat sheat](http://www.rstudio.com/resources/cheatsheets/).
+
+## Working with `select`
+
+There are a small number of helper functions that can be used with `select`. These make it easier to match variable names according to various criteria. We'll look at the three simplest of these, but it's look at the examples in the help file for `select` and the [cheat sheat](http://www.rstudio.com/resources/cheatsheets/) to see what else is available.
+
+We can select variables according to the sequence of characters used at the start of their name with the `starts_with` function. For example, to select all the variables in `iris_tbl` that begin with the word "Petal", we use:
+```{r}
+select(iris_tbl, starts_with("petal"))
+```
+This returns a table containing just `Petal.Length` and `Petal.Width`. As you might expect, there is also a helper function to select variables according to characters used at the end of their name. This is the `ends_with` function (no surprises here). To select all the variables in `iris_tbl` that end with the word "Length", we use:
+```{r}
+select(iris_tbl, ends_with("length"))
+```
+
+Notice that we have to quote the character string that we want to match against. This is not optional. However, the `starts_with` and `ends_with` functions are not case sensitive by default. For example, I passed `starts_with` the argument `"petal"` instead of `"Petal"`, yet it still selected variables beginning with the character string `"Petal"`. If you want to select variables on a case-sensitive basis, you need to set an argument `ignore.case` to `FALSE` in `starts_with` and `ends_with`.
+
+The last `select` helper function we will look at is called `contains`. You can guess what this does. It allows us to select variables based on a partial match anywhere in their name. Look at what happens if we pass `contains` the argument `"."`:
+```{r}
+select(iris_tbl, contains("."))
+```
+This selects all the variables with a dot in their name. 
+
+There is nothing to stop us combining the different variable selection methods. For example, we can use this approach to select all the variables whose names start with the word "Petal" or end with the word "Length":
+```{r}
+select(iris_tbl, ends_with("length"), starts_with("petal"))
+```
+When we apply more than one selection criteria like this the `select` function returns all the variables that match one or more criteria, rather than just the set that meets all the criteria.
+
+### Working with `mutate` and `transmute`
+
+There are quite a few __helper functions__ that can be used with `mutate`. These make it easier to add new variables according to the values of other variables. We won't explore these here as they tend to be needed only in quite specific circumstances. However, if you run into a situation where you need to construct an unusual variable -- for example, one that ranks the values in another variable -- you may want to try looking at the examples in the `mutate` help file or that [handy cheat sheat](http://www.rstudio.com/resources/cheatsheets/) to see what options are available to you.
+
