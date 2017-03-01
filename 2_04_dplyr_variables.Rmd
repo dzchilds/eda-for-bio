@@ -1,11 +1,11 @@
 # Working directories and data files
 
-## Introduction 
-
 ```{r, include=FALSE}
 library("dplyr")
 library("nasaweather")
 ```
+
+## Introduction 
 
 This chapter will explore the the **dplyr** `select` and `mutate` verbs, as well as the related `rename` and `transmute` verbs. These four verbs are considered together because they all operate on the variables (i.e. the columns) of a data frames or tibble:
 
@@ -25,7 +25,7 @@ library("dplyr")
 ```
 Obviously we need to have first installed `dplyr` package (e.g. with `install.packages`) for this to work. 
 
-We're goint to use two data sets to illustrate the ideas in this chapter: the `iris` data set in the `datasets` package and the `storms` data set in the `nasaweather` package. The `datasets` package ships with R and is loaded and attached at start up, so there's no need to do anything to make `iris` available.
+We're going to use two data sets to illustrate the ideas in this chapter: the `iris` data set in the **datasets** package and the `storms` data set in the **nasaweather** package. The **datasets** package ships with R and is loaded and attached at start up, so there's no need to do anything to make `iris` available.
 ```{r, eval=FALSE}
 library("dplyr")
 library("nasaweather")
@@ -34,12 +34,6 @@ The `iris` data set is an ordinary data frame. Before we start, we need to conve
 ```{r}
 iris_tbl <- tbl_df(iris)
 ```
-We will use the `iris` dataset in the `datasets` package and `storms` dataset in the `nasaweather` package to learn about `select` and `mutate`. 
-```{r, eval=FALSE}
-library("dplyr")
-library("nasaweather")
-```
-
 
 ## Subset variables with `select`
 
