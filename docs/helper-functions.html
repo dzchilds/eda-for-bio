@@ -33,8 +33,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
-<link rel="prev" href="numeric-vectors.html">
-<link rel="next" href="extracting-subsets-of-vectors.html">
+<link rel="prev" href="working-with-observations.html">
+
 
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -287,93 +287,132 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="other-kinds-of-vectors" class="section level1">
-<h1><span class="header-section-number">Chapter 5</span> Other kinds of vectors</h1>
-<div id="other-vectors" class="section level2">
-<h2><span class="header-section-number">5.1</span> Introduction</h2>
-<p>The data we collect and analyse are often in the form of numbers, so it comes as no surprise that we work with numeric vectors a lot in R. Nonetheless, we also sometimes need to represent other kinds of vectors, either to represent different types of data, or to help us manipulate our data. This chapter introduces two new types of atomic vector to help us do this: character vectors and logical vectors.</p>
+<div id="helper-functions" class="section level1">
+<h1><span class="header-section-number">Chapter 14</span> Helper functions</h1>
+<div id="introduction-7" class="section level2">
+<h2><span class="header-section-number">14.1</span> Introduction</h2>
+<p>There are a number of <strong>helper functions</strong> supplied by <strong>dplyr</strong>. Many of these are shown in the handy <strong>dplyr</strong> <a href="http://www.rstudio.com/resources/cheatsheets/">cheat sheat</a>. This is a short chapter. We aren’t going to try to cover every single helper function here. Instead, we’ll highlight some of the more useful ones, and point out where the others tend to be used. We also assume that the <code>storms_tbl</code> and <code>iris_tbl</code> tibbles have already been constructed (look over the previous two chapters to see how this is done).</p>
 </div>
-<div id="character-vectors" class="section level2">
-<h2><span class="header-section-number">5.2</span> Character vectors</h2>
-<p>The elements of <strong>character vectors</strong> are what are known as a “character string” (or “string” if we are feeling lazy). The term “character string” refers a sequence of characters, such as “Treatment 1”, “University of Sheffield”, “Population Density”. A character vector is an atomic vector that stores an ordered collection of one or more character strings.</p>
-<p>If we want to construct a character vector in R we have to place double (<code>&quot;</code>) or single (<code>'</code>) quotation marks around the characters. For example, we can print the name “Dylan” to the Console like this:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="st">&quot;Dylan&quot;</span></code></pre></div>
-<pre><code>## [1] &quot;Dylan&quot;</code></pre>
-<p>Notice the <code>[1]</code>. This shows that what we just printed is an atomic vector of some kind. We know it’s a character vector because the output is printed with double quotes around the value. We often need to make simple character vectors containing only one value—for example, to set the values of arguments to a function.</p>
-<p>The quotation marks are not optional—they tell R we want to treat whatever is inside them as a literal value. The quoting is important. If we try to do the same thing as above without the quotes we end up with an error:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">Dylan</code></pre></div>
-<pre><code>## Error in eval(expr, envir, enclos): object &#39;Dylan&#39; not found</code></pre>
-<p>What happened? When the interpreter sees the word <code>Dylan</code> without quotes it assumes that this must be the name of a variable, so it goes in search of it in the global environment. We haven’t made a variable called Dylan, so there is no way to evaluate the expression and R spits out an error to let us know there’s a problem.</p>
-<p>Longer character vectors are typically constructed to represent data of some kind. The <code>c</code> function is often a good starting point for this kind of thing:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># make a length-3 character vector</span>
-my_name &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Dylan&quot;</span>, <span class="st">&quot;Zachary&quot;</span>, <span class="st">&quot;Childs&quot;</span>)
-my_name</code></pre></div>
-<pre><code>## [1] &quot;Dylan&quot;   &quot;Zachary&quot; &quot;Childs&quot;</code></pre>
-<p>Here we made a length-3 character vector, with elements corresponding to a first name, middle name, and last name. If we want to extract one or more elements from a character vector by their position</p>
-<p>Take note, this is <strong>not</strong> equivalent to the above :</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">my_name &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Dylan Zachary Childs&quot;</span>)
-my_name</code></pre></div>
-<pre><code>## [1] &quot;Dylan Zachary Childs&quot;</code></pre>
-<p>The only element of this character vector is a single character string containing the first, middle and last name separated by spaces. We didn’t need to use the the <code>c</code> function here because we were only ever working with a length-1 character vector. i.e. we could have typed <code>&quot;Dylan Zachary Childs&quot;</code> and we would have ended up with exactly the same text printed at the Console.</p>
-<p>We can construct more complicated, repeating character vectors with <code>rep</code>. This works on character vectors in exactly the same way as it does on numeric vectors:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">c_vec &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Dylan&quot;</span>, <span class="st">&quot;Zachary&quot;</span>, <span class="st">&quot;Childs&quot;</span>)
-<span class="kw">rep</span>(c_vec, <span class="dt">each =</span> <span class="dv">2</span>, <span class="dt">times =</span> <span class="dv">3</span>)</code></pre></div>
-<pre><code>##  [1] &quot;Dylan&quot;   &quot;Dylan&quot;   &quot;Zachary&quot; &quot;Zachary&quot; &quot;Childs&quot;  &quot;Childs&quot;  &quot;Dylan&quot;  
-##  [8] &quot;Dylan&quot;   &quot;Zachary&quot; &quot;Zachary&quot; &quot;Childs&quot;  &quot;Childs&quot;  &quot;Dylan&quot;   &quot;Dylan&quot;  
-## [15] &quot;Zachary&quot; &quot;Zachary&quot; &quot;Childs&quot;  &quot;Childs&quot;</code></pre>
-<p>Each element was replicated twice (<code>each = 2</code>), and then the whole vector was replicated three times (<code>times = 3</code>), end to end.</p>
-<p>What about the <code>seq</code> function? Hopefully it is fairly obvious that we can’t use this function to build a character vector. The <code>seq</code> function is designed to make sequences of numbers, from a starting value, to another. The notion of a sequence of character strings – for example, from <code>&quot;Dylan&quot;</code> to <code>&quot;Childs&quot;</code> – is meaningless.</p>
+<div id="working-with-select" class="section level2">
+<h2><span class="header-section-number">14.2</span> Working with <code>select</code></h2>
+<p>There are relatively few of helper functions that can be used with <code>select</code>. The job of these functions is to make it easier to match variable names according to various criteria. We’ll look at the three simplest of these, but look at the examples in the help file for <code>select</code> and the <a href="http://www.rstudio.com/resources/cheatsheets/">cheat sheat</a> to see what else is available.</p>
+<p>We can select variables according to the sequence of characters used at the start of their name with the <code>starts_with</code> function. For example, to select all the variables in <code>iris_tbl</code> that begin with the word “Petal”, we use:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">select</span>(iris_tbl, <span class="kw">starts_with</span>(<span class="st">&quot;petal&quot;</span>))</code></pre></div>
+<pre><code>## # A tibble: 150 × 2
+##    Petal.Length Petal.Width
+##           &lt;dbl&gt;       &lt;dbl&gt;
+## 1           1.4         0.2
+## 2           1.4         0.2
+## 3           1.3         0.2
+## 4           1.5         0.2
+## 5           1.4         0.2
+## 6           1.7         0.4
+## 7           1.4         0.3
+## 8           1.5         0.2
+## 9           1.4         0.2
+## 10          1.5         0.1
+## # ... with 140 more rows</code></pre>
+<p>This returns a table containing just <code>Petal.Length</code> and <code>Petal.Width</code>. As you might expect, there is also a helper function to select variables according to characters used at the end of their name. This is the <code>ends_with</code> function (no surprises here). To select all the variables in <code>iris_tbl</code> that end with the word “Length”, we use:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">select</span>(iris_tbl, <span class="kw">ends_with</span>(<span class="st">&quot;length&quot;</span>))</code></pre></div>
+<pre><code>## # A tibble: 150 × 2
+##    Sepal.Length Petal.Length
+##           &lt;dbl&gt;        &lt;dbl&gt;
+## 1           5.1          1.4
+## 2           4.9          1.4
+## 3           4.7          1.3
+## 4           4.6          1.5
+## 5           5.0          1.4
+## 6           5.4          1.7
+## 7           4.6          1.4
+## 8           5.0          1.5
+## 9           4.4          1.4
+## 10          4.9          1.5
+## # ... with 140 more rows</code></pre>
+<p>Notice that we have to quote the character string that we want to match against. This is not optional. However, the <code>starts_with</code> and <code>ends_with</code> functions are not case sensitive by default. For example, I passed <code>starts_with</code> the argument <code>&quot;petal&quot;</code> instead of <code>&quot;Petal&quot;</code>, yet it still selected variables beginning with the character string <code>&quot;Petal&quot;</code>. If you want to select variables on a case-sensitive basis, you need to set an argument <code>ignore.case</code> to <code>FALSE</code> in <code>starts_with</code> and <code>ends_with</code>.</p>
+<p>The last <code>select</code> helper function we will look at is called <code>contains</code>. You can guess what this does. It allows us to select variables based on a partial match anywhere in their name. Look at what happens if we pass <code>contains</code> the argument <code>&quot;.&quot;</code>:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">select</span>(iris_tbl, <span class="kw">contains</span>(<span class="st">&quot;.&quot;</span>))</code></pre></div>
+<pre><code>## # A tibble: 150 × 4
+##    Sepal.Length Sepal.Width Petal.Length Petal.Width
+##           &lt;dbl&gt;       &lt;dbl&gt;        &lt;dbl&gt;       &lt;dbl&gt;
+## 1           5.1         3.5          1.4         0.2
+## 2           4.9         3.0          1.4         0.2
+## 3           4.7         3.2          1.3         0.2
+## 4           4.6         3.1          1.5         0.2
+## 5           5.0         3.6          1.4         0.2
+## 6           5.4         3.9          1.7         0.4
+## 7           4.6         3.4          1.4         0.3
+## 8           5.0         3.4          1.5         0.2
+## 9           4.4         2.9          1.4         0.2
+## 10          4.9         3.1          1.5         0.1
+## # ... with 140 more rows</code></pre>
+<p>This selects all the variables with a dot in their name.</p>
+<p>There is nothing to stop us combining the different variable selection methods. For example, we can use this approach to select all the variables whose names start with the word “Petal” or end with the word “Length”:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">select</span>(iris_tbl, <span class="kw">ends_with</span>(<span class="st">&quot;length&quot;</span>), <span class="kw">starts_with</span>(<span class="st">&quot;petal&quot;</span>))</code></pre></div>
+<pre><code>## # A tibble: 150 × 3
+##    Sepal.Length Petal.Length Petal.Width
+##           &lt;dbl&gt;        &lt;dbl&gt;       &lt;dbl&gt;
+## 1           5.1          1.4         0.2
+## 2           4.9          1.4         0.2
+## 3           4.7          1.3         0.2
+## 4           4.6          1.5         0.2
+## 5           5.0          1.4         0.2
+## 6           5.4          1.7         0.4
+## 7           4.6          1.4         0.3
+## 8           5.0          1.5         0.2
+## 9           4.4          1.4         0.2
+## 10          4.9          1.5         0.1
+## # ... with 140 more rows</code></pre>
+<p>When we apply more than one selection criteria like this the <code>select</code> function returns all the variables that match either criteria, rather than just the set that meets all the criteria.</p>
 </div>
-<div id="logical-vectors" class="section level2">
-<h2><span class="header-section-number">5.3</span> Logical vectors</h2>
-<p>The elements of <strong>logical vectors</strong> only take two values: <code>TRUE</code> or <code>FALSE</code>. Don’t let the simplicity of logical vectors fool you—they’re very useful. As with other kinds of atomic vectors the <code>c</code> and <code>rep</code> functions can be used to construct a logical vector:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">l_vec &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="ot">TRUE</span>, <span class="ot">FALSE</span>)
-<span class="kw">rep</span>(l_vec, <span class="dt">times =</span> <span class="dv">2</span>)</code></pre></div>
-<pre><code>## [1]  TRUE FALSE  TRUE FALSE</code></pre>
-<p>Hopefully nothing about that output is surprising by this point.</p>
-<p>So why are logical vectors useful? Their allow us to represent the results of questions such as, “is x greater than y” or “is x equal to y”. The results of such comparisons may then be used to carry out various kinds of subsetting operations based.</p>
-<p>Let’s first look at how we use logical vectors to evaluate comparisons. Before we can do that though we need to introduce <strong>relational operators</strong>. These sound fancy, but they are very simple: we use relational operators to evaluate the relative value of vector elements. Six are available in R:</p>
-<ul>
-<li><code>x &lt; y</code>: is x less than y?</li>
-<li><code>x &gt; y</code>: is x greater than y?</li>
-<li><code>x &lt;= y</code>: is x less than or equal to y?</li>
-<li><code>x &gt;= y</code>: is x greater than or equal to y?</li>
-<li><code>x == y</code>: is x equal to y?</li>
-<li><code>x != y</code>: is x not equal to y?</li>
-</ul>
-<p>The easiest way to understand how these work is to simply use them. We need a couple of numeric variables first:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="dv">11</span>:<span class="dv">20</span>
-y &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">3</span>, <span class="dv">30</span>, <span class="dt">by =</span> <span class="dv">3</span>)
-x</code></pre></div>
-<pre><code>##  [1] 11 12 13 14 15 16 17 18 19 20</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">y</code></pre></div>
-<pre><code>##  [1]  3  6  9 12 15 18 21 24 27 30</code></pre>
-<p>Now, if we need to evaluate and represent a question like, “is x greater than than y”, we can use either <code>&lt;</code> or <code>&gt;</code>:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &gt;<span class="st"> </span>y</code></pre></div>
-<pre><code>##  [1]  TRUE  TRUE  TRUE  TRUE FALSE FALSE FALSE FALSE FALSE FALSE</code></pre>
-<p>What do you notice about this simple example? The <code>x &gt; y</code> expression produces a logical vector, with <code>TRUE</code> values associated with elements in <code>x</code> are less than <code>y</code>, and <code>FALSE</code> otherwise. In this example, x is less than y until we reach the value of 15 in each sequence. Notice that that relational operators are vectorised: the work on an element by element basis. They wouldn’t be much use if this were not the case.</p>
-<p>What does the <code>==</code> operator do? It compares the elements of two vectors to determine if they are exactly equal:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x ==<span class="st"> </span>y</code></pre></div>
-<pre><code>##  [1] FALSE FALSE FALSE FALSE  TRUE FALSE FALSE FALSE FALSE FALSE</code></pre>
-<p>The output of this comparison is true only for one element, the number 15, which is at the 5<sup>th</sup> position in both <code>x</code> and <code>y</code>. The <code>!=</code> operator is essentially the opposite of <code>==</code>. It identifies cases where two elements are not exactly equal. We could step through each of the different the other relational operators, but hopefully they are self-explanatory at this point (if not, experiment with them).</p>
-<div class="warning">
-<h4 id="and-are-not-the-same">
-<code>=</code> and <code>==</code> are not the same
-</h4>
-<p>
-If we want to test for equivalence between the elements of two vectors we must use double equals (<code>==</code>), not single equals (<code>=</code>). Forgetting to do this <code>==</code> instead of <code>=</code> is a very common source of mistakes. The <code>=</code> symbol already has a use in R—assigning name-value pairs—so it can’t also be used to compare vectors because this would lead to ambiguity in our R scripts. Using <code>=</code> when you meant to use <code>==</code> is a very common mistake. If you make it, this will lead to all kinds of difficult-to-comprehend problems with your scripts. Try to remember the difference!
-</p>
+<div id="working-with-mutate-and-transmute" class="section level2">
+<h2><span class="header-section-number">14.3</span> Working with <code>mutate</code> and <code>transmute</code></h2>
+<p>There are quite a few <strong>helper functions</strong> that can be used with <code>mutate</code>. These make it easier to add new variables according to the values of other variables. We won’t explore these here as they tend to be needed only in quite specific circumstances. However, if you run into a situation where you need to construct an unusual variable – for example, one that ranks the values in another variable – you may want to try looking at the examples in the <code>mutate</code> help file or that <a href="http://www.rstudio.com/resources/cheatsheets/">handy cheat sheat</a> to see what options are available to you.</p>
 </div>
+<div id="working-with-filter" class="section level2">
+<h2><span class="header-section-number">14.4</span> Working with <code>filter</code></h2>
+<p>There is only one <code>dplyr</code> <strong>helper function</strong> that is useful with <code>filter</code>. This is the <code>between</code> function, which is used to identify the values of a variable that lie inside a defined range:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">filter</span>(storms_tbl, <span class="kw">between</span>(pressure, <span class="dv">960</span>, <span class="dv">970</span>))</code></pre></div>
+<pre><code>## # A tibble: 213 × 11
+##     name  year month   day  hour   lat  long pressure  wind      type
+##    &lt;chr&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt;    &lt;int&gt; &lt;int&gt;     &lt;chr&gt;
+## 1  Felix  1995     8    11    18  21.3 -56.5      965    90 Hurricane
+## 2  Felix  1995     8    14    12  29.9 -63.4      962    80 Hurricane
+## 3  Felix  1995     8    14    18  30.7 -64.1      962    75 Hurricane
+## 4  Felix  1995     8    15     0  31.3 -65.1      962    75 Hurricane
+## 5  Felix  1995     8    15     6  31.9 -66.2      964    75 Hurricane
+## 6  Felix  1995     8    15    12  32.5 -67.4      968    70 Hurricane
+## 7  Felix  1995     8    15    18  33.1 -68.8      965    70 Hurricane
+## 8  Felix  1995     8    16     0  33.5 -70.1      963    70 Hurricane
+## 9  Felix  1995     8    16     6  34.0 -71.3      966    70 Hurricane
+## 10 Felix  1995     8    16    12  34.6 -72.4      968    70 Hurricane
+## # ... with 203 more rows, and 1 more variables: seasday &lt;int&gt;</code></pre>
+<p>This example filters the <code>storms</code> dataset such that only values of <code>pressure</code> between 960 and 970 are retained.</p>
 
 </div>
 </div>
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
             </section>
 
           </div>
         </div>
       </div>
-<a href="numeric-vectors.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="extracting-subsets-of-vectors.html" class="navigation navigation-next " aria-label="Next page""><i class="fa fa-angle-right"></i></a>
+<a href="working-with-observations.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
 
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/lunr.js"></script>
@@ -401,7 +440,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/dzchilds/eda-for-bio/edit/master/1_06_more_vectors.Rmd",
+"link": "https://github.com/dzchilds/eda-for-bio/edit/master/2_06_dplyr_helpers.Rmd",
 "text": "Edit"
 },
 "download": null,

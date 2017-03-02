@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>APS 135: Introduction to Exploratory Data Analysis with R</title>
+  <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+  <meta name="description" content="Course book for Introduction to Exploratory Data Analysis with R (APS 135) in the Department of Animal and Plant Sciences, University of Sheffield.">
+  <meta name="generator" content="bookdown 0.3 and GitBook 2.6.7">
+
+  <meta property="og:title" content="APS 135: Introduction to Exploratory Data Analysis with R" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="Course book for Introduction to Exploratory Data Analysis with R (APS 135) in the Department of Animal and Plant Sciences, University of Sheffield." />
+  <meta name="github-repo" content="dzchilds/eda-for-bio" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="APS 135: Introduction to Exploratory Data Analysis with R" />
+  
+  <meta name="twitter:description" content="Course book for Introduction to Exploratory Data Analysis with R (APS 135) in the Department of Animal and Plant Sciences, University of Sheffield." />
+  
+
+<meta name="author" content="Dylan Z. Childs">
+
+
+<meta name="date" content="2017-03-02">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="dplyr-and-the-tidy-data-concept.html">
+<link rel="next" href="working-directories-and-data-files-2.html">
+
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+<style type="text/css">
+
+.action, .warning, .info, .speed {
+  padding: 1em 1em 1em 4em;
+  margin-bottom: 10px;
+  background: #f5f5f5 5px center/3em no-repeat;
+}
+.action {
+  background-image: url("./images/action.png");
+}
+.warning {
+  background-image: url("./images/warning.png");
+}
+.info {
+  background-image: url("./images/info.png");
+}
+.speed {
+  background-image: url("./images/speed.png");
+}
+
+
+</style>
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">APS 135 (R course)</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Information and overview</a><ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#aims"><i class="fa fa-check"></i>Aims</a><ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#topics"><i class="fa fa-check"></i>Topics</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#how-to-use-the-book"><i class="fa fa-check"></i>How to use the book</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#getting-help"><i class="fa fa-check"></i>Getting help</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#updates"><i class="fa fa-check"></i>Updates</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="get-up-and-running-with-r-and-rstudio.html"><a href="get-up-and-running-with-r-and-rstudio.html"><i class="fa fa-check"></i>Get up and running with R and RStudio</a><ul>
+<li class="chapter" data-level="" data-path="get-up-and-running-with-r-and-rstudio.html"><a href="get-up-and-running-with-r-and-rstudio.html#what-is-r"><i class="fa fa-check"></i>What is R?</a><ul>
+<li class="chapter" data-level="" data-path="get-up-and-running-with-r-and-rstudio.html"><a href="get-up-and-running-with-r-and-rstudio.html#getting-and-installing-r"><i class="fa fa-check"></i>Getting and installing R</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="get-up-and-running-with-r-and-rstudio.html"><a href="get-up-and-running-with-r-and-rstudio.html#what-is-rstudio-and-why-use-it"><i class="fa fa-check"></i>What is RStudio (and why use it)?</a><ul>
+<li class="chapter" data-level="" data-path="get-up-and-running-with-r-and-rstudio.html"><a href="get-up-and-running-with-r-and-rstudio.html#getting-and-installing-rstudio"><i class="fa fa-check"></i>Getting and installing RStudio</a></li>
+<li class="chapter" data-level="" data-path="get-up-and-running-with-r-and-rstudio.html"><a href="get-up-and-running-with-r-and-rstudio.html#the-anatomy-of-rstudio"><i class="fa fa-check"></i>The anatomy of RStudio</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="get-up-and-running-with-r-and-rstudio.html"><a href="get-up-and-running-with-r-and-rstudio.html#working-at-the-console"><i class="fa fa-check"></i>Working at the Console</a></li>
+</ul></li>
+<li class="part"><span><b>I Introduction to R</b></span></li>
+<li class="chapter" data-level="1" data-path="a-quick-introduction-to-r.html"><a href="a-quick-introduction-to-r.html"><i class="fa fa-check"></i><b>1</b> A quick introduction to R</a><ul>
+<li class="chapter" data-level="1.1" data-path="a-quick-introduction-to-r.html"><a href="a-quick-introduction-to-r.html#r-calculator"><i class="fa fa-check"></i><b>1.1</b> Using R as a big calculator</a><ul>
+<li class="chapter" data-level="1.1.1" data-path="a-quick-introduction-to-r.html"><a href="a-quick-introduction-to-r.html#basic-arithmetic"><i class="fa fa-check"></i><b>1.1.1</b> Basic arithmetic</a></li>
+<li class="chapter" data-level="1.1.2" data-path="a-quick-introduction-to-r.html"><a href="a-quick-introduction-to-r.html#problematic-calculations"><i class="fa fa-check"></i><b>1.1.2</b> Problematic calculations</a></li>
+</ul></li>
+<li class="chapter" data-level="1.2" data-path="a-quick-introduction-to-r.html"><a href="a-quick-introduction-to-r.html#assignment"><i class="fa fa-check"></i><b>1.2</b> Storing and reusing results</a></li>
+<li class="chapter" data-level="1.3" data-path="a-quick-introduction-to-r.html"><a href="a-quick-introduction-to-r.html#how-does-assignment-work"><i class="fa fa-check"></i><b>1.3</b> How does assignment work?</a></li>
+<li class="chapter" data-level="1.4" data-path="a-quick-introduction-to-r.html"><a href="a-quick-introduction-to-r.html#global-environment"><i class="fa fa-check"></i><b>1.4</b> Global environment</a></li>
+<li class="chapter" data-level="1.5" data-path="a-quick-introduction-to-r.html"><a href="a-quick-introduction-to-r.html#naming-rules-and-conventions"><i class="fa fa-check"></i><b>1.5</b> Naming rules and conventions</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="scripts.html"><a href="scripts.html"><i class="fa fa-check"></i><b>2</b> Building scripts</a><ul>
+<li class="chapter" data-level="2.1" data-path="scripts.html"><a href="scripts.html#introduction"><i class="fa fa-check"></i><b>2.1</b> Introduction</a></li>
+<li class="chapter" data-level="2.2" data-path="scripts.html"><a href="scripts.html#writing-scripts-in-rstudio"><i class="fa fa-check"></i><b>2.2</b> Writing scripts in RStudio</a></li>
+<li class="chapter" data-level="2.3" data-path="scripts.html"><a href="scripts.html#running-scripts-in-rstudio"><i class="fa fa-check"></i><b>2.3</b> Running scripts in RStudio</a></li>
+<li class="chapter" data-level="2.4" data-path="scripts.html"><a href="scripts.html#spotting-problems"><i class="fa fa-check"></i><b>2.4</b> Spotting problems</a><ul>
+<li class="chapter" data-level="2.4.1" data-path="scripts.html"><a href="scripts.html#the-dreaded"><i class="fa fa-check"></i><b>2.4.1</b> The dreaded <code>+</code></a></li>
+<li class="chapter" data-level="2.4.2" data-path="scripts.html"><a href="scripts.html#errors"><i class="fa fa-check"></i><b>2.4.2</b> Errors</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="using-functions.html"><a href="using-functions.html"><i class="fa fa-check"></i><b>3</b> Using functions</a><ul>
+<li class="chapter" data-level="3.1" data-path="using-functions.html"><a href="using-functions.html#intro-functions"><i class="fa fa-check"></i><b>3.1</b> Introduction</a></li>
+<li class="chapter" data-level="3.2" data-path="using-functions.html"><a href="using-functions.html#functions-and-arguments"><i class="fa fa-check"></i><b>3.2</b> Functions and arguments</a></li>
+<li class="chapter" data-level="3.3" data-path="using-functions.html"><a href="using-functions.html#evaluating-arguments-and-returning-results"><i class="fa fa-check"></i><b>3.3</b> Evaluating arguments and returning results</a></li>
+<li class="chapter" data-level="3.4" data-path="using-functions.html"><a href="using-functions.html#functions-do-not-have-side-effects"><i class="fa fa-check"></i><b>3.4</b> Functions do not have “side effects”</a></li>
+<li class="chapter" data-level="3.5" data-path="using-functions.html"><a href="using-functions.html#combining-functions"><i class="fa fa-check"></i><b>3.5</b> Combining functions</a></li>
+<li class="chapter" data-level="3.6" data-path="using-functions.html"><a href="using-functions.html#function-arguments"><i class="fa fa-check"></i><b>3.6</b> Specifying function arguments</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="numeric-vectors.html"><a href="numeric-vectors.html"><i class="fa fa-check"></i><b>4</b> Numeric vectors</a><ul>
+<li class="chapter" data-level="4.1" data-path="numeric-vectors.html"><a href="numeric-vectors.html#introduction-1"><i class="fa fa-check"></i><b>4.1</b> Introduction</a></li>
+<li class="chapter" data-level="4.2" data-path="numeric-vectors.html"><a href="numeric-vectors.html#atomic-vectors"><i class="fa fa-check"></i><b>4.2</b> Atomic vectors</a></li>
+<li class="chapter" data-level="4.3" data-path="numeric-vectors.html"><a href="numeric-vectors.html#intro-vectors"><i class="fa fa-check"></i><b>4.3</b> Numeric vectors</a></li>
+<li class="chapter" data-level="4.4" data-path="numeric-vectors.html"><a href="numeric-vectors.html#constructing-numeric-vectors"><i class="fa fa-check"></i><b>4.4</b> Constructing numeric vectors</a></li>
+<li class="chapter" data-level="4.5" data-path="numeric-vectors.html"><a href="numeric-vectors.html#named-vectors"><i class="fa fa-check"></i><b>4.5</b> Named vectors</a></li>
+<li class="chapter" data-level="4.6" data-path="numeric-vectors.html"><a href="numeric-vectors.html#generating-sequences-of-numbers"><i class="fa fa-check"></i><b>4.6</b> Generating sequences of numbers</a><ul>
+<li class="chapter" data-level="4.6.1" data-path="numeric-vectors.html"><a href="numeric-vectors.html#generating-sequences-of-numbers-1"><i class="fa fa-check"></i><b>4.6.1</b> Generating sequences of numbers</a></li>
+<li class="chapter" data-level="4.6.2" data-path="numeric-vectors.html"><a href="numeric-vectors.html#generating-repeated-sequences-of-numbers"><i class="fa fa-check"></i><b>4.6.2</b> Generating repeated sequences of numbers</a></li>
+</ul></li>
+<li class="chapter" data-level="4.7" data-path="numeric-vectors.html"><a href="numeric-vectors.html#vectorised-operations"><i class="fa fa-check"></i><b>4.7</b> Vectorised operations</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="other-kinds-of-vectors.html"><a href="other-kinds-of-vectors.html"><i class="fa fa-check"></i><b>5</b> Other kinds of vectors</a><ul>
+<li class="chapter" data-level="5.1" data-path="other-kinds-of-vectors.html"><a href="other-kinds-of-vectors.html#other-vectors"><i class="fa fa-check"></i><b>5.1</b> Introduction</a></li>
+<li class="chapter" data-level="5.2" data-path="other-kinds-of-vectors.html"><a href="other-kinds-of-vectors.html#character-vectors"><i class="fa fa-check"></i><b>5.2</b> Character vectors</a></li>
+<li class="chapter" data-level="5.3" data-path="other-kinds-of-vectors.html"><a href="other-kinds-of-vectors.html#logical-vectors"><i class="fa fa-check"></i><b>5.3</b> Logical vectors</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="extracting-subsets-of-vectors.html"><a href="extracting-subsets-of-vectors.html"><i class="fa fa-check"></i><b>6</b> Extracting subsets of vectors</a><ul>
+<li class="chapter" data-level="6.1" data-path="other-kinds-of-vectors.html"><a href="other-kinds-of-vectors.html#other-vectors"><i class="fa fa-check"></i><b>6.1</b> Introduction</a></li>
+<li class="chapter" data-level="6.2" data-path="extracting-subsets-of-vectors.html"><a href="extracting-subsets-of-vectors.html#subsetting-by-position"><i class="fa fa-check"></i><b>6.2</b> Subsetting by position</a></li>
+<li class="chapter" data-level="6.3" data-path="extracting-subsets-of-vectors.html"><a href="extracting-subsets-of-vectors.html#subsetting-with-logical-operators"><i class="fa fa-check"></i><b>6.3</b> Subsetting with logical operators</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="getting-help-1.html"><a href="getting-help-1.html"><i class="fa fa-check"></i><b>7</b> Getting help</a><ul>
+<li class="chapter" data-level="7.1" data-path="getting-help-1.html"><a href="getting-help-1.html#console-help"><i class="fa fa-check"></i><b>7.1</b> Introduction</a></li>
+<li class="chapter" data-level="7.2" data-path="getting-help-1.html"><a href="getting-help-1.html#browsing-the-help-system"><i class="fa fa-check"></i><b>7.2</b> Browsing the help system</a></li>
+<li class="chapter" data-level="7.3" data-path="getting-help-1.html"><a href="getting-help-1.html#searching-for-help-files"><i class="fa fa-check"></i><b>7.3</b> Searching for help files</a></li>
+<li class="chapter" data-level="7.4" data-path="getting-help-1.html"><a href="getting-help-1.html#nav-help"><i class="fa fa-check"></i><b>7.4</b> Navigating help files</a></li>
+<li class="chapter" data-level="7.5" data-path="getting-help-1.html"><a href="getting-help-1.html#vignettes"><i class="fa fa-check"></i><b>7.5</b> Vignettes and demos</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="packages.html"><a href="packages.html"><i class="fa fa-check"></i><b>8</b> Packages</a><ul>
+<li class="chapter" data-level="8.1" data-path="packages.html"><a href="packages.html#package-system"><i class="fa fa-check"></i><b>8.1</b> The R package system</a></li>
+<li class="chapter" data-level="8.2" data-path="packages.html"><a href="packages.html#task-views"><i class="fa fa-check"></i><b>8.2</b> Task views</a></li>
+<li class="chapter" data-level="8.3" data-path="packages.html"><a href="packages.html#use-packages"><i class="fa fa-check"></i><b>8.3</b> Using packages</a><ul>
+<li class="chapter" data-level="8.3.1" data-path="packages.html"><a href="packages.html#viewing-installed-packages"><i class="fa fa-check"></i><b>8.3.1</b> Viewing installed packages</a></li>
+<li class="chapter" data-level="8.3.2" data-path="packages.html"><a href="packages.html#installing-packages"><i class="fa fa-check"></i><b>8.3.2</b> Installing packages</a></li>
+<li class="chapter" data-level="8.3.3" data-path="packages.html"><a href="packages.html#loading-and-attaching-packages"><i class="fa fa-check"></i><b>8.3.3</b> Loading and attaching packages</a></li>
+<li class="chapter" data-level="8.3.4" data-path="packages.html"><a href="packages.html#an-analogy"><i class="fa fa-check"></i><b>8.3.4</b> An analogy</a></li>
+</ul></li>
+</ul></li>
+<li class="part"><span><b>II Data Wrangling</b></span></li>
+<li class="chapter" data-level="9" data-path="data-frames.html"><a href="data-frames.html"><i class="fa fa-check"></i><b>9</b> Data frames</a><ul>
+<li class="chapter" data-level="9.1" data-path="data-frames.html"><a href="data-frames.html#introduction-2"><i class="fa fa-check"></i><b>9.1</b> Introduction</a></li>
+<li class="chapter" data-level="9.2" data-path="data-frames.html"><a href="data-frames.html#data-frames-intro"><i class="fa fa-check"></i><b>9.2</b> Data frames</a></li>
+<li class="chapter" data-level="9.3" data-path="data-frames.html"><a href="data-frames.html#exploring-data-frames"><i class="fa fa-check"></i><b>9.3</b> Exploring data frames</a></li>
+<li class="chapter" data-level="9.4" data-path="data-frames.html"><a href="data-frames.html#extract-data"><i class="fa fa-check"></i><b>9.4</b> Extracting data from data frames</a><ul>
+<li class="chapter" data-level="9.4.1" data-path="data-frames.html"><a href="data-frames.html#extracting-and-adding-a-single-variable"><i class="fa fa-check"></i><b>9.4.1</b> Extracting and adding a single variable</a></li>
+<li class="chapter" data-level="9.4.2" data-path="data-frames.html"><a href="data-frames.html#adding-a-variable-to-a-data-frame"><i class="fa fa-check"></i><b>9.4.2</b> Adding a variable to a data frame</a></li>
+<li class="chapter" data-level="9.4.3" data-path="data-frames.html"><a href="data-frames.html#subsetting-data-frames"><i class="fa fa-check"></i><b>9.4.3</b> Subsetting data frames</a></li>
+</ul></li>
+<li class="chapter" data-level="9.5" data-path="data-frames.html"><a href="data-frames.html#final-words"><i class="fa fa-check"></i><b>9.5</b> Final words</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="working-directories-and-data-files.html"><a href="working-directories-and-data-files.html"><i class="fa fa-check"></i><b>10</b> Working directories and data files</a><ul>
+<li class="chapter" data-level="10.1" data-path="working-directories-and-data-files.html"><a href="working-directories-and-data-files.html#introduction-3"><i class="fa fa-check"></i><b>10.1</b> Introduction</a></li>
+<li class="chapter" data-level="10.2" data-path="working-directories-and-data-files.html"><a href="working-directories-and-data-files.html#data-files-the-csv-format"><i class="fa fa-check"></i><b>10.2</b> Data files: the CSV format</a><ul>
+<li class="chapter" data-level="10.2.1" data-path="working-directories-and-data-files.html"><a href="working-directories-and-data-files.html#exporting-csv-files-from-excel"><i class="fa fa-check"></i><b>10.2.1</b> Exporting CSV files from Excel</a></li>
+</ul></li>
+<li class="chapter" data-level="10.3" data-path="working-directories-and-data-files.html"><a href="working-directories-and-data-files.html#the-working-directory"><i class="fa fa-check"></i><b>10.3</b> The working directory</a></li>
+<li class="chapter" data-level="10.4" data-path="working-directories-and-data-files.html"><a href="working-directories-and-data-files.html#importing-data-with-read.csv"><i class="fa fa-check"></i><b>10.4</b> Importing data with <code>read.csv</code></a></li>
+<li class="chapter" data-level="10.5" data-path="working-directories-and-data-files.html"><a href="working-directories-and-data-files.html#importing-data-with-rstudio-avoid-this"><i class="fa fa-check"></i><b>10.5</b> Importing data with RStudio (Avoid this!)</a></li>
+<li class="chapter" data-level="10.6" data-path="working-directories-and-data-files.html"><a href="working-directories-and-data-files.html#package-data"><i class="fa fa-check"></i><b>10.6</b> Package data</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="dplyr-and-the-tidy-data-concept.html"><a href="dplyr-and-the-tidy-data-concept.html"><i class="fa fa-check"></i><b>11</b> <strong>dplyr</strong> and the tidy data concept</a><ul>
+<li class="chapter" data-level="11.1" data-path="dplyr-and-the-tidy-data-concept.html"><a href="dplyr-and-the-tidy-data-concept.html#introduction-4"><i class="fa fa-check"></i><b>11.1</b> Introduction</a></li>
+<li class="chapter" data-level="11.2" data-path="dplyr-and-the-tidy-data-concept.html"><a href="dplyr-and-the-tidy-data-concept.html#why-dplyr"><i class="fa fa-check"></i><b>11.2</b> The value of <strong>dplyr</strong></a></li>
+<li class="chapter" data-level="11.3" data-path="dplyr-and-the-tidy-data-concept.html"><a href="dplyr-and-the-tidy-data-concept.html#tidy-data"><i class="fa fa-check"></i><b>11.3</b> Tidy data</a></li>
+<li class="chapter" data-level="11.4" data-path="dplyr-and-the-tidy-data-concept.html"><a href="dplyr-and-the-tidy-data-concept.html#more-dplyr"><i class="fa fa-check"></i><b>11.4</b> A quick look at <strong>dplyr</strong></a><ul>
+<li class="chapter" data-level="11.4.1" data-path="dplyr-and-the-tidy-data-concept.html"><a href="dplyr-and-the-tidy-data-concept.html#tibble-tbl-objects"><i class="fa fa-check"></i><b>11.4.1</b> Tibble (<code>tbl</code>) objects</a></li>
+<li class="chapter" data-level="11.4.2" data-path="dplyr-and-the-tidy-data-concept.html"><a href="dplyr-and-the-tidy-data-concept.html#the-glimpse-function"><i class="fa fa-check"></i><b>11.4.2</b> The <code>glimpse</code> function</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="working-directories-and-data-files-1.html"><a href="working-directories-and-data-files-1.html"><i class="fa fa-check"></i><b>12</b> Working directories and data files</a><ul>
+<li class="chapter" data-level="12.1" data-path="working-directories-and-data-files-1.html"><a href="working-directories-and-data-files-1.html#introduction-5"><i class="fa fa-check"></i><b>12.1</b> Introduction</a><ul>
+<li class="chapter" data-level="12.1.1" data-path="working-directories-and-data-files-1.html"><a href="working-directories-and-data-files-1.html#getting-ready"><i class="fa fa-check"></i><b>12.1.1</b> Getting ready</a></li>
+</ul></li>
+<li class="chapter" data-level="12.2" data-path="working-directories-and-data-files-1.html"><a href="working-directories-and-data-files-1.html#subset-variables-with-select"><i class="fa fa-check"></i><b>12.2</b> Subset variables with <code>select</code></a><ul>
+<li class="chapter" data-level="12.2.1" data-path="working-directories-and-data-files-1.html"><a href="working-directories-and-data-files-1.html#renaming-variables-with-select-and-rename"><i class="fa fa-check"></i><b>12.2.1</b> Renaming variables with <code>select</code> and <code>rename</code></a></li>
+</ul></li>
+<li class="chapter" data-level="12.3" data-path="working-directories-and-data-files-1.html"><a href="working-directories-and-data-files-1.html#creating-variables-with-mutate"><i class="fa fa-check"></i><b>12.3</b> Creating variables with <code>mutate</code></a><ul>
+<li class="chapter" data-level="12.3.1" data-path="working-directories-and-data-files-1.html"><a href="working-directories-and-data-files-1.html#transforming-and-dropping-variables"><i class="fa fa-check"></i><b>12.3.1</b> Transforming and dropping variables</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="working-directories-and-data-files-2.html"><a href="working-directories-and-data-files-2.html"><i class="fa fa-check"></i><b>13</b> Working directories and data files</a><ul>
+<li class="chapter" data-level="13.1" data-path="working-directories-and-data-files-2.html"><a href="working-directories-and-data-files-2.html#introduction-6"><i class="fa fa-check"></i><b>13.1</b> Introduction</a><ul>
+<li class="chapter" data-level="13.1.1" data-path="working-directories-and-data-files-2.html"><a href="working-directories-and-data-files-2.html#getting-ready-1"><i class="fa fa-check"></i><b>13.1.1</b> Getting ready</a></li>
+</ul></li>
+<li class="chapter" data-level="13.2" data-path="working-directories-and-data-files-2.html"><a href="working-directories-and-data-files-2.html#subset-observations-with-filter"><i class="fa fa-check"></i><b>13.2</b> Subset observations with <code>filter</code></a></li>
+<li class="chapter" data-level="13.3" data-path="working-directories-and-data-files-2.html"><a href="working-directories-and-data-files-2.html#reording-observations-with-arrange"><i class="fa fa-check"></i><b>13.3</b> Reording observations with <code>arrange</code></a></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="helper-functions.html"><a href="helper-functions.html"><i class="fa fa-check"></i><b>14</b> Helper functions</a><ul>
+<li class="chapter" data-level="14.1" data-path="helper-functions.html"><a href="helper-functions.html#introduction-7"><i class="fa fa-check"></i><b>14.1</b> Introduction</a></li>
+<li class="chapter" data-level="14.2" data-path="helper-functions.html"><a href="helper-functions.html#working-with-select"><i class="fa fa-check"></i><b>14.2</b> Working with <code>select</code></a><ul>
+<li class="chapter" data-level="14.2.1" data-path="helper-functions.html"><a href="helper-functions.html#working-with-mutate-and-transmute"><i class="fa fa-check"></i><b>14.2.1</b> Working with <code>mutate</code> and <code>transmute</code></a></li>
+<li class="chapter" data-level="14.2.2" data-path="helper-functions.html"><a href="helper-functions.html#working-with-filter"><i class="fa fa-check"></i><b>14.2.2</b> Working with <code>filter</code></a></li>
+</ul></li>
+</ul></li>
+<li class="part"><span><b>III Exporing Data</b></span></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">APS 135: Introduction to Exploratory Data Analysis with R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="working-directories-and-data-files-1" class="section level1">
+<h1><span class="header-section-number">Chapter 12</span> Working directories and data files</h1>
+<div id="introduction-5" class="section level2">
+<h2><span class="header-section-number">12.1</span> Introduction</h2>
+<p>This chapter will explore the the <strong>dplyr</strong> <code>select</code> and <code>mutate</code> verbs, as well as the related <code>rename</code> and <code>transmute</code> verbs. These four verbs are considered together because they all operate on the variables (i.e. the columns) of a data frame or tibble:</p>
+<ul>
+<li><p>The <code>select</code> function selects a subset of variables to retain and (optionally) renames them in the process.</p></li>
+<li><p>The <code>mutate</code> function creates new variables from preexisting ones and retains the original variables.</p></li>
+<li><p>The <code>rename</code> function renames one or more variables while keeping the remaining variable names unchanged.</p></li>
+<li><p>The <code>transmute</code> function creates new variables from preexisting ones and drops the original variables.</p></li>
+</ul>
+<div id="getting-ready" class="section level3">
+<h3><span class="header-section-number">12.1.1</span> Getting ready</h3>
+<p>A script that uses <strong>dplyr</strong> will typically start by loading and attaching the package:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">&quot;dplyr&quot;</span>)</code></pre></div>
+<p>Obviously we need to have first installed <code>dplyr</code> package for this to work.</p>
+<p>We’ll use the <code>iris</code> data set in the <strong>datasets</strong> package to illustrate the ideas in this chapter. The <strong>datasets</strong> package ships with R and is loaded and attached at start up, so there’s no need to do anything to make <code>iris</code> available. The <code>iris</code> data set is an ordinary data frame. Before we start working, it’s handy to convert this to a tibble so that it prints to the Console in a compact way:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">iris_tbl   &lt;-<span class="st"> </span><span class="kw">tbl_df</span>(iris)</code></pre></div>
+<p>We gave the new tibble version a new name. We didn’t have to do this, but it will remind us that we’re working with tibbles.</p>
+</div>
+</div>
+<div id="subset-variables-with-select" class="section level2">
+<h2><span class="header-section-number">12.2</span> Subset variables with <code>select</code></h2>
+<p>We use <code>select</code> to <strong>select variables</strong> from a data frame or tibble. This is typically used when we have a data set with many variables but only need to work with a subset of these. Basic usage of <code>select</code> looks like this:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">select</span>(data_set, vname1, vname2, ...)</code></pre></div>
+<p>take note: this is not an example we can run. This is a “pseudo code” example, designed to show, in abstract terms, how we use <code>select</code>:</p>
+<ul>
+<li><p>The first argument, <code>data_set</code> (“data object”), must be the name of the object containing our data.</p></li>
+<li><p>We then include a series of one or more additional arguments, where each one is the name of a variable in <code>data_set</code>. We’ve expressed this as <code>vname1, vname2, ...</code>, where <code>vname1</code> and <code>vname2</code> are names of the first two variables, and the <code>...</code> is acting as placeholder for the remaining variables (there could be any number of these).</p></li>
+</ul>
+<p>It’s easiest to understand how a function like <code>select</code> works by seeing it in action. We select the <code>Species</code>, <code>Petal.Length</code> and <code>Petal.Width</code> variables from <code>iris_tbl</code> like this:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">select</span>(iris_tbl, Species, Petal.Length, Petal.Width)</code></pre></div>
+<pre><code>## # A tibble: 150 × 3
+##    Species Petal.Length Petal.Width
+##     &lt;fctr&gt;        &lt;dbl&gt;       &lt;dbl&gt;
+## 1   setosa          1.4         0.2
+## 2   setosa          1.4         0.2
+## 3   setosa          1.3         0.2
+## 4   setosa          1.5         0.2
+## 5   setosa          1.4         0.2
+## 6   setosa          1.7         0.4
+## 7   setosa          1.4         0.3
+## 8   setosa          1.5         0.2
+## 9   setosa          1.4         0.2
+## 10  setosa          1.5         0.1
+## # ... with 140 more rows</code></pre>
+<p>Hopefully nothing about this example is surprising or confusing. There are a few things to notice about how <code>select</code> works though:</p>
+<ul>
+<li><p>The <code>select</code> function is one of those non-standard functions we briefly mentioned in the <a href="using-functions.html#using-functions">Using functions</a> chapter. This means the variable names should not be surrounded by quotes unless they have spaces in them (which is best avoided).</p></li>
+<li><p>The <code>select</code> function is just like other R functions: it does not have “side effects”. What this means is that it does not change the original <code>iris_tbl</code>. We printed the result produced by <code>select</code> to the Console, so we can’t access the new data set. If we need to access the result we have to assign it a name using <code>&lt;-</code>.</p></li>
+<li><p>The order of variables (i.e. the column order) in the resulting object is the same as the order in which they were supplied as arguments. This means we can reorder variables at the same time as selecting them if we need to.</p></li>
+<li><p>The <code>select</code> function will return the same kind of data object it is working on. It returns a data frame if our data was originally in a data frame and a tibble if it was a tibble. In this example, R prints a tibble because we had converted <code>iris_tbl</code> from a data frame to a tibble.</p></li>
+</ul>
+<p>It’s sometimes more convenient to use <code>select</code> to subset variables by specifying those we do <strong>not</strong> need, rather than specifying of the ones to keep. We use the <code>-</code> operator indicate that variables should be dropped. For example, to drop the <code>Petal.Width</code> and <code>Petal.Length</code> columns, we use:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">select</span>(iris_tbl, -Petal.Width, -Petal.Length)</code></pre></div>
+<pre><code>## # A tibble: 150 × 3
+##    Sepal.Length Sepal.Width Species
+##           &lt;dbl&gt;       &lt;dbl&gt;  &lt;fctr&gt;
+## 1           5.1         3.5  setosa
+## 2           4.9         3.0  setosa
+## 3           4.7         3.2  setosa
+## 4           4.6         3.1  setosa
+## 5           5.0         3.6  setosa
+## 6           5.4         3.9  setosa
+## 7           4.6         3.4  setosa
+## 8           5.0         3.4  setosa
+## 9           4.4         2.9  setosa
+## 10          4.9         3.1  setosa
+## # ... with 140 more rows</code></pre>
+<p>This returns a tibble with just the remaining variables:<code>Sepal.Length</code>, <code>Sepal.Width</code> and <code>Species</code>.</p>
+<p>The <code>select</code> function can also be used to grab (or drop) a set of variables that occur in a sequence next to one another. We specify a series of adjacent variables using the <code>:</code> operator. This must be used with two variable names, one on the left hand side and one on the right. When we use <code>:</code> like this, <code>select</code> will subset both those variables along with any others that fall in between them. For example, if we need the two <code>Petal</code> variables and <code>Species</code>, we use:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">select</span>(iris_tbl, Petal.Length:Species)</code></pre></div>
+<pre><code>## # A tibble: 150 × 3
+##    Petal.Length Petal.Width Species
+##           &lt;dbl&gt;       &lt;dbl&gt;  &lt;fctr&gt;
+## 1           1.4         0.2  setosa
+## 2           1.4         0.2  setosa
+## 3           1.3         0.2  setosa
+## 4           1.5         0.2  setosa
+## 5           1.4         0.2  setosa
+## 6           1.7         0.4  setosa
+## 7           1.4         0.3  setosa
+## 8           1.5         0.2  setosa
+## 9           1.4         0.2  setosa
+## 10          1.5         0.1  setosa
+## # ... with 140 more rows</code></pre>
+<p>The <code>:</code> operator can be combined with <code>-</code> if we need to drop a series of variables according to their position in a data frame or tibble:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">select</span>(iris_tbl, -(Petal.Length:Species))</code></pre></div>
+<pre><code>## # A tibble: 150 × 2
+##    Sepal.Length Sepal.Width
+##           &lt;dbl&gt;       &lt;dbl&gt;
+## 1           5.1         3.5
+## 2           4.9         3.0
+## 3           4.7         3.2
+## 4           4.6         3.1
+## 5           5.0         3.6
+## 6           5.4         3.9
+## 7           4.6         3.4
+## 8           5.0         3.4
+## 9           4.4         2.9
+## 10          4.9         3.1
+## # ... with 140 more rows</code></pre>
+<p>The extra <code>( )</code> around are <code>Petal.Length:Species</code> important here — <code>select</code> will throw an error if we don’t include them.</p>
+<div id="renaming-variables-with-select-and-rename" class="section level3">
+<h3><span class="header-section-number">12.2.1</span> Renaming variables with <code>select</code> and <code>rename</code></h3>
+<p>In addition to selecting a subset of variables, the <code>select</code> function can also rename variables at the same time. To do this, we have to name the arguments using <code>=</code>, placing the new name on the left hand side. For example, to select the<code>Species</code>, <code>Petal.Length</code> and <code>Petal.Width</code> variables from <code>iris_tbl</code>, but also rename <code>Petal.Length</code> and <code>Petal.Width</code> to <code>Petal_Length</code> and <code>Petal_Width</code>, we use:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">select</span>(iris_tbl, Species, <span class="dt">Petal_Length =</span> Petal.Length, <span class="dt">Petal_Width =</span> Petal.Width)</code></pre></div>
+<pre><code>## # A tibble: 150 × 3
+##    Species Petal_Length Petal_Width
+##     &lt;fctr&gt;        &lt;dbl&gt;       &lt;dbl&gt;
+## 1   setosa          1.4         0.2
+## 2   setosa          1.4         0.2
+## 3   setosa          1.3         0.2
+## 4   setosa          1.5         0.2
+## 5   setosa          1.4         0.2
+## 6   setosa          1.7         0.4
+## 7   setosa          1.4         0.3
+## 8   setosa          1.5         0.2
+## 9   setosa          1.4         0.2
+## 10  setosa          1.5         0.1
+## # ... with 140 more rows</code></pre>
+<p>Renaming variables is a common task when working with data frames and tibbles. What should we do if the <em>only</em> thing we would like to achieve is to rename a variables, rather than rename and select variables? The <code>dplyr</code> provides an additional function called <code>rename</code> for this purpose. This function renames certain variables while retaining all others. It works in a similar way to <code>select</code>. For example, to rename <code>Petal.Length</code> and <code>Petal.Width</code> to <code>Petal_Length</code> and <code>Petal_Width</code>, we use:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">rename</span>(iris_tbl, <span class="dt">Petal_Length =</span> Petal.Length, <span class="dt">Petal_Width =</span> Petal.Width)</code></pre></div>
+<pre><code>## # A tibble: 150 × 5
+##    Sepal.Length Sepal.Width Petal_Length Petal_Width Species
+##           &lt;dbl&gt;       &lt;dbl&gt;        &lt;dbl&gt;       &lt;dbl&gt;  &lt;fctr&gt;
+## 1           5.1         3.5          1.4         0.2  setosa
+## 2           4.9         3.0          1.4         0.2  setosa
+## 3           4.7         3.2          1.3         0.2  setosa
+## 4           4.6         3.1          1.5         0.2  setosa
+## 5           5.0         3.6          1.4         0.2  setosa
+## 6           5.4         3.9          1.7         0.4  setosa
+## 7           4.6         3.4          1.4         0.3  setosa
+## 8           5.0         3.4          1.5         0.2  setosa
+## 9           4.4         2.9          1.4         0.2  setosa
+## 10          4.9         3.1          1.5         0.1  setosa
+## # ... with 140 more rows</code></pre>
+<p>Notice that the rename function also preserves the order of the variables found in the original data.</p>
+</div>
+</div>
+<div id="creating-variables-with-mutate" class="section level2">
+<h2><span class="header-section-number">12.3</span> Creating variables with <code>mutate</code></h2>
+<p>We use <code>mutate</code> to <strong>add new variables</strong> to a data frame or tibble. This is useful if we need to construct one or more derived variables to support an analysis. Basic usage of <code>mutate</code> looks like this:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">mutate</span>(data_set, &lt;expression1&gt;, &lt;expression2&gt;, ...)</code></pre></div>
+<p>Again, this is not an example we can run; it’s pseudo code that highlights in abstract terms how to use <code>mutate</code>. As always with <code>dplyr</code>, the first argument, <code>data_set</code>, should be the name of the object containing our data. We then include a series of one or more additional arguments, where each of these is a valid R expression involving one or more variables in <code>data_set</code>. We’ve have expressed these as <code>&lt;expression1&gt;, &lt;expression2&gt;</code>, where <code>&lt;expression1&gt;</code> and <code>&lt;expression2&gt;</code> represent the first two expressions, and the <code>...</code> is acting as placeholder for the remaining expressions. Remember, this is not valid R code. It is just intended to demonstrate the general usage of <code>mutate</code>.</p>
+<p>To see <code>mutate</code> in action, let’s construct a new version of <code>iris_tbl</code> that contains a variable summarising the approximate area of sepals:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">mutate</span>(iris_tbl, Sepal.Width *<span class="st"> </span>Sepal.Length)</code></pre></div>
+<pre><code>## # A tibble: 150 × 6
+##    Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+##           &lt;dbl&gt;       &lt;dbl&gt;        &lt;dbl&gt;       &lt;dbl&gt;  &lt;fctr&gt;
+## 1           5.1         3.5          1.4         0.2  setosa
+## 2           4.9         3.0          1.4         0.2  setosa
+## 3           4.7         3.2          1.3         0.2  setosa
+## 4           4.6         3.1          1.5         0.2  setosa
+## 5           5.0         3.6          1.4         0.2  setosa
+## 6           5.4         3.9          1.7         0.4  setosa
+## 7           4.6         3.4          1.4         0.3  setosa
+## 8           5.0         3.4          1.5         0.2  setosa
+## 9           4.4         2.9          1.4         0.2  setosa
+## 10          4.9         3.1          1.5         0.1  setosa
+## # ... with 140 more rows, and 1 more variables: `Sepal.Width *
+## #   Sepal.Length` &lt;dbl&gt;</code></pre>
+<p>This creates a copy of <code>iris_tbl</code> with a new column called <code>Sepal.Width * Sepal.Length</code> (mentioned at the bottom of the printed output). Most of the rules that apply to <code>select</code> also apply to <code>mutate</code>:</p>
+<ul>
+<li><p>The expression that performs the required calculation is not surrounded by quotes. This makes sense, because an expression is meant to be evaluated so that it “does something”. It is not a value.</p></li>
+<li><p>Once again, we just printed the result produced by <code>mutate</code> to the Console, rather than assigning the result a name using <code>&lt;-</code>. The <code>mutate</code> function does not have side effects, meaning it does not change the original <code>iris_tbl</code> in any way.</p></li>
+<li><p>The <code>select</code> function returns the same kind of data object as the one it is working on: a data frame if our data was originally in a data frame, a tibble if it was a tibble.</p></li>
+</ul>
+<p>Creating a variable called something like <code>Sepal.Width * Sepal.Length</code> is not exactly ideal because it’s a difficult name to work with. The <code>mutate</code> function can name variables at the same time as they are created. We have to name the arguments using <code>=</code>, placing the name on the left hand side, to do this. Here’s how to use this construct to name the new area variable <code>Sepal.Area</code>:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">mutate</span>(iris_tbl, <span class="dt">Sepal.Area =</span> Sepal.Width *<span class="st"> </span>Sepal.Length)</code></pre></div>
+<pre><code>## # A tibble: 150 × 6
+##    Sepal.Length Sepal.Width Petal.Length Petal.Width Species Sepal.Area
+##           &lt;dbl&gt;       &lt;dbl&gt;        &lt;dbl&gt;       &lt;dbl&gt;  &lt;fctr&gt;      &lt;dbl&gt;
+## 1           5.1         3.5          1.4         0.2  setosa      17.85
+## 2           4.9         3.0          1.4         0.2  setosa      14.70
+## 3           4.7         3.2          1.3         0.2  setosa      15.04
+## 4           4.6         3.1          1.5         0.2  setosa      14.26
+## 5           5.0         3.6          1.4         0.2  setosa      18.00
+## 6           5.4         3.9          1.7         0.4  setosa      21.06
+## 7           4.6         3.4          1.4         0.3  setosa      15.64
+## 8           5.0         3.4          1.5         0.2  setosa      17.00
+## 9           4.4         2.9          1.4         0.2  setosa      12.76
+## 10          4.9         3.1          1.5         0.1  setosa      15.19
+## # ... with 140 more rows</code></pre>
+<p>We can create more than one variable by supplying <code>mutate</code> multiple (named) arguments:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">mutate</span>(iris_tbl, 
+       <span class="dt">Sepal.Area =</span> Sepal.Width *<span class="st"> </span>Sepal.Length,
+       <span class="dt">Petal.Area =</span> Petal.Width *<span class="st"> </span>Petal.Length,
+       <span class="dt">Area.Ratio =</span> Petal.Area /<span class="st"> </span>Petal.Area)</code></pre></div>
+<pre><code>## # A tibble: 150 × 8
+##    Sepal.Length Sepal.Width Petal.Length Petal.Width Species Sepal.Area
+##           &lt;dbl&gt;       &lt;dbl&gt;        &lt;dbl&gt;       &lt;dbl&gt;  &lt;fctr&gt;      &lt;dbl&gt;
+## 1           5.1         3.5          1.4         0.2  setosa      17.85
+## 2           4.9         3.0          1.4         0.2  setosa      14.70
+## 3           4.7         3.2          1.3         0.2  setosa      15.04
+## 4           4.6         3.1          1.5         0.2  setosa      14.26
+## 5           5.0         3.6          1.4         0.2  setosa      18.00
+## 6           5.4         3.9          1.7         0.4  setosa      21.06
+## 7           4.6         3.4          1.4         0.3  setosa      15.64
+## 8           5.0         3.4          1.5         0.2  setosa      17.00
+## 9           4.4         2.9          1.4         0.2  setosa      12.76
+## 10          4.9         3.1          1.5         0.1  setosa      15.19
+## # ... with 140 more rows, and 2 more variables: Petal.Area &lt;dbl&gt;,
+## #   Area.Ratio &lt;dbl&gt;</code></pre>
+<p>Notice that here we placed each argument on a new line, remembering the comma to separate arguments. There is nothing to stop us doing this because R ignores white space. This is useful though, because it allows us, the user, to makes long function calls easier to read by breaking them up on different lines.</p>
+<p>This last example reveals a nice feature of <code>mutate</code>: we can use newly created variables in further calculations. Here we constructed approximate sepal and petal area variables, and then used these to construct a third variable containing the ratio of these two quantities, <code>Area.Ratio</code>.</p>
+<div id="transforming-and-dropping-variables" class="section level3">
+<h3><span class="header-section-number">12.3.1</span> Transforming and dropping variables</h3>
+<p>Occasionally we may want to construct one or more new variables, and then drop all other variables in the original dataset. The <code>transmute</code> function is designed to do this. It works exactly like <code>mutate</code>, but it has a slightly different behaviour:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">transmute</span>(iris_tbl,
+          <span class="dt">Sepal.Area =</span> Sepal.Width *<span class="st"> </span>Sepal.Length,
+          <span class="dt">Petal.Area =</span> Petal.Width *<span class="st"> </span>Petal.Length,
+          <span class="dt">Area.Ratio =</span> Petal.Area /<span class="st"> </span>Petal.Area)</code></pre></div>
+<pre><code>## # A tibble: 150 × 3
+##    Sepal.Area Petal.Area Area.Ratio
+##         &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt;
+## 1       17.85       0.28          1
+## 2       14.70       0.28          1
+## 3       15.04       0.26          1
+## 4       14.26       0.30          1
+## 5       18.00       0.28          1
+## 6       21.06       0.68          1
+## 7       15.64       0.42          1
+## 8       17.00       0.30          1
+## 9       12.76       0.28          1
+## 10      15.19       0.15          1
+## # ... with 140 more rows</code></pre>
+<p>Here we repeated the previous example, but now only the new variables were retained in the resulting tibble. If we also want to retain one or more variables without altering them we just have to pass them as unnamed arguments. For example, if we need to retain species identity in the output, we use:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">transmute</span>(iris_tbl,
+          Species,
+          <span class="dt">Sepal.Area =</span> Sepal.Width *<span class="st"> </span>Sepal.Length,
+          <span class="dt">Petal.Area =</span> Petal.Width *<span class="st"> </span>Petal.Length,
+          <span class="dt">Area.Ratio =</span> Petal.Area /<span class="st"> </span>Petal.Area)</code></pre></div>
+<pre><code>## # A tibble: 150 × 4
+##    Species Sepal.Area Petal.Area Area.Ratio
+##     &lt;fctr&gt;      &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt;
+## 1   setosa      17.85       0.28          1
+## 2   setosa      14.70       0.28          1
+## 3   setosa      15.04       0.26          1
+## 4   setosa      14.26       0.30          1
+## 5   setosa      18.00       0.28          1
+## 6   setosa      21.06       0.68          1
+## 7   setosa      15.64       0.42          1
+## 8   setosa      17.00       0.30          1
+## 9   setosa      12.76       0.28          1
+## 10  setosa      15.19       0.15          1
+## # ... with 140 more rows</code></pre>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="dplyr-and-the-tidy-data-concept.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="working-directories-and-data-files-2.html" class="navigation navigation-next " aria-label="Next page""><i class="fa fa-angle-right"></i></a>
+
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/dzchilds/eda-for-bio/edit/master/2_04_dplyr_variables.Rmd",
+"text": "Edit"
+},
+"download": null,
+"toc": {
+"collapse": "section"
+},
+"split_by": "section"
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    if (location.protocol !== "file:" && /^https?:/.test(script.src))
+      script.src  = script.src.replace(/^https?:/, '');
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

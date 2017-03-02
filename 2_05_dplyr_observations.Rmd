@@ -1,0 +1,99 @@
+# Working with observations
+
+```{r, include=FALSE}
+library("dplyr")
+library("nasaweather")
+```
+
+## Introduction 
+
+This topic will explore the `filter` and `arrange` verbs. These are discussed together because they are used to manipulate observations (i.e. rows) of a data frame or tibble: 
+
+-  The `filter` function extracts a subset of observations based on supplied conditions involving the variables in our data. 
+
+-  The `arrange` function reorders the rows according to the values in one or more variables.
+
+### Getting ready
+
+We should start a new script by loading and attaching the **dplyr** package:
+```{r, eval=FALSE}
+library("dplyr")
+```
+We're going to use the `storms` data set in the **nasaweather** package this time. This means we need to load and attach the **nasaweather** package to make `storms` available:
+```{r, eval=FALSE}
+library("nasaweather")
+```
+The `storms` data set is an ordinary data frame, so let's convert it to a tibble so that it prints nicely:
+```{r}
+storms_tbl <- tbl_df(storms)
+```
+
+## Subset observations with `filter`
+
+We use `filter` to __subset observations__ in a an data frame or tibble containing our data. This is often done when we want to limit an analysis to a subset of observations. Basic usage of `filter` looks something like this:
+```{r, eval=FALSE}
+filter(data_set, <expression1>, <expression1>, ...)
+```
+Remember, this is pseudo code (it's not an example we can run). The first argument, `data_set`, must the name of the object containing our data. We then include one or more additional arguments, where each of these is a valid R expression involving one or more variables in `data_set`. Each expression must return a logical vector.  We've expressed these as `<expression1>, <expression2>, ...`, where `<expression1>` and `<expression2>` represent the first two  expressions, and the `...` is acting as placeholder for the remaining expressions.
+
+To see how `filter` in action, we'll use it to subset observations in the storms_tbl dataset, based on two relational criteria:
+```{r}
+filter(storms_tbl, pressure <= 960, wind >= 100)
+```
+In this example we've created a subset of `storms_tbl` that only includes observation where the `pressure` variable is less than or equal to 960 and the `wind` variable is greater than or equal to 100. Both conditions must be met for an observation to be included in the resulting tibble. The conditions are not combined as an either/or operation.
+
+This is probably starting to become repetitious, but there are a few features of `filter` that we should note:
+
+* Each expression that performs a comparison is not surrounded by quotes. This makes sense, because the expression is meant to be evaluated to return a logical vector -- it is not "a value".
+
+* As usual, the result produced by `mutate` in our example was printed to the Console. The `mutate` function did not change the original `storms_tbl` in any way (no side effects!).
+
+* The `filter` function will return the same kind of data object it is working on: it returns a data frame if our data was originally in a data frame, and a tibble if it was a tibble.
+
+We can achieve the same result as the above example in a different way. This involves the `&` operator:
+```{r}
+filter(storms_tbl, pressure <= 960 & wind >= 100)
+```
+Once again, we created a subset of `storms_tbl` that only includes observation where the `pressure` variable is less than or equal to 960 _and_ the `wind` variable is greater than or equal to 100. However, rather than supplying `pressure <= 960` and `wind >= 100` as two arguments, we used a single R expression, combining them with the `&`. We're pointing this out because we sometimes need to subset on an either/or basis, and in those cases we have to use this second approach. For example:
+```{r}
+filter(storms_tbl, pressure <= 960 | wind >= 100)
+```
+This creates a subset of `storms_tbl` that only includes observation where the `pressure` variable is less than or equal to 960 _or_ the `wind` variable is greater than or equal to 100. 
+
+We're also not restricted to using some combination of relational operators such as `==`, `>=` or `!=` when working with `filter`. The conditions specified in the `filter` function can be any expression that returns a logical vector. The only constraint is that the length of this logical vector has to equal the lenght of its input vectors. 
+
+Here's an example. The group membership `%in%` operator (part of base R, not `dplyr`) is used to determine whether the values in one vector occurs among the values in a second vector. It's used like this: `vec1 %in% vec2`. This returns a vector where the values are `TRUE` if an element of `vec1` is in `vec2`, and `FALSE` otherwise. We can use the `%in%` operator with `filter` to select to subset rows by the values of one or more variables:
+```{r}
+sub_storms_tbl <- filter(storms_tbl, name %in% c("Roxanne", "Marilyn", "Dolly"))
+# print the 
+sub_storms_tbl $ name
+```
+
+## Reording observations with `arrange`
+
+We use `arrange` to __reorder the rows__ of an object containing our data. This is sometimes used when we want to inspect a dataset to look for associations among the different variables. This is hard to do if they are not ordered. Basic usage of `arrange` looks like this:
+```{r, eval=FALSE}
+arrange(data_set, vname1, vname2, ...)
+```
+Yes, this is pseudo-code. As always, the first argument, `data_set`, is the name of the object containing our data. We then include a series of one or more additional arguments, where each of these should be the name of a variable in `data_set`: `vname1` and `vname2` are names of the first two ordering variables, and the `...` is acting as placeholder for the remaining variables.
+
+To see `arrange` in action, let's construct a new version of `storms_tbl` where the rows have been reordered first by `wind`, and then by `pressure`:
+```{r}
+arrange(storms_tbl, wind, pressure)
+```
+This creates a new version of `storms_tbl` where the rows are sorted according to the values of `wind` and `pressure` in ascending order -- i.e. from smallest to largest. Since `wind` appears before `pressure` among the arguments, the values of `pressure` are only used to break ties within any particular value of `wind`.
+
+For the sake of avoiding any doubt about how `arrange` works, let's quickly review its behaviour:
+
+* The variable names used as arguments of `arrange` are not surrounded by quotes.
+
+* The `arrange` function did not change the original `iris_tbl` in any way.
+
+* The `arrange` function will return the same kind of data object it is working on. 
+
+There isn't much else we need to to learn about `arrange`. By default, it sorts variables in ascending order. If we need it to sort a variable in descending order, we wrap the variable name in the `desc` function:
+```{r}
+arrange(storms_tbl, wind, desc(pressure))
+```
+This creates a new version of `storms_tbl` where the rows are sorted according to the values of `wind` and `pressure`, in ascending and descending order, respectively.
+

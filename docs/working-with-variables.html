@@ -33,8 +33,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
-<link rel="prev" href="numeric-vectors.html">
-<link rel="next" href="extracting-subsets-of-vectors.html">
+<link rel="prev" href="dplyr-and-the-tidy-data-concept.html">
+<link rel="next" href="working-with-observations.html">
 
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -287,84 +287,255 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="other-kinds-of-vectors" class="section level1">
-<h1><span class="header-section-number">Chapter 5</span> Other kinds of vectors</h1>
-<div id="other-vectors" class="section level2">
-<h2><span class="header-section-number">5.1</span> Introduction</h2>
-<p>The data we collect and analyse are often in the form of numbers, so it comes as no surprise that we work with numeric vectors a lot in R. Nonetheless, we also sometimes need to represent other kinds of vectors, either to represent different types of data, or to help us manipulate our data. This chapter introduces two new types of atomic vector to help us do this: character vectors and logical vectors.</p>
-</div>
-<div id="character-vectors" class="section level2">
-<h2><span class="header-section-number">5.2</span> Character vectors</h2>
-<p>The elements of <strong>character vectors</strong> are what are known as a “character string” (or “string” if we are feeling lazy). The term “character string” refers a sequence of characters, such as “Treatment 1”, “University of Sheffield”, “Population Density”. A character vector is an atomic vector that stores an ordered collection of one or more character strings.</p>
-<p>If we want to construct a character vector in R we have to place double (<code>&quot;</code>) or single (<code>'</code>) quotation marks around the characters. For example, we can print the name “Dylan” to the Console like this:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="st">&quot;Dylan&quot;</span></code></pre></div>
-<pre><code>## [1] &quot;Dylan&quot;</code></pre>
-<p>Notice the <code>[1]</code>. This shows that what we just printed is an atomic vector of some kind. We know it’s a character vector because the output is printed with double quotes around the value. We often need to make simple character vectors containing only one value—for example, to set the values of arguments to a function.</p>
-<p>The quotation marks are not optional—they tell R we want to treat whatever is inside them as a literal value. The quoting is important. If we try to do the same thing as above without the quotes we end up with an error:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">Dylan</code></pre></div>
-<pre><code>## Error in eval(expr, envir, enclos): object &#39;Dylan&#39; not found</code></pre>
-<p>What happened? When the interpreter sees the word <code>Dylan</code> without quotes it assumes that this must be the name of a variable, so it goes in search of it in the global environment. We haven’t made a variable called Dylan, so there is no way to evaluate the expression and R spits out an error to let us know there’s a problem.</p>
-<p>Longer character vectors are typically constructed to represent data of some kind. The <code>c</code> function is often a good starting point for this kind of thing:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># make a length-3 character vector</span>
-my_name &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Dylan&quot;</span>, <span class="st">&quot;Zachary&quot;</span>, <span class="st">&quot;Childs&quot;</span>)
-my_name</code></pre></div>
-<pre><code>## [1] &quot;Dylan&quot;   &quot;Zachary&quot; &quot;Childs&quot;</code></pre>
-<p>Here we made a length-3 character vector, with elements corresponding to a first name, middle name, and last name. If we want to extract one or more elements from a character vector by their position</p>
-<p>Take note, this is <strong>not</strong> equivalent to the above :</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">my_name &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Dylan Zachary Childs&quot;</span>)
-my_name</code></pre></div>
-<pre><code>## [1] &quot;Dylan Zachary Childs&quot;</code></pre>
-<p>The only element of this character vector is a single character string containing the first, middle and last name separated by spaces. We didn’t need to use the the <code>c</code> function here because we were only ever working with a length-1 character vector. i.e. we could have typed <code>&quot;Dylan Zachary Childs&quot;</code> and we would have ended up with exactly the same text printed at the Console.</p>
-<p>We can construct more complicated, repeating character vectors with <code>rep</code>. This works on character vectors in exactly the same way as it does on numeric vectors:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">c_vec &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Dylan&quot;</span>, <span class="st">&quot;Zachary&quot;</span>, <span class="st">&quot;Childs&quot;</span>)
-<span class="kw">rep</span>(c_vec, <span class="dt">each =</span> <span class="dv">2</span>, <span class="dt">times =</span> <span class="dv">3</span>)</code></pre></div>
-<pre><code>##  [1] &quot;Dylan&quot;   &quot;Dylan&quot;   &quot;Zachary&quot; &quot;Zachary&quot; &quot;Childs&quot;  &quot;Childs&quot;  &quot;Dylan&quot;  
-##  [8] &quot;Dylan&quot;   &quot;Zachary&quot; &quot;Zachary&quot; &quot;Childs&quot;  &quot;Childs&quot;  &quot;Dylan&quot;   &quot;Dylan&quot;  
-## [15] &quot;Zachary&quot; &quot;Zachary&quot; &quot;Childs&quot;  &quot;Childs&quot;</code></pre>
-<p>Each element was replicated twice (<code>each = 2</code>), and then the whole vector was replicated three times (<code>times = 3</code>), end to end.</p>
-<p>What about the <code>seq</code> function? Hopefully it is fairly obvious that we can’t use this function to build a character vector. The <code>seq</code> function is designed to make sequences of numbers, from a starting value, to another. The notion of a sequence of character strings – for example, from <code>&quot;Dylan&quot;</code> to <code>&quot;Childs&quot;</code> – is meaningless.</p>
-</div>
-<div id="logical-vectors" class="section level2">
-<h2><span class="header-section-number">5.3</span> Logical vectors</h2>
-<p>The elements of <strong>logical vectors</strong> only take two values: <code>TRUE</code> or <code>FALSE</code>. Don’t let the simplicity of logical vectors fool you—they’re very useful. As with other kinds of atomic vectors the <code>c</code> and <code>rep</code> functions can be used to construct a logical vector:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">l_vec &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="ot">TRUE</span>, <span class="ot">FALSE</span>)
-<span class="kw">rep</span>(l_vec, <span class="dt">times =</span> <span class="dv">2</span>)</code></pre></div>
-<pre><code>## [1]  TRUE FALSE  TRUE FALSE</code></pre>
-<p>Hopefully nothing about that output is surprising by this point.</p>
-<p>So why are logical vectors useful? Their allow us to represent the results of questions such as, “is x greater than y” or “is x equal to y”. The results of such comparisons may then be used to carry out various kinds of subsetting operations based.</p>
-<p>Let’s first look at how we use logical vectors to evaluate comparisons. Before we can do that though we need to introduce <strong>relational operators</strong>. These sound fancy, but they are very simple: we use relational operators to evaluate the relative value of vector elements. Six are available in R:</p>
+<div id="working-with-variables" class="section level1">
+<h1><span class="header-section-number">Chapter 12</span> Working with variables</h1>
+<div id="introduction-5" class="section level2">
+<h2><span class="header-section-number">12.1</span> Introduction</h2>
+<p>This chapter will explore the the <strong>dplyr</strong> <code>select</code> and <code>mutate</code> verbs, as well as the related <code>rename</code> and <code>transmute</code> verbs. These four verbs are considered together because they all operate on the variables (i.e. the columns) of a data frame or tibble:</p>
 <ul>
-<li><code>x &lt; y</code>: is x less than y?</li>
-<li><code>x &gt; y</code>: is x greater than y?</li>
-<li><code>x &lt;= y</code>: is x less than or equal to y?</li>
-<li><code>x &gt;= y</code>: is x greater than or equal to y?</li>
-<li><code>x == y</code>: is x equal to y?</li>
-<li><code>x != y</code>: is x not equal to y?</li>
+<li><p>The <code>select</code> function selects a subset of variables to retain and (optionally) renames them in the process.</p></li>
+<li><p>The <code>mutate</code> function creates new variables from preexisting ones and retains the original variables.</p></li>
+<li><p>The <code>rename</code> function renames one or more variables while keeping the remaining variable names unchanged.</p></li>
+<li><p>The <code>transmute</code> function creates new variables from preexisting ones and drops the original variables.</p></li>
 </ul>
-<p>The easiest way to understand how these work is to simply use them. We need a couple of numeric variables first:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="dv">11</span>:<span class="dv">20</span>
-y &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">3</span>, <span class="dv">30</span>, <span class="dt">by =</span> <span class="dv">3</span>)
-x</code></pre></div>
-<pre><code>##  [1] 11 12 13 14 15 16 17 18 19 20</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">y</code></pre></div>
-<pre><code>##  [1]  3  6  9 12 15 18 21 24 27 30</code></pre>
-<p>Now, if we need to evaluate and represent a question like, “is x greater than than y”, we can use either <code>&lt;</code> or <code>&gt;</code>:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &gt;<span class="st"> </span>y</code></pre></div>
-<pre><code>##  [1]  TRUE  TRUE  TRUE  TRUE FALSE FALSE FALSE FALSE FALSE FALSE</code></pre>
-<p>What do you notice about this simple example? The <code>x &gt; y</code> expression produces a logical vector, with <code>TRUE</code> values associated with elements in <code>x</code> are less than <code>y</code>, and <code>FALSE</code> otherwise. In this example, x is less than y until we reach the value of 15 in each sequence. Notice that that relational operators are vectorised: the work on an element by element basis. They wouldn’t be much use if this were not the case.</p>
-<p>What does the <code>==</code> operator do? It compares the elements of two vectors to determine if they are exactly equal:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x ==<span class="st"> </span>y</code></pre></div>
-<pre><code>##  [1] FALSE FALSE FALSE FALSE  TRUE FALSE FALSE FALSE FALSE FALSE</code></pre>
-<p>The output of this comparison is true only for one element, the number 15, which is at the 5<sup>th</sup> position in both <code>x</code> and <code>y</code>. The <code>!=</code> operator is essentially the opposite of <code>==</code>. It identifies cases where two elements are not exactly equal. We could step through each of the different the other relational operators, but hopefully they are self-explanatory at this point (if not, experiment with them).</p>
-<div class="warning">
-<h4 id="and-are-not-the-same">
-<code>=</code> and <code>==</code> are not the same
-</h4>
-<p>
-If we want to test for equivalence between the elements of two vectors we must use double equals (<code>==</code>), not single equals (<code>=</code>). Forgetting to do this <code>==</code> instead of <code>=</code> is a very common source of mistakes. The <code>=</code> symbol already has a use in R—assigning name-value pairs—so it can’t also be used to compare vectors because this would lead to ambiguity in our R scripts. Using <code>=</code> when you meant to use <code>==</code> is a very common mistake. If you make it, this will lead to all kinds of difficult-to-comprehend problems with your scripts. Try to remember the difference!
-</p>
+<div id="getting-ready" class="section level3">
+<h3><span class="header-section-number">12.1.1</span> Getting ready</h3>
+<p>A script that uses <strong>dplyr</strong> will typically start by loading and attaching the package:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">&quot;dplyr&quot;</span>)</code></pre></div>
+<p>Obviously we need to have first installed <code>dplyr</code> package for this to work.</p>
+<p>We’ll use the <code>iris</code> data set in the <strong>datasets</strong> package to illustrate the ideas in this chapter. The <strong>datasets</strong> package ships with R and is loaded and attached at start up, so there’s no need to do anything to make <code>iris</code> available. The <code>iris</code> data set is an ordinary data frame. Before we start working, it’s handy to convert this to a tibble so that it prints to the Console in a compact way:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">iris_tbl   &lt;-<span class="st"> </span><span class="kw">tbl_df</span>(iris)</code></pre></div>
+<p>We gave the new tibble version a new name. We didn’t have to do this, but it will remind us that we’re working with tibbles.</p>
 </div>
+</div>
+<div id="subset-variables-with-select" class="section level2">
+<h2><span class="header-section-number">12.2</span> Subset variables with <code>select</code></h2>
+<p>We use <code>select</code> to <strong>select variables</strong> from a data frame or tibble. This is typically used when we have a data set with many variables but only need to work with a subset of these. Basic usage of <code>select</code> looks like this:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">select</span>(data_set, vname1, vname2, ...)</code></pre></div>
+<p>take note: this is not an example we can run. This is a “pseudo code” example, designed to show, in abstract terms, how we use <code>select</code>:</p>
+<ul>
+<li><p>The first argument, <code>data_set</code> (“data object”), must be the name of the object containing our data.</p></li>
+<li><p>We then include a series of one or more additional arguments, where each one is the name of a variable in <code>data_set</code>. We’ve expressed this as <code>vname1, vname2, ...</code>, where <code>vname1</code> and <code>vname2</code> are names of the first two variables, and the <code>...</code> is acting as placeholder for the remaining variables (there could be any number of these).</p></li>
+</ul>
+<p>It’s easiest to understand how a function like <code>select</code> works by seeing it in action. We select the <code>Species</code>, <code>Petal.Length</code> and <code>Petal.Width</code> variables from <code>iris_tbl</code> like this:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">select</span>(iris_tbl, Species, Petal.Length, Petal.Width)</code></pre></div>
+<pre><code>## # A tibble: 150 × 3
+##    Species Petal.Length Petal.Width
+##     &lt;fctr&gt;        &lt;dbl&gt;       &lt;dbl&gt;
+## 1   setosa          1.4         0.2
+## 2   setosa          1.4         0.2
+## 3   setosa          1.3         0.2
+## 4   setosa          1.5         0.2
+## 5   setosa          1.4         0.2
+## 6   setosa          1.7         0.4
+## 7   setosa          1.4         0.3
+## 8   setosa          1.5         0.2
+## 9   setosa          1.4         0.2
+## 10  setosa          1.5         0.1
+## # ... with 140 more rows</code></pre>
+<p>Hopefully nothing about this example is surprising or confusing. There are a few things to notice about how <code>select</code> works though:</p>
+<ul>
+<li><p>The <code>select</code> function is one of those non-standard functions we briefly mentioned in the <a href="using-functions.html#using-functions">Using functions</a> chapter. This means the variable names should not be surrounded by quotes unless they have spaces in them (which is best avoided).</p></li>
+<li><p>The <code>select</code> function is just like other R functions: it does not have “side effects”. What this means is that it does not change the original <code>iris_tbl</code>. We printed the result produced by <code>select</code> to the Console, so we can’t access the new data set. If we need to access the result we have to assign it a name using <code>&lt;-</code>.</p></li>
+<li><p>The order of variables (i.e. the column order) in the resulting object is the same as the order in which they were supplied as arguments. This means we can reorder variables at the same time as selecting them if we need to.</p></li>
+<li><p>The <code>select</code> function will return the same kind of data object it is working on. It returns a data frame if our data was originally in a data frame and a tibble if it was a tibble. In this example, R prints a tibble because we had converted <code>iris_tbl</code> from a data frame to a tibble.</p></li>
+</ul>
+<p>It’s sometimes more convenient to use <code>select</code> to subset variables by specifying those we do <strong>not</strong> need, rather than specifying of the ones to keep. We use the <code>-</code> operator indicate that variables should be dropped. For example, to drop the <code>Petal.Width</code> and <code>Petal.Length</code> columns, we use:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">select</span>(iris_tbl, -Petal.Width, -Petal.Length)</code></pre></div>
+<pre><code>## # A tibble: 150 × 3
+##    Sepal.Length Sepal.Width Species
+##           &lt;dbl&gt;       &lt;dbl&gt;  &lt;fctr&gt;
+## 1           5.1         3.5  setosa
+## 2           4.9         3.0  setosa
+## 3           4.7         3.2  setosa
+## 4           4.6         3.1  setosa
+## 5           5.0         3.6  setosa
+## 6           5.4         3.9  setosa
+## 7           4.6         3.4  setosa
+## 8           5.0         3.4  setosa
+## 9           4.4         2.9  setosa
+## 10          4.9         3.1  setosa
+## # ... with 140 more rows</code></pre>
+<p>This returns a tibble with just the remaining variables:<code>Sepal.Length</code>, <code>Sepal.Width</code> and <code>Species</code>.</p>
+<p>The <code>select</code> function can also be used to grab (or drop) a set of variables that occur in a sequence next to one another. We specify a series of adjacent variables using the <code>:</code> operator. This must be used with two variable names, one on the left hand side and one on the right. When we use <code>:</code> like this, <code>select</code> will subset both those variables along with any others that fall in between them. For example, if we need the two <code>Petal</code> variables and <code>Species</code>, we use:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">select</span>(iris_tbl, Petal.Length:Species)</code></pre></div>
+<pre><code>## # A tibble: 150 × 3
+##    Petal.Length Petal.Width Species
+##           &lt;dbl&gt;       &lt;dbl&gt;  &lt;fctr&gt;
+## 1           1.4         0.2  setosa
+## 2           1.4         0.2  setosa
+## 3           1.3         0.2  setosa
+## 4           1.5         0.2  setosa
+## 5           1.4         0.2  setosa
+## 6           1.7         0.4  setosa
+## 7           1.4         0.3  setosa
+## 8           1.5         0.2  setosa
+## 9           1.4         0.2  setosa
+## 10          1.5         0.1  setosa
+## # ... with 140 more rows</code></pre>
+<p>The <code>:</code> operator can be combined with <code>-</code> if we need to drop a series of variables according to their position in a data frame or tibble:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">select</span>(iris_tbl, -(Petal.Length:Species))</code></pre></div>
+<pre><code>## # A tibble: 150 × 2
+##    Sepal.Length Sepal.Width
+##           &lt;dbl&gt;       &lt;dbl&gt;
+## 1           5.1         3.5
+## 2           4.9         3.0
+## 3           4.7         3.2
+## 4           4.6         3.1
+## 5           5.0         3.6
+## 6           5.4         3.9
+## 7           4.6         3.4
+## 8           5.0         3.4
+## 9           4.4         2.9
+## 10          4.9         3.1
+## # ... with 140 more rows</code></pre>
+<p>The extra <code>( )</code> around are <code>Petal.Length:Species</code> important here — <code>select</code> will throw an error if we don’t include them.</p>
+<div id="renaming-variables-with-select-and-rename" class="section level3">
+<h3><span class="header-section-number">12.2.1</span> Renaming variables with <code>select</code> and <code>rename</code></h3>
+<p>In addition to selecting a subset of variables, the <code>select</code> function can also rename variables at the same time. To do this, we have to name the arguments using <code>=</code>, placing the new name on the left hand side. For example, to select the<code>Species</code>, <code>Petal.Length</code> and <code>Petal.Width</code> variables from <code>iris_tbl</code>, but also rename <code>Petal.Length</code> and <code>Petal.Width</code> to <code>Petal_Length</code> and <code>Petal_Width</code>, we use:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">select</span>(iris_tbl, Species, <span class="dt">Petal_Length =</span> Petal.Length, <span class="dt">Petal_Width =</span> Petal.Width)</code></pre></div>
+<pre><code>## # A tibble: 150 × 3
+##    Species Petal_Length Petal_Width
+##     &lt;fctr&gt;        &lt;dbl&gt;       &lt;dbl&gt;
+## 1   setosa          1.4         0.2
+## 2   setosa          1.4         0.2
+## 3   setosa          1.3         0.2
+## 4   setosa          1.5         0.2
+## 5   setosa          1.4         0.2
+## 6   setosa          1.7         0.4
+## 7   setosa          1.4         0.3
+## 8   setosa          1.5         0.2
+## 9   setosa          1.4         0.2
+## 10  setosa          1.5         0.1
+## # ... with 140 more rows</code></pre>
+<p>Renaming variables is a common task when working with data frames and tibbles. What should we do if the <em>only</em> thing we would like to achieve is to rename a variables, rather than rename and select variables? The <code>dplyr</code> provides an additional function called <code>rename</code> for this purpose. This function renames certain variables while retaining all others. It works in a similar way to <code>select</code>. For example, to rename <code>Petal.Length</code> and <code>Petal.Width</code> to <code>Petal_Length</code> and <code>Petal_Width</code>, we use:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">rename</span>(iris_tbl, <span class="dt">Petal_Length =</span> Petal.Length, <span class="dt">Petal_Width =</span> Petal.Width)</code></pre></div>
+<pre><code>## # A tibble: 150 × 5
+##    Sepal.Length Sepal.Width Petal_Length Petal_Width Species
+##           &lt;dbl&gt;       &lt;dbl&gt;        &lt;dbl&gt;       &lt;dbl&gt;  &lt;fctr&gt;
+## 1           5.1         3.5          1.4         0.2  setosa
+## 2           4.9         3.0          1.4         0.2  setosa
+## 3           4.7         3.2          1.3         0.2  setosa
+## 4           4.6         3.1          1.5         0.2  setosa
+## 5           5.0         3.6          1.4         0.2  setosa
+## 6           5.4         3.9          1.7         0.4  setosa
+## 7           4.6         3.4          1.4         0.3  setosa
+## 8           5.0         3.4          1.5         0.2  setosa
+## 9           4.4         2.9          1.4         0.2  setosa
+## 10          4.9         3.1          1.5         0.1  setosa
+## # ... with 140 more rows</code></pre>
+<p>Notice that the rename function also preserves the order of the variables found in the original data.</p>
+</div>
+</div>
+<div id="creating-variables-with-mutate" class="section level2">
+<h2><span class="header-section-number">12.3</span> Creating variables with <code>mutate</code></h2>
+<p>We use <code>mutate</code> to <strong>add new variables</strong> to a data frame or tibble. This is useful if we need to construct one or more derived variables to support an analysis. Basic usage of <code>mutate</code> looks like this:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">mutate</span>(data_set, &lt;expression1&gt;, &lt;expression2&gt;, ...)</code></pre></div>
+<p>Again, this is not an example we can run; it’s pseudo code that highlights in abstract terms how to use <code>mutate</code>. As always with <code>dplyr</code>, the first argument, <code>data_set</code>, should be the name of the object containing our data. We then include a series of one or more additional arguments, where each of these is a valid R expression involving one or more variables in <code>data_set</code>. We’ve have expressed these as <code>&lt;expression1&gt;, &lt;expression2&gt;</code>, where <code>&lt;expression1&gt;</code> and <code>&lt;expression2&gt;</code> represent the first two expressions, and the <code>...</code> is acting as placeholder for the remaining expressions. Remember, this is not valid R code. It is just intended to demonstrate the general usage of <code>mutate</code>.</p>
+<p>To see <code>mutate</code> in action, let’s construct a new version of <code>iris_tbl</code> that contains a variable summarising the approximate area of sepals:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">mutate</span>(iris_tbl, Sepal.Width *<span class="st"> </span>Sepal.Length)</code></pre></div>
+<pre><code>## # A tibble: 150 × 6
+##    Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+##           &lt;dbl&gt;       &lt;dbl&gt;        &lt;dbl&gt;       &lt;dbl&gt;  &lt;fctr&gt;
+## 1           5.1         3.5          1.4         0.2  setosa
+## 2           4.9         3.0          1.4         0.2  setosa
+## 3           4.7         3.2          1.3         0.2  setosa
+## 4           4.6         3.1          1.5         0.2  setosa
+## 5           5.0         3.6          1.4         0.2  setosa
+## 6           5.4         3.9          1.7         0.4  setosa
+## 7           4.6         3.4          1.4         0.3  setosa
+## 8           5.0         3.4          1.5         0.2  setosa
+## 9           4.4         2.9          1.4         0.2  setosa
+## 10          4.9         3.1          1.5         0.1  setosa
+## # ... with 140 more rows, and 1 more variables: `Sepal.Width *
+## #   Sepal.Length` &lt;dbl&gt;</code></pre>
+<p>This creates a copy of <code>iris_tbl</code> with a new column called <code>Sepal.Width * Sepal.Length</code> (mentioned at the bottom of the printed output). Most of the rules that apply to <code>select</code> also apply to <code>mutate</code>:</p>
+<ul>
+<li><p>The expression that performs the required calculation is not surrounded by quotes. This makes sense, because an expression is meant to be evaluated so that it “does something”. It is not a value.</p></li>
+<li><p>Once again, we just printed the result produced by <code>mutate</code> to the Console, rather than assigning the result a name using <code>&lt;-</code>. The <code>mutate</code> function does not have side effects, meaning it does not change the original <code>iris_tbl</code> in any way.</p></li>
+<li><p>The <code>select</code> function returns the same kind of data object as the one it is working on: a data frame if our data was originally in a data frame, a tibble if it was a tibble.</p></li>
+</ul>
+<p>Creating a variable called something like <code>Sepal.Width * Sepal.Length</code> is not exactly ideal because it’s a difficult name to work with. The <code>mutate</code> function can name variables at the same time as they are created. We have to name the arguments using <code>=</code>, placing the name on the left hand side, to do this. Here’s how to use this construct to name the new area variable <code>Sepal.Area</code>:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">mutate</span>(iris_tbl, <span class="dt">Sepal.Area =</span> Sepal.Width *<span class="st"> </span>Sepal.Length)</code></pre></div>
+<pre><code>## # A tibble: 150 × 6
+##    Sepal.Length Sepal.Width Petal.Length Petal.Width Species Sepal.Area
+##           &lt;dbl&gt;       &lt;dbl&gt;        &lt;dbl&gt;       &lt;dbl&gt;  &lt;fctr&gt;      &lt;dbl&gt;
+## 1           5.1         3.5          1.4         0.2  setosa      17.85
+## 2           4.9         3.0          1.4         0.2  setosa      14.70
+## 3           4.7         3.2          1.3         0.2  setosa      15.04
+## 4           4.6         3.1          1.5         0.2  setosa      14.26
+## 5           5.0         3.6          1.4         0.2  setosa      18.00
+## 6           5.4         3.9          1.7         0.4  setosa      21.06
+## 7           4.6         3.4          1.4         0.3  setosa      15.64
+## 8           5.0         3.4          1.5         0.2  setosa      17.00
+## 9           4.4         2.9          1.4         0.2  setosa      12.76
+## 10          4.9         3.1          1.5         0.1  setosa      15.19
+## # ... with 140 more rows</code></pre>
+<p>We can create more than one variable by supplying <code>mutate</code> multiple (named) arguments:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">mutate</span>(iris_tbl, 
+       <span class="dt">Sepal.Area =</span> Sepal.Width *<span class="st"> </span>Sepal.Length,
+       <span class="dt">Petal.Area =</span> Petal.Width *<span class="st"> </span>Petal.Length,
+       <span class="dt">Area.Ratio =</span> Petal.Area /<span class="st"> </span>Petal.Area)</code></pre></div>
+<pre><code>## # A tibble: 150 × 8
+##    Sepal.Length Sepal.Width Petal.Length Petal.Width Species Sepal.Area
+##           &lt;dbl&gt;       &lt;dbl&gt;        &lt;dbl&gt;       &lt;dbl&gt;  &lt;fctr&gt;      &lt;dbl&gt;
+## 1           5.1         3.5          1.4         0.2  setosa      17.85
+## 2           4.9         3.0          1.4         0.2  setosa      14.70
+## 3           4.7         3.2          1.3         0.2  setosa      15.04
+## 4           4.6         3.1          1.5         0.2  setosa      14.26
+## 5           5.0         3.6          1.4         0.2  setosa      18.00
+## 6           5.4         3.9          1.7         0.4  setosa      21.06
+## 7           4.6         3.4          1.4         0.3  setosa      15.64
+## 8           5.0         3.4          1.5         0.2  setosa      17.00
+## 9           4.4         2.9          1.4         0.2  setosa      12.76
+## 10          4.9         3.1          1.5         0.1  setosa      15.19
+## # ... with 140 more rows, and 2 more variables: Petal.Area &lt;dbl&gt;,
+## #   Area.Ratio &lt;dbl&gt;</code></pre>
+<p>Notice that here we placed each argument on a new line, remembering the comma to separate arguments. There is nothing to stop us doing this because R ignores white space. This is useful though, because it allows us, the user, to makes long function calls easier to read by breaking them up on different lines.</p>
+<p>This last example reveals a nice feature of <code>mutate</code>: we can use newly created variables in further calculations. Here we constructed approximate sepal and petal area variables, and then used these to construct a third variable containing the ratio of these two quantities, <code>Area.Ratio</code>.</p>
+<div id="transforming-and-dropping-variables" class="section level3">
+<h3><span class="header-section-number">12.3.1</span> Transforming and dropping variables</h3>
+<p>Occasionally we may want to construct one or more new variables, and then drop all other variables in the original dataset. The <code>transmute</code> function is designed to do this. It works exactly like <code>mutate</code>, but it has a slightly different behaviour:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">transmute</span>(iris_tbl,
+          <span class="dt">Sepal.Area =</span> Sepal.Width *<span class="st"> </span>Sepal.Length,
+          <span class="dt">Petal.Area =</span> Petal.Width *<span class="st"> </span>Petal.Length,
+          <span class="dt">Area.Ratio =</span> Petal.Area /<span class="st"> </span>Petal.Area)</code></pre></div>
+<pre><code>## # A tibble: 150 × 3
+##    Sepal.Area Petal.Area Area.Ratio
+##         &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt;
+## 1       17.85       0.28          1
+## 2       14.70       0.28          1
+## 3       15.04       0.26          1
+## 4       14.26       0.30          1
+## 5       18.00       0.28          1
+## 6       21.06       0.68          1
+## 7       15.64       0.42          1
+## 8       17.00       0.30          1
+## 9       12.76       0.28          1
+## 10      15.19       0.15          1
+## # ... with 140 more rows</code></pre>
+<p>Here we repeated the previous example, but now only the new variables were retained in the resulting tibble. If we also want to retain one or more variables without altering them we just have to pass them as unnamed arguments. For example, if we need to retain species identity in the output, we use:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">transmute</span>(iris_tbl,
+          Species,
+          <span class="dt">Sepal.Area =</span> Sepal.Width *<span class="st"> </span>Sepal.Length,
+          <span class="dt">Petal.Area =</span> Petal.Width *<span class="st"> </span>Petal.Length,
+          <span class="dt">Area.Ratio =</span> Petal.Area /<span class="st"> </span>Petal.Area)</code></pre></div>
+<pre><code>## # A tibble: 150 × 4
+##    Species Sepal.Area Petal.Area Area.Ratio
+##     &lt;fctr&gt;      &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt;
+## 1   setosa      17.85       0.28          1
+## 2   setosa      14.70       0.28          1
+## 3   setosa      15.04       0.26          1
+## 4   setosa      14.26       0.30          1
+## 5   setosa      18.00       0.28          1
+## 6   setosa      21.06       0.68          1
+## 7   setosa      15.64       0.42          1
+## 8   setosa      17.00       0.30          1
+## 9   setosa      12.76       0.28          1
+## 10  setosa      15.19       0.15          1
+## # ... with 140 more rows</code></pre>
 
+</div>
 </div>
 </div>
             </section>
@@ -372,8 +543,8 @@ If we want to test for equivalence between the elements of two vectors we must u
           </div>
         </div>
       </div>
-<a href="numeric-vectors.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="extracting-subsets-of-vectors.html" class="navigation navigation-next " aria-label="Next page""><i class="fa fa-angle-right"></i></a>
+<a href="dplyr-and-the-tidy-data-concept.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="working-with-observations.html" class="navigation navigation-next " aria-label="Next page""><i class="fa fa-angle-right"></i></a>
 
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/lunr.js"></script>
@@ -401,7 +572,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/dzchilds/eda-for-bio/edit/master/1_06_more_vectors.Rmd",
+"link": "https://github.com/dzchilds/eda-for-bio/edit/master/2_04_dplyr_variables.Rmd",
 "text": "Edit"
 },
 "download": null,

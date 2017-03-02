@@ -1,12 +1,19 @@
 # Helper functions
 
+```{r, include=FALSE}
+library("dplyr")
+library("nasaweather")
+
+```
+
+
 ## Introduction 
 
-There are a number of __helper functions__ supplied by **dplyr**. Many of these are shown in the handy **dplyr** [cheat sheat](http://www.rstudio.com/resources/cheatsheets/).
+There are a number of __helper functions__ supplied by **dplyr**. Many of these are shown in the handy **dplyr** [cheat sheat](http://www.rstudio.com/resources/cheatsheets/). This is a short chapter. We aren't going to try to cover every single helper function here. Instead, we'll highlight some of the more useful ones, and point out where the others tend to be used. We also assume that the `storms_tbl` and `iris_tbl` tibbles have already been constructed (look over the previous two chapters to see how this is done).
 
 ## Working with `select`
 
-There are a small number of helper functions that can be used with `select`. These make it easier to match variable names according to various criteria. We'll look at the three simplest of these, but it's look at the examples in the help file for `select` and the [cheat sheat](http://www.rstudio.com/resources/cheatsheets/) to see what else is available.
+There are relatively few of helper functions that can be used with `select`. The job of these functions is to make it easier to match variable names according to various criteria. We'll look at the three simplest of these, but look at the examples in the help file for `select` and the [cheat sheat](http://www.rstudio.com/resources/cheatsheets/) to see what else is available.
 
 We can select variables according to the sequence of characters used at the start of their name with the `starts_with` function. For example, to select all the variables in `iris_tbl` that begin with the word "Petal", we use:
 ```{r}
@@ -29,9 +36,18 @@ There is nothing to stop us combining the different variable selection methods. 
 ```{r}
 select(iris_tbl, ends_with("length"), starts_with("petal"))
 ```
-When we apply more than one selection criteria like this the `select` function returns all the variables that match one or more criteria, rather than just the set that meets all the criteria.
+When we apply more than one selection criteria like this the `select` function returns all the variables that match either criteria, rather than just the set that meets all the criteria.
 
-### Working with `mutate` and `transmute`
+## Working with `mutate` and `transmute`
 
 There are quite a few __helper functions__ that can be used with `mutate`. These make it easier to add new variables according to the values of other variables. We won't explore these here as they tend to be needed only in quite specific circumstances. However, if you run into a situation where you need to construct an unusual variable -- for example, one that ranks the values in another variable -- you may want to try looking at the examples in the `mutate` help file or that [handy cheat sheat](http://www.rstudio.com/resources/cheatsheets/) to see what options are available to you.
+
+## Working with `filter`
+
+There is only one `dplyr` __helper function__ that is useful with `filter`. This is the `between` function, which is used to identify the values of a variable that lie inside a defined range:
+```{r}
+filter(storms_tbl, between(pressure, 960, 970))
+```
+This example filters the `storms` dataset such that only values of `pressure` between 960 and 970 are retained.
+
 
