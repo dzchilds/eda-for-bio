@@ -1,0 +1,91 @@
+# **dplyr** and the tidy data concept
+
+## Introduction 
+
+[Data wrangling]
+
+## The value of **dplyr** {#why-dplyr}
+
+The **dplyr** package has been carefully designed to make life easier to manipulate data frames and other kinds of similar objects. A key reason for its ease-of-use is that **dplyr** is very consistent in the way its functions work. For example, the first argument of the main **dplyr** functions is always an object containing our data. This consistency makes it very easy to get to grips with each of the main **dplyr** functions---it's often possible to understand how one works by seeing one or two examples of its use.
+
+A second reason for favouring **dplyr** is that it is orientated around a few core functions, each of which is designed to do one thing well. The key **dplyr** functions are often referred to as "verbs", reflecting the fact that they "do something" to data. For example: (1) `select` is used to obtain a subset of variables; (2) `mutate` is used to construct new variables; (3) `filter` is used to obtain a subset of rows; (4) `arrange` is used to reorder rows; and (5) `summarise` is used to calculate information about groups. We'll cover each of these verbs in detail in later chapters, as well as a few additional functions such as `rename` and `group_by`.
+
+Apart from being easy to use, **dplyr** is also fast compared to base R functions. This won't matter much for the small data sets we use in this book, but **dplyr** is a good option for large data sets. The **dplyr** package also allows us to work with data stored in different ways, for example, by interacting directly with a number of database systems. We won't work with anything other than data frames (and the closely-related "tibble") but it is worth knowing about this facility. Learning to use **dplyr** with data frames makes it easy to work with these other kinds of data objects.  
+
+```{block, type="info"}
+#### A **dplyr** cheat sheet
+
+The developers of RStudio have produced a very usable [cheat sheat](http://www.rstudio.com/resources/cheatsheets/) that summarises the main data wrangling tools provided by **dplyr**. Our advice is to download this, print out a copy and refer to this often as you start working with **dplyr**.
+```
+
+## Tidy data
+
+**dplyr** will work with any data frame, but it's at its most powerful when our data are organised as [tidy data](http://vita.had.co.nz/papers/tidy-data.pdf). The word "tidy" has a very specific meaning in this context. Tidy data has a specific structure that makes it easy to manipulate, model and visualise. A tidy data set is one where each variable is in only one column and each row contains only one observation. This might seem like the "obvious" way to organise data, but many people fail to adopt this convention. 
+
+We aren't going to explore the tidy data concept in great detail, but the basic principles are not difficult to understand. We'll use an example to illustrate what the "one variable = one column" and "one observation = one row" idea means. Let's return to the made-up experiment investigating the response of communities to fertilizer addition. This time, imagine we had only measured biomass, but that we had measured it twice over the course of the experiment.
+
+We'll examine some artificial data for the experiment and look at two ways to organise it to help us understand the tidy data idea. The first way uses a separate column for each biomass measurement:
+```{r, echo=FALSE}
+trt <- rep(c("Control","Fertilser"), each = 3) 
+bms1 <- c(284, 328, 291, 956, 954, 685)
+bms2 <- c(324, 400, 355, 1197, 1012, 859)
+experim.data <- data.frame(Treatment = trt, BiomassT1 = bms1, BiomassT2 = bms2)
+experim.data
+```
+This often seems like the natural way to store such data, especially for experienced Excel users. However, this format is not __tidy__. Why? The biomass variable has been split across two columns ("BiomassT1" and "BiomassT2"), which means each row corresponds to two observations. 
+
+We won't go into the "whys" here, but take our word for it: adopting this format makes it difficult to efficiently work with data. This is not really an R-specific problem. This non-tidy format is sub-optimal in many different data analysis environments.
+
+A tidy version of the example data set would still have three columns, but now these would be: "Treatment", denoting the experimental treatment applied; "Time", denoting the sampling occasion; and "Biomass", denoting the biomass measured:
+```{r, echo=FALSE}
+trt <- rep(c("Control","Fertilser"), each = 3, times = 2) 
+stm <- rep(c("T1","T2"), each = 6)
+bms <- c(bms1, bms2)
+experim.data <- data.frame(Treatment = trt, Time = stm, Biomass = bms)
+experim.data
+```
+These data are tidy: each variable is in only one column, and each observation has its own unique row. These data are well-suited to use with **dplyr**.
+
+```{block, type="warning"}
+#### Always try to start with tidy data
+
+The best way to make sure your data set is tidy is to store in that format __when it's first collected and recorded__. There are packages that can help convert non tidy data into the tidy data format (e.g. the **tidyr** package), but life is much simpler if we just make sure our data are tidy from the very beginning.
+```
+
+## A quick look at **dplyr** {#more-dplyr}
+
+We'll finish up this chapter by taking a quick look at a few features of the **dplyr** package, before really drilling down into how it works. The package is not part of the base R installation, so we have to install it first via `install.packages("dplyr")`. Remember, we only have to install **dplyr** once, so there's no need to leave the `install.packages` line in script that uses the package. We do have to add `library` to the top of any scripts using the package to load and attach it:
+```{r, eval=FALSE}
+library("dplyr")
+```
+
+We need some data to work with. We'll use two data sets to illustrate the key ideas in the next few chapters: the `iris` data set in the **datasets** package and the `storms` data set in the **nasaweather** package. 
+
+The **datasets** package ships with R and is loaded and attached at start up, so there's no need to do anything to make `iris` available. The **nasaweather** package doesn't ship with R so it needs to be installed via `install.packages("nasaweather")`. Finally, we have to add `library` to the top of our script to load and attach the package:
+```{r, eval=FALSE}
+library("nasaweather")
+```
+The **nasaweather** package is a bare bones data package. It doesn't contain any new R functions, just data. We'll be using the `storms` data set from **nasaweather**: this contains information about tropical storms in North America (from 1995-2000). We're just using it as a convenient example to illustrate the workings of the **dplyr**, and later, the **ggplot2** packages. 
+
+### Tibble (`tbl`) objects
+
+The primary purpose of the **dplyr** package is to make it easier to manipulate data interactively. In order to facilitate this kind of work **dplyr** implements a special kind of data object known as a `tbl` (pronounced "tibble"). We can think of a tibble as a special data frame with a few extra whistles and bells. 
+
+We can convert an ordinary data frame to a a tibble using the `tbl_df` function. It's a good idea (though not necessary) to convert ordinary data frames to tibbles. Why? When a data frame is printed to the Console R will try to print every column and row until it reaches a (very large) maximum permitted amount of output. The result is a mess of text that's virtually impossible to make sense of. In contrast, when a tibble is printed to the Console, it does so in a compact way. To see this, we can convert the `iris` data set to a tibble using `tbl_df` and then print the resulting object to the Console:
+```{r}
+# make a "tibble" copy of iris
+iris_tbl <- tbl_df(iris)
+# print it
+iris_tbl
+```
+Notice that only the first 10 rows are printed. This is much nicer than trying to wade through every row of a data frame. 
+
+### The `glimpse` function
+
+Sometimes we just need a quick, compact summary of a data frame or tibble. This is the job of the `glimpse` function from **dplyr**. The glimpse function is very similar to `str`:
+```{r}
+glimpse(iris_tbl)
+```
+The function takes one argument: the name of a data frame or tibble. It then tells us how many rows it has, how many variables there are, what these variables are called, and what kind of data are associated with each variable. This function is useful when we're working with a data set containing many variables.
+
+
