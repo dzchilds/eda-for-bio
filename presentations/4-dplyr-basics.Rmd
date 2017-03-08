@@ -79,7 +79,7 @@ install.packages("dplyr")
 <div>
 __2. Read in the storms data__
 
-Download the `storms.csv` data from MOLE. Set your working directory, and then use `read.csv` to read the data in. Assign the resulting data frame the name `storms`.
+Download the `storms.csv` data from MOLE. Set your working directory, and then use `read.csv` to read the data in (remember to use `stringsAsFactors = FALSE`). Assign the resulting data frame the name `storms`.
 </div>
 
 

@@ -1,12 +1,13 @@
 ---
 title: More dplyr and ggplot introduction
 author: Dylan Childs
-date: March 10, 2016
+date: March 9th, 2016
 highlighter: pygments
 output: 
   ioslides_presentation:
     css: extras.css
-    smaller: true
+    widescreen: true
+    smaller: false
 ---
 
 ```{r, include = FALSE}
@@ -28,7 +29,7 @@ my_theme <- theme_gray() + theme(
 theme_set(my_theme)
 ```
 
-## Before we start {.build}
+## Before we start {.build .smaller}
 
 Required packages and data:
 
@@ -52,7 +53,7 @@ Do the same for `dplyr` (you should NOT need to install it first)
 
 __2. Read in the storms data__
 
-Download the `storms.csv` data from MOLE. Set your working directory to the correct location and then use `read.csv` to read the data in, giving it the name `storms`.
+Download the `storms.csv` data from MOLE. Set your working directory to the correct location and then use `read.csv` to read the data in (remember to use `stringsAsFactors = FALSE`), giving it the name `storms`.
 
 A bit more `dplyr`... 
 ====================================================================
@@ -60,10 +61,10 @@ A bit more `dplyr`...
 Using `summarise` | Calculating summaries of variables 
 ====================================================================
 
-## Basic usage {.build}
+## Basic usage {.build .smaller}
 
 <div>
-We use summarise to __calculate summary statistics__ for further analysis. This is how we use `summarise`:
+We use summarise to __calculate summary statistics__ for further analysis. This is how to use `summarise`:
 
 ```{r, eval=FALSE}
 summarise(data, SummaryVar = <expression>, ...)
@@ -75,7 +76,7 @@ __Arguments__
 
 - `data`: a `data.frame` or `tbl` object 
 - `SummaryVar`: name of your summary variable
-- `<expression>`: an R expression that references variables in `data`
+- `<expression>`: an R expression that references variables in `data` and returns to __a single value__
 </div>
 
 <div>
@@ -97,8 +98,10 @@ Hint: You need to work out which R function calculates a mean. The clue is in th
 </div>
 </div>
 
-```{r, eval=showAnswers, echo=showAnswers}
-summarise(iris, mean.sl = mean(Sepal.Length), mean.sw = mean(Sepal.Width))
+```{r, include=showAnswers}
+summarise(iris, 
+          mean_sl = mean(Sepal.Length), 
+          mean_sw = mean(Sepal.Width))
 ```
 
 ## Exercise {.build}
@@ -110,9 +113,9 @@ Use the `summarise` function with the `iris` dataset to calculate the mean __are
 </div>
 </div>
 
-```{r, eval=showAnswers, echo=showAnswers}
-summarise(iris, mean.sl = mean(Sepal.Length * Sepal.Width))
-summarise(iris, mean.sl = mean(Sepal.Length) * mean(Sepal.Width))
+```{r, include=showAnswers}
+summarise(iris, mean_sl = mean(Sepal.Length * Sepal.Width))
+summarise(iris, mean_sl = mean(Sepal.Length) * mean(Sepal.Width))
 ```
 
 Which one is right?
@@ -120,10 +123,10 @@ Which one is right?
 Using `group_by` | Making summaries for groups of observations
 ====================================================================
 
-## Basic usage{.build}
+## Basic usage{.build .smaller}
 
 <div>
-We use `group_by` to add grouping information to a `tbl`. This is how we use `group_by`:
+We use `group_by` to add grouping information to a data frame or tibble. This is how we use `group_by`:
 
 ```{r, eval=FALSE}
 group_by(data, GroupVar1, GroupVar2, ...)
@@ -145,60 +148,66 @@ __Comments__
 - Using `group_by` with `mutate` enables us to add variables on a _per group_ basis.
 </div>
 
-## Exercise {.build}
+## Exercise {.build .smaller}
 
 <div id="exercise-box">
 __Using `group_by` to calculate group-specific means__
 <div id="box-text">
 Use the `group_by` function and the `summarise` functions with the `storms` dataset to calculate the mean wind speed associated with each storm __type__.
 
-Hint: This is a two step exercise. Use `group_by` first to add some information to storms, remembering to assign the result a name. Then use `summarise` on this new dataset.
+Hint: This is a two step exercise: 1) Use `group_by` to add some information to storms, remembering to assign the result a name; 2) These use `summarise` on this new dataset.
 </div>
 </div>
 
-```{r, eval=showAnswers, echo=showAnswers}
-storms.grp <- group_by(storms, type)
-summarise(storms.grp, mean.wind = mean(wind))
+```{r, include=showAnswers}
+# 1. make a grouped tibble
+storms_grouped <- group_by(storms, type)
+# 2. use summarise on the grouped data
+summarise(storms_grouped, mean_wind = mean(wind))
 ```
 
-## Exercise {.build}
+## Exercise {.build .smaller}
 
 <div id="exercise-box">
 __Using `group_by` to group by more than one variable__
 <div id="box-text">
-Use the `group_by` and `summarise` functions with the `storms` dataset to calculate the mean and maximum wind speed (in the `wind` variable), associated with **each combination** of month and year. Assign the result a name and then use `View` to examine it. Which month in which year saw the largest maximum wind speed? 
+Use the `group_by` and `summarise` functions with the `storms` dataset to calculate the mean and maximum wind speed associated with **each combination** of month and year. Assign the result a name and then use `View` to examine it. Which month in which year saw the largest maximum wind speed? 
 
 Hint: You can guess the names of the two functions that calculate the mean and max from a numeric vector.
 </div>
 </div>
 
-```{r, eval=showAnswers, echo=showAnswers}
-storms.grouped <- group_by(storms, year, month)
-summarise(storms.grouped, mean.speed = mean(wind), max.speed = max(wind))
+```{r, include=showAnswers}
+# 1. make a grouped tibble
+storms_grouped <- group_by(storms, year, month)
+# 2. use summarise on the grouped data
+summarise(storms_grouped, mean_speed = mean(wind), max_speed = max(wind))
 ```
 
-## Exercise {.build}
+## Exercise {.build .smaller}
 
 <div id="exercise-box">
 __Using `group_by` and `mutate`__
 <div id="box-text">
-Use the `group_by` and `mutate` functions with the `iris` dataset to calculate a "centred" version of sepal length. A centred variable is just one that has had its overall mean subtracted from every value. 
+The `group_by` function works with any **dplyr** verb that operates on variables (columns). Use the `group_by` and `mutate` functions with the `iris` dataset to calculate a "mean centred" version of sepal length. A centred variable is just one that has had its overall mean subtracted from every value. 
 
 Do you understand the different behaviour of `summarise` and `mutate` when used alongside `group_by`?
 </div>
 </div>
 
-```{r, eval=showAnswers, echo=showAnswers}
-iris.grp <- group_by(iris, Species)
-mutate(iris.grp, SL.cen = Sepal.Length - mean(Sepal.Length))
+```{r, include=showAnswers}
+# 1. group iris by species identity
+iris_grouped <- group_by(iris, Species)
+# 2. use mutate on the grouped data
+mutate(iris_grouped, sl_centred = Sepal.Length - mean(Sepal.Length))
 ```
 
 Using `%>%` | piping or chaining
 ====================================================================
 
-## Motivating example{.build}
+## Motivating example {.build .smaller}
 
-It is common to need to perform a sequence of calculations on a vector or data frame, by applying a series of function in turn. We can do this in two ways:
+We often need to perform a sequence of calculations on a vector or data frame. We do this by applying a series of function in sequence. Here are two ways to do this:
 
 <div>
 **1. Method 1: Store intermediate results...** 
@@ -224,7 +233,7 @@ These do the same thing. Method 1 is easy to read, but is very verbose. Method 2
 
 ## A third way, using `%>%`...{.build}
 
-The `dplyr` package includes a special operator, called "the pipe". It looks like this: `%>%`. This allows us to avoid strong intermediate results (method 1), while still reading a sequence of function calls from left to right. For example:
+The `dplyr` package includes a special operator, called "the pipe". It looks like this: `%>%`. This allows us to avoid strong intermediate results (method 1), while reading a sequence of function calls from left to right. For example:
 
 ```{r}
 10 %>% sqrt(.) %>% exp(.) %>% round(., 2)
@@ -238,7 +247,7 @@ Or equivalently, and even simpler...
 ```
 </div>
 
-## Why is this handy?{.build}
+## Why is this handy? {.build .smaller}
 
 We can use `%>%` with any function we like. Look at this example of a two-step `group_by` and `summarise` operation with `iris`...
 
@@ -247,6 +256,7 @@ We can use `%>%` with any function we like. Look at this example of a two-step `
 # method 1
 iris.grouped <- group_by(iris, Species)
 summarise(iris.grouped, mean.SL = mean(Sepal.Length))
+
 # method 2
 summarise(group_by(iris, Species), mean.SL = mean(Sepal.Length))
 ```
@@ -255,15 +265,14 @@ summarise(group_by(iris, Species), mean.SL = mean(Sepal.Length))
 <div>
 The "piped" equivalent is more natural to read...
 
-```{r, eval=showAnswers, echo=showAnswers}
+```{r}
 iris %>% 
   group_by(Species) %>% 
   summarise(mean.SL = mean(Sepal.Length))
 ```
 </div>
 
-
-## Exercise {.build}
+## Exercise {.build .smaller}
 
 <div id="exercise-box">
 __Using `group_by` to group by more than one variable__
@@ -272,10 +281,10 @@ Let's repeat the earlier `group_by` and `summarise` exercise, using the pipe. Re
 </div>
 </div>
 
-```{r, eval=showAnswers, echo=showAnswers}
+```{r, include=showAnswers}
 storms %>% 
   group_by(year, month) %>%
-  summarise(mean.speed = mean(wind), max.speed = max(wind))
+  summarise(mean_speed = mean(wind), max_speed = max(wind))
 ```
 
 Moving on to `ggplot2`...
@@ -284,7 +293,7 @@ Moving on to `ggplot2`...
 Overview of `ggplot2` | The grammar of graphics
 ====================================================================
 
-## Why use `ggplot2`? {.build}
+## Why use `ggplot2`? {.build .smaller}
 
 <div>
 Roughly speaking, there are three commonly used plotting frameworks in R. 
@@ -320,20 +329,30 @@ You need to wrap your head around a few ideas to start using `ggplot2` effective
 
 In practise, we build up a plot by combining different functions using the `+` operator. This has nothing to do with numeric addition!
 
-<div>
-__Illustrative example__
+## Illustrative example {.build}
 
+<div>
+Set up the basic object--define a default data frame and aesthetic...
 ```{r, eval=FALSE}
-# 1. define a default data frame and aesthetic
-ggplot.object <- ggplot(my_df, aes(x = var1, y = var2))
-# 2. add a layer with the point geom
-ggplot.object <- ggplot.object + geom_point()
-# 3. show the plot
-print(ggplot.object)
+ggplot_object <- ggplot(my_df, aes(x = var1, y = var2))
 ```
 </div>
 
-## Example: Scatter plots
+<div>
+Add a layer using the point 'geom'...
+```{r, eval=FALSE}
+ggplot_object <- ggplot_object + geom_point()
+```
+</div>
+
+<div>
+Show the plot--just 'print' the object to the console
+```{r, eval=FALSE}
+ggplot_object
+```
+</div>
+
+## Real example: scatter plots { .smaller}
 
 Scatter plots are used to show the relationship between 2 continuous variables. Using the `iris` dataset, let's examine the relationship between petal length and petal width. 
 
@@ -347,11 +366,9 @@ All we did here was make a `ggplot` object. We can try to make the plot using th
 ```{r, eval=FALSE}
 print(plt)
 ```
-This fails, because we haven't added a layer using a `geom_` function yet. 
+This produces an empty plot because we haven't added a layer using a `geom_` function yet.
 
-(N.B. In version 2.0 and above of `ggplot2`, using `print` on an incomplete object will plot an empty graph)
-
-## Example: Scatter plots
+## Real example: scatter plots {.smaller}
 
 __STEP 2__:
 
@@ -367,11 +384,11 @@ print(plt)
 print(plt)
 ```
 
-## Example: Scatter plots
+## Real example: scatter plots {.smaller}
 
 __STEP 3__:
 
-Maybe we should improve the axis labels? To do this, we need to "add" a new labels layer using the `labs` function
+Maybe we should improve the axis labels? To do this, we need to "add" labels information using the `labs` function
 ```{r, eval=FALSE}
 plt <- plt + labs(x = "Petal Width", y = "Petal Length")
 print(plt)
@@ -386,7 +403,7 @@ print(plt)
 
 __Doing it all in one go...__:
 
-We don't have to build a plot object up in separate steps and then explicitly "print"" it to the Console. If we just want to make th eplot in one go we can do it like this:
+We don't have to build a plot object up in separate steps and then explicitly "print"" it to the Console. If we just want to make the plot in one go we can do it like this:
 ```{r, fig.height=2.6, fig.width=3.2}
 ggplot(iris, aes(x = Petal.Width, y = Petal.Length)) + 
   geom_point() + 
@@ -398,9 +415,9 @@ ggplot(iris, aes(x = Petal.Width, y = Petal.Length)) +
 <div id="exercise-box">
 __Customising your plot__
 <div id="box-text">
-Repeat the example we just stepped through, but now try to customise the point colours and their size. Then see if you can make the points transparent.
+Repeat the example we just stepped through, but now try to customise the point colours and their size. If that's too easy, see if you can make the points transparent. An example of suitable output is given below.
 
-Hint: the `geom_point` function is responsible for altering these features (it takes a number of different arguments). Try `?geom_point` if you can't guess the answer, looking at the **Aesthetics** section. An example of suitable output is given below.
+Hint: The `geom_point` function is responsible for altering these features (it takes a number of different arguments). It has arguments that control things like colour and size. They have sensible names...
 </div>
 </div>
 
@@ -412,7 +429,7 @@ ggplot(iris, aes(x = Petal.Width, y = Petal.Length)) +
 
 ## Answer
 
-```{r, fig.height=2.6, fig.width=3.2, eval=showAnswers, echo=showAnswers}
+```{r, fig.height=2.6, fig.width=3.2, include=showAnswers}
 ggplot(iris, aes(x = Petal.Width, y = Petal.Length)) + 
   geom_point(colour = "blue", size = 3, alpha = 0.5) + 
   labs(x = "Petal Width", y = "Petal Length")
@@ -424,7 +441,7 @@ Q: The last graph was quite nice, but what information was missing?
 
 A: The species identity!
 
-```{r, fig.height=2.6, fig.width=4.7, echo=FALSE}
+```{r, fig.height=2.9, fig.width=4.7, echo=FALSE}
 ggplot(iris, aes(x = Petal.Width, y = Petal.Length, colour = Species)) + 
   geom_point(size = 3, alpha = 0.5) + 
   labs(x = "Petal Width", y = "Petal Length")
@@ -445,15 +462,15 @@ You may have noticed that we can set something like "colour" in two places: the 
 </div>
 </div>
 
-```{r, fig.height=2.6, fig.width=3.2}
+```{r, fig.height=2.4, fig.width=2.9, include=showAnswers}
 ggplot(iris, aes(x = Petal.Width, y = Petal.Length, colour = Species)) + 
   geom_point(colour = "blue", size = 3, alpha = 0.5) + 
   labs(x = "Petal Width", y = "Petal Length")
 ```
 
-## Putting it all together
+## Exercise: Putting it all together
 
-We want to make the following scatter plot. It shows the mean `wind` speed against mean `pressure`. The means are calculated for each combination of storm `name` and `type`. Storm type of each point is delineated by its colour.
+We want to make the following scatter plot. It shows mean `wind` speed against mean `pressure`, where the means are calculated for each combination of storm `name` and `type`. The storm type of each point is delineated by its colour.
 
 ```{r, echo = FALSE, fig.width=6}
 storms %>% 
@@ -473,7 +490,7 @@ The first step is to work out how to use `dplyr` to calcuate the mean `wind` spe
 </div>
 </div>
 
-```{r}
+```{r, include=showAnswers}
 storms.summary <-
   storms %>% 
   group_by(name, type) %>%
@@ -489,7 +506,7 @@ The next step uses the `storms.summary` data to plot the mean `wind` speed and m
 </div>
 </div>
 
-```{r, fig.width=6}
+```{r, fig.width=6, include=showAnswers}
 ggplot(storms.summary, 
        aes(x = pressure, y = wind, col = type)) + 
   geom_point(alpha = 0.7) + 
@@ -505,7 +522,7 @@ Finally, see if you can combine the solutions to part 1 and 2 into a single "pip
 </div>
 </div>
 
-```{r, fig.width=6}
+```{r, fig.width=6, include=showAnswers}
 storms %>% 
   group_by(name, type) %>%
   summarise(wind = mean(wind), pressure = mean(pressure)) %>%
@@ -514,4 +531,15 @@ storms %>%
     labs(x = "Mean pressure (mbar)", y = "Mean wind speed (mph)")
 ```
 
+## What happens next?
+
+<br><br>
+
+1. __No lecture__ tomorrow.
+
+2. Course book, course book, course book! (No one reported my 'deliberate' error...)
+
+3. DZC office hours are 12-3pm every Tuesday. (No one has been to see me...)
+
+4. More plotting next week (Then we're done...)
 
