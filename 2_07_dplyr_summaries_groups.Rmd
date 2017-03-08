@@ -1,0 +1,151 @@
+# Grouping and summarising data
+
+This chapter will explore the `summarise` and `group_by` verbs. These two verbs are considered together because they work quite differently from the   :
+
+- The `group_by` function inserts information into a data object (e.g. a tibble), which makes subsequent calculations on that object happen on a group-specific basis.
+
+- The `summarise` function is a data reduction function calculates simgle-number summaries of one or more variables, respecting group structure if present.
+
+### Getting ready
+
+We should start a new script by loading and attaching the **dplyr** package:
+```{r, eval=FALSE}
+library("dplyr")
+```
+We're going to use both the `storms` and `iris` data sets in the **nasaweather** and **datasets** packages, respectively. The **datasets** package ships is automatically loaded and attached at start up, so we need to make the **nasaweather** package available:
+```{r, eval=FALSE}
+library("nasaweather")
+```
+Finally, let's convert both data sets to a tibble so they print to the Console cleanly:
+```{r}
+storms_tbl <- tbl_df(storms)
+iris_tbl   <- tbl_df(iris)
+```
+
+## Summarising variables with `summarise`
+
+We use `summarise` to __calculate simple summaries of variables__ in a an object containing our data. We have to do this kind of thing all the time when analysing data. In terms of pseudocode, basic usage of `summarise` looks something like this:
+```{r, eval=FALSE}
+summarise(data_set, <expression1>, <expression2>, ...)
+```
+This is not an example we can run -- it is intended to highlight in general terms how we use `summarise`. The first argument, `data_set`, must be the name of the data frame or tibble containing our data. We then include a series of one or more additional arguments, each of these is a valid R expression involving at least one variable in `data_set`. These are expressed these as `<expression1>, <expression2>`, where `<expression1>` and `<expression2>` represent the first two expressions, and the `...` is acting as placeholder for the remaining expressions. These expressions can be any calculation involving R functions, but they must generate a single value when evaluated. 
+
+That last sentence was important. It's easy to use `summarise` if can we remember one thing: `summarise` is designed to work with functions that take a vector as their input and return __a single value__ (i.e. a vector of length one). Any function that does this can be used with `summarise`. 
+
+The use of `summarise` is best understood by example. The `mean` function takes a vector of numbers (several numbers) and calculates their arithmetic mean (one number). We use `mean` with `summarise` to calculate the mean of the `Petal.Length` and `Petal.Width` variables in `iris_tbl` like this:
+```{r}
+summarise(iris_tbl, mean(Petal.Length), mean(Petal.Width))
+```
+Notice what kind of object `summarise` returns: it's a tibble with only one row and two columns. There are two columns because we calculated two means, and there is one row conatining these means. Simple. 
+
+There are a few other things to note about how `summarise` works:
+
+* As with all **dplyr** functions, the expression that performs the required summary calculation is not surrounded by quotes because it is an expression that it "does some calculations".
+
+* The order of the expression in the resulting tibble is the same as the order in which they were used as arguments.
+
+* Even though the dimensions of the output object have changed, `summarise` returns the same kind of data object as it is working on. It returns a data frame if our data was originally in a data frame and a tibble if it was a tibble.
+
+Notice that `summarise` used the actual expressions to name the variables in the tibbled it returned. Variable names like `mean(Petal.Length)` and `mean(Petal.Width)` They're quite long and they contain special reserved characters like `(` that make referring to the columns in the resulting tibble more difficult than it needs to be:
+```{r}
+# make a summary tibble an assign it a name
+iris_means <- summarise(iris_tbl, mean(Petal.Length), mean(Petal.Width))
+# extract the mean petal length
+iris_means$`mean(Petal.Length)`
+```
+We have to place 'back ticks' (as above) or ordinary quotes around the name to extract the new column when it includes special characters.
+
+It's better to avoid using the default names. The `summarise` function can name the new variables at the same time as they are created. Predictably, we do this by naming the arguments using `=`, placing the name we require on the left hand side. For example:
+```{r}
+summarise(iris_tbl, Mean_PL = mean(Petal.Length), Mean_PW = mean(Petal.Width))
+```
+There are very many base R functions that can be used with `summarise`. A few useful ones for calculating summaries of numeric variables are:
+
+* `min` and `max` calculate the minimum and maximum values of a vector. 
+
+* `mean` and `median` calculate the mean and median of a numeric vector.
+
+* `sd` and `var` calculate the standard deviation and variance of a numeric vector.
+
+There is nothing to stop us combining more than one function in a `summarise` expression as long as the combined expression returns a single number. This means we can do quite complicated calculations in one step. For example, if we need to know the ratio of mean and the median values of petal length and petal width in `iris_tbl`, I use:
+```{r}
+summarise(iris_tbl,
+          Mn_Md_PL = mean(Petal.Length) / median(Petal.Length),
+          Mn_Md_PW = mean(Petal.Width)  / median(Petal.Width))
+```
+Notice that we placed each argument on a seperate line. We don't have to do this; it's just a style issue. R doesn't care about white space so we use new lines and spaces to keep everything a bit more more human-readable. It pays to organise `summarise` calculations like this as they become longer because this allows us to see the logic of the calculations, and makes it easier to spot the source of errors when they occur.
+
+### Helper functions
+
+There are a few **dplyr** helper functions that can be used with `summarise`. These generally provide summaries that aren't available directly using base R functions. For example, the `n_distinct` function is used to calculate the number of distinct values in a variable:
+```{r}
+summarise(iris_tbl, Num.PL.Vals = n_distinct(Petal.Length))
+```
+This tells us that there are 43 unique values of `Petal.Length`. We won't explore any others here. Once again that [handy cheat sheat](http://www.rstudio.com/resources/cheatsheets/) is worth looking over to see what additional options are available.
+
+## Grouped operations using `group_by`
+
+Performing a calcujlation with one or more variables over the whole data set is often useful, but sometimes we also need to carry out an operation one different subsets of our data. For example, it's probably more useful to know how the mean sepal and petal traits vary among the different species in the `iris_tbl` dataset, rather than knowing the overall mean of these traits. We could do this by using `filter` to create different subsets of `iris_tbl` and then use `summary` on each of these to calculate the means. This would get the job done, but it's is not very efficient.
+
+where each subset is defined by one or more __grouping variables__. 
+
+The `group_by` function can be used to ensure operations are carried out on a groups-wise basis. `group_by` does not do all that much on its own. It just adds information to a tibble or data frame that defines the grouping structure used by **dplyr** verbs like `summarise` and `mutate`. Basic usage of `group_by` looks something like this:
+```{r, eval=FALSE}
+group_by(data_set, vname1, vname2, ...)
+```
+This example is just highlights in how we use `select` -- you cannot run it. The first argument, `data_set` ("data object"), must be the name of the object containing our data. We then have to include one or more additional arguments, where each of these is the name of a variable in `data_set`. I have expressed this as `vname1, vname2, ...`, where `vname1` and `vname2` are names of the first two variables, and the `...` is acting as placeholder for the remaining variables.
+
+We will illustrate `group_by` using the `storms` dataset. We are aiming to calculate the mean wind speed for every type of storm. The first step is to use `group_by` to add grouping information to `storms`:
+```{r}
+group_by(storms, type)
+```
+Compare this output to that produced when we print the original `storms` dataset:
+```{r}
+storms
+```
+There is almost no difference between the printed information. `group_by` really doesn't do much on its own. If you are paying close attention you will have noticed that the tibble from `group_by(storms, type)` has a little bit of additional information printed at the top: `Groups: type`. All that `group_by` did was add this information.
+
+The original `storms` tibble was not altered by `group_by`. If we actually want to do useful useful with the result we need to assign it a name so that we can work with some more:
+```{r}
+storms_grouped <- group_by(storms, type)
+```
+Now we have a grouped tibble called `storms_grouped`, in which the groups are defined by the values of `type`. Any operations on this tibble are performed "by group". To see this in action, we can use `summarise` to calculate the mean wind speed:
+```{r}
+summarise(storms_grouped, mean.wind = mean(wind))
+```
+When we used `summarise` on an ungrouped tibble the result was a tibble with one row. Now the result is a tibble with four rows, one for each value of `type`. The `type` variable in this tibble references these values, and the `mean.wind` variable shows the mean wind speed of each storm type.
+
+### More than one grouping variable
+
+What if we need to calculate more than one summary using more than one grouping variable? The workflow is unchanged. First group the dataset by the appropriate grouping variables and assign the new tibble a name:
+```{r}
+# group the storms data by storm year + assign the result a name
+storms_grouped <- group_by(storms, type, year)
+# 
+storms_grouped
+```
+We grouped the `storms` data by `type` and `year` and assigned the grouped tibble the name `storms_grouped` again, overwriting the old one. When we print this to the COnsole we see `Groups: type, year [24]` near the top, whihc tells us that the tibble is grouped by two variables with 24 unique combinations of values.
+
+We can then calculate the mean wind speed and pressure of each storm type in each year using:
+```{r}
+summarise(storms_grouped, 
+          mean_wind     = mean(wind), 
+          mean_pressure = mean(pressure))
+```
+This calculates mean wind speed and atmospheric pressure for different combination of `type` and `year`. The first line shows us that the mean wind speed and pressure associated with extratropical storms in 1995 was 38.7 mph and 995 millibars, the second line shows us that the mean wind speed and pressure associated with extratropical storms in 1995 was 40.4 mph and 991 millibars, and so on.
+
+### Beyond `summarise`: using `group_by` with other verbs
+
+The `summarise` function is the only **dplyr** verb we will use with grouped tibbles in this book. However, `summarise` is not the only verb that alters its behaviour when used with grouped tibbles. Both `mutate` and `transmute` work with with grouped tibbles. When used like this these still add new variables to a tibble, but now the calculations used to construct each new variable occur "by group". Here is an example using `transmute`:
+```{r}
+# group the storms data by storm name + assign the result a name
+storms_grouped <- group_by(storms, name)
+# create a data set 'mean centred' wind speed variable
+transmute(storms_grouped, wind_centred = wind - mean(wind))
+```
+In this example we calculated the "group mean-centered" version of the wind variable. The new `wind_centred` variable contains the difference between the wind speed and the mean of which ever storm type is associated with the observation. 
+
+### Removing grouping information
+
+
+

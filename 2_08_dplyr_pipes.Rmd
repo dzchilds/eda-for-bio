@@ -1,0 +1,58 @@
+# Building piplines
+
+This chapter will...
+
+## Why do we need 'pipes'?
+
+We have seen that carrying out calculations on a per-group basis can be achieved by grouping a tibble, assigning this a name, and then applying the `summarise` function to the new tibble. For example:
+```{r}
+storms_grouped <- group_by(storms, type)
+summarise(storms_grouped, mean.wind = mean(wind))
+```
+There is nothing wrong with this way of doing things. If you are comfortable with it by all means stick with it. This approach is quite verbose -- especially if an analysis involves more than a couple of steps -- because we have to keep storing intermediate steps.
+
+One way to reduce this verbosity is to use a nested function call (we examined these in the [Using functions] chapter) like this:
+```{r}
+summarise(group_by(storms, type), mean.wind = mean(wind))
+```
+Here we placed the `group_by` function call inside the list of arguments to `summarise`. This is exactly equivalent to the previous example. Remember, you have to read nested function calls from the inside out to understand what they are doing. There are at least a couple of reasons why this 
+
+* I do not mind this because I am used to doing it, but a no reasonable person would argue that calling more than one function via nesting in a single expression is intuitive. Reading outward from the inside of a load of nested functions is hard work.
+
+* Even when you are used to it, using function nesting is fairly error prone. For example, it is very easy to accidentally put an argument or two on the wrong side of a closing `)`. This usually produces an error or nonsensical output.
+
+Luckily, there is a third option for combing several functions in a chain. This involves the "pipe" operator, `%>%`. This is not part of base R. It is part of a package called `magrittr`. There is no need to install this, `dplyr` does this automatically. The reason main the `%>%` operator has become popular is because it allows us to read a chain of function calls from left to right. Here is how we can right the previous example using the pipe operator `%>%`:
+```{r}
+storms %>% group_by(., type) %>% summarise(., mean.wind = mean(wind))
+```
+Every time you see `%>%` it means take the object produced by whatever is on the left hand and use it as an argument in the function on the right hand side wherever the `.` appears. We read this from left to right, just like we would read text in a book. This example says, take the `storms` dataset and group it by `type`, then take the resulting grouped tibble and apply the summarise function to it to calculate the mean of `wind`. It is exactly the same calculation we did in the previous two examples.
+
+When using the pipe operator we can often leave out the `.` that signifies which argument in the function on the right of `%>%` should be associated with the result from the left of `%>%`. If we do leave out the `.`, the pipe operator assumes we meant the first argument. This means we can further simplify things to:  
+```{r}
+storms %>% group_by(type) %>% summarise(mean.wind = mean(wind))
+```
+This is why it is so important that the first argument to `dplyr` verbs is always the data object it works on: this ensures we can use `%>%` without explicitly specifying the argument to match against.
+
+Remember, R does not care about white space. If a chained set of function calls becomes too long to put on one line, we can just break it over several lines like this:
+```{r}
+storms %>% 
+  group_by(type) %>% 
+  summarise(mean.wind = mean(wind))
+```
+
+Finally, when we need to assign the result of a chained functions we have to break the left to right rule a bit, placing the assignment at the beginning: 
+```{r}
+new.data <- storms %>% 
+            group_by(type) %>% 
+            summarise(mean.wind = mean(wind))
+new.data
+```
+(Actually, there is a rightward assignment operator, `->`, but let's not worry about that)
+
+Personally, I find the `%>%` approach the easiest to follow among the three we have looked at, and since a lot of people use it now I think it is important for you to have some sense of how it works. Many of the examples in the `dplyr` help files also use `%>%`, so you need to have seen it in action to have any chance of understanding how these work. However, don't worry too much if you find `%>%` confusing, or you just don't like it. It is fine to break up a series of calculations into discrete steps and store the intermediate results as you go (or even use nested function calls if you don't find them too mind-bending).
+
+
+
+
+
+
