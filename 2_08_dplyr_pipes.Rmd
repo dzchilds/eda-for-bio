@@ -1,55 +1,69 @@
 # Building piplines
 
-This chapter will...
+This chapter will introduce something called the pipe operator: `%>%`. We don't often use the various **dplyr** verbs in isolation. Instead, starting with our raw data, they are combined in a sequence to prepare the data for further analysis (e.g. making a plot, calculating summaries, fitting a statistical model, and so on). The function of the pipe operator is to make the data wrangling part of such a workflow as transparent as possible.
 
 ## Why do we need 'pipes'?
 
-We have seen that carrying out calculations on a per-group basis can be achieved by grouping a tibble, assigning this a name, and then applying the `summarise` function to the new tibble. For example:
+We've seen that carrying out calculations on a per-group basis can be achieved by grouping a tibble, assigning this a name, and then applying the `summarise` function to the new tibble. For example, if we need the mean wind speed for every storm recorded in `storms_tbl`, we could use:
 ```{r}
-storms_grouped <- group_by(storms, type)
+# 1. make a grouped copy of the storms data
+storms_grouped <- group_by(storms_tbl, name)
+# 2. calculate the mean wind speed for each storm
 summarise(storms_grouped, mean.wind = mean(wind))
 ```
-There is nothing wrong with this way of doing things. If you are comfortable with it by all means stick with it. This approach is quite verbose -- especially if an analysis involves more than a couple of steps -- because we have to keep storing intermediate steps.
+There's nothing wrong with this way of doing things. However, this approach to building up an analysis is quite verbose---especially if an analysis involves more than a couple of steps---because we have to keep storing intermediate steps. It also tends to clutter the global environment with lots of data objects we don't need.
 
-One way to reduce this verbosity is to use a nested function call (we examined these in the [Using functions] chapter) like this:
+One way to make things more concise is to use a nested function call (we examined these in the [Using functions] chapter), like this:
 ```{r}
-summarise(group_by(storms, type), mean.wind = mean(wind))
+summarise(group_by(storms_tbl, type), mean.wind = mean(wind))
 ```
-Here we placed the `group_by` function call inside the list of arguments to `summarise`. This is exactly equivalent to the previous example. Remember, you have to read nested function calls from the inside out to understand what they are doing. There are at least a couple of reasons why this 
+Here we placed the `group_by` function call inside the list of arguments to `summarise`. Remember, you have to read nested function calls from the inside out to understand what they are doing. This is exactly equivalent to the previous example. We get the same result without having to store intermediate data. However, there are a couple of good reasons why this approach is not advised:
 
-* I do not mind this because I am used to doing it, but a no reasonable person would argue that calling more than one function via nesting in a single expression is intuitive. Reading outward from the inside of a load of nested functions is hard work.
+* Experienced R users probably don't mind this approach because they're used to nested functions calls. Nonetheless, no reasonable person would argue that nesting functions inside one another is intuitive. Reading outward from the inside of a large number of nested functions is hard work.
 
-* Even when you are used to it, using function nesting is fairly error prone. For example, it is very easy to accidentally put an argument or two on the wrong side of a closing `)`. This usually produces an error or nonsensical output.
+* Even for experienced R users, using function nesting is a fairly error prone approach. For example, it's very easy to accidentally put an argument or two on the wrong side of a closing `)`. If we're lucky this will produce an error and we'll catch the problem. If we're not, we may just end up with nonsense in the output.
 
-Luckily, there is a third option for combing several functions in a chain. This involves the "pipe" operator, `%>%`. This is not part of base R. It is part of a package called `magrittr`. There is no need to install this, `dplyr` does this automatically. The reason main the `%>%` operator has become popular is because it allows us to read a chain of function calls from left to right. Here is how we can right the previous example using the pipe operator `%>%`:
+There's a third option for combing several functions that has the dual benefit of keeping our code concise and readable, while avoiding the need to clutter the global environment with intermediate objects. This third approach involves something called the "pipe" operator: `%>%` (no spaces allowed). This isn't part of base R though. Instead, it's part of a package called **magrittr**.  but there's no need to install this if we're using **dplyr** because **dplyr** imports it for us. 
+
+The `%>%` operator has become very popular in recent years. The main reason for this is because it allows us to specify a chain of function calls in a (reasonably) human readable format. Here's how we write the previous example using the pipe operator `%>%`:
 ```{r}
-storms %>% group_by(., type) %>% summarise(., mean.wind = mean(wind))
+storms_tbl %>% group_by(., type) %>% summarise(., mean.wind = mean(wind))
 ```
-Every time you see `%>%` it means take the object produced by whatever is on the left hand and use it as an argument in the function on the right hand side wherever the `.` appears. We read this from left to right, just like we would read text in a book. This example says, take the `storms` dataset and group it by `type`, then take the resulting grouped tibble and apply the summarise function to it to calculate the mean of `wind`. It is exactly the same calculation we did in the previous two examples.
+How do we make sense of this? Every time we see the `%>%` operator it means the following: take whatever is produced by the left hand expression and use it as an argument in the function on the right hand side. The `.` serves as a placeholder for the location of the corresponding argument. This means we can understand what a sequence of calculations is doing by reading from left to right, just as we would read the words in a book. This example says, take the `storms_tbl` data, group it by `type`, then take the resulting grouped tibble and apply the summarise function to it to calculate the mean of `wind`. It is exactly the same calculation we did above.
 
-When using the pipe operator we can often leave out the `.` that signifies which argument in the function on the right of `%>%` should be associated with the result from the left of `%>%`. If we do leave out the `.`, the pipe operator assumes we meant the first argument. This means we can further simplify things to:  
+When using the pipe operator we can often leave out the `.` placeholder. Remember, this signifies the argument of the function on the right of `%>%` that is associated with the result from on left of `%>%`. If we choose to leave out the `.`, the pipe operator assumes we meant to slot it into the first argument. This means we can simplify our example even more:  
 ```{r}
-storms %>% group_by(type) %>% summarise(mean.wind = mean(wind))
+storms_tbl %>% group_by(type) %>% summarise(mean.wind = mean(wind))
 ```
-This is why it is so important that the first argument to `dplyr` verbs is always the data object it works on: this ensures we can use `%>%` without explicitly specifying the argument to match against.
+This is why the first argument of a **dplyr** verb is always the data object. This convention ensures that we can use `%>%` without explicitly specifying the argument to match against.
 
-Remember, R does not care about white space. If a chained set of function calls becomes too long to put on one line, we can just break it over several lines like this:
+Remember, R does not care about white space, which means we can break a chained set of function calls over several lines if it becomes too long:
 ```{r}
-storms %>% 
+storms_tbl %>% 
   group_by(type) %>% 
   summarise(mean.wind = mean(wind))
 ```
+In fact, many **dplyr** users always place each part of a pipeline onto a new line to help with overall readability.
 
 Finally, when we need to assign the result of a chained functions we have to break the left to right rule a bit, placing the assignment at the beginning: 
 ```{r}
-new.data <- storms %>% 
-            group_by(type) %>% 
-            summarise(mean.wind = mean(wind))
-new.data
+new_data <- 
+  storms_tbl %>% 
+  group_by(type) %>% 
+  summarise(mean.wind = mean(wind))
 ```
 (Actually, there is a rightward assignment operator, `->`, but let's not worry about that)
 
-Personally, I find the `%>%` approach the easiest to follow among the three we have looked at, and since a lot of people use it now I think it is important for you to have some sense of how it works. Many of the examples in the `dplyr` help files also use `%>%`, so you need to have seen it in action to have any chance of understanding how these work. However, don't worry too much if you find `%>%` confusing, or you just don't like it. It is fine to break up a series of calculations into discrete steps and store the intermediate results as you go (or even use nested function calls if you don't find them too mind-bending).
+```{block, type="info"}
+#### Why is `%>%` called the 'pipe' operator? 
+
+The `%>%` operator takes the output from one function and "pipes it" to another as the input. It's called 'the pipe' for the simple reason that it allows us to create an analysis 'pipeline' from a series of function calls. Incidentally, if you Google the phrase "magritt pipe" you'll see that **magrittr** is a very clever name for an R package.
+```
+
+One final piece of advice: learn how to use the `%>%` method of chaining together functions. Why? Because it's the simplest and cleanest method for doing this, many of the examples in the **dplyr** help files and on the web use it, and the majority of people carrying out real world data wrangling with **dplyr** rely on piping.
+
+
+
 
 
 
