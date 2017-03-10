@@ -1,0 +1,170 @@
+# Introduction to ggplot2
+
+This chapter will... One of the main reasons data analysts turn to R is for its strong data visualisation capabilities. 
+
+The R ecosystem includes many different packages that support data visualisation. The three that are used widely used are: 1) the base graphics system, which uses the **graphics** package; 2) the **lattice** package; and 3) the **ggplot2** package. Each of these has its own strengths and weaknesses:
+
+* Base graphics is part of base R---it's available immediately after we start R. It's very flexible and allows us to construct more or less any plot we like. This flexibility comes at a cost though. It's quite easy to get up and running with the base R graphics---there are functions like `plot` and `hist` for making commonly-used figures---but building complex figures is time consuming. We have to write a lot of R code to prepare even moderately complex plots, there are a huge number of graphical parameters to learn, and many of the standard plotting functions are inconsistent in the way they work.
+
+* The **lattice** package was developed by Deepayan Sarkar to implement ideas of Bill Cleveland in his 1993 book, Visualizing Data. The package implements something called Trellis graphics, a very useful approach for graphical exploratory data analysis. Trellis graphics are designed to help us visualise complicated, multiple variable relationships. The **lattice** package has many "high level" functions (e.g. `xyplot`) to make this process easy, but still retains much of the fine-grained control that characterises the standard graphics system. The **lattice** package is very powerful but can be hard to learn.
+
+* The **ggplot2** package was developed by Hadley Wickham to implement some of the ideas in a book called The Grammar of Graphics by Wilkinson (2005). It produces Trellis-like graphics, but is quite different from **lattice** in the way it goes about this. It uses its own mini-language to define graphical objects, adopting the language of Wilkison's book to define these. It takes a little while to learn the basics, but once these have been mastered these it's very easy to produce sophisticated plots with very little R code. The downside of working with **ggplot2** is that it isn't as flexible as base graphics.
+
+We aren't going to survey all three of these plotting systems. There isn;t space, and in any case, we can meet the majority of our data visualisation needs by becoming proficient with just one of them. This book focuses on **ggplot2**. In many ways the **ggplot2** package hits the "sweet spot" in between standard graphics and **lattice**. It allows us to produce complex visualisations without the need to write masses of R code, but is still flexible enough to allow you to tweak the appearance of a figure so that it meets our specific needs. 
+
+## The anatomy of ggplot2 {#anatomy}
+
+The easiest way to learn **ggplot2** is to just use it. Before we dive in though it's worth surveying the essential features of the **ggplot2** "grammar". Most of this is quite abstract and probably won't make sense on first reading. This is fine. Abstract ideas like 'aesthetics' and 'geoms' will start to make sense as we work through different examples.
+
+**ggplot2** is designed to reflect Wilkinson's grammar of graphics. This aims to formally describe the common components of a diverse range of data visualisations. The **ggplot2** version of this grammar revolves around the idea of **layers**. The underlying idea is that we construct a visualisation in a structured manner by defining one or more of these layers. Each layer may have its own data or it may share its data with another layer, and each layer displays its data in a specific way. 
+
+A **ggplot2** plot is defined by a particular combination of: (1) a default data set along with a set of mappings from variables to aesthetics; (2) one or more layers, each comprising a number of components; (3) one scale for each aesthetic mapping; (4) a coordinate system for the plot; (5) a faceting specification that tells **ggplot2** how to define a multi-panel plot. We'll look at each of these in turn before moving onto the business of actually using **ggplot2**.
+
+### Layers
+
+Each layer in a **ggplot2** plot may have five different components (though you don't always have to specify all of these):
+
+* The __data__. At a minimum, every plot needs some data. Unlike base R graphics, **ggplot2** always accepts data in one format, an R data frame (or a closely related object like a `dplyr` tbl). If you do not add data to a layer **ggplot2** will use the default data set. 
+
+* A set of __aesthetic mappings__. These describe how variables in the data (i.e. the columns of the data frame) are mapped to the aesthetic properties of the layer. The most commonly encountered aesthetic properties describe the position (on the x and y axes), colour, size of the data on in a plot. You will always need to define an aesthetic mapping when using **ggplot2**. 
+
+* A geometric object type, written as '__geom__'. These are used to actually draw the layer, i.e. they are the objects you actually see on a plot such as points, lines or bars. A particular geom can only access certain aesthetic mappings. You will always need to define at least one geom when using **ggplot2**.
+
+* A __stat__. These take the raw data in the data frame and transform in some useful way. A stat allows us to produce visual summaries of our data. We will not use them much in this course, but they are one of the things that make **ggplot2** so useful for exploratory data analysis.
+
+* A __position adjustment__. These apply small tweaks to the position of layer elements. These are most often used in plots like bar plots where we need to define how the bars are plotted, but they can occasionally be useful in other kinds of plots.  
+
+We will only work with plots that comprise a single layer in this course. Next year we will build more complex, multi-layer plots to summarise both our data and statistical models. 
+
+### Scales
+
+A scale controls how the data is mapped to the aesthetic attributes. A scale takes the data and converts it into something we can perceive, such as a position, or the colour and size of points in a plot. A scale must be defined for every aesthetic in a plot. It doesn't make sense to define an aesthetic mapping without a scale, since there is no way for **ggplot2** to know how to go from the data to the aesthetics without one. Keep in mind scales operate in the same way across all the data in the plot. If you include several layers they will use the same scale for shared aesthetic mappings. Again, this behaviour is sensible because it ensures that the information that is displayed is consistent.
+
+If we do not explicitly define a scale for every aesthetic then **ggplot2** will use a default. Very often this will be the "sensible" choice, so we can get quite a long way with **ggplot2** without really understanding scales. We won't worry too much about scales in this course, though we will take a brief look at a few options, so that for example, you know how to plot your data on a logarithmic scale (this is something we have to do quite often in biology).
+
+### Coordinate system
+
+A **ggplot2** coordinate system takes the position of objects (e.g. points and lines) and maps them onto the 2d plane of a plot that you see. You are already very familiar with the most common coordinate system (even if you didn't realise it). The Cartesian coordinate system is the one you've been using ever since you first constructed a graph with paper and pencil at school. All of the common statistical plots use this coordinate system, so we are not going to consider any others in this course.
+
+### Faceting
+
+The idea behind faceting is very simple. Faceting allows us to break a data set up into subsets according to the unique values of one or two variables, and then produce a separate graph for each subset. The result is a multipanel plot, where each panel shares the same layers, scales, etc. The data is the only thing that varies from panel to panel. The result is a kind of Trellis plot, similar to those produced by the **lattice** package. Faceting is a very powerful tool, as it allows us to slice up our data in different ways and really understand the relationship between different data variables. Together with aesthetic mappings, faceting allows us to easily summarise relationships among 4-6 variables in a single plot.
+
+## A quick introduction to ggplot2 {#quick}
+
+Now that we have briefly reviewed the main components of the **ggplot2** grammar, we can start learning how to use the package. I said earlier that **ggplot2** uses the grammar to define a sort of mini-language within R. It works by using various functions to define things like layers and scales, which are combined to a ggplot2 graphics object. Once we a complete object we can use it to display our graphic on the computer screen or save in a particular graphics format (e.g. PDF, PNG, JPEG, etc). 
+
+Rather than orientating this introduction to **ggplot2** around each of the key functions, we are going to develop a simple example to help us understand how **ggplot2** works. Many of the key ideas you need to understand about **ggplot2** can be taken away from this one example, so it is worth spending a little time making sure you really explore it. In particular, try to use the example to help you better understand how the different **ggplot2** functions are related to the grammar outlined above.
+
+Our aim is to produce a series of scatter plots, each building on the last to add extra information or change the appearance of the plot. Hopefully you can remember what a scatter plot is -- you must have constructed a these by hand in secondary school, and you have probably used Excel to make one at some point. Scatter plots use horizontal and vertical axes, the "x" and "y" axes, to plot data as a series of points. They are designed to show how one variable is affected by another (more about this in a later chapter).
+
+This scatter plots will be constructed using the `storms` data from the `nasaweather` package. As usual, the `nasaweather` package must have been installed using `install.packages` at some point, and you will need to load and attach the packages using `library(nasaweather)` in each new R session to access `storms`. The question we want to explore is, What is the relationship between the observation year (the `year` variable), wind speed (the `wind` variable), atmospheric pressure (the `pressure` variable), and time of year (the `seasday` variable)? Specifically, we want to know how wind speed depends on atmospheric pressure, and how this relationship changes (if at all) among months and types of storm.
+
+### Making a start
+
+The **ggplot2** package is quite flexible, in the sense that it allows you to construct the a graphical object in a variety of different ways. To keep life simple, we are going to adopt one consistent work flow in this course. It won't reveal the full array of **ggplot2** tricks, but it is enough to allow you to construct a wide range of standard statistical plots.
+
+To begin working with a graphical object we have to first set it up. This is the job of the `ggplot` function. Notice that the package is called **ggplot2**, but the function that does the hard work is called `ggplot`. Try not to mix them up. We can build an empty object by using `ggplot` without any arguments:
+```{r}
+plt <- ggplot()
+summary(plt)
+```
+Here we constructed the graphical object, assigned it to a variable called `plt`, and then used the `summary` function to inspect the result. If you forget what kind of graphical object you can always use `summary` to get an idea of its structure. The result is... not very much. There are no data, aesthetic mapping, layers, etc associated with `plt`. All we did was set up an empty object, which is not all that useful.
+
+How can we improve on this? We can add a default data set to the object by passing the name of a variable associated with a data frame (or `dplyr` tbl) to `ggplot`. Let's try this, using the `storms` data set.
+```{r}
+plt <- ggplot(storms)
+summary(plt)
+```
+Now when we summarise the resulting object we can see that the variables that were stored inside `storms` now comprise the data inside the object we named `plt`.
+
+The next step is to add an aesthetic mapping to our graphical object. Remember, these describe how variables in the data are mapped to the aesthetic properties of a layer in our graphic. One way to think about aesthetic mappings is that they define what kind of relationships your plot will describe. Since we're making a scatter plot we need to define mappings for positions on x and y axes. Since we're trying to understand how wind speed depends on atmospheric pressure, we'll associate `wind` with the y axis and `pressure` with the x axis. 
+
+We define an aesthetic mapping with the `aes` ("aesthetic mapping") function, which we can use like this:
+```{r}
+plt <- plt + aes(x = pressure, y = wind)
+```
+There are a couple things to take away from this. First, notice that we add an aesthetic mapping to the `plt` object using the `+` operator. This has nothing to do with arithmetic. The **ggplot2** package uses some clever programming tricks to redefine the way `+` works with its own objects, so that it can be used to combine them. This is useful because it makes building up a plot from the various components of the grammar very natural. The second thing to notice is that an aesthetic mapping is defined by one or more name-value pairs, specified as `aes` arguments. The names on the left hand side of each `=` refer to the properties of our graphical object (the x and y positions in this case), and the values on right hand side refer to variable names in the data set. 
+
+Notice that we just overwrote the original `plt` object with the updated version using the assignment operator. We could have created a second object (e.g. called `plt2`), but there is no need to do this. Once again, we can inspect the result using `summary`:
+```{r}
+summary(plt)
+```
+As hoped, the data (`data:`) from the original `plt` are still there, but now we can also see that two mappings (`mapping:`) have been defined for the x and y axis positions. In summary, we have used the `ggplot` function along with the `aes` function to set up a graphical object with default data and aesthetic mappings. Any layers that we subsequently add will use these unless we specify different options.
+
+We have not quite reached the point where a complete scatter plot has been specified yet -- i.e something we can actually view -- because we still need to add a layer. Before we do this, we should look at a couple of alternative, but more compact, means of specifying the default data and aesthetic mappings. This produces exactly the same same result as the last couple of steps:
+```{r}
+plt <- ggplot(storms) + aes(x = pressure, y = wind)
+summary(plt)
+```
+The result is the same as before. This should not surprise you by now. All we did was remove the intermediate step that stored the result of `ggplot(storms)` in `plt`. There is a second, slightly less obvious way of setting up our graphical object though:
+```{r}
+plt <- ggplot(storms, aes(x = pressure, y = wind))
+summary(plt)
+```
+This produces the same result. In this form however, the `aes` function is used inside `ggplot`, i.e. it supplies the second argument to `ggplot`. This approach is probably the most commonly used for setting up a graphical object with default data and aesthetic mappings, so we will adopt it from now on.
+
+The final step to produce a plotable version of `plt` is to add a layer so that **ggplot2** knows how to render the data in the plot. Remember, each layer needs five different components: data, aesthetic mappings, a geom, a stat and a position adjustment. Since we have already set up the default data and aesthetic mappings, there is no need to define these in the the new layer; **ggplot2** will just use the defaults if we leave them out of the definition. This leaves the geom, stat and position adjustment. It turns out that we do not have to define the stat and position adjustment either. **ggplot2** will adopt "reasonable" default values for these two components of a layer without any further input from us. This means we only have to worry about the type of geom we want to use.
+
+What kind of geom do we need? Remember, scatter plots allow us to explore data as a series of points. This means we need to add a layer that uses the __point__ geom. Here is one way to do this: 
+```{r}
+plt <- plt + layer(geom = "point")
+```
+All we did here was take the `plt` object, add a new layer using the `layer` function, and then overwrite the old version of `plt`. As is always the case with **ggplot2**, we add the new component using the `+` symbol. We passed one argument to the `layer` function to define the geom: the name of this argument was `geom`, and the value assigned to it was `"point"`. The `layer` function can be used to construct any kind of layer from its component parts. However, `ggplot` provides a number of helper functions that allow us to add layers according to the type of geom they use. These look like this: `geom_XX`, where `XX` is one of the different possible geoms. An alternative to the last line is therefore:
+```{r, eval=FALSE}
+plt <- plt + geom_point()
+```
+This way of defining a layer with a specific geom is probably a bit clearer than the last (and more widely used), so we will adopt it from now on.
+
+We should check the structure of the resulting graphical object one last time to see what we have achieved:
+```{r}
+summary(plt)
+```
+The text above the `-----` line is the same as before. It summarises the default data and the aesthetic mapping. The text below this summarises the layer we just added. It tells us that this layer will use the points geom (`geom_point`), the identity stat (`stat_identity`), and the identity position (`position_identity`). The identity stat and identity position were chosen for us. The word "identity" here essentially stands for, "leave the data as is", i.e. `gplot2` will plot the exact data it was given at the appropriate positions on the x and y axes. 
+
+Now `plt` has everything it needs to actually render a figure. How do we do this? All we have to do is print the object:
+```{r, fig.width=5, fig.height=5}
+plt
+```
+
+We have finally made a complete scatter plot. This clearly shows that higher wind speeds are associated with lower pressure systems. Although it looks like this was a lot of work, most of the effort so far has been spent explaining how the different parts of the grammar are implemented with the **ggplot2** functions. In fact, the whole thing can be done in a couple of lines if we want:
+```{r, eval = TRUE}
+ggplot(storms, aes(x = pressure, y = wind)) + geom_point()
+```
+I didn't bother to show you the resulting plot, but trust me, it is the same as the previous one.
+
+## Increasing the information density
+
+### Using additional aesthetics
+
+We introduced this example by saying that we were interested in the relationship between the observation year, the type of storm, wind speed atmospheric pressure, and time of year. So far we've only examined   the middle two. How can we learn about relationship of these two variables to time of year (`seasday`)? We need to include information in the `seasday` variable in our graph. That is, we want to map the `seasday` variable to one of the aesthetics. This means we need to change the way we are using `aes`. One option is to map the `seasday` to the point colours so that the colour of the points describes the time of year. Here is how we specify this:
+
+```{r}
+plt <- ggplot(storms, aes(x = pressure, y = wind, colour = seasday)) + 
+       geom_point()
+plt
+```
+
+Points are now coloured according to whether they are associated with early (dark blue) or late (light blue) season observations. There is no obvious affect of season, though it is quite hard to be sure because so much overplotting is occurring -- many points occur in the same place. Notice that **ggplot2** automatically adds a legend to the figure to help us interpret it. A colour scale is not much use without a legend.
+
+There is nothing to  map other variables to different aesthetics if we wanted to try to squeeze even more information into this plot. For example, we could map the storm type variable (`type`) to the point shape if we wanted, using `shape = type` inside `aes`. However, this graph is already a bit too crowded, so let's finish this chapter by looking at a different way to examine relationships among variables. 
+
+### Using facets
+
+Remember faceting? This allows us to break up our data set up into subsets according to the unique values of one or two variables, and then produce a separate plot for each subset. What if we want to assess whether or not the wind speed and pressure relationship varies among years? One way to do this is to make a separate scatter plot for each year. Faceting operates on the whole graph, so we can't do it by just changing the properties of a layer. Instead, we have to use a new function to add the faceting information. Here is how we do this using the `facet_wrap` function:
+
+```{r, fig.height=4.3, fig.width=6.7}
+plt <- ggplot(storms, aes(x = pressure, y = wind, colour = seasday)) + 
+       geom_point() + 
+       facet_wrap(~ year, nrow = 2, ncol = 3)
+plt
+```
+
+The first argument (`~ year`) says to break up the data according to the values of `year`. You need to the `~` at the front by the way. We'll learn what that is doing next year, but for now, take my word for it -- you need to include it for the faceting to work. The `nrow` and `ncol` arguments just specify how to split the panels across rows and columns of the resulting plot. Notice that each panel shares the same scales. This makes it easy to compare information across them. The plot indicates that the wind speed / pressure relationship is more or less invariant across years, and that perhaps 1997 and 2000 were not such bad storm years compared to the others. This probably shouldn't surprise us. Although the occurrence of storms is somewhat stochastic, the laws of atmospheric physics do not change from one year to the next.
+
+
+
+
+
+
+
