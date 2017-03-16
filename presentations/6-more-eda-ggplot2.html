@@ -111,7 +111,8 @@
 
 <p><strong>1. Load the <code>dplyr</code> and <code>ggplot2</code> packages</strong></p>
 
-<pre class = 'prettyprint lang-r'>library(&quot;ggplot2&quot;, &quot;dplyr&quot;)</pre>
+<pre class = 'prettyprint lang-r'>library(&quot;dplyr&quot;)
+library(&quot;ggplot2&quot;)</pre>
 
 <p>These should already be installed. If you see errors (you really should not by now!) you will need to install one or both of them.</p>
 
@@ -328,7 +329,7 @@ ggplot(wind.means, aes(x = year, y = wind)) +
 <p><br> The <strong>standard error</strong> is one option here:</p>
 
 <p>\[
-\text{Standard Error = \frac{\text{Standard Deviation}}{\sqrt{\text{Sample Size}}}
+\text{Standard Error} = \frac{\text{Standard Deviation}}{\sqrt{\text{Sample Size}}}
 \]</p>
 
 <p>We need to repeat the <strong>dplyr</strong>, but now include a calculation of the standard errors along with the means:</p>

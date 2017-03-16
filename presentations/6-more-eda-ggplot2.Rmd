@@ -40,7 +40,8 @@ Required packages and data:
 **1. Load the `dplyr` and `ggplot2` packages**
 
 ```{r, message=FALSE}
-library("ggplot2", "dplyr")
+library("dplyr")
+library("ggplot2")
 ```
 
 These should already be installed. If you see errors (you really should not by now!) you will need to install one or both of them.
@@ -302,10 +303,10 @@ ggplot(pl_stats,
 We can build more complex figures by adding more than one layer with the `geom_` functions. For example, we should always add an error bar of some kind to summaries of means.
 </div>
 <br>
-The __standard error__ is one option here:
+The __standard error__ is one option here: 
 
 $$
-\text{Standard Error = \frac{\text{Standard Deviation}}{\sqrt{\text{Sample Size}}}
+\text{Standard Error} = \frac{\text{Standard Deviation}}{\sqrt{\text{Sample Size}}}
 $$
 
 We need to repeat the **dplyr**, but now include a calculation of the standard errors along with the means:
