@@ -8,6 +8,54 @@ library(knitr)
 opts_chunk$set(fig.width=7, fig.height=8, warning=TRUE, error=TRUE, prompt=FALSE)
 ```
 
+Miscellaneous stuff (not used)
+====================================================================
+
+## Density plots
+
+We use density plots to explore the __distribution__ of variables when we have a large number of observations (e.g. 1000s). Here is an example:
+
+```{r}
+dplot <- ggplot(storms, aes(x = pressure))
+dplot <- dplot + geom_density() + labs(x = "Pressure", y = "Density")  
+print(dplot)
+```
+
+## Density plots
+
+We can also plot several different density plots at the same time using the `group` argument in `aes`. We can (optionally) colour these seperately using the `colour` argument in `aes`. Here is an example:
+
+```{r, fig.width=5}
+dplot <- ggplot(storms, aes(x = pressure, colour = type))
+dplot <- dplot + geom_density() + labs(x = "Pressure", y = "Density")  
+print(dplot)
+```
+
+## Exercise 
+
+<div id="exercise-box">
+__Plotting histograms__
+<div id="box-text">
+Working with the `diamonds` dataset, construct a single figure that shows density plots of `price` for each `cut` class. Use a log transformation of `price`. See if you can make your figure look like the one below.
+</div>
+</div>
+
+```{r, echo=FALSE}
+dplot <- ggplot(diamonds, aes(x = log10(price), group = cut, colour = cut))
+dplot <- dplot + geom_density() + 
+                 labs(x = "Price", y = "Density")  
+print(dplot)
+```
+
+## Answer
+
+```{r, eval=showAnswers, echo=showAnswers}
+denplot <- ggplot(diamonds, aes(x = log10(price), group = cut, colour = cut))
+denplot <- denplot + geom_density() + labs(x = "Price", y = "Density")  
+print(denplot)
+```
+
+
 ### Question XXXX
 
 Take the natural log of 5 and round this to 3 decimal places. Do this with just one line of R code, i.e. make sure you do the whole calculation in one step.

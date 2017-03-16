@@ -1,11 +1,12 @@
 ---
 title: Plotting with ggplot2
 author: Dylan Childs
-date: March 17, 2016
+date: March 16, 2017
 highlighter: pygments
 output: 
   ioslides_presentation:
     css: extras.css
+    widescreen: true
     smaller: true
 ---
 
@@ -42,81 +43,49 @@ Required packages and data:
 library("ggplot2", "dplyr")
 ```
 
-These should already be installed. If you see errors, you may have to install one or both of them, e.g.
-
-```{r, eval=FALSE}
-install.packages("ggplot2")
-```
+These should already be installed. If you see errors (you really should not by now!) you will need to install one or both of them.
 
 __2. Read in the storms data__
 
-Download the `storms.csv` data from MOLE. Set your working directory to the correct location. and then use `read.csv` to read the data in, giving it the name `storms`. 
+Download the `storms.csv` data from MOLE. Set your working directory to the correct location and then use `read.csv` to read the data in (remember `stringsAsFactors = FALSE`), giving it the name `storms`.
 
 Revision | How `ggplot2` works
 ====================================================================
 
-## Revision: Scatter plots
+## Revision: elements of `ggplot2` 
 
-Scatter plots are used to show the relationship between 2 continuous variables. Using the `iris` dataset, let's examine the relationship between petal length and petal width. 
+Only a few ideas needed to start using `ggplot2` effectively:
 
-__STEP 1__:
+>- __layers__: We build ggplot2 objects by adding one or more layers together. We can do this in a stepwise way, only plotting the object when we are ready. Each layer needs things like data, aesthetics, geometric objects, etc
+>- __aesthetics__: The word aesthetics refers to __the information__ in a plot. For example, which variables are associated with the x and y axes? We specify this using the `aes` function.
+>- __geometric objects__: Geometric objects ("geoms") determine how the information is displayed. For example, will it be a scatter plot or a bar plot? We can specify geoms by adding a layer via functions beginning with `geom_`.
 
-We use the `aes` function inside the `ggplot` function to specify which variables we plan to display. We also have to specify where the data are: 
-```{r}
-plt <- ggplot(iris, aes(x = Petal.Width, y = Petal.Length))
-```
-All we did here was make a `ggplot` object. We can try to make the plot using the `print` function: 
-```{r, eval=FALSE}
-print(plt)
-```
-This produces an empty plot, because we haven't added a layer using a `geom_` function yet.
+In practise, we build up a plot by combining different functions using the `+` operator. This has nothing to do with numeric addition!
 
 ## Revision: Scatter plots
 
-__STEP 2__:
+__Doing it all in one go...__:
 
-We want to make a scatter plot so we need to use the `geom_point` function:
-```{r}
-plt <- plt + geom_point()
-```
-Notice that all we do is "add" the required layer. Now we have something to plot:
-```{r, eval=FALSE}
-print(plt)
-```
-```{r, fig.height=2.6, fig.width=3.2, echo=FALSE}
-print(plt)
-```
-
-## Revision: Scatter plots
-
-__STEP 3__:
-
-Maybe we should improve the axis labels? To do this, we need to "add" a new labels layer using the `labs` function
-```{r, eval=FALSE}
-plt <- plt + labs(x = "Petal Width", y = "Petal Length")
-print(plt)
-```
-This just adds some new information about labelling to the prexisting `ggplot` object. Now it prints with improved axis labels:
-```{r, fig.height=2.6, fig.width=3.2, echo=FALSE}
-plt <- plt + labs(x = "Petal Width", y = "Petal Length")
-print(plt  )
+```{r, fig.height=2.6, fig.width=3.2}
+ggplot(iris, aes(x = Petal.Width, y = Petal.Length)) + 
+  geom_point() + 
+  labs(x = "Petal Width", y = "Petal Length")
 ```
 
 ## Making things more informative
-
-We can...
 
 1. Customise the plot by setting arguments of a `geom_` function.
 
 2. Add more information by including an additional aesthetic mapping.
 
-```{r, fig.height=3.2, fig.width=4.8, echo=FALSE}
-ggplot(iris, aes(x = Petal.Width, y = Petal.Length, colour = Species)) + 
+Option 1 takes presedence over option 2. Remember that!
+
+```{r, fig.height=3.2, fig.width=4.8, echo=TRUE}
+ggplot(iris, aes(x = Petal.Width, y = Petal.Length, colour = Species)) +
   geom_point(size = 2, alpha = 0.5) + 
   labs(x = "Petal Width", y = "Petal Length")
 ```
 
-N.B. We didn't have to store the the plot objects (we did it in one go here).
 
 Histograms | Visualising a single variable
 ====================================================================
@@ -135,7 +104,7 @@ To get a sense of how frequent different values are we can "bin" the data. Here 
 table(cut(storms $ pressure, breaks = 8))
 ```
 
-(You do not need to rememeber this code)
+(You don't need to rememeber this R code)
 
 ## What are histograms?
 
@@ -164,13 +133,13 @@ ggplot(iris, aes(x = Petal.Length / Petal.Width)) +
 
 ## Answer
 
-```{r, eval=showAnswers, echo=showAnswers}
+```{r, include=showAnswers}
 ggplot(iris, aes(x = Petal.Length / Petal.Width)) + 
   geom_histogram(binwidth=0.5) + 
   labs(x = "Petal Eccentricity", y = "Count")  
 ```
 
-Alternative to histograms | visualising small data
+Alternative to histograms | visualising 'small' data
 ====================================================================
 
 ## Dot plots
@@ -180,7 +149,7 @@ We use dot plots to explore the __distribution__ of variables when we have relat
 ```{r}
 setosa <- filter(iris, Species == "setosa")
 ggplot(setosa, aes(x = Sepal.Length)) + 
-  geom_dotplot()  
+  geom_dotplot(binwidth=0.1)  
 ```
 
 Boxplots | Relationships between categorical and continuous data
@@ -227,7 +196,7 @@ ggplot(storms, aes(x = factor(year), y = wind)) +
 
 ## Answer
 
-```{r, fig.width=6, eval=showAnswers, echo=showAnswers}
+```{r, fig.width=6, include=showAnswers}
 ggplot(storms, aes(x = factor(year), y = wind)) + 
   geom_boxplot() + 
   labs(x = "Year", y = "Wind Speed")  
@@ -255,12 +224,12 @@ If we want to compare a summary statistic (e.g. the mean) across groups we need 
 
 ```{r, echo=TRUE, eval=FALSE}
 # step 1
-pl.means <- 
+pl_stats <- 
   iris %>%
   group_by(Species) %>% 
-  summarise(mean.pl = mean(Petal.Length))
+  summarise(mean_pl = mean(Petal.Length))
 # step 2 
-ggplot(pl.means, aes(x = Species, y = mean.pl)) + 
+ggplot(pl_stats, aes(x = Species, y = mean_pl)) + 
   geom_bar(stat="identity") + 
   labs(y = "Mean Petal Length")
 ```
@@ -268,11 +237,11 @@ ggplot(pl.means, aes(x = Species, y = mean.pl)) +
 <div class="columns-2">
 ```{r, fig.width=2.5, fig.height=2, echo=FALSE}
 # step 1 - use dplyr to calculate the means
-pl.means <- 
+pl_stats <- 
   iris %>% group_by(Species) %>% 
-  summarise(mean.pl = mean(Petal.Length))
+  summarise(mean_pl = mean(Petal.Length))
 # step 2 - make the plot
-ggplot(pl.means, aes(x = Species, y = mean.pl)) + 
+ggplot(pl_stats, aes(x = Species, y = mean_pl)) + 
   geom_bar(stat="identity") + 
   labs(y = "Mean Petal Length")
 ```
@@ -301,7 +270,7 @@ ggplot(wind.means, aes(x = year, y = wind)) +
 
 ## Answer
 
-```{r, echo=FALSE, eval=showAnswers, echo=showAnswers}
+```{r, include=showAnswers}
 # step 1 - use dplyr to calculate the means
 wind.means <- 
   storms %>% group_by(year) %>% 
@@ -311,59 +280,92 @@ ggplot(wind.means, aes(x = year, y = wind)) +
   geom_bar(stat="identity", fill="darkgrey")
 ```
 
-We're done!
+## Adding multiple layers (1)
+
+<div class="columns-2">
+```{r, fig.width=2.5, fig.height=2, echo=FALSE}
+# step 1
+pl_stats <- 
+  iris %>%
+  group_by(Species) %>% 
+  summarise(mean_pl = mean(Petal.Length),
+            se = sd(Petal.Length) / sqrt(n())) # <- New calculation
+# step 2 
+ggplot(pl_stats, 
+       aes(x = Species, y = mean_pl, ymin = mean_pl - se, ymax = mean_pl + se)
+       ) + 
+  geom_bar(stat="identity", fill = "grey", width = 0.7) + 
+  geom_errorbar(width = 0.25) + 
+  labs(y = "Mean Petal Length")
+```
+
+We can build more complex figures by adding more than one layer with the `geom_` functions. For example, we should always add an error bar of some kind to summaries of means.
+</div>
+<br>
+The __standard error__ is one option here:
+
+$$
+\text{Standard Error = \frac{\text{Standard Deviation}}{\sqrt{\text{Sample Size}}}
+$$
+
+We need to repeat the **dplyr**, but now include a calculation of the standard errors along with the means:
+
+```{r, eval=FALSE}
+# step 1
+pl_stats <- 
+  iris %>%
+  group_by(Species) %>% 
+  summarise(mean_pl = mean(Petal.Length),
+            se = sd(Petal.Length) / sqrt(n())) # <- New calculation
+```
+
+
+
+## Using multiple geoms (2)
+
+Once we have the two bits of information, we include these by adding two layers via two different `geom_` functions: `geom_bar` and `geom_errorbar`. We also need to define a couple new aesthetics... 
+
+```{r, echo=TRUE, eval=FALSE}
+# step 2 
+ggplot(pl_stats, 
+       aes(x = Species, y = mean_pl, 
+           ymin = mean_pl - se, ymax = mean_pl + se)) + 
+  geom_bar(stat="identity", fill = "grey", width = 0.7) + 
+  geom_errorbar(width = 0.25) + 
+  labs(y = "Mean Petal Length")
+```
+
+
+```{r, fig.width=2.5, fig.height=2, echo=FALSE}
+# step 1
+pl_stats <- 
+  iris %>%
+  group_by(Species) %>% 
+  summarise(mean_pl = mean(Petal.Length),
+            se = sd(Petal.Length) / sqrt(n())) # <- New calculation
+# step 2 
+ggplot(pl_stats, 
+       aes(x = Species, y = mean_pl, ymin = mean_pl - se, ymax = mean_pl + se)
+       ) + 
+  geom_bar(stat="identity", fill = "grey", width = 0.7) + 
+  geom_errorbar(width = 0.25) + 
+  labs(y = "Mean Petal Length")
+```
+
+
+Congratulations! We're done!
 ====================================================================
 
-## 
+## What happens next?
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/5_sfnQDr1-o" frameborder="0" allowfullscreen></iframe>
+<br><br>
 
-Miscellaneous stuff (not used)
-====================================================================
+1. __There is a lecture__ tomorrow.
 
-## Density plots
+2. Course book...
 
-We use density plots to explore the __distribution__ of variables when we have a large number of observations (e.g. 1000s). Here is an example:
+3. DZC office hours are 12-3pm every Tuesday -- still no visitors ;(
 
-```{r}
-dplot <- ggplot(storms, aes(x = pressure))
-dplot <- dplot + geom_density() + labs(x = "Pressure", y = "Density")  
-print(dplot)
-```
-
-## Density plots
-
-We can also plot several different density plots at the same time using the `group` argument in `aes`. We can (optionally) colour these seperately using the `colour` argument in `aes`. Here is an example:
-
-```{r, fig.width=5}
-dplot <- ggplot(storms, aes(x = pressure, colour = type))
-dplot <- dplot + geom_density() + labs(x = "Pressure", y = "Density")  
-print(dplot)
-```
-
-## Exercise 
-
-<div id="exercise-box">
-__Plotting histograms__
-<div id="box-text">
-Working with the `diamonds` dataset, construct a single figure that shows density plots of `price` for each `cut` class. Use a log transformation of `price`. See if you can make your figure look like the one below.
-</div>
-</div>
-
-```{r, echo=FALSE}
-dplot <- ggplot(diamonds, aes(x = log10(price), group = cut, colour = cut))
-dplot <- dplot + geom_density() + 
-                 labs(x = "Price", y = "Density")  
-print(dplot)
-```
-
-## Answer
-
-```{r, eval=showAnswers, echo=showAnswers}
-denplot <- ggplot(diamonds, aes(x = log10(price), group = cut, colour = cut))
-denplot <- denplot + geom_density() + labs(x = "Price", y = "Density")  
-print(denplot)
-```
-
+4. Assessment after Easter
 
 
