@@ -1,8 +1,6 @@
 # Introduction to ggplot2
 
-This chapter will... One of the main reasons data analysts turn to R is for its strong data visualisation capabilities. 
-
-The R ecosystem includes many different packages that support data visualisation. The three that are used widely used are: 1) the base graphics system, which uses the **graphics** package; 2) the **lattice** package; and 3) the **ggplot2** package. Each of these has its own strengths and weaknesses:
+One of the main reasons data analysts turn to R is for its strong data visualisation capabilities. The R ecosystem includes many different packages that support data visualisation. The three that are used widely used are: 1) the base graphics system, which uses the **graphics** package; 2) the **lattice** package; and 3) the **ggplot2** package. Each of these has its own strengths and weaknesses:
 
 * Base graphics is part of base R---it's available immediately after we start R. It's very flexible and allows us to construct more or less any plot we like. This flexibility comes at a cost though. It's quite easy to get up and running with the base R graphics---there are functions like `plot` and `hist` for making commonly-used figures---but building complex figures is time consuming. We have to write a lot of R code to prepare even moderately complex plots, there are a huge number of graphical parameters to learn, and many of the standard plotting functions are inconsistent in the way they work.
 
@@ -10,55 +8,63 @@ The R ecosystem includes many different packages that support data visualisation
 
 * The **ggplot2** package was developed by Hadley Wickham to implement some of the ideas in a book called The Grammar of Graphics by Wilkinson (2005). It produces Trellis-like graphics, but is quite different from **lattice** in the way it goes about this. It uses its own mini-language to define graphical objects, adopting the language of Wilkison's book to define these. It takes a little while to learn the basics, but once these have been mastered these it's very easy to produce sophisticated plots with very little R code. The downside of working with **ggplot2** is that it isn't as flexible as base graphics.
 
-We aren't going to survey all three of these plotting systems. There isn;t space, and in any case, we can meet the majority of our data visualisation needs by becoming proficient with just one of them. This book focuses on **ggplot2**. In many ways the **ggplot2** package hits the "sweet spot" in between standard graphics and **lattice**. It allows us to produce complex visualisations without the need to write masses of R code, but is still flexible enough to allow you to tweak the appearance of a figure so that it meets our specific needs. 
+We aren't going to survey all three of these plotting systems. There isn't space, and in any case, it's possible to meet most data visualisation needs by becoming proficient with just one of them. This book focuses on **ggplot2**. In many ways the **ggplot2** package hits the 'sweet spot' between standard graphics and **lattice**. It allows us to produce complex visualisations without the need to write lines and lines of R code, but is still flexible enough to allow us to tweak the appearance of a figure so that it meets our specific needs.
 
 ## The anatomy of ggplot2 {#anatomy}
 
-The easiest way to learn **ggplot2** is to just use it. Before we dive in though it's worth surveying the essential features of the **ggplot2** "grammar". Most of this is quite abstract and probably won't make sense on first reading. This is fine. Abstract ideas like 'aesthetics' and 'geoms' will start to make sense as we work through different examples.
+The easiest way to learn **ggplot2** is by seeing in in action. Before we dive in it's worth surveying the essential features of the **ggplot2** 'grammar'. Most of this is failry abstract and won't make sense on first reading. This is fine. Abstract ideas like 'aesthetics' and 'geoms' will start to make sense as we work through a range of different examples in the next few chapters.
 
-**ggplot2** is designed to reflect Wilkinson's grammar of graphics. This aims to formally describe the common components of a diverse range of data visualisations. The **ggplot2** version of this grammar revolves around the idea of **layers**. The underlying idea is that we construct a visualisation in a structured manner by defining one or more of these layers. Each layer may have its own data or it may share its data with another layer, and each layer displays its data in a specific way. 
+**ggplot2** is designed to reflect Wilkinson's grammar of graphics. The **ggplot2** version of this grammar revolves around the idea of **layers**. The underlying idea is that we construct a visualisation in a structured manner by defining one or more of these layers, whihc together with a few other components define a complete **ggplot2** object. Each layer may have its own data or it may share its data with another layer, and each layer displays its data in a specific way. The resulting **ggplot2** object is defined by a combination of:
 
-A **ggplot2** plot is defined by a particular combination of: (1) a default data set along with a set of mappings from variables to aesthetics; (2) one or more layers, each comprising a number of components; (3) one scale for each aesthetic mapping; (4) a coordinate system for the plot; (5) a faceting specification that tells **ggplot2** how to define a multi-panel plot. We'll look at each of these in turn before moving onto the business of actually using **ggplot2**.
+1) a default data set along with a set of mappings from variables to aesthetics,
+
+2) one or more layers, each comprising a number of components,
+
+3) one scale for each aesthetic mapping, 
+
+4) a coordinate system for the plot,
+
+5) a faceting specification that tells **ggplot2** how to define a multi-panel plot. 
+
+We'll skim over each of these in turn before moving onto the business of actually using **ggplot2**.
 
 ### Layers
 
-Each layer in a **ggplot2** plot may have five different components (though you don't always have to specify all of these):
+Each layer in a **ggplot2** plot may have five different components, though we don't necessarily have to specify all of these:
 
-* The __data__. At a minimum, every plot needs some data. Unlike base R graphics, **ggplot2** always accepts data in one format, an R data frame (or a closely related object like a `dplyr` tbl). If you do not add data to a layer **ggplot2** will use the default data set. 
+* The __data__. At a minimum, every plot needs some data. Unlike base R graphics, **ggplot2** always accepts data in one format, an R data frame (or tibble). Each layer can be associated with it's own data set. However, we don't have explicitly add data to each layer. When we choose not to specify the data set for a layer **ggplot2** will try use the default data if it has been defined.
 
-* A set of __aesthetic mappings__. These describe how variables in the data (i.e. the columns of the data frame) are mapped to the aesthetic properties of the layer. The most commonly encountered aesthetic properties describe the position (on the x and y axes), colour, size of the data on in a plot. You will always need to define an aesthetic mapping when using **ggplot2**. 
+* A set of __aesthetic mappings__. These describe how variables in the data are associated with the aesthetic properties of the layer. Commonly encountered aesthetic properties include position (x and y locations), colour, and size of the objects on a plot. Each layer can be associated with it's own unique aesthetic mappings. When we choose not to specify these for a layer **ggplot2** will use the defaults if they were defined.
 
-* A geometric object type, written as '__geom__'. These are used to actually draw the layer, i.e. they are the objects you actually see on a plot such as points, lines or bars. A particular geom can only access certain aesthetic mappings. You will always need to define at least one geom when using **ggplot2**.
+* A __geometric object__, called a 'geom'. The geom tells **ggplot2** how to actually represent the layer---they refer to the objects you can actually see on a plot, such as points, lines or bars. Each geom only works with a particular of aesthetic mappings. We always have to define at least one geom when using **ggplot2**.
 
-* A __stat__. These take the raw data in the data frame and transform in some useful way. A stat allows us to produce visual summaries of our data. We will not use them much in this course, but they are one of the things that make **ggplot2** so useful for exploratory data analysis.
+* A __stat__. These take the raw data in the data frame and transform in some useful way. A stat allows us to produce summaries of our raw data. We won't use them in this book because we can produce the same kinds of figures by first processing our data with **dplyr**. Nonetheless, the stat facility is one of the things that makes **ggplot2** particularly useful for exploratory data analysis.
 
-* A __position adjustment__. These apply small tweaks to the position of layer elements. These are most often used in plots like bar plots where we need to define how the bars are plotted, but they can occasionally be useful in other kinds of plots.  
-
-We will only work with plots that comprise a single layer in this course. Next year we will build more complex, multi-layer plots to summarise both our data and statistical models. 
+* A __position adjustment__. These apply small tweaks to the position of layer elements. These are most often used in plots like bar plots where we need to define how the bars are plotted, but they can occasionally be useful in other kinds of plots. 
 
 ### Scales
 
-A scale controls how the data is mapped to the aesthetic attributes. A scale takes the data and converts it into something we can perceive, such as a position, or the colour and size of points in a plot. A scale must be defined for every aesthetic in a plot. It doesn't make sense to define an aesthetic mapping without a scale, since there is no way for **ggplot2** to know how to go from the data to the aesthetics without one. Keep in mind scales operate in the same way across all the data in the plot. If you include several layers they will use the same scale for shared aesthetic mappings. Again, this behaviour is sensible because it ensures that the information that is displayed is consistent.
+The scale part of a **ggplot2** object controls how the data is mapped to the aesthetic attributes. A scale takes the data and converts it into something we can perceive, such as a position, or the colour and size of points in a plot. A scale must be defined for every aesthetic in a plot. It doesn't make sense to define an aesthetic mapping without a scale because there is no way for **ggplot2** to know how to go from the data to the aesthetics without one. 
 
-If we do not explicitly define a scale for every aesthetic then **ggplot2** will use a default. Very often this will be the "sensible" choice, so we can get quite a long way with **ggplot2** without really understanding scales. We won't worry too much about scales in this course, though we will take a brief look at a few options, so that for example, you know how to plot your data on a logarithmic scale (this is something we have to do quite often in biology).
+Scales operate in the same way on the data in a plot. If we include several layers they all have to use the same scale for the shared aesthetic mappings. This behaviour is sensible because it ensures that the information that is displayed is consistent.
+
+If we choose not to explicitly define a scale for an aesthetic **ggplot2** will use a default. Very often this will be a 'sensible' choice, which means we can get quite a long way with **ggplot2** without ever really understanding scales. We won't worry too much about them, though we will take a brief look at a few of the more common options.
 
 ### Coordinate system
 
-A **ggplot2** coordinate system takes the position of objects (e.g. points and lines) and maps them onto the 2d plane of a plot that you see. You are already very familiar with the most common coordinate system (even if you didn't realise it). The Cartesian coordinate system is the one you've been using ever since you first constructed a graph with paper and pencil at school. All of the common statistical plots use this coordinate system, so we are not going to consider any others in this course.
+A **ggplot2** coordinate system takes the position of objects (e.g. points and lines) and maps them onto the 2d plane that a plot lives on. Most people are already very familiar with the most common coordinate system (even if they didn't realise it). The Cartesian coordinate system is the one we've all been using ever since we first constructed a graph with paper and pencil at school. All the most common statistical plots use this coordinate system so we won't consider any others in this book.
 
 ### Faceting
 
-The idea behind faceting is very simple. Faceting allows us to break a data set up into subsets according to the unique values of one or two variables, and then produce a separate graph for each subset. The result is a multipanel plot, where each panel shares the same layers, scales, etc. The data is the only thing that varies from panel to panel. The result is a kind of Trellis plot, similar to those produced by the **lattice** package. Faceting is a very powerful tool, as it allows us to slice up our data in different ways and really understand the relationship between different data variables. Together with aesthetic mappings, faceting allows us to easily summarise relationships among 4-6 variables in a single plot.
+The idea behind faceting is very simple. Faceting allows us to break a data set up into subsets according to the unique values of one or two variables, and then produce a separate plot for each subset. The result is a multipanel plot, where each panel shares the same layers, scales, etc. The data is the only thing that varies from panel to panel. The result is a kind of 'Trellis plot', similar to those produced by the **lattice** package. Faceting is a very powerful tool that allows us to slice up our data in different ways and really understand the relationship between different variables. Together with aesthetic mappings, faceting allows us to summarise relationships among 4-6 variables in a single plot.
 
 ## A quick introduction to ggplot2 {#quick}
 
-Now that we have briefly reviewed the main components of the **ggplot2** grammar, we can start learning how to use the package. I said earlier that **ggplot2** uses the grammar to define a sort of mini-language within R. It works by using various functions to define things like layers and scales, which are combined to a ggplot2 graphics object. Once we a complete object we can use it to display our graphic on the computer screen or save in a particular graphics format (e.g. PDF, PNG, JPEG, etc). 
+Now that we've briefly reviewed the main components of the **ggplot2** grammar we can start learning how to use the package. It uses this grammar to define a sort of mini-language within R, using functions to define things like layers and scales, which are combined to define a **ggplot2** graphics object. Once we a complete object we can use it to display our graphic on the computer screen or save in a particular graphics format (e.g. PDF, PNG, JPEG, and so on). 
 
-Rather than orientating this introduction to **ggplot2** around each of the key functions, we are going to develop a simple example to help us understand how **ggplot2** works. Many of the key ideas you need to understand about **ggplot2** can be taken away from this one example, so it is worth spending a little time making sure you really explore it. In particular, try to use the example to help you better understand how the different **ggplot2** functions are related to the grammar outlined above.
+Rather than orientating this introduction around each of the key functions we're going to develop a simple example to help us understand how **ggplot2** works. Many of the key ideas you need to understand about **ggplot2** can be taken away from this one example, so it's worth spending a little time really trying to understand it. Use the example understand how the different **ggplot2** functions are related to the grammar outlined above.
 
-Our aim is to produce a series of scatter plots, each building on the last to add extra information or change the appearance of the plot. Hopefully you can remember what a scatter plot is -- you must have constructed a these by hand in secondary school, and you have probably used Excel to make one at some point. Scatter plots use horizontal and vertical axes, the "x" and "y" axes, to plot data as a series of points. They are designed to show how one variable is affected by another (more about this in a later chapter).
-
-This scatter plots will be constructed using the `storms` data from the `nasaweather` package. As usual, the `nasaweather` package must have been installed using `install.packages` at some point, and you will need to load and attach the packages using `library(nasaweather)` in each new R session to access `storms`. The question we want to explore is, What is the relationship between the observation year (the `year` variable), wind speed (the `wind` variable), atmospheric pressure (the `pressure` variable), and time of year (the `seasday` variable)? Specifically, we want to know how wind speed depends on atmospheric pressure, and how this relationship changes (if at all) among months and types of storm.
+Our aim is to produce a scatter plot. Scatter plots use horizontal and vertical axes, the "x" and "y" axes, to plot data as a series of points. They are designed to show how one numeric variable is related to another. Our scatter plots will be constructed using the `storms` data from the **nasaweather**. The question we want to explore is, What is the relationship between the observation year (the `year` variable), wind speed (the `wind` variable), atmospheric pressure (the `pressure` variable), and time of year (the `seasday` variable)? Specifically, we want to know how wind speed depends on atmospheric pressure, and how this relationship changes (if at all) among months and types of storm.
 
 ### Making a start
 

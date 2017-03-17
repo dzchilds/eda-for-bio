@@ -1,0 +1,96 @@
+# Exploring categorical variables
+
+This chapter shows how to... 
+
+## Exploring categorical variables {#explore-categorical}
+
+Exploring categorical variables is generally simpler than working with numeric variables because we have fewer options, at least this is true if we only require basic summaries. We will use the `year` and `type` variables in `storms` to illustrate the key ideas in this section.
+
+Which kind of categorical variable is `type`? There are four storm categories in type. We can use the `unique` function to print these:
+```{r}
+unique(storms$type)
+```
+It is hard to know how to classify `type` unless we know something about tropical storms. Some googling indicates that `type` can reasonably be considered an ordinal variable: a tropical depression is the least severe storm and a hurricane is the most severe class; in between are extra tropical and tropical storm categories.
+
+What about the `year` variable? Years are obviously ordered from early to late in any given period, and we might be interested in how some aspect of our data changes over time. In this case we might even consider treating year as a numeric variable. However, if the question is simply, "do the data vary from one year to the next," without any concern for secular trends, it is perfectly reasonable to treat year as a nominal variable. This illustrates an important idea: the classification of a variable will often depend on the objectives of an analysis. Of course, some variables really are just nominal, such as sex. There isn't any sensible way to order males and females.
+
+The classification of a categorical variable matters because it influences how we choose to summarise it, how we interpret its relationship with other variables, and whether a specific statistical model is appropriate for our data or not. Fortunately, our choice of classification is frequently less important when we are just trying to summarise the variable numerically or graphically. 
+
+### Numerical summaries
+
+When we calculate summaries of categorical variables we are aiming to describe the sample distribution of the variable, just as with numeric variables. The general question we need to address is, "what are the relative frequencies of different categories?" We need to understand which catergories are common and which are rare. Since a categorical variable takes a finite number of possible values, the simplest thing to do is tabulate the number of occurances of each type. We have already seen how the `table` function can be used to do this. For example, the frequencies of each storm category is given by:
+```{r}
+table(storms$type)
+```
+This shows that the number of observations associated with hurricanes and tropical storms is about equal, that the number of observations associated with extratropical and tropical systems is similar, and the former pair of storm categories are more common than the latter. This indicates that in general, storm systems in Central America spend relatively more time in the more severe classes. Prehaps if we know something about meteorology (I do not) we might be able to explain this pattern.
+
+The raw frequencies give us information about the rates of occurance of different categories in a dataset. However, it is difficult to compare raw counts across different data sets -- or across different subsets of data -- if the sample sizes vary among them (which they usually do). This is why we often convert counts to proportions. To do this, all we have to do is divide each count by the total count across all categories. This is easy to do in R because it is vectorised:
+```{r}
+type.counts <- table(storms$type)
+type.counts / sum(type.counts)
+```
+So about 2/3 of observations are associated with hurricanes and tropical storms, with a roughly equal split, and the remaining 1/3 associated with less severe storms.
+
+What about measuring the central tendency of the sample distribution of a categorical variable? Although various measures exist, these tend to be less useful (and so, less often implemented) than those developed to describe numeric variables. Nonetheless, we can we can easily find the __sample mode__ of ordinal and nominal variables (unlike numeric variables, where the sample mode is difficult to define). This is just the most common category. For example, the tropical storm category is the modal value of the `type` variable. Only just though. The proportion of tropical storm observations is 0.34, while the proportion of hurricane observations is 0.33. These are very similar, it is not hard to imagine that modal observation might have been the hurricane category. In general, the sample mode can be quite sensitive to sampling variation if two categories occur at similar frequencies.
+
+It is possible to calculate a __sample median__, but only for ordinal variables. Remember, the median value is the one that lies in the middle of an ordered set of values. It does not make sense to talk about "the middle" of a set of nominal values as they have no inherent order. Unfortunately, the sample median is not precisely defined, even for an ordinal variable. Imagine that you are working with an ordinal variable with only two categories: "big" vs. "small", and exactly 50% of the values are "small" value and 50% are large. What is the median in this case? It is undefined. Because the median is not always well-defined, the developers of base R have chosen not to implement a function to calculate the median of ordinal variables (some packages contain functions to do this for you though). 
+
+Unfortunately, if you apply the `median` function to a character vector it will give you an answer:
+```{r}
+median(storms$type)
+```
+It is very likely to give you the wrong answer though (and even if it is right, you just got lucky). This seems to say that the median category of `type` is tropical depression. This is not correct. R has no way of knowing which categories are "high" and which are "low", so just sorts the elements of `type` alphabetically and then finds the middle value of this vector. If you really need to find the median value of an ordinal value you can do it by converting the categories to integers -- assigning 1 to the lowest category, 2 to the next lowest, and so on. We then use the median function to find out which value is the median.
+
+## Graphical summaries of categorical variables
+
+The most common graphical tool used to summarise a categorical variable is a bar chart. A bar chart (or bar graph) is a plot that presents summaries of groped data with rectangular bars. The lengths of these bars is proportional to the values that they represent. When summarising a single categorical variable, the length of the bars show the raw counts or proportions of each category. Constructing a bar graph to display the counts is very easy with `ggplot2`. We will do this for the `type` variable in `storms`. As always, we start by using the `ggplot` function to construct a graphical object containing the necessary default data and aesthetic mapping.
+```{r}
+bar.plt <- ggplot(storms, aes(x = type)) 
+```
+I have called the object `bar.plt`, for obvious reasons. Notice that we only need to define one aesthetic mapping. I have mapped the `type` to the x axis. This produces a bar plot with vertical bars. If you want to produce one with horizontal bars map the focal variable to y axis (e.g. `y = type`).
+
+We will follow the usual workflow, meaning the next step is to add a layer using one of the `geom_XX` functions, the `geom_bar` in fact:
+```{r}
+bar.plt <- bar.plt + geom_bar()
+summary(bar.plt) 
+```
+Look at the layer information below `----`. The `geom_bar` function sets the stat to "bin". Binning of a categorical variable is anlagous to binning a numeric variable. The only difference is that there is no need to specify bin widths because `type` is categorical, i.e. `ggplot2` will sum up the number of observations associated with every category of `type`. Here is the resulting figure:
+```{r}
+bar.plt
+```
+
+This is the same summary information we produced using the `table` function, only now it is presented in graphical form. We can customise this bar graph if needed with functions like `xlab` and `ylab`, and by setting various properties inside `geom_bar`. For example:
+```{r}
+bar.plt <- ggplot(storms, aes(x = type)) + 
+           geom_bar(fill = "orange") + 
+           xlab("Storm Type") + ylab("Number of Observations")
+bar.plt
+```
+
+There is one slight problem with this graph: the order in which the different groups is presented does not reflect the ordinal scale. This occurs because the `type` variable is stored as a character vector, and so `ggplot2` does not "know" that we want to treat it as a ordinal variable. There is no way for `ggplot2` to "guess" this, so it uses the alphabetical ordering of the category names to set the order of the bars.
+
+In order to fix this we have to turn `type` into a special type of vector, called a factor. We will learn about these next year, so for now you'll just have to learn the trick without understanding why it works. Start by making a short character vector containing all the category names in the focal variable, but make sure these are listed in the order they need to be plotted in. For example:
+```{r}
+ords <- c("Tropical Depression", "Extratropical", "Tropical Storm", "Hurricane")
+```
+Then transform the focal variable inside the `aes` mapping with the `factor` function, setting the levels argument to be the vector of names. For example:
+```{r}
+bar.plt <- ggplot(storms, aes(x = factor(type, levels = ords))) + 
+           geom_bar(fill = "orange") + 
+           xlab("Storm Type") + ylab("Number of Observations")
+bar.plt
+```
+
+The categories of `type` have quite long names. Consequently, the axis labels are bunched together. If you do not like this (I don't) you could make the labels smaller or rotate them. This requires you to understand `ggplot2` "themes" though, which we are not going to cover this year. Here is another simple solution -- just flip the x and y axes to make a horizontal bar chart. We do this with the `coord_flip` function:
+```{r, fig.height=2.5}
+bar.plt <- ggplot(storms, aes(x = factor(type, levels = ords))) + 
+           geom_bar(fill = "orange") + 
+           coord_flip() + 
+           xlab("Storm Type") + ylab("Number of Observations")
+bar.plt
+```
+
+To be honest, a bar chart that summarises a single categorical variable like this is not the most interesting plots in the world. Bar charts are much more informative when used to summarise relationships among two or more variables. This is the focus of the last chapter.
+
+
+
