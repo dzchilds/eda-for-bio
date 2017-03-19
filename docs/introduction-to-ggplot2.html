@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>APS 135: Introduction to Exploratory Data Analysis with R</title>
+  <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+  <meta name="description" content="Course book for Introduction to Exploratory Data Analysis with R (APS 135) in the Department of Animal and Plant Sciences, University of Sheffield.">
+  <meta name="generator" content="bookdown 0.3 and GitBook 2.6.7">
+
+  <meta property="og:title" content="APS 135: Introduction to Exploratory Data Analysis with R" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="Course book for Introduction to Exploratory Data Analysis with R (APS 135) in the Department of Animal and Plant Sciences, University of Sheffield." />
+  <meta name="github-repo" content="dzchilds/eda-for-bio" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="APS 135: Introduction to Exploratory Data Analysis with R" />
+  
+  <meta name="twitter:description" content="Course book for Introduction to Exploratory Data Analysis with R (APS 135) in the Department of Animal and Plant Sciences, University of Sheffield." />
+  
+
+<meta name="author" content="Dylan Z. Childs">
+
+
+<meta name="date" content="2017-03-19">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="exploratory-data-analysis.html">
+<link rel="next" href="pimping-our-plots.html">
+
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+<style type="text/css">
+
+.action, .warning, .info, .speed {
+  padding: 1em 1em 1em 4em;
+  margin-bottom: 10px;
+  background: #f5f5f5 5px center/3em no-repeat;
+}
+.action {
+  background-image: url("./images/action.png");
+}
+.warning {
+  background-image: url("./images/warning.png");
+}
+.info {
+  background-image: url("./images/info.png");
+}
+.speed {
+  background-image: url("./images/speed.png");
+}
+
+
+</style>
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">APS 135 (R course)</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Information and overview</a><ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#aims"><i class="fa fa-check"></i>Aims</a><ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#topics"><i class="fa fa-check"></i>Topics</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#how-to-use-the-book"><i class="fa fa-check"></i>How to use the book</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#getting-help"><i class="fa fa-check"></i>Getting help</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#updates"><i class="fa fa-check"></i>Updates</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="get-up-and-running-with-r-and-rstudio.html"><a href="get-up-and-running-with-r-and-rstudio.html"><i class="fa fa-check"></i>Get up and running with R and RStudio</a><ul>
+<li class="chapter" data-level="" data-path="get-up-and-running-with-r-and-rstudio.html"><a href="get-up-and-running-with-r-and-rstudio.html#what-is-r"><i class="fa fa-check"></i>What is R?</a><ul>
+<li class="chapter" data-level="" data-path="get-up-and-running-with-r-and-rstudio.html"><a href="get-up-and-running-with-r-and-rstudio.html#getting-and-installing-r"><i class="fa fa-check"></i>Getting and installing R</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="get-up-and-running-with-r-and-rstudio.html"><a href="get-up-and-running-with-r-and-rstudio.html#what-is-rstudio-and-why-use-it"><i class="fa fa-check"></i>What is RStudio (and why use it)?</a><ul>
+<li class="chapter" data-level="" data-path="get-up-and-running-with-r-and-rstudio.html"><a href="get-up-and-running-with-r-and-rstudio.html#getting-and-installing-rstudio"><i class="fa fa-check"></i>Getting and installing RStudio</a></li>
+<li class="chapter" data-level="" data-path="get-up-and-running-with-r-and-rstudio.html"><a href="get-up-and-running-with-r-and-rstudio.html#the-anatomy-of-rstudio"><i class="fa fa-check"></i>The anatomy of RStudio</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="get-up-and-running-with-r-and-rstudio.html"><a href="get-up-and-running-with-r-and-rstudio.html#working-at-the-console"><i class="fa fa-check"></i>Working at the Console</a></li>
+</ul></li>
+<li class="part"><span><b>I Introduction to R</b></span></li>
+<li class="chapter" data-level="1" data-path="a-quick-introduction-to-r.html"><a href="a-quick-introduction-to-r.html"><i class="fa fa-check"></i><b>1</b> A quick introduction to R</a><ul>
+<li class="chapter" data-level="1.1" data-path="a-quick-introduction-to-r.html"><a href="a-quick-introduction-to-r.html#r-calculator"><i class="fa fa-check"></i><b>1.1</b> Using R as a big calculator</a><ul>
+<li class="chapter" data-level="1.1.1" data-path="a-quick-introduction-to-r.html"><a href="a-quick-introduction-to-r.html#basic-arithmetic"><i class="fa fa-check"></i><b>1.1.1</b> Basic arithmetic</a></li>
+<li class="chapter" data-level="1.1.2" data-path="a-quick-introduction-to-r.html"><a href="a-quick-introduction-to-r.html#problematic-calculations"><i class="fa fa-check"></i><b>1.1.2</b> Problematic calculations</a></li>
+</ul></li>
+<li class="chapter" data-level="1.2" data-path="a-quick-introduction-to-r.html"><a href="a-quick-introduction-to-r.html#assignment"><i class="fa fa-check"></i><b>1.2</b> Storing and reusing results</a></li>
+<li class="chapter" data-level="1.3" data-path="a-quick-introduction-to-r.html"><a href="a-quick-introduction-to-r.html#how-does-assignment-work"><i class="fa fa-check"></i><b>1.3</b> How does assignment work?</a></li>
+<li class="chapter" data-level="1.4" data-path="a-quick-introduction-to-r.html"><a href="a-quick-introduction-to-r.html#global-environment"><i class="fa fa-check"></i><b>1.4</b> Global environment</a></li>
+<li class="chapter" data-level="1.5" data-path="a-quick-introduction-to-r.html"><a href="a-quick-introduction-to-r.html#naming-rules-and-conventions"><i class="fa fa-check"></i><b>1.5</b> Naming rules and conventions</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="scripts.html"><a href="scripts.html"><i class="fa fa-check"></i><b>2</b> Building scripts</a><ul>
+<li class="chapter" data-level="2.1" data-path="scripts.html"><a href="scripts.html#introduction"><i class="fa fa-check"></i><b>2.1</b> Introduction</a></li>
+<li class="chapter" data-level="2.2" data-path="scripts.html"><a href="scripts.html#writing-scripts-in-rstudio"><i class="fa fa-check"></i><b>2.2</b> Writing scripts in RStudio</a></li>
+<li class="chapter" data-level="2.3" data-path="scripts.html"><a href="scripts.html#running-scripts-in-rstudio"><i class="fa fa-check"></i><b>2.3</b> Running scripts in RStudio</a></li>
+<li class="chapter" data-level="2.4" data-path="scripts.html"><a href="scripts.html#spotting-problems"><i class="fa fa-check"></i><b>2.4</b> Spotting problems</a><ul>
+<li class="chapter" data-level="2.4.1" data-path="scripts.html"><a href="scripts.html#the-dreaded"><i class="fa fa-check"></i><b>2.4.1</b> The dreaded <code>+</code></a></li>
+<li class="chapter" data-level="2.4.2" data-path="scripts.html"><a href="scripts.html#errors"><i class="fa fa-check"></i><b>2.4.2</b> Errors</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="using-functions.html"><a href="using-functions.html"><i class="fa fa-check"></i><b>3</b> Using functions</a><ul>
+<li class="chapter" data-level="3.1" data-path="using-functions.html"><a href="using-functions.html#intro-functions"><i class="fa fa-check"></i><b>3.1</b> Introduction</a></li>
+<li class="chapter" data-level="3.2" data-path="using-functions.html"><a href="using-functions.html#functions-and-arguments"><i class="fa fa-check"></i><b>3.2</b> Functions and arguments</a></li>
+<li class="chapter" data-level="3.3" data-path="using-functions.html"><a href="using-functions.html#evaluating-arguments-and-returning-results"><i class="fa fa-check"></i><b>3.3</b> Evaluating arguments and returning results</a></li>
+<li class="chapter" data-level="3.4" data-path="using-functions.html"><a href="using-functions.html#functions-do-not-have-side-effects"><i class="fa fa-check"></i><b>3.4</b> Functions do not have “side effects”</a></li>
+<li class="chapter" data-level="3.5" data-path="using-functions.html"><a href="using-functions.html#combining-functions"><i class="fa fa-check"></i><b>3.5</b> Combining functions</a></li>
+<li class="chapter" data-level="3.6" data-path="using-functions.html"><a href="using-functions.html#function-arguments"><i class="fa fa-check"></i><b>3.6</b> Specifying function arguments</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="numeric-vectors.html"><a href="numeric-vectors.html"><i class="fa fa-check"></i><b>4</b> Numeric vectors</a><ul>
+<li class="chapter" data-level="4.1" data-path="numeric-vectors.html"><a href="numeric-vectors.html#introduction-1"><i class="fa fa-check"></i><b>4.1</b> Introduction</a></li>
+<li class="chapter" data-level="4.2" data-path="numeric-vectors.html"><a href="numeric-vectors.html#atomic-vectors"><i class="fa fa-check"></i><b>4.2</b> Atomic vectors</a></li>
+<li class="chapter" data-level="4.3" data-path="numeric-vectors.html"><a href="numeric-vectors.html#intro-vectors"><i class="fa fa-check"></i><b>4.3</b> Numeric vectors</a></li>
+<li class="chapter" data-level="4.4" data-path="numeric-vectors.html"><a href="numeric-vectors.html#constructing-numeric-vectors"><i class="fa fa-check"></i><b>4.4</b> Constructing numeric vectors</a></li>
+<li class="chapter" data-level="4.5" data-path="numeric-vectors.html"><a href="numeric-vectors.html#named-vectors"><i class="fa fa-check"></i><b>4.5</b> Named vectors</a></li>
+<li class="chapter" data-level="4.6" data-path="numeric-vectors.html"><a href="numeric-vectors.html#generating-sequences-of-numbers"><i class="fa fa-check"></i><b>4.6</b> Generating sequences of numbers</a><ul>
+<li class="chapter" data-level="4.6.1" data-path="numeric-vectors.html"><a href="numeric-vectors.html#generating-sequences-of-numbers-1"><i class="fa fa-check"></i><b>4.6.1</b> Generating sequences of numbers</a></li>
+<li class="chapter" data-level="4.6.2" data-path="numeric-vectors.html"><a href="numeric-vectors.html#generating-repeated-sequences-of-numbers"><i class="fa fa-check"></i><b>4.6.2</b> Generating repeated sequences of numbers</a></li>
+</ul></li>
+<li class="chapter" data-level="4.7" data-path="numeric-vectors.html"><a href="numeric-vectors.html#vectorised-operations"><i class="fa fa-check"></i><b>4.7</b> Vectorised operations</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="other-kinds-of-vectors.html"><a href="other-kinds-of-vectors.html"><i class="fa fa-check"></i><b>5</b> Other kinds of vectors</a><ul>
+<li class="chapter" data-level="5.1" data-path="other-kinds-of-vectors.html"><a href="other-kinds-of-vectors.html#other-vectors"><i class="fa fa-check"></i><b>5.1</b> Introduction</a></li>
+<li class="chapter" data-level="5.2" data-path="other-kinds-of-vectors.html"><a href="other-kinds-of-vectors.html#character-vectors"><i class="fa fa-check"></i><b>5.2</b> Character vectors</a></li>
+<li class="chapter" data-level="5.3" data-path="other-kinds-of-vectors.html"><a href="other-kinds-of-vectors.html#logical-vectors"><i class="fa fa-check"></i><b>5.3</b> Logical vectors</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="extracting-subsets-of-vectors.html"><a href="extracting-subsets-of-vectors.html"><i class="fa fa-check"></i><b>6</b> Extracting subsets of vectors</a><ul>
+<li class="chapter" data-level="6.1" data-path="other-kinds-of-vectors.html"><a href="other-kinds-of-vectors.html#other-vectors"><i class="fa fa-check"></i><b>6.1</b> Introduction</a></li>
+<li class="chapter" data-level="6.2" data-path="extracting-subsets-of-vectors.html"><a href="extracting-subsets-of-vectors.html#subsetting-by-position"><i class="fa fa-check"></i><b>6.2</b> Subsetting by position</a></li>
+<li class="chapter" data-level="6.3" data-path="extracting-subsets-of-vectors.html"><a href="extracting-subsets-of-vectors.html#subsetting-with-logical-operators"><i class="fa fa-check"></i><b>6.3</b> Subsetting with logical operators</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="getting-help-1.html"><a href="getting-help-1.html"><i class="fa fa-check"></i><b>7</b> Getting help</a><ul>
+<li class="chapter" data-level="7.1" data-path="getting-help-1.html"><a href="getting-help-1.html#console-help"><i class="fa fa-check"></i><b>7.1</b> Introduction</a></li>
+<li class="chapter" data-level="7.2" data-path="getting-help-1.html"><a href="getting-help-1.html#browsing-the-help-system"><i class="fa fa-check"></i><b>7.2</b> Browsing the help system</a></li>
+<li class="chapter" data-level="7.3" data-path="getting-help-1.html"><a href="getting-help-1.html#searching-for-help-files"><i class="fa fa-check"></i><b>7.3</b> Searching for help files</a></li>
+<li class="chapter" data-level="7.4" data-path="getting-help-1.html"><a href="getting-help-1.html#nav-help"><i class="fa fa-check"></i><b>7.4</b> Navigating help files</a></li>
+<li class="chapter" data-level="7.5" data-path="getting-help-1.html"><a href="getting-help-1.html#vignettes"><i class="fa fa-check"></i><b>7.5</b> Vignettes and demos</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="packages.html"><a href="packages.html"><i class="fa fa-check"></i><b>8</b> Packages</a><ul>
+<li class="chapter" data-level="8.1" data-path="packages.html"><a href="packages.html#package-system"><i class="fa fa-check"></i><b>8.1</b> The R package system</a></li>
+<li class="chapter" data-level="8.2" data-path="packages.html"><a href="packages.html#task-views"><i class="fa fa-check"></i><b>8.2</b> Task views</a></li>
+<li class="chapter" data-level="8.3" data-path="packages.html"><a href="packages.html#use-packages"><i class="fa fa-check"></i><b>8.3</b> Using packages</a><ul>
+<li class="chapter" data-level="8.3.1" data-path="packages.html"><a href="packages.html#viewing-installed-packages"><i class="fa fa-check"></i><b>8.3.1</b> Viewing installed packages</a></li>
+<li class="chapter" data-level="8.3.2" data-path="packages.html"><a href="packages.html#installing-packages"><i class="fa fa-check"></i><b>8.3.2</b> Installing packages</a></li>
+<li class="chapter" data-level="8.3.3" data-path="packages.html"><a href="packages.html#loading-and-attaching-packages"><i class="fa fa-check"></i><b>8.3.3</b> Loading and attaching packages</a></li>
+<li class="chapter" data-level="8.3.4" data-path="packages.html"><a href="packages.html#an-analogy"><i class="fa fa-check"></i><b>8.3.4</b> An analogy</a></li>
+</ul></li>
+</ul></li>
+<li class="part"><span><b>II Data Wrangling</b></span></li>
+<li class="chapter" data-level="9" data-path="data-frames.html"><a href="data-frames.html"><i class="fa fa-check"></i><b>9</b> Data frames</a><ul>
+<li class="chapter" data-level="9.1" data-path="data-frames.html"><a href="data-frames.html#introduction-2"><i class="fa fa-check"></i><b>9.1</b> Introduction</a></li>
+<li class="chapter" data-level="9.2" data-path="data-frames.html"><a href="data-frames.html#data-frames-intro"><i class="fa fa-check"></i><b>9.2</b> Data frames</a></li>
+<li class="chapter" data-level="9.3" data-path="data-frames.html"><a href="data-frames.html#exploring-data-frames"><i class="fa fa-check"></i><b>9.3</b> Exploring data frames</a></li>
+<li class="chapter" data-level="9.4" data-path="data-frames.html"><a href="data-frames.html#extract-data"><i class="fa fa-check"></i><b>9.4</b> Extracting data from data frames</a><ul>
+<li class="chapter" data-level="9.4.1" data-path="data-frames.html"><a href="data-frames.html#extracting-and-adding-a-single-variable"><i class="fa fa-check"></i><b>9.4.1</b> Extracting and adding a single variable</a></li>
+<li class="chapter" data-level="9.4.2" data-path="data-frames.html"><a href="data-frames.html#adding-a-variable-to-a-data-frame"><i class="fa fa-check"></i><b>9.4.2</b> Adding a variable to a data frame</a></li>
+<li class="chapter" data-level="9.4.3" data-path="data-frames.html"><a href="data-frames.html#subsetting-data-frames"><i class="fa fa-check"></i><b>9.4.3</b> Subsetting data frames</a></li>
+</ul></li>
+<li class="chapter" data-level="9.5" data-path="data-frames.html"><a href="data-frames.html#final-words"><i class="fa fa-check"></i><b>9.5</b> Final words</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="working-directories-and-data-files.html"><a href="working-directories-and-data-files.html"><i class="fa fa-check"></i><b>10</b> Working directories and data files</a><ul>
+<li class="chapter" data-level="10.1" data-path="working-directories-and-data-files.html"><a href="working-directories-and-data-files.html#introduction-3"><i class="fa fa-check"></i><b>10.1</b> Introduction</a></li>
+<li class="chapter" data-level="10.2" data-path="working-directories-and-data-files.html"><a href="working-directories-and-data-files.html#data-files-the-csv-format"><i class="fa fa-check"></i><b>10.2</b> Data files: the CSV format</a><ul>
+<li class="chapter" data-level="10.2.1" data-path="working-directories-and-data-files.html"><a href="working-directories-and-data-files.html#exporting-csv-files-from-excel"><i class="fa fa-check"></i><b>10.2.1</b> Exporting CSV files from Excel</a></li>
+</ul></li>
+<li class="chapter" data-level="10.3" data-path="working-directories-and-data-files.html"><a href="working-directories-and-data-files.html#the-working-directory"><i class="fa fa-check"></i><b>10.3</b> The working directory</a></li>
+<li class="chapter" data-level="10.4" data-path="working-directories-and-data-files.html"><a href="working-directories-and-data-files.html#importing-data-with-read.csv"><i class="fa fa-check"></i><b>10.4</b> Importing data with <code>read.csv</code></a></li>
+<li class="chapter" data-level="10.5" data-path="working-directories-and-data-files.html"><a href="working-directories-and-data-files.html#importing-data-with-rstudio-avoid-this"><i class="fa fa-check"></i><b>10.5</b> Importing data with RStudio (Avoid this!)</a></li>
+<li class="chapter" data-level="10.6" data-path="working-directories-and-data-files.html"><a href="working-directories-and-data-files.html#package-data"><i class="fa fa-check"></i><b>10.6</b> Package data</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="dplyr-and-the-tidy-data-concept.html"><a href="dplyr-and-the-tidy-data-concept.html"><i class="fa fa-check"></i><b>11</b> <strong>dplyr</strong> and the tidy data concept</a><ul>
+<li class="chapter" data-level="11.1" data-path="dplyr-and-the-tidy-data-concept.html"><a href="dplyr-and-the-tidy-data-concept.html#introduction-4"><i class="fa fa-check"></i><b>11.1</b> Introduction</a></li>
+<li class="chapter" data-level="11.2" data-path="dplyr-and-the-tidy-data-concept.html"><a href="dplyr-and-the-tidy-data-concept.html#why-dplyr"><i class="fa fa-check"></i><b>11.2</b> The value of <strong>dplyr</strong></a></li>
+<li class="chapter" data-level="11.3" data-path="dplyr-and-the-tidy-data-concept.html"><a href="dplyr-and-the-tidy-data-concept.html#tidy-data"><i class="fa fa-check"></i><b>11.3</b> Tidy data</a></li>
+<li class="chapter" data-level="11.4" data-path="dplyr-and-the-tidy-data-concept.html"><a href="dplyr-and-the-tidy-data-concept.html#more-dplyr"><i class="fa fa-check"></i><b>11.4</b> A quick look at <strong>dplyr</strong></a><ul>
+<li class="chapter" data-level="11.4.1" data-path="dplyr-and-the-tidy-data-concept.html"><a href="dplyr-and-the-tidy-data-concept.html#tibble-tbl-objects"><i class="fa fa-check"></i><b>11.4.1</b> Tibble (<code>tbl</code>) objects</a></li>
+<li class="chapter" data-level="11.4.2" data-path="dplyr-and-the-tidy-data-concept.html"><a href="dplyr-and-the-tidy-data-concept.html#the-glimpse-function"><i class="fa fa-check"></i><b>11.4.2</b> The <code>glimpse</code> function</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="working-with-variables.html"><a href="working-with-variables.html"><i class="fa fa-check"></i><b>12</b> Working with variables</a><ul>
+<li class="chapter" data-level="12.1" data-path="working-with-variables.html"><a href="working-with-variables.html#introduction-5"><i class="fa fa-check"></i><b>12.1</b> Introduction</a><ul>
+<li class="chapter" data-level="12.1.1" data-path="working-with-variables.html"><a href="working-with-variables.html#getting-ready"><i class="fa fa-check"></i><b>12.1.1</b> Getting ready</a></li>
+</ul></li>
+<li class="chapter" data-level="12.2" data-path="working-with-variables.html"><a href="working-with-variables.html#subset-variables-with-select"><i class="fa fa-check"></i><b>12.2</b> Subset variables with <code>select</code></a><ul>
+<li class="chapter" data-level="12.2.1" data-path="working-with-variables.html"><a href="working-with-variables.html#renaming-variables-with-select-and-rename"><i class="fa fa-check"></i><b>12.2.1</b> Renaming variables with <code>select</code> and <code>rename</code></a></li>
+</ul></li>
+<li class="chapter" data-level="12.3" data-path="working-with-variables.html"><a href="working-with-variables.html#creating-variables-with-mutate"><i class="fa fa-check"></i><b>12.3</b> Creating variables with <code>mutate</code></a><ul>
+<li class="chapter" data-level="12.3.1" data-path="working-with-variables.html"><a href="working-with-variables.html#transforming-and-dropping-variables"><i class="fa fa-check"></i><b>12.3.1</b> Transforming and dropping variables</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="working-with-observations.html"><a href="working-with-observations.html"><i class="fa fa-check"></i><b>13</b> Working with observations</a><ul>
+<li class="chapter" data-level="13.1" data-path="working-with-observations.html"><a href="working-with-observations.html#introduction-6"><i class="fa fa-check"></i><b>13.1</b> Introduction</a><ul>
+<li class="chapter" data-level="13.1.1" data-path="working-with-observations.html"><a href="working-with-observations.html#getting-ready-1"><i class="fa fa-check"></i><b>13.1.1</b> Getting ready</a></li>
+</ul></li>
+<li class="chapter" data-level="13.2" data-path="working-with-observations.html"><a href="working-with-observations.html#subset-observations-with-filter"><i class="fa fa-check"></i><b>13.2</b> Subset observations with <code>filter</code></a></li>
+<li class="chapter" data-level="13.3" data-path="working-with-observations.html"><a href="working-with-observations.html#reording-observations-with-arrange"><i class="fa fa-check"></i><b>13.3</b> Reording observations with <code>arrange</code></a></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="helper-functions.html"><a href="helper-functions.html"><i class="fa fa-check"></i><b>14</b> Helper functions</a><ul>
+<li class="chapter" data-level="14.1" data-path="helper-functions.html"><a href="helper-functions.html#introduction-7"><i class="fa fa-check"></i><b>14.1</b> Introduction</a></li>
+<li class="chapter" data-level="14.2" data-path="helper-functions.html"><a href="helper-functions.html#working-with-select"><i class="fa fa-check"></i><b>14.2</b> Working with <code>select</code></a></li>
+<li class="chapter" data-level="14.3" data-path="helper-functions.html"><a href="helper-functions.html#working-with-mutate-and-transmute"><i class="fa fa-check"></i><b>14.3</b> Working with <code>mutate</code> and <code>transmute</code></a></li>
+<li class="chapter" data-level="14.4" data-path="helper-functions.html"><a href="helper-functions.html#working-with-filter"><i class="fa fa-check"></i><b>14.4</b> Working with <code>filter</code></a></li>
+</ul></li>
+<li class="chapter" data-level="15" data-path="grouping-and-summarising-data.html"><a href="grouping-and-summarising-data.html"><i class="fa fa-check"></i><b>15</b> Grouping and summarising data</a><ul>
+<li class="chapter" data-level="15.0.1" data-path="grouping-and-summarising-data.html"><a href="grouping-and-summarising-data.html#getting-ready-2"><i class="fa fa-check"></i><b>15.0.1</b> Getting ready</a></li>
+<li class="chapter" data-level="15.1" data-path="grouping-and-summarising-data.html"><a href="grouping-and-summarising-data.html#summarising-variables-with-summarise"><i class="fa fa-check"></i><b>15.1</b> Summarising variables with <code>summarise</code></a><ul>
+<li class="chapter" data-level="15.1.1" data-path="grouping-and-summarising-data.html"><a href="grouping-and-summarising-data.html#helper-functions-1"><i class="fa fa-check"></i><b>15.1.1</b> Helper functions</a></li>
+</ul></li>
+<li class="chapter" data-level="15.2" data-path="grouping-and-summarising-data.html"><a href="grouping-and-summarising-data.html#grouped-operations-using-group_by"><i class="fa fa-check"></i><b>15.2</b> Grouped operations using <code>group_by</code></a><ul>
+<li class="chapter" data-level="15.2.1" data-path="grouping-and-summarising-data.html"><a href="grouping-and-summarising-data.html#more-than-one-grouping-variable"><i class="fa fa-check"></i><b>15.2.1</b> More than one grouping variable</a></li>
+<li class="chapter" data-level="15.2.2" data-path="grouping-and-summarising-data.html"><a href="grouping-and-summarising-data.html#using-group_by-with-other-verbs"><i class="fa fa-check"></i><b>15.2.2</b> Using <code>group_by</code> with other verbs</a></li>
+</ul></li>
+<li class="chapter" data-level="15.3" data-path="grouping-and-summarising-data.html"><a href="grouping-and-summarising-data.html#removing-grouping-information"><i class="fa fa-check"></i><b>15.3</b> Removing grouping information</a></li>
+</ul></li>
+<li class="chapter" data-level="16" data-path="building-piplines.html"><a href="building-piplines.html"><i class="fa fa-check"></i><b>16</b> Building piplines</a><ul>
+<li class="chapter" data-level="16.1" data-path="building-piplines.html"><a href="building-piplines.html#why-do-we-need-pipes"><i class="fa fa-check"></i><b>16.1</b> Why do we need ‘pipes’?</a></li>
+</ul></li>
+<li class="part"><span><b>III Exporing Data</b></span></li>
+<li class="chapter" data-level="17" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html"><i class="fa fa-check"></i><b>17</b> Exploratory data analysis</a><ul>
+<li class="chapter" data-level="17.1" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#introduction-8"><i class="fa fa-check"></i><b>17.1</b> Introduction</a></li>
+<li class="chapter" data-level="17.2" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#variables"><i class="fa fa-check"></i><b>17.2</b> Statistical variables and data</a><ul>
+<li class="chapter" data-level="17.2.1" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#numeric-vs.categorical-variables"><i class="fa fa-check"></i><b>17.2.1</b> Numeric vs. categorical variables</a></li>
+<li class="chapter" data-level="17.2.2" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#ratio-vs.interval-scales"><i class="fa fa-check"></i><b>17.2.2</b> Ratio vs. interval scales</a></li>
+</ul></li>
+<li class="chapter" data-level="17.3" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#populations-samples"><i class="fa fa-check"></i><b>17.3</b> Populations, samples and distributions</a></li>
+<li class="chapter" data-level="17.4" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#relationships"><i class="fa fa-check"></i><b>17.4</b> Relationships</a></li>
+</ul></li>
+<li class="chapter" data-level="18" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html"><i class="fa fa-check"></i><b>18</b> Introduction to ggplot2</a><ul>
+<li class="chapter" data-level="18.1" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#anatomy"><i class="fa fa-check"></i><b>18.1</b> The anatomy of ggplot2</a><ul>
+<li class="chapter" data-level="18.1.1" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#layers"><i class="fa fa-check"></i><b>18.1.1</b> Layers</a></li>
+<li class="chapter" data-level="18.1.2" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#scales"><i class="fa fa-check"></i><b>18.1.2</b> Scales</a></li>
+<li class="chapter" data-level="18.1.3" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#coordinate-system"><i class="fa fa-check"></i><b>18.1.3</b> Coordinate system</a></li>
+<li class="chapter" data-level="18.1.4" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#faceting"><i class="fa fa-check"></i><b>18.1.4</b> Faceting</a></li>
+</ul></li>
+<li class="chapter" data-level="18.2" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#quick"><i class="fa fa-check"></i><b>18.2</b> A quick introduction to ggplot2</a><ul>
+<li class="chapter" data-level="18.2.1" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#making-a-start"><i class="fa fa-check"></i><b>18.2.1</b> Making a start</a></li>
+<li class="chapter" data-level="18.2.2" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#the-standard-way-of-using-ggplot2"><i class="fa fa-check"></i><b>18.2.2</b> The standard way of using <strong>ggplot2</strong></a></li>
+</ul></li>
+<li class="chapter" data-level="18.3" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#increasing-the-information-density"><i class="fa fa-check"></i><b>18.3</b> Increasing the information density</a><ul>
+<li class="chapter" data-level="18.3.1" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#using-additional-aesthetics"><i class="fa fa-check"></i><b>18.3.1</b> Using additional aesthetics</a></li>
+<li class="chapter" data-level="18.3.2" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#using-facets"><i class="fa fa-check"></i><b>18.3.2</b> Using facets</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="19" data-path="pimping-our-plots.html"><a href="pimping-our-plots.html"><i class="fa fa-check"></i><b>19</b> Pimping our plots</a><ul>
+<li class="chapter" data-level="19.1" data-path="pimping-our-plots.html"><a href="pimping-our-plots.html#working-with-layer-specific-geom-properties"><i class="fa fa-check"></i><b>19.1</b> Working with layer specific geom properties</a><ul>
+<li class="chapter" data-level="19.1.1" data-path="pimping-our-plots.html"><a href="pimping-our-plots.html#the-relationship-between-aesthetics-and-geom-properties."><i class="fa fa-check"></i><b>19.1.1</b> The relationship between aesthetics and geom properties.</a></li>
+</ul></li>
+<li class="chapter" data-level="19.2" data-path="pimping-our-plots.html"><a href="pimping-our-plots.html#working-with-layer-specific-position-adjustments"><i class="fa fa-check"></i><b>19.2</b> Working with layer specific position adjustments</a></li>
+<li class="chapter" data-level="19.3" data-path="pimping-our-plots.html"><a href="pimping-our-plots.html#working-with-plot-specific-scales"><i class="fa fa-check"></i><b>19.3</b> Working with plot specific scales</a></li>
+<li class="chapter" data-level="19.4" data-path="pimping-our-plots.html"><a href="pimping-our-plots.html#adding-titles-and-labels"><i class="fa fa-check"></i><b>19.4</b> Adding titles and labels</a></li>
+<li class="chapter" data-level="19.5" data-path="pimping-our-plots.html"><a href="pimping-our-plots.html#themes"><i class="fa fa-check"></i><b>19.5</b> Themes</a></li>
+</ul></li>
+<li class="chapter" data-level="20" data-path="exploring-one-numeric-variable.html"><a href="exploring-one-numeric-variable.html"><i class="fa fa-check"></i><b>20</b> Exploring one numeric variable</a><ul>
+<li class="chapter" data-level="20.1" data-path="exploring-one-numeric-variable.html"><a href="exploring-one-numeric-variable.html#explore-numeric"><i class="fa fa-check"></i><b>20.1</b> Understanding numerical variables</a></li>
+<li class="chapter" data-level="20.2" data-path="exploring-one-numeric-variable.html"><a href="exploring-one-numeric-variable.html#graphical-summaries"><i class="fa fa-check"></i><b>20.2</b> Graphical summaries</a></li>
+<li class="chapter" data-level="20.3" data-path="exploring-one-numeric-variable.html"><a href="exploring-one-numeric-variable.html#descriptive-statistics"><i class="fa fa-check"></i><b>20.3</b> Descriptive statistics</a><ul>
+<li class="chapter" data-level="20.3.1" data-path="exploring-one-numeric-variable.html"><a href="exploring-one-numeric-variable.html#measuring-central-tendency"><i class="fa fa-check"></i><b>20.3.1</b> Measuring central tendency</a></li>
+<li class="chapter" data-level="20.3.2" data-path="exploring-one-numeric-variable.html"><a href="exploring-one-numeric-variable.html#measuring-dispersion"><i class="fa fa-check"></i><b>20.3.2</b> Measuring dispersion</a></li>
+<li class="chapter" data-level="20.3.3" data-path="exploring-one-numeric-variable.html"><a href="exploring-one-numeric-variable.html#skewness"><i class="fa fa-check"></i><b>20.3.3</b> Skewness</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="21" data-path="exploring-categorical-variables.html"><a href="exploring-categorical-variables.html"><i class="fa fa-check"></i><b>21</b> Exploring categorical variables</a><ul>
+<li class="chapter" data-level="21.1" data-path="exploring-categorical-variables.html"><a href="exploring-categorical-variables.html#explore-categorical"><i class="fa fa-check"></i><b>21.1</b> Understanding categorical variables</a><ul>
+<li class="chapter" data-level="21.1.1" data-path="exploring-categorical-variables.html"><a href="exploring-categorical-variables.html#numerical-summaries"><i class="fa fa-check"></i><b>21.1.1</b> Numerical summaries</a></li>
+</ul></li>
+<li class="chapter" data-level="21.2" data-path="exploring-categorical-variables.html"><a href="exploring-categorical-variables.html#graphical-summaries-of-categorical-variables"><i class="fa fa-check"></i><b>21.2</b> Graphical summaries of categorical variables</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">APS 135: Introduction to Exploratory Data Analysis with R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="introduction-to-ggplot2" class="section level1">
+<h1><span class="header-section-number">Chapter 18</span> Introduction to ggplot2</h1>
+<p>One of the main reasons data analysts turn to R is for its strong data visualisation capabilities. The R ecosystem includes many different packages that support data visualisation. The three that are used widely used are: 1) the base graphics system, which uses the <strong>graphics</strong> package; 2) the <strong>lattice</strong> package; and 3) the <strong>ggplot2</strong> package. Each of these has its own strengths and weaknesses:</p>
+<ul>
+<li><p>Base graphics is part of base R—it’s available immediately after we start R. It’s very flexible and allows us to construct more or less any plot we like. This flexibility comes at a cost though. It’s quite easy to get up and running with the base R graphics—there are functions like <code>plot</code> and <code>hist</code> for making commonly-used figures—but building complex figures is time consuming. We have to write a lot of R code to prepare even moderately complex plots, there are a huge number of graphical parameters to learn, and many of the standard plotting functions are inconsistent in the way they work.</p></li>
+<li><p>The <strong>lattice</strong> package was developed by Deepayan Sarkar to implement ideas of Bill Cleveland in his 1993 book, Visualizing Data. The package implements something called Trellis graphics, a very useful approach for graphical exploratory data analysis. Trellis graphics are designed to help us visualise complicated, multiple variable relationships. The <strong>lattice</strong> package has many “high level” functions (e.g. <code>xyplot</code>) to make this process easy, but still retains much of the fine-grained control that characterises the standard graphics system. The <strong>lattice</strong> package is very powerful but can be hard to learn.</p></li>
+<li><p>The <strong>ggplot2</strong> package was developed by Hadley Wickham to implement some of the ideas in a book called The Grammar of Graphics by Wilkinson (2005). It produces Trellis-like graphics, but is quite different from <strong>lattice</strong> in the way it goes about this. It uses its own mini-language to define graphical objects, adopting the language of Wilkinson’s book to define these. It takes a little while to learn the basics, but once these have been mastered these it’s very easy to produce sophisticated plots with very little R code. The downside of working with <strong>ggplot2</strong> is that it isn’t as flexible as base graphics.</p></li>
+</ul>
+<p>We aren’t going to survey all three of these plotting systems. There isn’t space, and in any case, it’s possible to meet most data visualisation needs by becoming proficient with just one of them. This book focuses on <strong>ggplot2</strong>. In many ways the <strong>ggplot2</strong> package hits the ‘sweet spot’ between standard graphics and <strong>lattice</strong>. It allows us to produce complex visualisations without the need to write lines and lines of R code, but is still flexible enough to allow us to tweak the appearance of a figure so that it meets our specific needs.</p>
+<div id="anatomy" class="section level2">
+<h2><span class="header-section-number">18.1</span> The anatomy of ggplot2</h2>
+<p>The easiest way to learn <strong>ggplot2</strong> is by seeing in in action. Before we dive in it’s worth surveying the essential features of the <strong>ggplot2</strong> ‘grammar’. Most of this is fairly abstract and won’t make sense on first reading. This is fine. Abstract ideas like ‘aesthetics’ and ‘geoms’ will start to make sense as we work through a range of different examples in the next few chapters.</p>
+<p><strong>ggplot2</strong> is designed to reflect Wilkinson’s grammar of graphics. The <strong>ggplot2</strong> version of this grammar revolves around the idea of <strong>layers</strong>. The underlying idea is that we construct a visualisation in a structured manner by defining one or more of these layers, which together with a few other components define a complete <strong>ggplot2</strong> object. Each layer may have its own data or it may share its data with another layer, and each layer displays its data in a specific way. The resulting <strong>ggplot2</strong> object is defined by a combination of:</p>
+<ol style="list-style-type: decimal">
+<li><p>a default data set along with a set of mappings from variables to aesthetics,</p></li>
+<li><p>one or more layers, each comprising a number of components,</p></li>
+<li><p>one scale for each aesthetic mapping,</p></li>
+<li><p>a coordinate system for the plot,</p></li>
+<li><p>a faceting specification that tells <strong>ggplot2</strong> how to define a multi-panel plot.</p></li>
+</ol>
+<p>We’ll skim over each of these in turn before moving onto the business of actually using <strong>ggplot2</strong>.</p>
+<div id="layers" class="section level3">
+<h3><span class="header-section-number">18.1.1</span> Layers</h3>
+<p>Each layer in a <strong>ggplot2</strong> plot may have five different components, though we don’t necessarily have to specify all of these:</p>
+<ul>
+<li><p>The <strong>data</strong>. At a minimum, every plot needs some data. Unlike base R graphics, <strong>ggplot2</strong> always accepts data in one format, an R data frame (or tibble). Each layer can be associated with it’s own data set. However, we don’t have explicitly add data to each layer. When we choose not to specify the data set for a layer <strong>ggplot2</strong> will try use the default data if it has been defined.</p></li>
+<li><p>A set of <strong>aesthetic mappings</strong>. These describe how variables in the data are associated with the aesthetic properties of the layer. Commonly encountered aesthetic properties include position (x and y locations), colour, and size of the objects on a plot. Each layer can be associated with it’s own unique aesthetic mappings. When we choose not to specify these for a layer <strong>ggplot2</strong> will use the defaults if they were defined.</p></li>
+<li><p>A <strong>geometric object</strong>, called a ‘geom’. The geom tells <strong>ggplot2</strong> how to actually represent the layer—they refer to the objects you can actually see on a plot, such as points, lines or bars. Each geom only works with a particular of aesthetic mappings. We always have to define at least one geom when using <strong>ggplot2</strong>.</p></li>
+<li><p>A <strong>stat</strong>. These take the raw data in the data frame and transform in some useful way. A stat allows us to produce summaries of our raw data. We won’t use them in this book because we can produce the same kinds of figures by first processing our data with <strong>dplyr</strong>. Nonetheless, the stat facility is one of the things that makes <strong>ggplot2</strong> particularly useful for exploratory data analysis.</p></li>
+<li><p>A <strong>position adjustment</strong>. These apply small tweaks to the position of layer elements. These are most often used in plots like bar plots where we need to define how the bars are plotted, but they can occasionally be useful in other kinds of plots.</p></li>
+</ul>
+</div>
+<div id="scales" class="section level3">
+<h3><span class="header-section-number">18.1.2</span> Scales</h3>
+<p>The scale part of a <strong>ggplot2</strong> object controls how the data is mapped to the aesthetic attributes. A scale takes the data and converts it into something we can perceive, such as an x/y location, or the colour and size of points in a plot. A scale must be defined for every aesthetic in a plot. It doesn’t make sense to define an aesthetic mapping without a scale because there is no way for <strong>ggplot2</strong> to know how to go from the data to the aesthetics without one.</p>
+<p>Scales operate in the same way on the data in a plot. If we include several layers they all have to use the same scale for the shared aesthetic mappings. This behaviour is sensible because it ensures that the information that is displayed is consistent.</p>
+<p>If we choose not to explicitly define a scale for an aesthetic <strong>ggplot2</strong> will use a default. Very often this will be a ‘sensible’ choice, which means we can get quite a long way with <strong>ggplot2</strong> without ever really understanding scales. We won’t worry too much about them, though we will take a brief look at a few of the more common options.</p>
+</div>
+<div id="coordinate-system" class="section level3">
+<h3><span class="header-section-number">18.1.3</span> Coordinate system</h3>
+<p>A <strong>ggplot2</strong> coordinate system takes the position of objects (e.g. points and lines) and maps them onto the 2d plane that a plot lives on. Most people are already very familiar with the most common coordinate system (even if they didn’t realise it). The Cartesian coordinate system is the one we’ve all been using ever since we first constructed a graph with paper and pencil at school. All the most common statistical plots use this coordinate system so we won’t consider any others in this book.</p>
+</div>
+<div id="faceting" class="section level3">
+<h3><span class="header-section-number">18.1.4</span> Faceting</h3>
+<p>The idea behind faceting is very simple. Faceting allows us to break a data set up into subsets according to the unique values of one or two variables, and then produce a separate plot for each subset. The result is a multipanel plot, where each panel shares the same layers, scales, etc. The data is the only thing that varies from panel to panel. The result is a kind of ‘Trellis plot’, similar to those produced by the <strong>lattice</strong> package. Faceting is a very powerful tool that allows us to slice up our data in different ways and really understand the relationship between different variables. Together with aesthetic mappings, faceting allows us to summarise relationships among 4-6 variables in a single plot.</p>
+</div>
+</div>
+<div id="quick" class="section level2">
+<h2><span class="header-section-number">18.2</span> A quick introduction to ggplot2</h2>
+<p>Now that we’ve briefly reviewed the <strong>ggplot2</strong> grammar we can start learning how to use it. The package uses this grammar to define a sort of mini-language within R, using functions to specify components like aesthetics and geoms, which are combined with data to define a <strong>ggplot2</strong> graphics object. Once we’ve constructed a suitable object we can use it to display our graphic on the computer screen or save in a particular graphics format (e.g. PDF, PNG, JPEG, and so on).</p>
+<p>Rather than orientating this introduction around each of the key functions we’re going to develop a simple example to help us see how <strong>ggplot2</strong> works. Many of the key ideas about how <strong>ggplot2</strong> works can be taken away from this one example, so it’s definitely worth investing the time to understand it, i.e. use the example understand how the different <strong>ggplot2</strong> functions are related to the grammar outlined above.</p>
+<p>Our goal is to produce a scatter plot. The scatter plot is one of the most commonly used visualisation tools in the EDA toolbox. It’s designed to show how one numeric variable is related to another. A scatter plot uses horizontal and vertical axes (the ‘x’ and ‘y’ axes) to visualise pairs of related observations as a series of points in two dimensions.</p>
+<p>We’ll use the <code>storms</code> data from the <strong>nasaweather</strong> package to construct the scatter plot. The questions we want to explore are: 1) what is the relationship between wind speed (<code>wind</code>) and atmospheric pressure (<code>pressure</code>); 2) and how does this vary among (<code>year</code>) and within (<code>seasday</code>) years? That is, we want to investigate how wind speed depends on atmospheric pressure, and how this relationship varies over time.</p>
+<div id="making-a-start" class="section level3">
+<h3><span class="header-section-number">18.2.1</span> Making a start</h3>
+<p>To begin working with a graphical object we have to first set up a basic skeleton to build on. This is the job of the <code>ggplot</code> function. We can build an empty object by using <code>ggplot</code> without any arguments:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">plt &lt;-<span class="st"> </span><span class="kw">ggplot</span>()
+<span class="kw">summary</span>(plt)</code></pre></div>
+<pre><code>## data: [x]
+## faceting: &lt;ggproto object: Class FacetNull, Facet&gt;
+##     compute_layout: function
+##     draw_back: function
+##     draw_front: function
+##     draw_labels: function
+##     draw_panels: function
+##     finish_data: function
+##     init_scales: function
+##     map: function
+##     map_data: function
+##     params: list
+##     render_back: function
+##     render_front: function
+##     render_panels: function
+##     setup_data: function
+##     setup_params: function
+##     shrink: TRUE
+##     train: function
+##     train_positions: function
+##     train_scales: function
+##     vars: function
+##     super:  &lt;ggproto object: Class FacetNull, Facet&gt;</code></pre>
+<p>Here’s what just happened: we constructed the skeleton object, assigned it to a variable called <code>plt</code>, and then used the <code>summary</code> function to inspect the result. When first learning about <strong>ggplot2</strong>, it’s a good idea to use <code>summary</code> on various objects to get an idea of their structure. It’s quite ‘verbose’, but the important parts of the output are near the top, before the <code>faceting:</code> part. In this case, the ‘important part’ is basically empty. This tells us that there are no data, aesthetic mapping, layers, etc associated with <code>plt</code>. All we did was set up an empty object.</p>
+<div class="info">
+<h4 id="ggplot2-vs.-ggplot">
+<strong>ggplot2</strong> vs. <code>ggplot</code>
+</h4>
+<p>
+Notice that the while package is called <strong>ggplot2</strong>, the actual function that does the work of setting up the skeleton graphical object is called <code>ggplot</code>. Try not to mix them up—this is a common source of errors.
+</p>
+</div>
+<p>How can we improve on this? We should add a default data set, which we do by passing the name of a data frame or <strong>dplyr</strong> tibble to <code>ggplot</code>. Let’s try this with <code>storms</code>:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">plt &lt;-<span class="st"> </span><span class="kw">ggplot</span>(storms)
+<span class="kw">summary</span>(plt)</code></pre></div>
+<pre><code>## data: name, year, month, day, hour, lat, long, pressure, wind,
+##   type, seasday [2747x11]
+## faceting: &lt;ggproto object: Class FacetNull, Facet&gt;
+##     compute_layout: function
+##     draw_back: function
+##     draw_front: function
+##     draw_labels: function
+##     draw_panels: function
+##     finish_data: function
+##     init_scales: function
+##     map: function
+##     map_data: function
+##     params: list
+##     render_back: function
+##     render_front: function
+##     render_panels: function
+##     setup_data: function
+##     setup_params: function
+##     shrink: TRUE
+##     train: function
+##     train_positions: function
+##     train_scales: function
+##     vars: function
+##     super:  &lt;ggproto object: Class FacetNull, Facet&gt;</code></pre>
+<p>Notice that when we summarise the resulting object this time we see that the variables inside <code>storms</code> (<code>name</code>, <code>year</code>, <code>month</code>, etc) now comprise the data inside our <code>plt</code> object.</p>
+<p>The next step is to add a default aesthetic mapping to our graphical object. Remember, these describe how variables in the data are mapped to the aesthetic properties of the layer(s). One way to think about aesthetic mappings is that they define what kind of relationships our plot will describe. Since we’re making a scatter plot we need to define mappings for positions on the ‘x’ and ‘y’ axes. We want to investigate how wind speed depends on atmospheric pressure, so we need to associate <code>wind</code> with the y axis and <code>pressure</code> with the x axis.</p>
+<p>We define an aesthetic mapping with the <code>aes</code> function (‘aesthetic mapping’). One way to do this is like this:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">plt &lt;-<span class="st"> </span>plt +<span class="st"> </span><span class="kw">aes</span>(<span class="dt">x =</span> pressure, <span class="dt">y =</span> wind)</code></pre></div>
+<p>This little snippet of R code may look quite strange at first glance. There are a couple things to take away from this:</p>
+<ol style="list-style-type: decimal">
+<li>We ‘add’ the aesthetic mapping to the <code>plt</code> object using the <code>+</code> operator. This has nothing to do with arithmetic. The <strong>ggplot2</strong> package uses some clever programming tricks to redefine the way <code>+</code> works with its objects so that it can be used to combine them. This is nice because it makes building up a plot from the components of the grammar very natural.</li>
+<li>The second thing to notice is that an aesthetic mapping is defined by one or more name-value pairs, specified as arguments of <code>aes</code>. The names on the left hand side of each <code>=</code> refer to the properties of our graphical object (e.g. the ‘x’ and ‘y’ positions). The values on right hand side refer to variable names in the data set that we want to associate with these properties.</li>
+</ol>
+<p>Notice that we overwrote the original <code>plt</code> object with the updated version using the assignment operator. We could have created a distinct object, but there’s usually no advantage to do this. Once again, we should inspect the result using <code>summary</code>:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(plt)</code></pre></div>
+<pre><code>## data: name, year, month, day, hour, lat, long, pressure, wind,
+##   type, seasday [2747x11]
+## mapping:  x = pressure, y = wind
+## faceting: &lt;ggproto object: Class FacetNull, Facet&gt;
+##     compute_layout: function
+##     draw_back: function
+##     draw_front: function
+##     draw_labels: function
+##     draw_panels: function
+##     finish_data: function
+##     init_scales: function
+##     map: function
+##     map_data: function
+##     params: list
+##     render_back: function
+##     render_front: function
+##     render_panels: function
+##     setup_data: function
+##     setup_params: function
+##     shrink: TRUE
+##     train: function
+##     train_positions: function
+##     train_scales: function
+##     vars: function
+##     super:  &lt;ggproto object: Class FacetNull, Facet&gt;</code></pre>
+<p>As hoped, the data (<code>data:</code>) from the original <code>plt</code> are still there, but now we can also see that two default mappings (<code>mapping:</code>) have been defined for the x and y axis positions. We have successfully used the <code>ggplot</code> and <code>aes</code> functions to set up a graphical object with both default data and aesthetic mappings. Any layers that we now add will use these unless we choose to override them by specifying different options.</p>
+<p>In order to produce a plotable version of <code>plt</code> we now need to specify a layer. This will tell <strong>ggplot2</strong> how to visualise the data. Remember, each layer has five different components: data, aesthetic mappings, a geom, a stat and a position adjustment. Since we’ve already set up the default data and aesthetic mappings, there’s no need to define these again—<strong>ggplot2</strong> will use the defaults if we leave them out of the definition. This leaves the geom, stat and position adjustment.</p>
+<p>What kind of geom do we need? A scatter plots allow us to explore a relationship as a series of <em>points</em>. We need to add a layer that uses the <em>point</em> geom. What about the stat and position? These are difficult to explain (and understand) without drilling down into the details of how <strong>ggplot2</strong> works. The important insight is that both the stat and the position adjustment components change our data in some way before plotting it. If we want to avoid having <strong>ggplot2</strong> do anything to our data, the key word is ‘identity’. We use this as the value when we want <strong>ggplot2</strong> to plot our data ‘as is’.</p>
+<p>We’re going examine the easy way to add a layer in a moment. However we’ll start with a long-winded approach first, because this reveals exactly what happens whenever we build a <strong>ggplot2</strong> object. The general function for adding a layer is simply called <code>layer</code>. Here’s how it works in its most basic usage:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">plt &lt;-<span class="st"> </span>plt +<span class="st"> </span><span class="kw">layer</span>(<span class="dt">geom =</span> <span class="st">&quot;point&quot;</span>, <span class="dt">stat =</span> <span class="st">&quot;identity&quot;</span>, <span class="dt">position =</span> <span class="st">&quot;identity&quot;</span>)</code></pre></div>
+<p>All we did here was take the <code>plt</code> object, add a layer to it with the <code>layer</code> function, and then overwrite the old version of <code>plt</code>. Again, we add the new component using the <code>+</code> symbol. We passed three arguments to the <code>layer</code> function to…</p>
+<ol style="list-style-type: decimal">
+<li><p>define the <strong>geom</strong>: the name of this argument was <code>geom</code> and the value assigned to it was <code>&quot;point&quot;</code>.</p></li>
+<li><p>define the <strong>stat</strong>: the name of this argument was <code>stat</code> and the value assigned to it was <code>&quot;identity&quot;</code>.</p></li>
+<li><p>define the <strong>position adjustment </strong>: the name of this argument was <code>position</code> and the value assigned to it was <code>&quot;identity&quot;</code>.</p></li>
+</ol>
+<p>Let’s review the structure of the resulting graphical object one last time to see what we’ve achieved:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(plt)</code></pre></div>
+<pre><code>## data: name, year, month, day, hour, lat, long, pressure, wind,
+##   type, seasday [2747x11]
+## mapping:  x = pressure, y = wind
+## faceting: &lt;ggproto object: Class FacetNull, Facet&gt;
+##     compute_layout: function
+##     draw_back: function
+##     draw_front: function
+##     draw_labels: function
+##     draw_panels: function
+##     finish_data: function
+##     init_scales: function
+##     map: function
+##     map_data: function
+##     params: list
+##     render_back: function
+##     render_front: function
+##     render_panels: function
+##     setup_data: function
+##     setup_params: function
+##     shrink: TRUE
+##     train: function
+##     train_positions: function
+##     train_scales: function
+##     vars: function
+##     super:  &lt;ggproto object: Class FacetNull, Facet&gt;
+## -----------------------------------
+## geom_point: na.rm = FALSE
+## stat_identity: na.rm = FALSE
+## position_identity</code></pre>
+<p>The text above the <code>-----</code> line is the same as before. It summarises the default data and the aesthetic mapping. The text below this summarises the layer we just added. It tells us that this layer will use the points geom (<code>geom_point</code>), the identity stat (<code>stat_identity</code>), and the identity position adjustment (<code>position_identity</code>).</p>
+<p>Now <code>plt</code> has everything it needs to actually render a figure. How do we do this? We just ‘print’ the object:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(plt)</code></pre></div>
+<p><img src="eda-for-bio_files/figure-html/unnamed-chunk-277-1.png" width="336" style="display: block; margin: auto;" /></p>
+<p>That’s it (finally)! We have used produced a scatter plot showing how wind speed depends of atmospheric pressure. This clearly shows that higher wind speeds are associated with lower pressure systems. That wasn’t really why we made this plot though—we wanted to see how the <strong>ggplot2</strong> functions are related to its grammar. Here’s a quick summary of what we did:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># step 1. set up the skeleton object with a default data set</span>
+plt &lt;-<span class="st"> </span><span class="kw">ggplot</span>(storms)
+<span class="co"># step 2. add the default aesthetic mappings</span>
+plt &lt;-<span class="st"> </span>plt +<span class="st"> </span><span class="kw">aes</span>(<span class="dt">x =</span> pressure, <span class="dt">y =</span> wind)
+<span class="co"># step 3. specify the layer we want to use</span>
+plt &lt;-<span class="st"> </span>plt +<span class="st"> </span><span class="kw">layer</span>(<span class="dt">geom =</span> <span class="st">&quot;point&quot;</span>, <span class="dt">stat =</span> <span class="st">&quot;identity&quot;</span>, <span class="dt">position =</span> <span class="st">&quot;identity&quot;</span>)
+<span class="co"># step 4. render the plot</span>
+<span class="kw">print</span>(plt)</code></pre></div>
+<div class="warning">
+<h4 id="dont-use-this-workflow">
+Don’t use this workflow!
+</h4>
+<p>
+It’s possible to construct any <strong>ggplot2</strong> visualisation using the workflow outlined in this subsection. It isn’t recommended though. The workflow adopted here was selected to reveal how the grammar works, rather than for its efficiency. A more concise, standard approach to using <strong>ggplot2</strong> is outlined next. You should use that for real world analysis.
+</p>
+</div>
+</div>
+<div id="the-standard-way-of-using-ggplot2" class="section level3">
+<h3><span class="header-section-number">18.2.2</span> The standard way of using <strong>ggplot2</strong></h3>
+<p>The <strong>ggplot2</strong> package is quite flexible, which means we can arrive at a particular visualisation in a number of different ways. To keep life simple, we’re going to adopt one consistent work flow for the remainder of this book. This won’t reveal the full array of <strong>ggplot2</strong> tricks, but it is sufficient to enable us to construct a wide range of standard visualisations. To see it in action, we’ll make exactly the same wind speed vs. atmospheric pressure scatter plot again, only this time, we’ll use a few short cuts.</p>
+<p>We began building our <strong>ggplot2</strong> object by setting up a skeleton object with a default data set and then added the default aesthetic mappings. There is a more concise way to achieve the same result:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">plt &lt;-<span class="st"> </span><span class="kw">ggplot</span>(storms, <span class="kw">aes</span>(<span class="dt">x =</span> pressure, <span class="dt">y =</span> wind))
+<span class="kw">summary</span>(plt)</code></pre></div>
+<pre><code>## data: name, year, month, day, hour, lat, long, pressure, wind,
+##   type, seasday [2747x11]
+## mapping:  x = pressure, y = wind
+## faceting: &lt;ggproto object: Class FacetNull, Facet&gt;
+##     compute_layout: function
+##     draw_back: function
+##     draw_front: function
+##     draw_labels: function
+##     draw_panels: function
+##     finish_data: function
+##     init_scales: function
+##     map: function
+##     map_data: function
+##     params: list
+##     render_back: function
+##     render_front: function
+##     render_panels: function
+##     setup_data: function
+##     setup_params: function
+##     shrink: TRUE
+##     train: function
+##     train_positions: function
+##     train_scales: function
+##     vars: function
+##     super:  &lt;ggproto object: Class FacetNull, Facet&gt;</code></pre>
+<p>In this form the <code>aes</code> function is used inside <code>ggplot</code>, i.e. it supplies a second argument to <code>ggplot</code>. This approach is the most commonly used approach for setting up a graphical object with default data and aesthetic mappings. We will use it from now on.</p>
+<p>The next step is to add a layer. We just saw that the <code>layer</code> function can be used to construct a layer from its component parts. However, <code>ggplot</code> provides a number of functions that add layers according to the type of geom they use. They look like this: <code>geom_NAME</code>, where <code>NAME</code> stands for the name of the different possible geoms. An alternative to the last line is therefore:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">plt &lt;-<span class="st"> </span>plt +<span class="st"> </span><span class="kw">geom_point</span>()</code></pre></div>
+<p>We didn’t have to specify the stat or the position adjustment components of the layer because the <code>geom_NAME</code> functions all choose sensible defaults, though these can be overridden if needed, but 90% of the time there’s no need to do this. This way of defining a layer is much simpler and less error prone than the <code>layer</code> method. We will use the <code>geom_NAME</code> method from now on.</p>
+<p>There’s one last trick we need to learn to use <strong>ggplot2</strong> efficiently. We’ve been building a plot object in several steps, giving the intermediates the name <code>plt</code>, and then manually printing the object to display it when it’s ready. This is useful if we want to make different versions of the same plot. However, we very often just want to build the plot and display it in one go. This is done by combining everything with <code>+</code> and printing the resulting object directly:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(storms, <span class="kw">aes</span>(<span class="dt">x =</span> pressure, <span class="dt">y =</span> wind)) +<span class="st"> </span><span class="kw">geom_point</span>()</code></pre></div>
+<p><img src="eda-for-bio_files/figure-html/unnamed-chunk-282-1.png" width="336" style="display: block; margin: auto;" /></p>
+<p>That’s it! As we have seen, there’s a lot going on underneath this, but this small snippet of R code contains everything <strong>ggplot2</strong> needs to construct and display the simple scatter plot of wind speed against atmospheric pressure.</p>
+</div>
+</div>
+<div id="increasing-the-information-density" class="section level2">
+<h2><span class="header-section-number">18.3</span> Increasing the information density</h2>
+<p>We introduced the example by saying that we were interested in the relationship between wind speed, atmospheric pressure, observation year, and the time of year. So far we’ve only examined the first two. We’ll finish this chapter by exploring the two main approaches for increasing the information in visualisation to investigate the relationship with the remaining two variables.</p>
+<div id="using-additional-aesthetics" class="section level3">
+<h3><span class="header-section-number">18.3.1</span> Using additional aesthetics</h3>
+<p>How can we learn about relationship of these two variables to time of year (<code>seasday</code>)? We need to include information in the <code>seasday</code> variable in our scatter plot somehow. There are different ways we might do this, but the basic trick is to map the <code>seasday</code> variable to a new aesthetic. We need to change the way we are using <code>aes</code>. One option is to map the <code>seasday</code> to the point colours so that the colour of the points correspond to the time of year:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(storms, <span class="kw">aes</span>(<span class="dt">x =</span> pressure, <span class="dt">y =</span> wind, <span class="dt">colour =</span> seasday)) +<span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_point</span>()</code></pre></div>
+<p><img src="eda-for-bio_files/figure-html/unnamed-chunk-283-1.png" width="432" style="display: block; margin: auto;" /></p>
+<p>Notice that <strong>ggplot2</strong> automatically adds a legend to the figure to help us interpret it. A colour scale is not much use without a legend. Points are now coloured according to whether they are associated with early (dark blue) or late (light blue) observations. There’s a hint that lower intensity storms tend to be at the beginning an end of the storm season, but it’s hard to be sure because there is so much overplotting—i.e. many points are in the same place.</p>
+<p>We could no doubt improves on this visualisation, but nonetheless, it illustrates the important concept: we can add information to a plot by mapping additional variables to new aesthetics. There is nothing to stop us using different aesthetics if we wanted to squeeze even more information into this plot. For example, we could map the storm type variable (<code>type</code>) to the point shape if we wanted, using <code>shape = type</code> inside <code>aes</code>. However, this graph is already a bit too crowded, so this might not be too helpful in this instance.</p>
+</div>
+<div id="using-facets" class="section level3">
+<h3><span class="header-section-number">18.3.2</span> Using facets</h3>
+<p>What if we want to see how the wind speed and pressure relationship might vary among years? One way to do this is to make a separate scatter plot for each year. We don’t have to do this manually though. We can use the faceting facility of <strong>ggplot2</strong> instead. This allows us to break up our data set up into subsets according to the unique values of one or two variables and produce a separate plot for each subset, but without having to write much R code.</p>
+<p>Faceting operates on the whole figure so we can’t apply it by changing the properties of a layer. Instead, we have to use a new function to add the faceting information. Here’s how we split things up by year using the <code>facet_wrap</code> function:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(storms, <span class="kw">aes</span>(<span class="dt">x =</span> pressure, <span class="dt">y =</span> wind, <span class="dt">colour =</span> seasday)) +<span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_point</span>() +<span class="st"> </span>
+<span class="st">  </span><span class="kw">facet_wrap</span>(~<span class="st"> </span>year, <span class="dt">nrow =</span> <span class="dv">2</span>, <span class="dt">ncol =</span> <span class="dv">3</span>)</code></pre></div>
+<p><img src="eda-for-bio_files/figure-html/unnamed-chunk-284-1.png" width="643.2" style="display: block; margin: auto;" /></p>
+<p>The first argument of <code>facet_wrap</code> (<code>~ year</code>) says to split up the data set according to the values of <code>year</code>. The <code>nrow</code> and <code>ncol</code> arguments just specify how to split the panels across rows and columns of the resulting plot. Notice that the panels shares the same scales for the ‘x’ and ‘y’ axes. This makes it easy to compare information.</p>
+<p>The plot indicates that the wind speed – pressure relationship is more or less invariant across years, and that perhaps 1997 and 2000 were not such bad storm years compared to the others. This isn’t really surprising. The occurrence of tropical storms is somewhat stochastic, but the laws of atmospheric physics don’t change from one year to the next!</p>
+<div class="warning">
+<h4 id="dont-forget-the">
+Don’t forget the <code>~</code>
+</h4>
+<p>
+We have to include the <code>~</code> symbol at the beginning of the <code>~ year</code> part of the <code>facet_wrap</code> specification. Trust us, the faceting won’t work without it. The <code>~</code> specifies something called a ‘formula’. The main job of a formula is to specify relationships among variables. These are usually used in R’s statistical modelling functions (not covered in this book), but they occasionally pop up in other places.
+</p>
+</div>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="exploratory-data-analysis.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="pimping-our-plots.html" class="navigation navigation-next " aria-label="Next page""><i class="fa fa-angle-right"></i></a>
+
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/dzchilds/eda-for-bio/edit/master/3_02_ggplot_intro.Rmd",
+"text": "Edit"
+},
+"download": null,
+"toc": {
+"collapse": "section"
+},
+"split_by": "section"
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    if (location.protocol !== "file:" && /^https?:/.test(script.src))
+      script.src  = script.src.replace(/^https?:/, '');
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
