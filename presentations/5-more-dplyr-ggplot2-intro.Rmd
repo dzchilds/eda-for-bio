@@ -539,7 +539,7 @@ storms %>%
 
 2. Course book, course book, course book! (No one reported my 'deliberate' error...)
 
-3. DZC office hours are 12-3pm every Tuesday. (No one has been to see me...)
+3. DZC office hours are 12-3pm every Tuesday (No one has been to see me...)
 
 4. More plotting next week (Then we're done...)
 
