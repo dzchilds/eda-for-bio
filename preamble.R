@@ -1,8 +1,9 @@
-library(dplyr)
-library(ggplot2)
-library(nasaweather)
-library(magrittr)
-library(knitr)
+library("dplyr")
+library("ggplot2")
+library("nasaweather")
+library("magrittr")
+library("knitr")
+library("hexbin")
 
 # knitr options
 

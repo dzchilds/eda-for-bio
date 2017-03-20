@@ -1,4 +1,4 @@
-# Pimping our plots
+# Customising plots
 
 The default formatting used by **ggplot2** is generally fine for exploratory purposes. In fact, although they aren't universally popular, the defaults are carefully chosen to ensure that the information in a plot is easy to discern. These choices are a little unconventional though. For example, published figures usually use a white background. For this reason, we often need to change the appearance of a plot once we're ready to include it in a report. 
 
@@ -109,6 +109,19 @@ ggplot(storms, aes(x = pressure, y = wind, colour = seasday)) +
 
 The axes labels are a feature of the whole plot. They do not belong to a particular layer. This is why we don't alter axis labels by passing arguments to the function that built a layer (`geom_point` in this case). Instead, we use the `xlab` and `ylab` functions to set the x and y labels, respectively, using `+` to add them to our graphical object. If we need to add a title to you graph we use the `ggtitle` function in the same way.
 
+The `labs` function provides a more flexible alternative to `xlab` and `ylab`. It's more flexible because `labs` can be used to change the label of every aesthetic in the plot. For example, if we want to set the labels of the x and y axes, and the label associated with `seasday`, we use:
+
+```{r, fig.width=4.5}
+ggplot(storms, aes(x = pressure, y = wind, colour = seasday)) + 
+  geom_point(alpha = 0.3, size = 1.5, position = position_jitter(w = 0, h = 4)) + 
+  scale_y_continuous(breaks = seq(20, 160, by = 20)) + 
+  labs(x = "Atmospheric Pressure (mbar)", 
+       y = "Wind Speed (mph)",
+       colour = "Day of \nSeason")
+```
+
+We snuck one last trick into that last example. Notice that the "Day of Season" label is split over two lines. We did this by inserting the special sequnce `\n` into the label text. The `\n` inside a quoated label tells R to start a new line.
+
 ## Themes
 
 The final route to customisation we'll consider concerns something called the 'theme' of a plot. We haven't considered the **ggplot2** theme system at all yet. In simple terms, **ggplot2** themes deal with the visual aspects of a plot that aren't directly handled by adjusting geom properties or scales, i.e. the 'non-data' parts of a plot. This includes features such as the colour of the plotting region and the grid lines, whether or not those grid lines are even displayed, the position of labels, the font used in labels, and so on.
@@ -120,7 +133,9 @@ final_plt <-
   ggplot(storms, aes(x = pressure, y = wind, colour = seasday)) + 
   geom_point(alpha = 0.3, size = 1.5, position = position_jitter(w = 0, h = 4)) + 
   scale_y_continuous(breaks = seq(20, 160, by = 20)) + 
-  xlab("Atmospheric Pressure (mbar)") + ylab("Wind Speed (mph)")
+  labs(x = "Atmospheric Pressure (mbar)", 
+       y = "Wind Speed (mph)",
+       colour = "Day of \nSeason")
 ```
 
 Here's how to use the built in themes to alter the themes used to plot the `final_plt` object:
