@@ -1,4 +1,4 @@
-# Introduction to ggplot2
+# Introduction to **ggplot2**
 
 One of the main reasons data analysts turn to R is for its strong data visualisation capabilities. The R ecosystem includes many different packages that support data visualisation. The three that are used widely used are: 1) the base graphics system, which uses the **graphics** package; 2) the **lattice** package; and 3) the **ggplot2** package. Each of these has its own strengths and weaknesses:
 
