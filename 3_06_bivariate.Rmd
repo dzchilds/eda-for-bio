@@ -63,7 +63,7 @@ Correlation coefficients give us a simple way to summarise associations between 
 
 There are a few other options beyond the standard scatter plot. Specifically, **ggplot2** provides a couple of different `geom_XX` functions for producing a visual summary of relationships between numeric variables in situations where over-plotting of points is obscuring the relationship. One such example is the `geom_count` function:
 
-```{r}
+```{r, fig.width=4.5}
 ggplot(storms, aes(x = pressure, y = wind)) +
   geom_count(alpha = 0.5)
 ```
@@ -72,7 +72,7 @@ The `geom_count` function is used to construct a layer in which data are first g
 
 Two further options for dealing with excessive over-plotting are the `geom_bin_2d` and `geom_hex` functions. The the `geom_bin_2d` divides the plane into rectangles, counts the number of cases in each rectangle, and then uses the number of cases to assign the rectangle's fill colour. The `geom_hex` function does essentially the same thing, but instead divides the plane into regular hexagons. Note that `geom_hex` relies on the **hexbin** package, so this need to be installed to use it. Here's an example of `geom_hex` in action: 
 
-```{r}
+```{r, fig.width=4.5}
 ggplot(storms, aes(x = pressure, y = wind)) +
   geom_hex(bins = 25)
 ```
@@ -106,7 +106,7 @@ Let's do this for the `type` and `year` variables in `storms`, breaking the proc
 bar_plt <- ggplot(storms, aes(x = year, fill = type))
 ```
 Notice that we've included two aesthetic mappings. We mapped the `year` variable to the x axis, and the storm category (`type`) to the fill colour. We want to display information from two categorical variables, so we have to define two aesthetic mappings. The next step is to add a layer using `geom_bar` (we want a bar plot) and display the results:
-```{r}
+```{r, fig.width=4.5}
 bar_plt <- bar_plt + geom_bar()
 bar_plt
 ```
@@ -122,7 +122,7 @@ storms_alter <- mutate(storms, year = as.character(year))
 We must load and attach **dplyr** to make this work. The new data frame `storms_alter` is identical to storms, except that `year` is now a character vector.
 
 Now we just need to construct and display the **ggplot2** object again using this new data frame: 
-```{r}
+```{r, fig.width=4.5}
 ggplot(storms_alter, aes(x = year, fill = type)) + 
   geom_bar()
 ```
@@ -143,7 +143,7 @@ storms_alter <-
 
 This may look a little confusing at first glance, but all we did here was create a vector of ordered category names called `storm_names`, and then use mutate to change `type` to a factor using the ordering implied by `storm_names`. Just be careful with the spelling---the values in `storm_names` must match those in `type`. We did this with **dplyr**'s `mutate` function, again calling the modified data set `storms_alter`. Once we've applied the factor trick we can remake the bar chart:
 
-```{r}
+```{r, fig.width=4.5}
 # 3. make the histogram
 ggplot(storms_alter, aes(x = year, fill = type)) + 
     geom_bar() 
@@ -156,7 +156,7 @@ Factors are very useful. They crop up all the time in R. Unfortunately, they are
 ```
 
 A stacked bar chart is the default produced by `geom_bar`. One problem with this kind of chart is that it can be hard to spot associations among the two categorical variables. If we want to know how they are associated it's often better to plot the counts for each combination of categories side-by-side. This isn't hard to do. We switch to a side-by-side bar chart by assigning a value of `"dodge"` to the `position` argument of `geom_bar`:
-```{r}
+```{r, fig.width=6}
 ggplot(storms_alter, aes(x = year, fill = type)) + 
   geom_bar(position = "dodge") +
   labs(x = "Year", 
