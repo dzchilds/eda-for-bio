@@ -26,7 +26,7 @@
 <meta name="author" content="Dylan Z. Childs">
 
 
-<meta name="date" content="2017-03-20">
+<meta name="date" content="2017-03-21">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -386,7 +386,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Wind Speed (mph)&quot;</span>) +<span class="st"> </span><span class="kw">ylab</span>(<span class="st">&quot;Count&quot;</span>) +<span class="st"> </span>
 <span class="st">  </span><span class="kw">labs</span>(<span class="dt">fill =</span> <span class="st">&quot;Storm Type&quot;</span>) +
 <span class="st">  </span><span class="kw">facet_wrap</span>(~<span class="st"> </span>month, <span class="dt">ncol =</span> <span class="dv">3</span>)</code></pre></div>
-<p><img src="eda-for-bio_files/figure-html/unnamed-chunk-350-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="eda-for-bio_files/figure-html/unnamed-chunk-352-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>Notice that we’re using <code>storms_alter</code> from the last chapter, the version of <code>storms</code> where the <code>type</code> variable was converted to a factor. We haven’t used any new tricks here though. We just set a couple of aesthetics and used faceting to squeeze many histograms onto one plot. It mostly shows that if we’re planning a holiday in Central America we should probably avoid travelling from August to October…</p>
 </div>
 <div id="summaries" class="section level2">
@@ -398,7 +398,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <span class="st">  </span><span class="kw">geom_bar</span>(<span class="dt">stat =</span> <span class="st">&quot;summary&quot;</span>, <span class="dt">fun.y =</span> mean) +
 <span class="st">  </span><span class="kw">coord_flip</span>() +<span class="st"> </span>
 <span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Storm Category&quot;</span>) +<span class="st"> </span><span class="kw">ylab</span>(<span class="st">&quot;Mean Wind Speed (mph)&quot;</span>)</code></pre></div>
-<p><img src="eda-for-bio_files/figure-html/unnamed-chunk-351-1.png" width="336" style="display: block; margin: auto;" /></p>
+<p><img src="eda-for-bio_files/figure-html/unnamed-chunk-353-1.png" width="336" style="display: block; margin: auto;" /></p>
 <p>We also flipped the coordinates here with <code>coord_flip</code> to make this a horizontal bar plot. We’ve seen this before in the <a href="exploring-categorical-variables.html#exploring-categorical-variables">Exploring categorical variables</a> chapter. The only new idea is our use of the <code>stat</code> and <code>fun.y</code> arguments.</p>
 <p>The second way to build a bar plot showing some kind of summary statistic breaks the problem into two steps. In the first step we have to calculate whatever it is we want to display, i.e. the category-specific mean in this case. This information needs to be stored in a data frame or tibble so <strong>dplyr</strong> is the best tool to use for this:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">storms_sum &lt;-<span class="st"> </span>
@@ -419,7 +419,7 @@ storms_sum</code></pre></div>
 <span class="st">  </span><span class="kw">geom_bar</span>(<span class="dt">stat =</span> <span class="st">&quot;identity&quot;</span>) +<span class="st"> </span>
 <span class="st">  </span><span class="kw">coord_flip</span>() +<span class="st"> </span><span class="kw">xlab</span>(<span class="st">&quot;Storm Category&quot;</span>) +<span class="st"> </span><span class="kw">ylab</span>(<span class="st">&quot;Mean Wind Speed (mph)&quot;</span>)
 mean.plt</code></pre></div>
-<p><img src="eda-for-bio_files/figure-html/unnamed-chunk-353-1.png" width="336" style="display: block; margin: auto;" /></p>
+<p><img src="eda-for-bio_files/figure-html/unnamed-chunk-355-1.png" width="336" style="display: block; margin: auto;" /></p>
 <p>The result is the same as the last plot. Notice that we had to set <code>stat</code> to <code>&quot;identity&quot;</code>. This is important. The default behaviour of <code>geom_bar</code> is to count the observations in each category. The <code>stat = &quot;identity&quot;</code> argument tells it that the information in <code>mean_wind</code> must be plotted ‘as is’.</p>
 <p>Which approach is better? The first approach is more compact though. We recommend the second long-winded way approach for new users because it separates the summary calculations from the plotting. This way, as long as we’re comfortable with <strong>dplyr</strong>, we can get away with remembering less about how <strong>ggplot2</strong> works. It also makes it a bit easier to fix mistakes, as we can first check whether the right information is in the summary data frame, before we worry about plotting it.</p>
 <p>The two-step method is easy to extend to different kinds of plots as well. An example will help to clarify what we mean by this. Remember the wind speed vs. atmospheric pressure scatter plots we first produced? One criticism of those plots is that they don’t really summarise differences among storm events. We plotted all the data, which means a storm system that lasts a long time contributes relatively more points to the plot than a short storm.</p>
@@ -432,10 +432,11 @@ mean.plt</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(storms_means, <span class="kw">aes</span>(<span class="dt">x =</span> pressure, <span class="dt">y =</span> wind)) +<span class="st"> </span>
 <span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">alpha =</span> <span class="fl">0.8</span>) +<span class="st"> </span>
 <span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Atmospheric Pressure (mbar)&quot;</span>) +<span class="st"> </span><span class="kw">ylab</span>(<span class="st">&quot;Wind Speed (mph)&quot;</span>)</code></pre></div>
-<p><img src="eda-for-bio_files/figure-html/unnamed-chunk-355-1.png" width="336" style="display: block; margin: auto;" /></p>
+<p><img src="eda-for-bio_files/figure-html/unnamed-chunk-357-1.png" width="336" style="display: block; margin: auto;" /></p>
 
 </div>
 </div>
+
 
 
 

@@ -107,7 +107,7 @@ ggplot(storms, aes(x = pressure, y = wind, colour = seasday)) +
   xlab("Atmospheric Pressure (mbar)") + ylab("Wind Speed (mph)")
 ```
 
-The axes labels are a feature of the whole plot. They do not belong to a particular layer. This is why we don't alter axis labels by passing arguments to the function that built a layer (`geom_point` in this case). Instead, we use the `xlab` and `ylab` functions to set the x and y labels, respectively, using `+` to add them to our graphical object. If we need to add a title to you graph we use the `ggtitle` function in the same way.
+The axes labels are a feature of the whole plot. They do not belong to a particular layer. This is why we don't alter axis labels by passing arguments to the function that built a layer (`geom_point` in this case). Instead, we use the `xlab` and `ylab` functions to set the x and y labels, respectively, using `+` to add them to our graphical object. If we need to add a title to a graph we can use the `ggtitle` function in the same way.
 
 The `labs` function provides a more flexible alternative to `xlab` and `ylab`. It's more flexible because `labs` can be used to change the label of every aesthetic in the plot. For example, if we want to set the labels of the x and y axes, and the label associated with `seasday`, we use:
 
@@ -152,7 +152,7 @@ There aren't that many themes built into **ggplot2**---type `theme_` at the Cons
 final_plt + theme_classic(base_size = 15)
 ```
 
-This produces a very stripped down plot that's much closer to those produced by the base graphics system. Notice that we did one more thing here: we set the `base_size` argument to 14 to increase the size of all the text in the figure (the default is 11). This can be used with any `theme_XX` function to quickly change the relative size of all the text in a plot.
+This produces a very stripped down plot that's much closer to those produced by the base graphics system. Notice that we did one more thing here: we set the `base_size` argument to 15 to increase the size of all the text in the figure (the default is 11). This can be used with any `theme_XX` function to quickly change the relative size of all the text in a plot.
 
 
 

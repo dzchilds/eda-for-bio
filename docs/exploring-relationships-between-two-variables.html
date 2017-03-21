@@ -26,7 +26,7 @@
 <meta name="author" content="Dylan Z. Childs">
 
 
-<meta name="date" content="2017-03-20">
+<meta name="date" content="2017-03-21">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -392,7 +392,7 @@ r_{xy} = \frac{1}{N-1}\sum\limits_{i=1}^{N}{\frac{x_i-\bar{x}}{s_x} \frac{y_i-\b
 <li><p>Even if the relationship between two variables really is linear, Pearson’s correlation coefficient tells us nothing about the slope (i.e. the steepness) of the relationship.</p></li>
 </ol>
 <p>If those last two statements don’t make immediate sense, take a close look at this figure:</p>
-<p><img src="images/correlation-eg.png" width="500" style="display: block; margin: auto;" /></p>
+<p><img src="images/correlation-eg.png" style="display: block; margin: auto;" /></p>
 <p>This shows a variety of different relationships between pairs of numeric variables. The numbers in each subplot are the Pearson’s correlation coefficients associated with the pattern. Consider each row:</p>
 <ol style="list-style-type: decimal">
 <li><p>The first row shows a series of linear relationships that vary in their strength and direction. These are all linear in the sense that the general form of the relationship can be described by a straight line. This means that it is appropriate to use Pearson’s correlation coefficient in these cases to quantify the strength of association, i.e. the coefficient is a reliable measure of association.</p></li>
@@ -417,12 +417,12 @@ r_{xy} = \frac{1}{N-1}\sum\limits_{i=1}^{N}{\frac{x_i-\bar{x}}{s_x} \frac{y_i-\b
 <p>There are a few other options beyond the standard scatter plot. Specifically, <strong>ggplot2</strong> provides a couple of different <code>geom_XX</code> functions for producing a visual summary of relationships between numeric variables in situations where over-plotting of points is obscuring the relationship. One such example is the <code>geom_count</code> function:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(storms, <span class="kw">aes</span>(<span class="dt">x =</span> pressure, <span class="dt">y =</span> wind)) +
 <span class="st">  </span><span class="kw">geom_count</span>(<span class="dt">alpha =</span> <span class="fl">0.5</span>)</code></pre></div>
-<p><img src="eda-for-bio_files/figure-html/unnamed-chunk-335-1.png" width="432" style="display: block; margin: auto;" /></p>
+<p><img src="eda-for-bio_files/figure-html/unnamed-chunk-337-1.png" width="432" style="display: block; margin: auto;" /></p>
 <p>The <code>geom_count</code> function is used to construct a layer in which data are first grouped into sets of identical observations. The number of cases in each group is counted, and this number (‘n’) is used to scale the size of points. Take note—it may be necessary to round numeric variables first (e.g. via <code>mutate</code>) to make a usable plot if they aren’t already discrete.</p>
 <p>Two further options for dealing with excessive over-plotting are the <code>geom_bin_2d</code> and <code>geom_hex</code> functions. The the <code>geom_bin_2d</code> divides the plane into rectangles, counts the number of cases in each rectangle, and then uses the number of cases to assign the rectangle’s fill colour. The <code>geom_hex</code> function does essentially the same thing, but instead divides the plane into regular hexagons. Note that <code>geom_hex</code> relies on the <strong>hexbin</strong> package, so this need to be installed to use it. Here’s an example of <code>geom_hex</code> in action:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(storms, <span class="kw">aes</span>(<span class="dt">x =</span> pressure, <span class="dt">y =</span> wind)) +
 <span class="st">  </span><span class="kw">geom_hex</span>(<span class="dt">bins =</span> <span class="dv">25</span>)</code></pre></div>
-<p><img src="eda-for-bio_files/figure-html/unnamed-chunk-336-1.png" width="432" style="display: block; margin: auto;" /></p>
+<p><img src="eda-for-bio_files/figure-html/unnamed-chunk-338-1.png" width="432" style="display: block; margin: auto;" /></p>
 <p>Notice that this looks exactly like the <strong>ggplot2</strong> code for making a scatter plot, other than the fact that we’re now using <code>geom_hex</code> in place of <code>geom_point</code>.</p>
 </div>
 </div>
@@ -452,16 +452,16 @@ r_{xy} = \frac{1}{N-1}\sum\limits_{i=1}^{N}{\frac{x_i-\bar{x}}{s_x} \frac{y_i-\b
 <p>Notice that we’ve included two aesthetic mappings. We mapped the <code>year</code> variable to the x axis, and the storm category (<code>type</code>) to the fill colour. We want to display information from two categorical variables, so we have to define two aesthetic mappings. The next step is to add a layer using <code>geom_bar</code> (we want a bar plot) and display the results:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">bar_plt &lt;-<span class="st"> </span>bar_plt +<span class="st"> </span><span class="kw">geom_bar</span>()
 bar_plt</code></pre></div>
-<p><img src="eda-for-bio_files/figure-html/unnamed-chunk-339-1.png" width="432" style="display: block; margin: auto;" /></p>
+<p><img src="eda-for-bio_files/figure-html/unnamed-chunk-341-1.png" width="432" style="display: block; margin: auto;" /></p>
 <p>This is called a stacked bar chart. Each year has its own bar (<code>x = year</code>), and each bar has been divided up into different coloured segments, the length of which is determined by the number of observations associated with each storm type in that year (<code>fill = type</code>).</p>
-<p>We have all the right information in this graph, but it could be improved. Look at the labels on the x axis. Not every bar is labelled. This occurs because <code>year</code> is stored as a numeric vector in <code>storms</code>, yet we are treating it as a categorical variable in this analysis—<strong>ggplot2</strong> has no way of knowing this of course. We need a new trick here. We need to convert <code>year</code> to something that won’t be interpreted as a number. One way to do this is to convert <code>year</code> to a character vector<a href="#fn11" class="footnoteRef" id="fnref11"><sup>11</sup></a>. Once it’s in this format, <strong>ggplot2</strong> will assume that <code>year</code> is a categorical variable.</p>
+<p>We have all the right information in this graph, but it could be improved. Look at the labels on the x axis. Not every bar is labelled. This occurs because <code>year</code> is stored as a numeric vector in <code>storms</code>, yet we are treating it as a categorical variable in this analysis—<strong>ggplot2</strong> has no way of knowing this of course. We need a new trick here. We need to convert <code>year</code> to something that won’t be interpreted as a number. One way to do this is to convert <code>year</code> to a character vector<a href="#fn12" class="footnoteRef" id="fnref12"><sup>12</sup></a>. Once it’s in this format, <strong>ggplot2</strong> will assume that <code>year</code> is a categorical variable.</p>
 <p>We a numeric vector to a character vector with the <code>as.character</code> function. We could transform <code>year</code> inside <code>aes</code> ‘on the fly’, or alternatively, we can use the <code>mutate</code> function to construct a new version of <code>storms</code> containing the character version of <code>year</code>. We’ll do the latter so that we can keep reusing the new data frame:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">storms_alter &lt;-<span class="st"> </span><span class="kw">mutate</span>(storms, <span class="dt">year =</span> <span class="kw">as.character</span>(year))</code></pre></div>
 <p>We must load and attach <strong>dplyr</strong> to make this work. The new data frame <code>storms_alter</code> is identical to storms, except that <code>year</code> is now a character vector.</p>
 <p>Now we just need to construct and display the <strong>ggplot2</strong> object again using this new data frame:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(storms_alter, <span class="kw">aes</span>(<span class="dt">x =</span> year, <span class="dt">fill =</span> type)) +<span class="st"> </span>
 <span class="st">  </span><span class="kw">geom_bar</span>()</code></pre></div>
-<p><img src="eda-for-bio_files/figure-html/unnamed-chunk-341-1.png" width="432" style="display: block; margin: auto;" /></p>
+<p><img src="eda-for-bio_files/figure-html/unnamed-chunk-343-1.png" width="432" style="display: block; margin: auto;" /></p>
 <p>That’s an improvement. However, the ordering of the storm categories is not ideal because the order in which the different groups are presented does not reflect the ordinal scale we have in mind for storm category. We saw this same problem in the <a href="exploring-categorical-variables.html#exploring-categorical-variables">Exploring categorical variables</a> chapter—<strong>ggplot2</strong> treats does not ‘know’ the correct order of the <code>type</code> categories. Time for a new trick.</p>
 <p>We need to somehow embed the information about the required category order of <code>type</code> into our data. It turns out that R has a special kind of augmented vector, called a <strong>factor</strong>, that’s designed to do just this. We make use of this we need to know how to convert something into a factor. We use the <code>factor</code> function, setting its <code>levels</code> argument to be a vector of category names in the correct order:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># 1. make a vector of storm type names in the required order</span>
@@ -475,7 +475,7 @@ storms_alter &lt;-<span class="st"> </span>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># 3. make the histogram</span>
 <span class="kw">ggplot</span>(storms_alter, <span class="kw">aes</span>(<span class="dt">x =</span> year, <span class="dt">fill =</span> type)) +<span class="st"> </span>
 <span class="st">    </span><span class="kw">geom_bar</span>() </code></pre></div>
-<p><img src="eda-for-bio_files/figure-html/unnamed-chunk-343-1.png" width="432" style="display: block; margin: auto;" /></p>
+<p><img src="eda-for-bio_files/figure-html/unnamed-chunk-345-1.png" width="432" style="display: block; margin: auto;" /></p>
 <div class="warning">
 <h4 id="factors">
 Factors
@@ -490,7 +490,7 @@ Factors are very useful. They crop up all the time in R. Unfortunately, they are
 <span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Year&quot;</span>, 
        <span class="dt">y =</span> <span class="st">&quot;Number of Observations&quot;</span>, 
        <span class="dt">fill =</span> <span class="st">&quot;Storm Category&quot;</span>)</code></pre></div>
-<p><img src="eda-for-bio_files/figure-html/unnamed-chunk-345-1.png" width="576" style="display: block; margin: auto;" /></p>
+<p><img src="eda-for-bio_files/figure-html/unnamed-chunk-347-1.png" width="576" style="display: block; margin: auto;" /></p>
 <p>The <code>position = &quot;dodge&quot;</code> argument says that we want the bars to ‘dodge’ one another along the x axis so that they are displayed next to one another. We snuck in one more tweak. Remember, we can use <code>labs</code> to set the labels of any aesthetic mapping we’ve defined—we used it here to set the label of the aesthetic mapping associated with the fill colour and the x/y axes.</p>
 <p>This final figure shows that on average, storm systems spend more time as hurricanes and tropical storms than tropical depressions or extratropical systems. Other than that, the story is a little messy. For example, 1997 was an odd year, with few storm events and relatively few hurricanes.</p>
 </div>
@@ -508,7 +508,7 @@ Factors are very useful. They crop up all the time in R. Unfortunately, they are
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(storms_alter, <span class="kw">aes</span>(<span class="dt">x =</span> type, <span class="dt">y =</span> pressure)) +
 <span class="st">  </span><span class="kw">geom_boxplot</span>() +<span class="st"> </span>
 <span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Storm category&quot;</span>) +<span class="st"> </span><span class="kw">ylab</span>(<span class="st">&quot;Pressure (mbar)&quot;</span>)</code></pre></div>
-<p><img src="eda-for-bio_files/figure-html/unnamed-chunk-346-1.png" width="336" style="display: block; margin: auto;" /></p>
+<p><img src="eda-for-bio_files/figure-html/unnamed-chunk-348-1.png" width="336" style="display: block; margin: auto;" /></p>
 <p>It’s fairly obvious why this is called a box and whiskers plot. Here’s a quick overview of the component parts of each box and whiskers:</p>
 <ul>
 <li><p>The horizontal line inside the box is the sample median. This is our measure of central tendency. It allows us to compare the most likely value of the numeric variable across the different categories.</p></li>
@@ -526,14 +526,14 @@ Factors are very useful. They crop up all the time in R. Unfortunately, they are
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(storms_alter, <span class="kw">aes</span>(<span class="dt">x =</span> wind, <span class="dt">fill =</span> type))  +
 <span class="st">  </span><span class="kw">geom_histogram</span>(<span class="dt">position =</span> <span class="st">&quot;identity&quot;</span>, <span class="dt">alpha =</span> <span class="fl">0.6</span>, <span class="dt">binwidth =</span> <span class="dv">5</span>) +<span class="st"> </span>
 <span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Wind Speed (mph)&quot;</span>)</code></pre></div>
-<p><img src="eda-for-bio_files/figure-html/unnamed-chunk-347-1.png" width="336" style="display: block; margin: auto;" /></p>
+<p><img src="eda-for-bio_files/figure-html/unnamed-chunk-349-1.png" width="336" style="display: block; margin: auto;" /></p>
 <p>We define two mappings: the continuous variable (<code>wind</code>) is mapped to the x axis, and the categorical variable (<code>type</code>) is mapped to the the fill colour. Notice that we also set the <code>position</code> argument to <code>&quot;identity&quot;</code>. This tells <strong>ggplot2</strong> not to stack the histograms on top of one another. Instead, they are allowed to overlap. It’s for this reason that we also made them semi-transparent by setting the <code>alpha</code> argument.</p>
 <p>Plotting several histograms in one layer like this places a lot of information in one plot, but it can be hard to make sense of this when the histograms overlap a lot. If the overlapping histograms are too difficult to interpret we might consider producing a separate one for each category. We’ve already seen a quick way to do this. Faceting works well here:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(storms_alter, <span class="kw">aes</span>(<span class="dt">x =</span> wind))  +
 <span class="st">  </span><span class="kw">geom_histogram</span>(<span class="dt">alpha =</span> <span class="fl">0.8</span>, <span class="dt">binwidth =</span> <span class="dv">5</span>) +<span class="st"> </span>
 <span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Wind Speed (mph)&quot;</span>) +
 <span class="st">  </span><span class="kw">facet_wrap</span>(~<span class="st"> </span>type, <span class="dt">ncol =</span> <span class="dv">4</span>)</code></pre></div>
-<p><img src="eda-for-bio_files/figure-html/unnamed-chunk-348-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p><img src="eda-for-bio_files/figure-html/unnamed-chunk-350-1.png" width="960" style="display: block; margin: auto;" /></p>
 <p>We can see quite a lot in this plot and the last. The tropical depression, tropical storm, and hurricane histograms do not overlap (with a few minor exceptions). These three storm categories are obviously defined with respect to wind speed. Perhaps they represent different phases of one underlying physical phenomenon? The extratropical storm system seems to be something altogether different. In fact, an extratropical storm is a different kind of weather system from the other three. It can turn into a tropical depression (winds &lt; 39 mph) or a subtropical storm (winds &gt; 39 mph), but only a subtropical can turn into a hurricane.</p>
 <p>We’re oversimplifying, but the point is that the simple ordinal scale that we envisaged for the <code>type</code> variable is probably not very sensible. It’s not really true that an extratropical is “greater than” a subtropical depression (or vice versa). We should probably have characterised <code>type</code> as a nominal variable, although this designation ignores the fact that three of the storm types have a clear ordering. The take home message is that we have to understand our data before we start to really analyse it. This is why exploratory data analysis is so important.</p>
 
@@ -542,8 +542,8 @@ Factors are very useful. They crop up all the time in R. Unfortunately, they are
 </div>
 <div class="footnotes">
 <hr />
-<ol start="11">
-<li id="fn11"><p>The alternative is to convert it to something called a factor. A factor is a special type of vector used by R to encode categorical variables. These are very useful, but we don’t use them in this book because they can be a bit tricky to work with.<a href="exploring-relationships-between-two-variables.html#fnref11">↩</a></p></li>
+<ol start="12">
+<li id="fn12"><p>The alternative is to convert it to something called a factor. A factor is a special type of vector used by R to encode categorical variables. These are very useful, but we don’t use them in this book because they can be a bit tricky to work with.<a href="exploring-relationships-between-two-variables.html#fnref12">↩</a></p></li>
 </ol>
 </div>
             </section>

@@ -14,7 +14,7 @@ We're introducing these ideas now because we're going to consider a new type of 
 
 ## Data frames {#data-frames-intro}
 
-Data frames are one of those R features that mark it out as a particularly good environment for data analysis. You can think of a data frame as table-like objects with rows and columns. They collect together different statistical variables, storing each of them as a different column. Related observations are all found in the same row. This will make more sense in a moment. Let's consider the columns first.
+Data frames are one of those R features that mark it out as a particularly good environment for data analysis. We can think of a data frame as table-like objects with rows and columns. They collect together different statistical variables, storing each of them as a different column. Related observations are all found in the same row. This will make more sense in a moment. Let's consider the columns first.
 
 Each column is a vector of some kind. These are usually simple vectors containing numbers or character strings, though it is also possible to include more complicated vectors inside data frames. We'll only work with data frames made up of relatively simple vectors in this book. The key constraint that a data frame applies is that each vector must have the same length. This is what gives a data frame it table-like structure. 
 
@@ -88,7 +88,7 @@ The `names` function is used to extract the column names from a data frame:
 ```{r}
 colnames(experim.data)
 ```
-The `experim.data` data frame has three columns, so `names` returns a character vector of length three, where each element corresponds to a column name. There is also a `rownames` function if you need that too. The `nrow`, `ncol`, `names` and `rownames` functions each return a vector, so we can assign the result if we need to use it later. For example, if we want to extract and store the column names for any reason we could use `varnames <- names(experim.data)`. 
+The `experim.data` data frame has three columns, so `names` returns a character vector of length three, where each element corresponds to a column name. There is also a `rownames` function if we need that too. The `nrow`, `ncol`, `names` and `rownames` functions each return a vector, so we can assign the result if we need to use it later. For example, if we want to extract and store the column names for any reason we could use `varnames <- names(experim.data)`. 
 
 ## Extracting data from data frames {#extract-data}
 
@@ -199,4 +199,4 @@ Notice that we construct the logical `rindex` vector by extracting the `Treatmen
 
 We've seen how to extract/add variables and subset data frames using the `$`, `[[` and `[` constructs. The last example also showed that we can use a combination of relational operators (e.g. `==`, `!=` or `>=`) and the square brackets construct to subset a data frame according to one or more criteria.  There are also a number of base R functions that allow us to manipulate data frames in a slightly more intuitive way. For example, there is a function called `transform` that adds new variables and changes existing ones, and a function called `subset` to select variables and subset rows in a data frame according to the values of its variables. 
 
-We've shown you these approaches because they are still used by many people. However, we will rely on the **dplyr** package to handle operations like subsetting and transforming data frame variables in this book. The **dplyr** package provides a much cleaner, less error prone framework for manipulating data frames, and can be used to work with similar kinds of objects that store data in consistent way. Before we can do that though, we need to learn a little bit about how to organise and import data into R.
+We've shown these approaches because they're still used by many people. However, we will rely on the **dplyr** package to handle operations like subsetting and transforming data frame variables in this book. The **dplyr** package provides a much cleaner, less error prone framework for manipulating data frames, and can be used to work with similar kinds of objects that store data in consistent way. Before we can do that though, we need to learn a little bit about how to organise and import data into R.

@@ -1,8 +1,8 @@
-# Exploring relationships between two variables
+# Relationships between two variables
 
-This chapter is about exploring the __association__ between two or more variables in a sample. An association, in the statistical sense, is any relationship between two variables that makes them dependent, i.e. knowing the value of one variable gives you some information about the possible values of the second variable. The main goal of this chapter is to show you how to use descriptive statistics and visualisations to explore associations among different kinds of variables.
+This chapter is about exploring the __associations__ between pairs of variables in a sample. These are called __bivariate associations__. An association is any relationship between two variables that makes them dependent, i.e. knowing the value of one variable gives us some information about the possible values of the second variable. The main goal of this chapter is to show how to use descriptive statistics and visualisations to explore associations among different kinds of variables.
 
-## Relationships between numeric variables {#numeric}
+## Associations between numeric variables {#numeric}
 
 ### Descriptive statistics
 
@@ -79,7 +79,7 @@ ggplot(storms, aes(x = pressure, y = wind)) +
 
 Notice that this looks exactly like the **ggplot2** code for making a scatter plot, other than the fact that we're now using `geom_hex` in place of `geom_point`. 
 
-## Relationships between categorical variables {#categorical}
+## Associations between categorical variables {#categorical}
 
 ### Numerical summaries
 
@@ -95,7 +95,7 @@ What does this tell us? It shows us how many observations are associated with ea
 
 If both variables are ordinal we can also calculate a descriptive statistic of association from a contingency table. It makes no sense to do this for nominal variables because their values are not ordered. Pearson's correlation coefficient is not appropriate here. Instead, we have to use some kind of rank correlation coefficient that accounts for the categorical nature of the data. Spearman's $\rho$ and Kendall's $\tau$ are designed for numeric data, so they can't be used either. 
 
-One measure of association that _is_ appropriate for categorical data is Goodman and Kruskal's $\gamma$ ("gamma"). This behaves just like the other correlation coefficients we've looked at: it takes a value of 0 if the categories are uncorrelated, and a value of +1 or -1 if they are perfectly associated. The sign tells you about the direction of the association. Unfortunately, there isn't a base R function to compute Goodman and Kruskal's $\gamma$, so we have to use a function from one of the packages that implements it (e.g. the `GKgamma` function in the `vcdExtra` package) if we need it. 
+One measure of association that _is_ appropriate for categorical data is Goodman and Kruskal's $\gamma$ ("gamma"). This behaves just like the other correlation coefficients we've looked at: it takes a value of 0 if the categories are uncorrelated, and a value of +1 or -1 if they are perfectly associated. The sign tells us about the direction of the association. Unfortunately, there isn't a base R function to compute Goodman and Kruskal's $\gamma$, so we have to use a function from one of the packages that implements it (e.g. the `GKgamma` function in the `vcdExtra` package) if we need it. 
 
 ### Graphical summaries
 
@@ -168,7 +168,7 @@ The `position = "dodge"` argument says that we want the bars to 'dodge' one anot
 
 This final figure shows that on average, storm systems spend more time as hurricanes and tropical storms than tropical depressions or extratropical systems. Other than that, the story is a little messy. For example, 1997 was an odd year, with few storm events and relatively few hurricanes.
 
-## Categorical-numerical relationships {#categorical}
+## Categorical-numerical associations {#categorical}
 
 We've seen how to summarise the relationship between a pair of variables when they are of the same type: numeric vs. numeric or categorical vs. categorical. The obvious next question is, "How do we display the relationship between a categorical and numeric variable?" As usual, there are a range of different options. 
 

@@ -36,7 +36,7 @@ Each layer in a **ggplot2** plot may have five different components, though we d
 
 * A set of __aesthetic mappings__. These describe how variables in the data are associated with the aesthetic properties of the layer. Commonly encountered aesthetic properties include position (x and y locations), colour, and size of the objects on a plot. Each layer can be associated with it's own unique aesthetic mappings. When we choose not to specify these for a layer **ggplot2** will use the defaults if they were defined.
 
-* A __geometric object__, called a 'geom'. The geom tells **ggplot2** how to actually represent the layer---they refer to the objects you can actually see on a plot, such as points, lines or bars. Each geom only works with a particular of aesthetic mappings. We always have to define at least one geom when using **ggplot2**.
+* A __geometric object__, called a 'geom'. The geom tells **ggplot2** how to actually represent the layer---they refer to the objects we can actually see on a plot, such as points, lines or bars. Each geom only works with a particular of aesthetic mappings. We always have to define at least one geom when using **ggplot2**.
 
 * A __stat__. These take the raw data in the data frame and transform in some useful way. A stat allows us to produce summaries of our raw data. We won't use them in this book because we can produce the same kinds of figures by first processing our data with **dplyr**. Nonetheless, the stat facility is one of the things that makes **ggplot2** particularly useful for exploratory data analysis.
 
@@ -150,7 +150,7 @@ print(plt)
 ```{block, type="warning"}
 #### Don't use this workflow!
 
-It's possible to construct any **ggplot2** visualisation using the workflow outlined in this subsection. It isn't recommended though. The workflow adopted here was selected to reveal how the grammar works, rather than for its efficiency. A more concise, standard approach to using **ggplot2** is outlined next. You should use that for real world analysis.
+It's possible to construct any **ggplot2** visualisation using the workflow outlined in this subsection. It isn't recommended though. The workflow adopted here was selected to reveal how the grammar works, rather than for its efficiency. A more concise, standard approach to using **ggplot2** is outlined next. Use this for real world analysis.
 ```
 
 ### The standard way of using **ggplot2**

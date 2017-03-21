@@ -19,14 +19,14 @@ We can select variables according to the sequence of characters used at the star
 ```{r}
 select(iris_tbl, starts_with("petal"))
 ```
-This returns a table containing just `Petal.Length` and `Petal.Width`. As you might expect, there is also a helper function to select variables according to characters used at the end of their name. This is the `ends_with` function (no surprises here). To select all the variables in `iris_tbl` that end with the word "Length", we use:
+This returns a table containing just `Petal.Length` and `Petal.Width`. As one might expect, there is also a helper function to select variables according to characters used at the end of their name. This is the `ends_with` function (no surprises here). To select all the variables in `iris_tbl` that end with the word "Length", we use:
 ```{r}
 select(iris_tbl, ends_with("length"))
 ```
 
-Notice that we have to quote the character string that we want to match against. This is not optional. However, the `starts_with` and `ends_with` functions are not case sensitive by default. For example, I passed `starts_with` the argument `"petal"` instead of `"Petal"`, yet it still selected variables beginning with the character string `"Petal"`. If you want to select variables on a case-sensitive basis, you need to set an argument `ignore.case` to `FALSE` in `starts_with` and `ends_with`.
+Notice that we have to quote the character string that we want to match against. This is not optional. However, the `starts_with` and `ends_with` functions are not case sensitive by default. For example, I passed `starts_with` the argument `"petal"` instead of `"Petal"`, yet it still selected variables beginning with the character string `"Petal"`. If we want to select variables on a case-sensitive basis, we need to set an argument `ignore.case` to `FALSE` in `starts_with` and `ends_with`.
 
-The last `select` helper function we will look at is called `contains`. You can guess what this does. It allows us to select variables based on a partial match anywhere in their name. Look at what happens if we pass `contains` the argument `"."`:
+The last `select` helper function we will look at is called `contains`. This allows us to select variables based on a partial match anywhere in their name. Look at what happens if we pass `contains` the argument `"."`:
 ```{r}
 select(iris_tbl, contains("."))
 ```
@@ -40,14 +40,14 @@ When we apply more than one selection criteria like this the `select` function r
 
 ## Working with `mutate` and `transmute`
 
-There are quite a few __helper functions__ that can be used with `mutate`. These make it easier to add new variables according to the values of other variables. We won't explore these here as they tend to be needed only in quite specific circumstances. However, if you run into a situation where you need to construct an unusual variable -- for example, one that ranks the values in another variable -- you may want to try looking at the examples in the `mutate` help file or that [handy cheat sheat](http://www.rstudio.com/resources/cheatsheets/) to see what options are available to you.
+There are quite a few __helper functions__ that can be used with `mutate`. These make it easier to carry out certain transformations that aren't easy to do with base R functions. We won't explore these here as they tend to be needed only in quite specific circumstances. However, in situations where we need to construct an unusual variable---for example, one that ranks the values of another variable---it's always worth looking at the that [handy cheat sheat](http://www.rstudio.com/resources/cheatsheets/) to see what options might be available.
 
 ## Working with `filter`
 
-There is only one `dplyr` __helper function__ that is useful with `filter`. This is the `between` function, which is used to identify the values of a variable that lie inside a defined range:
+There's one `dplyr` __helper function__ that works with `filter` that's definitely worth knowing about: the `between` function. This is used to identify the values of a variable that lie inside a defined range:
 ```{r}
 filter(storms_tbl, between(pressure, 960, 970))
 ```
-This example filters the `storms` dataset such that only values of `pressure` between 960 and 970 are retained.
+This example filters the `storms` dataset such that only values of `pressure` between 960 and 970 are retained. We could do the same thing using some combination of `>` or `<`, but the `between` function makes things a bit easier to read.
 
 

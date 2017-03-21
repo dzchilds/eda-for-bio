@@ -101,7 +101,7 @@ Compare this to the output produced when we print the original `storms_tbl` data
 ```{r}
 storms_tbl
 ```
-There is almost no difference between the printed information. `group_by` really doesn't do much on its own. If you are paying close attention you will have noticed that the tibble from `group_by(storms_tbl, type)` has a little bit of additional information printed at the top: `Groups: type [4]`. The `Groups: type` part of this tells us that the tibble is grouped by the `type` variable and nothing else. The `[4]` part tells us that there are 4 different groups. 
+There is almost no change in the printed information---`group_by` really doesn't do much on its own. The main change is that the tibble resulting from the `group_by` operation has a little bit of additional information printed at the top: `Groups: type [4]`. The `Groups: type` part of this tells us that the tibble is grouped by the `type` variable and nothing else. The `[4]` part tells us that there are 4 different groups. 
 
 The only thing `group_by` did was add this grouping information to a copy of `storms_tbl`. The original `storms_tbl` object was not altered in any way. If we actually want to do anything useful useful with the result we need to assign it a name so that we can work with it:
 ```{r}

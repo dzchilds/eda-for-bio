@@ -33,7 +33,8 @@ table(presure_bins)
 ```
 We won't explain how `cut` and `table` work as we only need to understand the output. The output of `table` is a named numeric vector. The names of each element describe an interval, and the corresponding values are the observation counts in that interval. What does this tell us? It shows that most pressure observations associated with storm systems are round about 1000 mbar. Values higher than 1000 mbar are rare, but a range of values below this are possible, with lower and lower values becoming less frequent.
 
-These binned data tell us quite a lot about the sample distribution of `pressure`. It's still difficult to perceive the information in this output when it is presented as a series of numbers. What we really need is some kind of visualisation to help us interpret these numbers. This is what a __histogram__ provides. Histograms are designed to summarise the sample distribution of a variable by showing the counts of binned data as a series of bars. The position and width of each bar corresponds to an interval and the height shows the count. Here is the histogram that corresponds to the binned data we just made: 
+These binned data tell us quite a lot about the sample distribution of `pressure`. It's still difficult to perceive the information in this output when it is presented as a series of numbers. What we really need is some kind of visualisation to help us interpret these numbers. This is what a __histogram__ provides. Histograms are designed to summarise the sample distribution of a variable by showing the counts of binned data as a series of bars. The position and width of each bar corresponds to an interval and the height shows the count. Here's a histogram that corresponds to the binned data we just made:
+
 ```{r, echo=FALSE}
 ggplot(storms, aes(x = pressure)) + 
   geom_histogram(breaks = seq(900, 1020, by = 5))
@@ -87,7 +88,25 @@ ggplot(storms, aes(x = wind)) +
   xlab("Wind Speed (mph)") + ylab("Count")
 ```
 
-We end up with gaps in histogram because some of the bin intervals do not include multiples of 5. This is not a good histogram. Similar problems would occur if we chose a bin width that is greater than, but not a multiple of 5, because different bins would cover a different number of values that make up the `wind` variable. The take home message is that we have to know your data in order to produce meaningful summaries of it. 
+We end up with gaps in the histogram because some intervals do not include multiples of 5. This is not a good histogram because it fails to reliably summarise the distribution. Similar problems would occur if we chose a bin width that is greater than, but not a multiple of 5, because different bins would cover a different number of values that make up the `wind` variable. The take home message is that we have to know our data in order to produce meaningful summaries of it.
+
+We'll finish up this subsection by briefly reviewing one alternative to the histogram. Histograms are good for visualising sample distributions when we have a reasonable sample size (at least dozens, and ideally, hundreds of observations). They aren't very effective when the sample is quite small. In this 'small data' situation it's better to use something called a __dot plot__^[Not to be confused with the 'Cleveland dot plot'. A standard dot plot summarises a sample distribution. The Cleveland dot plot is something quite different, which summarises the frequencies of a categorical variable. It's meant to serve as a simple alternative to bar charts and pie charts.]. 
+
+Let's use **dplyr** to extract a small(ish) subset of the storms data:
+```{r}
+storms_small <- 
+  storms %>% 
+  filter(year == 1998, type == "Hurricane")
+```
+This just extracts the subset of hurricane observations from 1998. The **ggplot2** code to make a dot plot with these data is very similar to the histogram case: 
+
+```{r}
+ggplot(storms_small, aes(x = pressure)) + 
+  geom_dotplot(binwidth = 2) + 
+  xlab("Atmospheric Pressure (mbar)") + ylab("Count")
+```
+
+Here, each observation in the data adds one dot, and dots that fall into the same bin are stacked up on top of one another. The resulting plot displays the same information about a sample distribution as a histogram, but it tends to be more informative when there are relatively few observations.
 
 ## Descriptive statistics
 
@@ -95,7 +114,7 @@ So far we've been describing the properties of sample distributions in very gene
 
 * A measure of __central tendency__ describes a typical ('central') value of a distribution. Most people know at least one measure of central tendency. The "average" that they calculated at school is the arithmetic mean of a sample. There are many different measures of central tendency, each with their own pros and cons. Take a look at the [Wikipedia](http://en.wikipedia.org/wiki/Central_tendency) to see the most common ones. Among these, the median is the one that is used most often in exploratory analyses.
 
-* A measure of __dispersion__ describes how spread out a distribution is. Dispersion measures quantify the variability or scatter of a variable. If one distribution is more dispersed than another it means that in some sense it encompasses a wider range of values. What this means in practice depends on the kind of measure you are working with though. Basic statistics courses usually focus the two most common measures of the dispersion: the variance, and its square root, the standard deviation. There [are others](http://en.wikipedia.org/wiki/Statistical_dispersion) though. 
+* A measure of __dispersion__ describes how spread out a distribution is. Dispersion measures quantify the variability or scatter of a variable. If one distribution is more dispersed than another it means that in some sense it encompasses a wider range of values. What this means in practice depends on the kind of measure we're working with. Basic statistics courses tend to focus on the variance, and its square root, the standard deviation. There [are others](http://en.wikipedia.org/wiki/Statistical_dispersion) though. 
 
 ### Measuring central tendency
 

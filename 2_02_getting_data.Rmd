@@ -76,7 +76,7 @@ Both methods get to the same end point: after running the code at the Console we
 
 1. Many novice R users with no experience of programming struggle with file paths, leading to a lot of frustration and wasted time trying to specify them. The first method only requires us to set the working directory with RStudio and know the name of the file we want to read in. There's no need to deal with file paths.
 
-2. The second strategy creates problems when we move your data around or work on different machines, as the file paths will need to be changed in each new situation. The first strategy is robust to such changes. For example, if we move all our data to a new location, we just have to set the working directory to the new location and our R code will still work. 
+2. The second strategy creates problems when we move our data around or work on different machines, as the file paths will need to be changed in each new situation. The first strategy is robust to such changes. For example, if we move all our data to a new location, we just have to set the working directory to the new location and our R code will still work. 
 
 ## Importing data with RStudio (Avoid this!)
 
@@ -86,7 +86,7 @@ It is also possible to import data from a CSV file into R using RStudio. The ste
 
 2. Select `Import Dataset > From Text File...`
 
-3. Select the CSV file you want to read in to R and click Open
+3. Select the CSV file to read into R and click Open
 
 4. Enter a name (no spaces allowed) or stick with the default and click Import
 

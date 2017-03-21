@@ -74,7 +74,7 @@ c(vec1, vec2)
 ```
 This shows that we can use the `c` function to concatenate ("stick together") two or more vectors, even if they are not of length 1. We combined a length-2 vector with a length-3 vector to produce a new length-5 vector.
 
-Notice that we did not have to name the arguments in those two examples---there were no `=` involved. The `c` function is an example of one of those flexible functions that breaks the simple rules of thumb for using arguments that we set out earlier: it can take a variable number of arguments, and these arguments do not have predefined names. This behaviour is  necessary if you think about how `c` has to work: in order to be useful it needs to be flexible enough to take any combination of arguments.
+Notice that we did not have to name the arguments in those two examples---there were no `=` involved. The `c` function is an example of one of those flexible functions that breaks the simple rules of thumb for using arguments that we set out earlier: it can take a variable number of arguments, and these arguments do not have predefined names. This behaviour is necessary for `c` to be of any use: in order to be useful it needs to be flexible enough to take any combination of arguments.
 
 ```{block, type="info"}
 #### Finding out about a vector R
@@ -111,7 +111,7 @@ This is fairly self-explanatory. The `seq` function constructed a numeric vector
 ```{r}
 seq(from = 0, to = 11, by = 2)
 ```
-You can generate a descending sequence by using a negative `by` value, like this:
+We can generate a descending sequence by using a negative `by` value, like this:
 ```{r}
 seq(from = 12, to = 0, by = -2)
 ```
@@ -139,7 +139,7 @@ When we leave out the name of the third argument its value is position matched t
 ```{r}
 seq(0, 12, 2)
 ```
-However, our advice is to explicitly name the `by` argument instead of relying on position matching, because this will remind you what you're doing and will stop you forgetting about the different control arguments.
+However, our advice is to explicitly name the `by` argument instead of relying on position matching, because this reminds us what we're doing and will stop us forgetting about the different control arguments.
 
 If we do not specify values of either `by`, `length.out` and `along.with` when using `seq` the default behaviour is to assume we meant `by = 1`:
 ```{r}
@@ -176,7 +176,7 @@ Predictably, we can also use both the `times` and `each` arguments together if w
 seqvec <- 1:4
 rep(seqvec, times = 3, each = 2)
 ```
-The way to think about how this works is to imagine that you apply `rep` twice, first with `each = 2`, then with `times = 3` (or vice versa). We can achieve the same thing using nested function calls, though it is much uglier:
+The way to think about how this works is to imagine that we apply `rep` twice, first with `each = 2`, then with `times = 3` (or vice versa). We can achieve the same thing using nested function calls, though it is much uglier:
 ```{r}
 seqvec <- 1:4
 rep(rep(seqvec, each = 2), times = 3)
