@@ -152,7 +152,7 @@ There aren't that many themes built into **ggplot2**---type `theme_` at the Cons
 final_plt + theme_classic(base_size = 15)
 ```
 
-This produces a very stripped down plot that's much closer to those produced by the base graphics system. Notice that we did one more thing here: we set the `base_size` argument to 14 to increase the size of all the text in the figure (the default is 11). This can be used with any `theme_XX` function to quickly change the relative size of all the text in a plot.
+This produces a very stripped down plot that's much closer to those produced by the base graphics system. Notice that we did one more thing here: we set the `base_size` argument to 15 to increase the size of all the text in the figure (the default is 11). This can be used with any `theme_XX` function to quickly change the relative size of all the text in a plot.
 
 
 
