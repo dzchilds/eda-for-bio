@@ -46,7 +46,7 @@ What about the `seq` function? Hopefully it is fairly obvious that we can't use 
 
 ## Logical vectors
 
-The elements of __logical vectors__ only take two values: `TRUE` or `FALSE`. Don't let the simplicity of logical vectors fool you---they're very useful. As with other kinds of atomic  vectors the `c` and `rep` functions can be used to construct a logical vector:
+The elements of __logical vectors__ only take two values: `TRUE` or `FALSE`. Don't let the simplicity of logical vectors fool you. They're very useful. As with other kinds of atomic  vectors the `c` and `rep` functions can be used to construct a logical vector:
 ```{r}
 l_vec <- c(TRUE, FALSE)
 rep(l_vec, times = 2)
@@ -75,7 +75,7 @@ Now, if we need to evaluate and represent a question like, "is x greater than th
 ```{r}
 x > y
 ```
-What do you notice about this simple example? The `x > y` expression produces a logical vector, with `TRUE` values associated with elements in `x` are less than `y`, and `FALSE` otherwise. In this example, x is less than y until we reach the value of 15 in each sequence. Notice that that relational operators are vectorised: the work on an element by element basis. They wouldn't be much use if this were not the case. 
+The `x > y` expression produces a logical vector, with `TRUE` values associated with elements in `x` are less than `y`, and `FALSE` otherwise. In this example, x is less than y until we reach the value of 15 in each sequence. Notice that that relational operators are vectorised: the work on an element by element basis. They wouldn't be much use if this were not the case. 
 
 What does the `==` operator do? It compares the elements of two vectors to determine if they are exactly equal:
 ```{r}

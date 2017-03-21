@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>APS 135: Introduction to Exploratory Data Analysis with R</title>
+  <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+  <meta name="description" content="Course book for Introduction to Exploratory Data Analysis with R (APS 135) in the Department of Animal and Plant Sciences, University of Sheffield.">
+  <meta name="generator" content="bookdown 0.3 and GitBook 2.6.7">
+
+  <meta property="og:title" content="APS 135: Introduction to Exploratory Data Analysis with R" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="Course book for Introduction to Exploratory Data Analysis with R (APS 135) in the Department of Animal and Plant Sciences, University of Sheffield." />
+  <meta name="github-repo" content="dzchilds/eda-for-bio" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="APS 135: Introduction to Exploratory Data Analysis with R" />
+  
+  <meta name="twitter:description" content="Course book for Introduction to Exploratory Data Analysis with R (APS 135) in the Department of Animal and Plant Sciences, University of Sheffield." />
+  
+
+<meta name="author" content="Dylan Z. Childs">
+
+
+<meta name="date" content="2017-03-21">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="exploring-categorical-variables.html">
+<link rel="next" href="building-in-complexity.html">
+
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+<style type="text/css">
+
+.action, .warning, .info, .speed {
+  padding: 1em 1em 1em 4em;
+  margin-bottom: 10px;
+  background: #f5f5f5 5px center/3em no-repeat;
+}
+.action {
+  background-image: url("./images/action.png");
+}
+.warning {
+  background-image: url("./images/warning.png");
+}
+.info {
+  background-image: url("./images/info.png");
+}
+.speed {
+  background-image: url("./images/speed.png");
+}
+
+
+</style>
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">APS 135 (R course)</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Information and overview</a><ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#aims"><i class="fa fa-check"></i>Aims</a><ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#topics"><i class="fa fa-check"></i>Topics</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#how-to-use-the-book"><i class="fa fa-check"></i>How to use the book</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#getting-help"><i class="fa fa-check"></i>Getting help</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#updates"><i class="fa fa-check"></i>Updates</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="get-up-and-running-with-r-and-rstudio.html"><a href="get-up-and-running-with-r-and-rstudio.html"><i class="fa fa-check"></i>Get up and running with R and RStudio</a><ul>
+<li class="chapter" data-level="" data-path="get-up-and-running-with-r-and-rstudio.html"><a href="get-up-and-running-with-r-and-rstudio.html#what-is-r"><i class="fa fa-check"></i>What is R?</a><ul>
+<li class="chapter" data-level="" data-path="get-up-and-running-with-r-and-rstudio.html"><a href="get-up-and-running-with-r-and-rstudio.html#getting-and-installing-r"><i class="fa fa-check"></i>Getting and installing R</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="get-up-and-running-with-r-and-rstudio.html"><a href="get-up-and-running-with-r-and-rstudio.html#what-is-rstudio-and-why-use-it"><i class="fa fa-check"></i>What is RStudio (and why use it)?</a><ul>
+<li class="chapter" data-level="" data-path="get-up-and-running-with-r-and-rstudio.html"><a href="get-up-and-running-with-r-and-rstudio.html#getting-and-installing-rstudio"><i class="fa fa-check"></i>Getting and installing RStudio</a></li>
+<li class="chapter" data-level="" data-path="get-up-and-running-with-r-and-rstudio.html"><a href="get-up-and-running-with-r-and-rstudio.html#the-anatomy-of-rstudio"><i class="fa fa-check"></i>The anatomy of RStudio</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="get-up-and-running-with-r-and-rstudio.html"><a href="get-up-and-running-with-r-and-rstudio.html#working-at-the-console"><i class="fa fa-check"></i>Working at the Console</a></li>
+</ul></li>
+<li class="part"><span><b>I Introduction to R</b></span></li>
+<li class="chapter" data-level="1" data-path="a-quick-introduction-to-r.html"><a href="a-quick-introduction-to-r.html"><i class="fa fa-check"></i><b>1</b> A quick introduction to R</a><ul>
+<li class="chapter" data-level="1.1" data-path="a-quick-introduction-to-r.html"><a href="a-quick-introduction-to-r.html#r-calculator"><i class="fa fa-check"></i><b>1.1</b> Using R as a big calculator</a><ul>
+<li class="chapter" data-level="1.1.1" data-path="a-quick-introduction-to-r.html"><a href="a-quick-introduction-to-r.html#basic-arithmetic"><i class="fa fa-check"></i><b>1.1.1</b> Basic arithmetic</a></li>
+<li class="chapter" data-level="1.1.2" data-path="a-quick-introduction-to-r.html"><a href="a-quick-introduction-to-r.html#problematic-calculations"><i class="fa fa-check"></i><b>1.1.2</b> Problematic calculations</a></li>
+</ul></li>
+<li class="chapter" data-level="1.2" data-path="a-quick-introduction-to-r.html"><a href="a-quick-introduction-to-r.html#assignment"><i class="fa fa-check"></i><b>1.2</b> Storing and reusing results</a></li>
+<li class="chapter" data-level="1.3" data-path="a-quick-introduction-to-r.html"><a href="a-quick-introduction-to-r.html#how-does-assignment-work"><i class="fa fa-check"></i><b>1.3</b> How does assignment work?</a></li>
+<li class="chapter" data-level="1.4" data-path="a-quick-introduction-to-r.html"><a href="a-quick-introduction-to-r.html#global-environment"><i class="fa fa-check"></i><b>1.4</b> Global environment</a></li>
+<li class="chapter" data-level="1.5" data-path="a-quick-introduction-to-r.html"><a href="a-quick-introduction-to-r.html#naming-rules-and-conventions"><i class="fa fa-check"></i><b>1.5</b> Naming rules and conventions</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="scripts.html"><a href="scripts.html"><i class="fa fa-check"></i><b>2</b> Building scripts</a><ul>
+<li class="chapter" data-level="2.1" data-path="scripts.html"><a href="scripts.html#introduction"><i class="fa fa-check"></i><b>2.1</b> Introduction</a></li>
+<li class="chapter" data-level="2.2" data-path="scripts.html"><a href="scripts.html#writing-scripts-in-rstudio"><i class="fa fa-check"></i><b>2.2</b> Writing scripts in RStudio</a></li>
+<li class="chapter" data-level="2.3" data-path="scripts.html"><a href="scripts.html#running-scripts-in-rstudio"><i class="fa fa-check"></i><b>2.3</b> Running scripts in RStudio</a></li>
+<li class="chapter" data-level="2.4" data-path="scripts.html"><a href="scripts.html#spotting-problems"><i class="fa fa-check"></i><b>2.4</b> Spotting problems</a><ul>
+<li class="chapter" data-level="2.4.1" data-path="scripts.html"><a href="scripts.html#the-dreaded"><i class="fa fa-check"></i><b>2.4.1</b> The dreaded <code>+</code></a></li>
+<li class="chapter" data-level="2.4.2" data-path="scripts.html"><a href="scripts.html#errors"><i class="fa fa-check"></i><b>2.4.2</b> Errors</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="using-functions.html"><a href="using-functions.html"><i class="fa fa-check"></i><b>3</b> Using functions</a><ul>
+<li class="chapter" data-level="3.1" data-path="using-functions.html"><a href="using-functions.html#intro-functions"><i class="fa fa-check"></i><b>3.1</b> Introduction</a></li>
+<li class="chapter" data-level="3.2" data-path="using-functions.html"><a href="using-functions.html#functions-and-arguments"><i class="fa fa-check"></i><b>3.2</b> Functions and arguments</a></li>
+<li class="chapter" data-level="3.3" data-path="using-functions.html"><a href="using-functions.html#evaluating-arguments-and-returning-results"><i class="fa fa-check"></i><b>3.3</b> Evaluating arguments and returning results</a></li>
+<li class="chapter" data-level="3.4" data-path="using-functions.html"><a href="using-functions.html#functions-do-not-have-side-effects"><i class="fa fa-check"></i><b>3.4</b> Functions do not have “side effects”</a></li>
+<li class="chapter" data-level="3.5" data-path="using-functions.html"><a href="using-functions.html#combining-functions"><i class="fa fa-check"></i><b>3.5</b> Combining functions</a></li>
+<li class="chapter" data-level="3.6" data-path="using-functions.html"><a href="using-functions.html#function-arguments"><i class="fa fa-check"></i><b>3.6</b> Specifying function arguments</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="numeric-vectors.html"><a href="numeric-vectors.html"><i class="fa fa-check"></i><b>4</b> Numeric vectors</a><ul>
+<li class="chapter" data-level="4.1" data-path="numeric-vectors.html"><a href="numeric-vectors.html#introduction-1"><i class="fa fa-check"></i><b>4.1</b> Introduction</a></li>
+<li class="chapter" data-level="4.2" data-path="numeric-vectors.html"><a href="numeric-vectors.html#atomic-vectors"><i class="fa fa-check"></i><b>4.2</b> Atomic vectors</a></li>
+<li class="chapter" data-level="4.3" data-path="numeric-vectors.html"><a href="numeric-vectors.html#intro-vectors"><i class="fa fa-check"></i><b>4.3</b> Numeric vectors</a></li>
+<li class="chapter" data-level="4.4" data-path="numeric-vectors.html"><a href="numeric-vectors.html#constructing-numeric-vectors"><i class="fa fa-check"></i><b>4.4</b> Constructing numeric vectors</a></li>
+<li class="chapter" data-level="4.5" data-path="numeric-vectors.html"><a href="numeric-vectors.html#named-vectors"><i class="fa fa-check"></i><b>4.5</b> Named vectors</a></li>
+<li class="chapter" data-level="4.6" data-path="numeric-vectors.html"><a href="numeric-vectors.html#generating-sequences-of-numbers"><i class="fa fa-check"></i><b>4.6</b> Generating sequences of numbers</a><ul>
+<li class="chapter" data-level="4.6.1" data-path="numeric-vectors.html"><a href="numeric-vectors.html#generating-sequences-of-numbers-1"><i class="fa fa-check"></i><b>4.6.1</b> Generating sequences of numbers</a></li>
+<li class="chapter" data-level="4.6.2" data-path="numeric-vectors.html"><a href="numeric-vectors.html#generating-repeated-sequences-of-numbers"><i class="fa fa-check"></i><b>4.6.2</b> Generating repeated sequences of numbers</a></li>
+</ul></li>
+<li class="chapter" data-level="4.7" data-path="numeric-vectors.html"><a href="numeric-vectors.html#vectorised-operations"><i class="fa fa-check"></i><b>4.7</b> Vectorised operations</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="other-kinds-of-vectors.html"><a href="other-kinds-of-vectors.html"><i class="fa fa-check"></i><b>5</b> Other kinds of vectors</a><ul>
+<li class="chapter" data-level="5.1" data-path="other-kinds-of-vectors.html"><a href="other-kinds-of-vectors.html#other-vectors"><i class="fa fa-check"></i><b>5.1</b> Introduction</a></li>
+<li class="chapter" data-level="5.2" data-path="other-kinds-of-vectors.html"><a href="other-kinds-of-vectors.html#character-vectors"><i class="fa fa-check"></i><b>5.2</b> Character vectors</a></li>
+<li class="chapter" data-level="5.3" data-path="other-kinds-of-vectors.html"><a href="other-kinds-of-vectors.html#logical-vectors"><i class="fa fa-check"></i><b>5.3</b> Logical vectors</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="extracting-subsets-of-vectors.html"><a href="extracting-subsets-of-vectors.html"><i class="fa fa-check"></i><b>6</b> Extracting subsets of vectors</a><ul>
+<li class="chapter" data-level="6.1" data-path="other-kinds-of-vectors.html"><a href="other-kinds-of-vectors.html#other-vectors"><i class="fa fa-check"></i><b>6.1</b> Introduction</a></li>
+<li class="chapter" data-level="6.2" data-path="extracting-subsets-of-vectors.html"><a href="extracting-subsets-of-vectors.html#subsetting-by-position"><i class="fa fa-check"></i><b>6.2</b> Subsetting by position</a></li>
+<li class="chapter" data-level="6.3" data-path="extracting-subsets-of-vectors.html"><a href="extracting-subsets-of-vectors.html#subsetting-with-logical-operators"><i class="fa fa-check"></i><b>6.3</b> Subsetting with logical operators</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="getting-help-1.html"><a href="getting-help-1.html"><i class="fa fa-check"></i><b>7</b> Getting help</a><ul>
+<li class="chapter" data-level="7.1" data-path="getting-help-1.html"><a href="getting-help-1.html#console-help"><i class="fa fa-check"></i><b>7.1</b> Introduction</a></li>
+<li class="chapter" data-level="7.2" data-path="getting-help-1.html"><a href="getting-help-1.html#browsing-the-help-system"><i class="fa fa-check"></i><b>7.2</b> Browsing the help system</a></li>
+<li class="chapter" data-level="7.3" data-path="getting-help-1.html"><a href="getting-help-1.html#searching-for-help-files"><i class="fa fa-check"></i><b>7.3</b> Searching for help files</a></li>
+<li class="chapter" data-level="7.4" data-path="getting-help-1.html"><a href="getting-help-1.html#nav-help"><i class="fa fa-check"></i><b>7.4</b> Navigating help files</a></li>
+<li class="chapter" data-level="7.5" data-path="getting-help-1.html"><a href="getting-help-1.html#vignettes"><i class="fa fa-check"></i><b>7.5</b> Vignettes and demos</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="packages.html"><a href="packages.html"><i class="fa fa-check"></i><b>8</b> Packages</a><ul>
+<li class="chapter" data-level="8.1" data-path="packages.html"><a href="packages.html#package-system"><i class="fa fa-check"></i><b>8.1</b> The R package system</a></li>
+<li class="chapter" data-level="8.2" data-path="packages.html"><a href="packages.html#task-views"><i class="fa fa-check"></i><b>8.2</b> Task views</a></li>
+<li class="chapter" data-level="8.3" data-path="packages.html"><a href="packages.html#use-packages"><i class="fa fa-check"></i><b>8.3</b> Using packages</a><ul>
+<li class="chapter" data-level="8.3.1" data-path="packages.html"><a href="packages.html#viewing-installed-packages"><i class="fa fa-check"></i><b>8.3.1</b> Viewing installed packages</a></li>
+<li class="chapter" data-level="8.3.2" data-path="packages.html"><a href="packages.html#installing-packages"><i class="fa fa-check"></i><b>8.3.2</b> Installing packages</a></li>
+<li class="chapter" data-level="8.3.3" data-path="packages.html"><a href="packages.html#loading-and-attaching-packages"><i class="fa fa-check"></i><b>8.3.3</b> Loading and attaching packages</a></li>
+<li class="chapter" data-level="8.3.4" data-path="packages.html"><a href="packages.html#an-analogy"><i class="fa fa-check"></i><b>8.3.4</b> An analogy</a></li>
+</ul></li>
+</ul></li>
+<li class="part"><span><b>II Data Wrangling</b></span></li>
+<li class="chapter" data-level="9" data-path="data-frames.html"><a href="data-frames.html"><i class="fa fa-check"></i><b>9</b> Data frames</a><ul>
+<li class="chapter" data-level="9.1" data-path="data-frames.html"><a href="data-frames.html#introduction-2"><i class="fa fa-check"></i><b>9.1</b> Introduction</a></li>
+<li class="chapter" data-level="9.2" data-path="data-frames.html"><a href="data-frames.html#data-frames-intro"><i class="fa fa-check"></i><b>9.2</b> Data frames</a></li>
+<li class="chapter" data-level="9.3" data-path="data-frames.html"><a href="data-frames.html#exploring-data-frames"><i class="fa fa-check"></i><b>9.3</b> Exploring data frames</a></li>
+<li class="chapter" data-level="9.4" data-path="data-frames.html"><a href="data-frames.html#extract-data"><i class="fa fa-check"></i><b>9.4</b> Extracting data from data frames</a><ul>
+<li class="chapter" data-level="9.4.1" data-path="data-frames.html"><a href="data-frames.html#extracting-and-adding-a-single-variable"><i class="fa fa-check"></i><b>9.4.1</b> Extracting and adding a single variable</a></li>
+<li class="chapter" data-level="9.4.2" data-path="data-frames.html"><a href="data-frames.html#adding-a-variable-to-a-data-frame"><i class="fa fa-check"></i><b>9.4.2</b> Adding a variable to a data frame</a></li>
+<li class="chapter" data-level="9.4.3" data-path="data-frames.html"><a href="data-frames.html#subsetting-data-frames"><i class="fa fa-check"></i><b>9.4.3</b> Subsetting data frames</a></li>
+</ul></li>
+<li class="chapter" data-level="9.5" data-path="data-frames.html"><a href="data-frames.html#final-words"><i class="fa fa-check"></i><b>9.5</b> Final words</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="working-directories-and-data-files.html"><a href="working-directories-and-data-files.html"><i class="fa fa-check"></i><b>10</b> Working directories and data files</a><ul>
+<li class="chapter" data-level="10.1" data-path="working-directories-and-data-files.html"><a href="working-directories-and-data-files.html#introduction-3"><i class="fa fa-check"></i><b>10.1</b> Introduction</a></li>
+<li class="chapter" data-level="10.2" data-path="working-directories-and-data-files.html"><a href="working-directories-and-data-files.html#data-files-the-csv-format"><i class="fa fa-check"></i><b>10.2</b> Data files: the CSV format</a><ul>
+<li class="chapter" data-level="10.2.1" data-path="working-directories-and-data-files.html"><a href="working-directories-and-data-files.html#exporting-csv-files-from-excel"><i class="fa fa-check"></i><b>10.2.1</b> Exporting CSV files from Excel</a></li>
+</ul></li>
+<li class="chapter" data-level="10.3" data-path="working-directories-and-data-files.html"><a href="working-directories-and-data-files.html#the-working-directory"><i class="fa fa-check"></i><b>10.3</b> The working directory</a></li>
+<li class="chapter" data-level="10.4" data-path="working-directories-and-data-files.html"><a href="working-directories-and-data-files.html#importing-data-with-read.csv"><i class="fa fa-check"></i><b>10.4</b> Importing data with <code>read.csv</code></a></li>
+<li class="chapter" data-level="10.5" data-path="working-directories-and-data-files.html"><a href="working-directories-and-data-files.html#importing-data-with-rstudio-avoid-this"><i class="fa fa-check"></i><b>10.5</b> Importing data with RStudio (Avoid this!)</a></li>
+<li class="chapter" data-level="10.6" data-path="working-directories-and-data-files.html"><a href="working-directories-and-data-files.html#package-data"><i class="fa fa-check"></i><b>10.6</b> Package data</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="dplyr-and-the-tidy-data-concept.html"><a href="dplyr-and-the-tidy-data-concept.html"><i class="fa fa-check"></i><b>11</b> <strong>dplyr</strong> and the tidy data concept</a><ul>
+<li class="chapter" data-level="11.1" data-path="dplyr-and-the-tidy-data-concept.html"><a href="dplyr-and-the-tidy-data-concept.html#introduction-4"><i class="fa fa-check"></i><b>11.1</b> Introduction</a></li>
+<li class="chapter" data-level="11.2" data-path="dplyr-and-the-tidy-data-concept.html"><a href="dplyr-and-the-tidy-data-concept.html#why-dplyr"><i class="fa fa-check"></i><b>11.2</b> The value of <strong>dplyr</strong></a></li>
+<li class="chapter" data-level="11.3" data-path="dplyr-and-the-tidy-data-concept.html"><a href="dplyr-and-the-tidy-data-concept.html#tidy-data"><i class="fa fa-check"></i><b>11.3</b> Tidy data</a></li>
+<li class="chapter" data-level="11.4" data-path="dplyr-and-the-tidy-data-concept.html"><a href="dplyr-and-the-tidy-data-concept.html#more-dplyr"><i class="fa fa-check"></i><b>11.4</b> A quick look at <strong>dplyr</strong></a><ul>
+<li class="chapter" data-level="11.4.1" data-path="dplyr-and-the-tidy-data-concept.html"><a href="dplyr-and-the-tidy-data-concept.html#tibble-tbl-objects"><i class="fa fa-check"></i><b>11.4.1</b> Tibble (<code>tbl</code>) objects</a></li>
+<li class="chapter" data-level="11.4.2" data-path="dplyr-and-the-tidy-data-concept.html"><a href="dplyr-and-the-tidy-data-concept.html#the-glimpse-function"><i class="fa fa-check"></i><b>11.4.2</b> The <code>glimpse</code> function</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="working-with-variables.html"><a href="working-with-variables.html"><i class="fa fa-check"></i><b>12</b> Working with variables</a><ul>
+<li class="chapter" data-level="12.1" data-path="working-with-variables.html"><a href="working-with-variables.html#introduction-5"><i class="fa fa-check"></i><b>12.1</b> Introduction</a><ul>
+<li class="chapter" data-level="12.1.1" data-path="working-with-variables.html"><a href="working-with-variables.html#getting-ready"><i class="fa fa-check"></i><b>12.1.1</b> Getting ready</a></li>
+</ul></li>
+<li class="chapter" data-level="12.2" data-path="working-with-variables.html"><a href="working-with-variables.html#subset-variables-with-select"><i class="fa fa-check"></i><b>12.2</b> Subset variables with <code>select</code></a><ul>
+<li class="chapter" data-level="12.2.1" data-path="working-with-variables.html"><a href="working-with-variables.html#renaming-variables-with-select-and-rename"><i class="fa fa-check"></i><b>12.2.1</b> Renaming variables with <code>select</code> and <code>rename</code></a></li>
+</ul></li>
+<li class="chapter" data-level="12.3" data-path="working-with-variables.html"><a href="working-with-variables.html#creating-variables-with-mutate"><i class="fa fa-check"></i><b>12.3</b> Creating variables with <code>mutate</code></a><ul>
+<li class="chapter" data-level="12.3.1" data-path="working-with-variables.html"><a href="working-with-variables.html#transforming-and-dropping-variables"><i class="fa fa-check"></i><b>12.3.1</b> Transforming and dropping variables</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="working-with-observations.html"><a href="working-with-observations.html"><i class="fa fa-check"></i><b>13</b> Working with observations</a><ul>
+<li class="chapter" data-level="13.1" data-path="working-with-observations.html"><a href="working-with-observations.html#introduction-6"><i class="fa fa-check"></i><b>13.1</b> Introduction</a><ul>
+<li class="chapter" data-level="13.1.1" data-path="working-with-observations.html"><a href="working-with-observations.html#getting-ready-1"><i class="fa fa-check"></i><b>13.1.1</b> Getting ready</a></li>
+</ul></li>
+<li class="chapter" data-level="13.2" data-path="working-with-observations.html"><a href="working-with-observations.html#subset-observations-with-filter"><i class="fa fa-check"></i><b>13.2</b> Subset observations with <code>filter</code></a></li>
+<li class="chapter" data-level="13.3" data-path="working-with-observations.html"><a href="working-with-observations.html#reording-observations-with-arrange"><i class="fa fa-check"></i><b>13.3</b> Reording observations with <code>arrange</code></a></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="helper-functions.html"><a href="helper-functions.html"><i class="fa fa-check"></i><b>14</b> Helper functions</a><ul>
+<li class="chapter" data-level="14.1" data-path="helper-functions.html"><a href="helper-functions.html#introduction-7"><i class="fa fa-check"></i><b>14.1</b> Introduction</a></li>
+<li class="chapter" data-level="14.2" data-path="helper-functions.html"><a href="helper-functions.html#working-with-select"><i class="fa fa-check"></i><b>14.2</b> Working with <code>select</code></a></li>
+<li class="chapter" data-level="14.3" data-path="helper-functions.html"><a href="helper-functions.html#working-with-mutate-and-transmute"><i class="fa fa-check"></i><b>14.3</b> Working with <code>mutate</code> and <code>transmute</code></a></li>
+<li class="chapter" data-level="14.4" data-path="helper-functions.html"><a href="helper-functions.html#working-with-filter"><i class="fa fa-check"></i><b>14.4</b> Working with <code>filter</code></a></li>
+</ul></li>
+<li class="chapter" data-level="15" data-path="grouping-and-summarising-data.html"><a href="grouping-and-summarising-data.html"><i class="fa fa-check"></i><b>15</b> Grouping and summarising data</a><ul>
+<li class="chapter" data-level="15.0.1" data-path="grouping-and-summarising-data.html"><a href="grouping-and-summarising-data.html#getting-ready-2"><i class="fa fa-check"></i><b>15.0.1</b> Getting ready</a></li>
+<li class="chapter" data-level="15.1" data-path="grouping-and-summarising-data.html"><a href="grouping-and-summarising-data.html#summarising-variables-with-summarise"><i class="fa fa-check"></i><b>15.1</b> Summarising variables with <code>summarise</code></a><ul>
+<li class="chapter" data-level="15.1.1" data-path="grouping-and-summarising-data.html"><a href="grouping-and-summarising-data.html#helper-functions-1"><i class="fa fa-check"></i><b>15.1.1</b> Helper functions</a></li>
+</ul></li>
+<li class="chapter" data-level="15.2" data-path="grouping-and-summarising-data.html"><a href="grouping-and-summarising-data.html#grouped-operations-using-group_by"><i class="fa fa-check"></i><b>15.2</b> Grouped operations using <code>group_by</code></a><ul>
+<li class="chapter" data-level="15.2.1" data-path="grouping-and-summarising-data.html"><a href="grouping-and-summarising-data.html#more-than-one-grouping-variable"><i class="fa fa-check"></i><b>15.2.1</b> More than one grouping variable</a></li>
+<li class="chapter" data-level="15.2.2" data-path="grouping-and-summarising-data.html"><a href="grouping-and-summarising-data.html#using-group_by-with-other-verbs"><i class="fa fa-check"></i><b>15.2.2</b> Using <code>group_by</code> with other verbs</a></li>
+</ul></li>
+<li class="chapter" data-level="15.3" data-path="grouping-and-summarising-data.html"><a href="grouping-and-summarising-data.html#removing-grouping-information"><i class="fa fa-check"></i><b>15.3</b> Removing grouping information</a></li>
+</ul></li>
+<li class="chapter" data-level="16" data-path="building-piplines.html"><a href="building-piplines.html"><i class="fa fa-check"></i><b>16</b> Building piplines</a><ul>
+<li class="chapter" data-level="16.1" data-path="building-piplines.html"><a href="building-piplines.html#why-do-we-need-pipes"><i class="fa fa-check"></i><b>16.1</b> Why do we need ‘pipes’?</a></li>
+</ul></li>
+<li class="part"><span><b>III Exporing Data</b></span></li>
+<li class="chapter" data-level="17" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html"><i class="fa fa-check"></i><b>17</b> Exploratory data analysis</a><ul>
+<li class="chapter" data-level="17.1" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#introduction-8"><i class="fa fa-check"></i><b>17.1</b> Introduction</a></li>
+<li class="chapter" data-level="17.2" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#variables"><i class="fa fa-check"></i><b>17.2</b> Statistical variables and data</a><ul>
+<li class="chapter" data-level="17.2.1" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#numeric-vs.categorical-variables"><i class="fa fa-check"></i><b>17.2.1</b> Numeric vs. categorical variables</a></li>
+<li class="chapter" data-level="17.2.2" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#ratio-vs.interval-scales"><i class="fa fa-check"></i><b>17.2.2</b> Ratio vs. interval scales</a></li>
+</ul></li>
+<li class="chapter" data-level="17.3" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#populations-samples"><i class="fa fa-check"></i><b>17.3</b> Populations, samples and distributions</a></li>
+<li class="chapter" data-level="17.4" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#relationships"><i class="fa fa-check"></i><b>17.4</b> Relationships</a></li>
+</ul></li>
+<li class="chapter" data-level="18" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html"><i class="fa fa-check"></i><b>18</b> Introduction to <strong>ggplot2</strong></a><ul>
+<li class="chapter" data-level="18.1" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#anatomy"><i class="fa fa-check"></i><b>18.1</b> The anatomy of ggplot2</a><ul>
+<li class="chapter" data-level="18.1.1" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#layers"><i class="fa fa-check"></i><b>18.1.1</b> Layers</a></li>
+<li class="chapter" data-level="18.1.2" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#scales"><i class="fa fa-check"></i><b>18.1.2</b> Scales</a></li>
+<li class="chapter" data-level="18.1.3" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#coordinate-system"><i class="fa fa-check"></i><b>18.1.3</b> Coordinate system</a></li>
+<li class="chapter" data-level="18.1.4" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#faceting"><i class="fa fa-check"></i><b>18.1.4</b> Faceting</a></li>
+</ul></li>
+<li class="chapter" data-level="18.2" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#quick"><i class="fa fa-check"></i><b>18.2</b> A quick introduction to ggplot2</a><ul>
+<li class="chapter" data-level="18.2.1" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#making-a-start"><i class="fa fa-check"></i><b>18.2.1</b> Making a start</a></li>
+<li class="chapter" data-level="18.2.2" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#the-standard-way-of-using-ggplot2"><i class="fa fa-check"></i><b>18.2.2</b> The standard way of using <strong>ggplot2</strong></a></li>
+</ul></li>
+<li class="chapter" data-level="18.3" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#increasing-the-information-density"><i class="fa fa-check"></i><b>18.3</b> Increasing the information density</a><ul>
+<li class="chapter" data-level="18.3.1" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#using-additional-aesthetics"><i class="fa fa-check"></i><b>18.3.1</b> Using additional aesthetics</a></li>
+<li class="chapter" data-level="18.3.2" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#using-facets"><i class="fa fa-check"></i><b>18.3.2</b> Using facets</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="19" data-path="customising-plots.html"><a href="customising-plots.html"><i class="fa fa-check"></i><b>19</b> Customising plots</a><ul>
+<li class="chapter" data-level="19.1" data-path="customising-plots.html"><a href="customising-plots.html#working-with-layer-specific-geom-properties"><i class="fa fa-check"></i><b>19.1</b> Working with layer specific geom properties</a><ul>
+<li class="chapter" data-level="19.1.1" data-path="customising-plots.html"><a href="customising-plots.html#the-relationship-between-aesthetics-and-geom-properties."><i class="fa fa-check"></i><b>19.1.1</b> The relationship between aesthetics and geom properties.</a></li>
+</ul></li>
+<li class="chapter" data-level="19.2" data-path="customising-plots.html"><a href="customising-plots.html#working-with-layer-specific-position-adjustments"><i class="fa fa-check"></i><b>19.2</b> Working with layer specific position adjustments</a></li>
+<li class="chapter" data-level="19.3" data-path="customising-plots.html"><a href="customising-plots.html#working-with-plot-specific-scales"><i class="fa fa-check"></i><b>19.3</b> Working with plot specific scales</a></li>
+<li class="chapter" data-level="19.4" data-path="customising-plots.html"><a href="customising-plots.html#adding-titles-and-labels"><i class="fa fa-check"></i><b>19.4</b> Adding titles and labels</a></li>
+<li class="chapter" data-level="19.5" data-path="customising-plots.html"><a href="customising-plots.html#themes"><i class="fa fa-check"></i><b>19.5</b> Themes</a></li>
+</ul></li>
+<li class="chapter" data-level="20" data-path="exploring-one-numeric-variable.html"><a href="exploring-one-numeric-variable.html"><i class="fa fa-check"></i><b>20</b> Exploring one numeric variable</a><ul>
+<li class="chapter" data-level="20.1" data-path="exploring-one-numeric-variable.html"><a href="exploring-one-numeric-variable.html#explore-numeric"><i class="fa fa-check"></i><b>20.1</b> Understanding numerical variables</a></li>
+<li class="chapter" data-level="20.2" data-path="exploring-one-numeric-variable.html"><a href="exploring-one-numeric-variable.html#graphical-summaries"><i class="fa fa-check"></i><b>20.2</b> Graphical summaries</a></li>
+<li class="chapter" data-level="20.3" data-path="exploring-one-numeric-variable.html"><a href="exploring-one-numeric-variable.html#descriptive-statistics"><i class="fa fa-check"></i><b>20.3</b> Descriptive statistics</a><ul>
+<li class="chapter" data-level="20.3.1" data-path="exploring-one-numeric-variable.html"><a href="exploring-one-numeric-variable.html#measuring-central-tendency"><i class="fa fa-check"></i><b>20.3.1</b> Measuring central tendency</a></li>
+<li class="chapter" data-level="20.3.2" data-path="exploring-one-numeric-variable.html"><a href="exploring-one-numeric-variable.html#measuring-dispersion"><i class="fa fa-check"></i><b>20.3.2</b> Measuring dispersion</a></li>
+<li class="chapter" data-level="20.3.3" data-path="exploring-one-numeric-variable.html"><a href="exploring-one-numeric-variable.html#skewness"><i class="fa fa-check"></i><b>20.3.3</b> Skewness</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="21" data-path="exploring-categorical-variables.html"><a href="exploring-categorical-variables.html"><i class="fa fa-check"></i><b>21</b> Exploring categorical variables</a><ul>
+<li class="chapter" data-level="21.1" data-path="exploring-categorical-variables.html"><a href="exploring-categorical-variables.html#explore-categorical"><i class="fa fa-check"></i><b>21.1</b> Understanding categorical variables</a><ul>
+<li class="chapter" data-level="21.1.1" data-path="exploring-categorical-variables.html"><a href="exploring-categorical-variables.html#numerical-summaries"><i class="fa fa-check"></i><b>21.1.1</b> Numerical summaries</a></li>
+</ul></li>
+<li class="chapter" data-level="21.2" data-path="exploring-categorical-variables.html"><a href="exploring-categorical-variables.html#graphical-summaries-of-categorical-variables"><i class="fa fa-check"></i><b>21.2</b> Graphical summaries of categorical variables</a></li>
+</ul></li>
+<li class="chapter" data-level="22" data-path="relationships-between-two-variables.html"><a href="relationships-between-two-variables.html"><i class="fa fa-check"></i><b>22</b> Relationships between two variables</a><ul>
+<li class="chapter" data-level="22.1" data-path="relationships-between-two-variables.html"><a href="relationships-between-two-variables.html#numeric"><i class="fa fa-check"></i><b>22.1</b> Associations between numeric variables</a><ul>
+<li class="chapter" data-level="22.1.1" data-path="relationships-between-two-variables.html"><a href="relationships-between-two-variables.html#descriptive-statistics-1"><i class="fa fa-check"></i><b>22.1.1</b> Descriptive statistics</a></li>
+<li class="chapter" data-level="22.1.2" data-path="relationships-between-two-variables.html"><a href="relationships-between-two-variables.html#graphical-summaries-1"><i class="fa fa-check"></i><b>22.1.2</b> Graphical summaries</a></li>
+</ul></li>
+<li class="chapter" data-level="22.2" data-path="relationships-between-two-variables.html"><a href="relationships-between-two-variables.html#categorical"><i class="fa fa-check"></i><b>22.2</b> Associations between categorical variables</a><ul>
+<li class="chapter" data-level="22.2.1" data-path="relationships-between-two-variables.html"><a href="relationships-between-two-variables.html#numerical-summaries-1"><i class="fa fa-check"></i><b>22.2.1</b> Numerical summaries</a></li>
+<li class="chapter" data-level="22.2.2" data-path="relationships-between-two-variables.html"><a href="relationships-between-two-variables.html#graphical-summaries-2"><i class="fa fa-check"></i><b>22.2.2</b> Graphical summaries</a></li>
+</ul></li>
+<li class="chapter" data-level="22.3" data-path="relationships-between-two-variables.html"><a href="relationships-between-two-variables.html#categorical"><i class="fa fa-check"></i><b>22.3</b> Categorical-numerical associations</a><ul>
+<li class="chapter" data-level="22.3.1" data-path="relationships-between-two-variables.html"><a href="relationships-between-two-variables.html#descriptive-statistics-2"><i class="fa fa-check"></i><b>22.3.1</b> Descriptive statistics</a></li>
+<li class="chapter" data-level="22.3.2" data-path="relationships-between-two-variables.html"><a href="relationships-between-two-variables.html#graphical-summaries-3"><i class="fa fa-check"></i><b>22.3.2</b> Graphical summaries</a></li>
+<li class="chapter" data-level="22.3.3" data-path="relationships-between-two-variables.html"><a href="relationships-between-two-variables.html#alternatives-to-box-and-whiskers-plots"><i class="fa fa-check"></i><b>22.3.3</b> Alternatives to box and whiskers plots</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="23" data-path="building-in-complexity.html"><a href="building-in-complexity.html"><i class="fa fa-check"></i><b>23</b> Building in complexity</a><ul>
+<li class="chapter" data-level="23.1" data-path="building-in-complexity.html"><a href="building-in-complexity.html#multivariate"><i class="fa fa-check"></i><b>23.1</b> Multivariate relationships</a></li>
+<li class="chapter" data-level="23.2" data-path="building-in-complexity.html"><a href="building-in-complexity.html#summaries"><i class="fa fa-check"></i><b>23.2</b> Comparing descriptive statistics</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">APS 135: Introduction to Exploratory Data Analysis with R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="relationships-between-two-variables" class="section level1">
+<h1><span class="header-section-number">Chapter 22</span> Relationships between two variables</h1>
+<p>This chapter is about exploring the <strong>associations</strong> between pairs of variables in a sample. These are called <strong>bivariate associations</strong>. An association is any relationship between two variables that makes them dependent, i.e. knowing the value of one variable gives us some information about the possible values of the second variable. The main goal of this chapter is to show how to use descriptive statistics and visualisations to explore associations among different kinds of variables.</p>
+<div id="numeric" class="section level2">
+<h2><span class="header-section-number">22.1</span> Associations between numeric variables</h2>
+<div id="descriptive-statistics-1" class="section level3">
+<h3><span class="header-section-number">22.1.1</span> Descriptive statistics</h3>
+<p>Statisticians have devised various different ways to quantify an association between two numeric variables in a sample. The common measures seek to calculate some kind of <strong>correlation coefficient</strong>. The terms ‘association’ and ‘correlation’ are closely related; so much so that they are often used interchangeably. Strictly speaking correlation has a narrower definition: a correlation is defined by a metric (the ‘correlation coefficient’) that quantifies the degree to which an association tends to a certain pattern.</p>
+<p>The most widely used measure of correlation is <strong>Pearson’s correlation coefficient</strong> (also called the Pearson product-moment correlation coefficient). Pearson’s correlation coefficient is something called the covariance of the two variables, divided by the product of their standard deviations. The mathematical formula for the Pearson’s correlation coefficient applied to a sample is: <span class="math display">\[
+r_{xy} = \frac{1}{N-1}\sum\limits_{i=1}^{N}{\frac{x_i-\bar{x}}{s_x} \frac{y_i-\bar{y}}{s_y}}
+\]</span> We’re using <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> here to refer to each of the variables in the sample. The <span class="math inline">\(r_{xy}\)</span> denotes the correlation coefficient, <span class="math inline">\(s_x\)</span> and <span class="math inline">\(s_y\)</span> denote the standard deviation of each sample, <span class="math inline">\(\bar{x}\)</span> and <span class="math inline">\(\bar{y}\)</span> are the sample means, and <span class="math inline">\(N\)</span> is the sample size.</p>
+<p>Remember, a correlation coefficient quantifies the degree to which an association tends to <em>a certain pattern</em>. In the case of Pearson’s correlation coefficient, the coefficient is designed to summarise the strength of a <strong>linear</strong> (i.e. ‘straight line’) association. We’ll return to this idea in a moment.</p>
+<p>Pearson’s correlation coefficient takes a value of 0 if two variables are uncorrelated, and a value of +1 or -1 if they are perfectly related. ‘Perfectly related’ means we can predict the exact value of one variable given knowledge of the other. A positive value indicates that high values in one variable is associated with high values of the second. A negative value indicates that high values of one variable is associated with low values of the second. The words ‘high’ and ‘low’ are relative to the arithmetic mean.</p>
+<p>In R we can use the <code>cor</code> function to calculate Pearson’s correlation coefficient. For example, the Pearson correlation coefficient between <code>pressure</code> and <code>wind</code> is given by:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">cor</span>(storms$wind, storms$pressure)</code></pre></div>
+<pre><code>## [1] -0.9254911</code></pre>
+<p>This is negative, indicating wind speed tends to decline with increasing pressure. It is also quite close to -1, indicating that this association is very strong. We saw this in the [Introduction to ggplot2] chapter when we plotted atmospheric pressure against wind speed.</p>
+<p>The Pearson’s correlation coefficient must be interpreted with care. Two points are worth noting:</p>
+<ol style="list-style-type: decimal">
+<li><p>Because it is designed to summarise the strength of a <strong>linear</strong> relationship, Pearson’s correlation coefficient will be misleading when this relationship is curved, or even worse, hump-shaped.</p></li>
+<li><p>Even if the relationship between two variables really is linear, Pearson’s correlation coefficient tells us nothing about the slope (i.e. the steepness) of the relationship.</p></li>
+</ol>
+<p>If those last two statements don’t make immediate sense, take a close look at this figure:</p>
+<p><img src="images/correlation-eg.png" style="display: block; margin: auto;" /></p>
+<p>This shows a variety of different relationships between pairs of numeric variables. The numbers in each subplot are the Pearson’s correlation coefficients associated with the pattern. Consider each row:</p>
+<ol style="list-style-type: decimal">
+<li><p>The first row shows a series of linear relationships that vary in their strength and direction. These are all linear in the sense that the general form of the relationship can be described by a straight line. This means that it is appropriate to use Pearson’s correlation coefficient in these cases to quantify the strength of association, i.e. the coefficient is a reliable measure of association.</p></li>
+<li><p>The second row shows a series of linear relationships that vary in their direction, but are all examples of a perfect relationship—we can predict the exact value of one variable given knowledge of the other. What these plots show is that Pearson’s correlation coefficient measures the strength of association without telling us anything the steepness of the relationship.</p></li>
+<li><p>The third row shows a series of different cases where it is definitely inappropriate to Pearson’s correlation coefficient. In each case, the variables are related to one another in some way, yet the correlation coefficient is always 0. Pearson’s correlation coefficient completely fails to flag the relationship because it is not even close to being linear.</p></li>
+</ol>
+<div id="other-measures-of-correlation" class="section level4">
+<h4><span class="header-section-number">22.1.1.1</span> Other measures of correlation</h4>
+<p>What should we do if we think the relationship between two variables is non-linear? We should not use Pearson correlation coefficient to measure association in this case. Instead, we can calculate something called a <strong>rank correlation</strong>. The idea is quite simple. Instead of working with the actual values of each variable we ‘rank’ them, i.e. we sort each variable from lowest to highest and the assign the labels ‘first, ’second’, ‘third’, etc. to different observations. Measures of rank correlation are based on a comparison of the resulting ranks. The two most popular are Spearman’s <span class="math inline">\(\rho\)</span> (‘rho’) and Kendall’s <span class="math inline">\(\tau\)</span> (‘tau’).</p>
+<p>We won’t examine the mathematical formula for each of these as they don’t really help us understand them much. We do need to know how to interpret rank correlation coefficients though. The key point is that both coefficients behave in a very similar way to Pearson’s correlation coefficient. They take a value of 0 if the ranks are uncorrelated, and a value of +1 or -1 if they are perfectly related. Again, the sign tells us about the direction of the association.</p>
+<p>We can calculate both rank correlation coefficients in R using the <code>cor</code> function again. This time we need to set the <code>method</code> argument to the appropriate value: <code>method = &quot;kendall&quot;</code> or <code>method = &quot;spearman&quot;</code>. For example, the Spearman’s <span class="math inline">\(\rho\)</span> and Kendall’s <span class="math inline">\(\tau\)</span> measures of correlation between <code>pressure</code> and <code>wind</code> are given by:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">cor</span>(storms$wind, storms$pressure, <span class="dt">method =</span> <span class="st">&quot;kendall&quot;</span>)</code></pre></div>
+<pre><code>## [1] -0.7627645</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">cor</span>(storms$wind, storms$pressure, <span class="dt">method =</span> <span class="st">&quot;spearman&quot;</span>)</code></pre></div>
+<pre><code>## [1] -0.9025831</code></pre>
+<p>These roughly agree with the Pearson correlation coefficient, though Kendall’s <span class="math inline">\(\tau\)</span> seems to suggest that the relationship is weaker. Kendall’s <span class="math inline">\(\tau\)</span> is often smaller than Spearman’s <span class="math inline">\(\rho\)</span> correlation. Although Spearman’s <span class="math inline">\(\rho\)</span> is used more widely, it is more sensitive to errors and discrepancies in the data than Kendall’s <span class="math inline">\(\tau\)</span>.</p>
+</div>
+</div>
+<div id="graphical-summaries-1" class="section level3">
+<h3><span class="header-section-number">22.1.2</span> Graphical summaries</h3>
+<p>Correlation coefficients give us a simple way to summarise associations between numeric variables. They are limited though, because a single number can never summarise every aspect of the relationship between two variables. This is why we always visualise the relationship between two variables. The standard graph for displaying associations among numeric variables is a scatter plot, using horizontal and vertical axes to plot two variables as a series of points. We saw how to construct scatter plots using <strong>ggplot2</strong> in the [Introduction to ggplot2] chapter so we won’t step through the details again.</p>
+<p>There are a few other options beyond the standard scatter plot. Specifically, <strong>ggplot2</strong> provides a couple of different <code>geom_XX</code> functions for producing a visual summary of relationships between numeric variables in situations where over-plotting of points is obscuring the relationship. One such example is the <code>geom_count</code> function:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(storms, <span class="kw">aes</span>(<span class="dt">x =</span> pressure, <span class="dt">y =</span> wind)) +
+<span class="st">  </span><span class="kw">geom_count</span>(<span class="dt">alpha =</span> <span class="fl">0.5</span>)</code></pre></div>
+<p><img src="eda-for-bio_files/figure-html/unnamed-chunk-337-1.png" width="432" style="display: block; margin: auto;" /></p>
+<p>The <code>geom_count</code> function is used to construct a layer in which data are first grouped into sets of identical observations. The number of cases in each group is counted, and this number (‘n’) is used to scale the size of points. Take note—it may be necessary to round numeric variables first (e.g. via <code>mutate</code>) to make a usable plot if they aren’t already discrete.</p>
+<p>Two further options for dealing with excessive over-plotting are the <code>geom_bin_2d</code> and <code>geom_hex</code> functions. The the <code>geom_bin_2d</code> divides the plane into rectangles, counts the number of cases in each rectangle, and then uses the number of cases to assign the rectangle’s fill colour. The <code>geom_hex</code> function does essentially the same thing, but instead divides the plane into regular hexagons. Note that <code>geom_hex</code> relies on the <strong>hexbin</strong> package, so this need to be installed to use it. Here’s an example of <code>geom_hex</code> in action:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(storms, <span class="kw">aes</span>(<span class="dt">x =</span> pressure, <span class="dt">y =</span> wind)) +
+<span class="st">  </span><span class="kw">geom_hex</span>(<span class="dt">bins =</span> <span class="dv">25</span>)</code></pre></div>
+<p><img src="eda-for-bio_files/figure-html/unnamed-chunk-338-1.png" width="432" style="display: block; margin: auto;" /></p>
+<p>Notice that this looks exactly like the <strong>ggplot2</strong> code for making a scatter plot, other than the fact that we’re now using <code>geom_hex</code> in place of <code>geom_point</code>.</p>
+</div>
+</div>
+<div id="categorical" class="section level2">
+<h2><span class="header-section-number">22.2</span> Associations between categorical variables</h2>
+<div id="numerical-summaries-1" class="section level3">
+<h3><span class="header-section-number">22.2.1</span> Numerical summaries</h3>
+<p>Numerically exploring associations between pairs of categorical variables is not as simple as the numeric variable case. The general question we need to address is, “do different <strong>combinations</strong> of categories seem to be under or over represented?” We need to understand which combinations are common and which are rare. The simplest thing we can do is ‘cross-tabulate’ the number of occurrences of each combination. The resulting table is called a <strong>contingency table</strong>. The counts in the table are sometimes referred to as frequencies.</p>
+<p>The <code>xtabs</code> function (= ‘cross-tabulation’) can do this for us. For example, the frequencies of each storm category and month combination is given by:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">xtabs</span>(~<span class="st"> </span>type +<span class="st"> </span>month, <span class="dt">data =</span> storms)</code></pre></div>
+<pre><code>##                      month
+## type                    6   7   8   9  10  11  12
+##   Extratropical        27  38  23 149 129  42   4
+##   Hurricane             3  31 300 383 152  25   2
+##   Tropical Depression  22  59 150 156  84  42   0
+##   Tropical Storm       31 123 247 259 204  61   1</code></pre>
+<p>The first argument sets the variables to cross-tabulate. The <code>xtabs</code> function uses R’s special formula language, so we can’t leave out that <code>~</code> at the beginning. After that, we just provide the list of variables to cross-tabulate, separated by the <code>+</code> sign. The second argument tells the function which data set to use. This isn’t a <strong>dplyr</strong> function, so the first argument is <em>not</em> the data for once.</p>
+<p>What does this tell us? It shows us how many observations are associated with each combination of values of <code>type</code> and <code>month</code>. We have to stare at the numbers for a while, but eventually it should be apparent that hurricanes and tropical storms are more common in August and September (month ‘8’ and ‘9’). More severe storms occur in the middle of the storm season—perhaps not all that surprising.</p>
+<p>If both variables are ordinal we can also calculate a descriptive statistic of association from a contingency table. It makes no sense to do this for nominal variables because their values are not ordered. Pearson’s correlation coefficient is not appropriate here. Instead, we have to use some kind of rank correlation coefficient that accounts for the categorical nature of the data. Spearman’s <span class="math inline">\(\rho\)</span> and Kendall’s <span class="math inline">\(\tau\)</span> are designed for numeric data, so they can’t be used either.</p>
+<p>One measure of association that <em>is</em> appropriate for categorical data is Goodman and Kruskal’s <span class="math inline">\(\gamma\)</span> (“gamma”). This behaves just like the other correlation coefficients we’ve looked at: it takes a value of 0 if the categories are uncorrelated, and a value of +1 or -1 if they are perfectly associated. The sign tells us about the direction of the association. Unfortunately, there isn’t a base R function to compute Goodman and Kruskal’s <span class="math inline">\(\gamma\)</span>, so we have to use a function from one of the packages that implements it (e.g. the <code>GKgamma</code> function in the <code>vcdExtra</code> package) if we need it.</p>
+</div>
+<div id="graphical-summaries-2" class="section level3">
+<h3><span class="header-section-number">22.2.2</span> Graphical summaries</h3>
+<p>Bar charts can be used to summarise the relationship between two categorical variables. The basic idea is to produce a separate bar for <em>each combination</em> of categories in the two variables. The lengths of these bars is proportional to the values they represent, which is either the raw counts or the proportions in each category combination. This is the same information displayed in a contingency table. Using <strong>ggplot2</strong> to display this information is not very different from producing a bar graph to summarise a single categorical variable.</p>
+<p>Let’s do this for the <code>type</code> and <code>year</code> variables in <code>storms</code>, breaking the process up into two steps. As always, we start by using the <code>ggplot</code> function to construct a graphical object containing the necessary default data and aesthetic mapping:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">bar_plt &lt;-<span class="st"> </span><span class="kw">ggplot</span>(storms, <span class="kw">aes</span>(<span class="dt">x =</span> year, <span class="dt">fill =</span> type))</code></pre></div>
+<p>Notice that we’ve included two aesthetic mappings. We mapped the <code>year</code> variable to the x axis, and the storm category (<code>type</code>) to the fill colour. We want to display information from two categorical variables, so we have to define two aesthetic mappings. The next step is to add a layer using <code>geom_bar</code> (we want a bar plot) and display the results:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">bar_plt &lt;-<span class="st"> </span>bar_plt +<span class="st"> </span><span class="kw">geom_bar</span>()
+bar_plt</code></pre></div>
+<p><img src="eda-for-bio_files/figure-html/unnamed-chunk-341-1.png" width="432" style="display: block; margin: auto;" /></p>
+<p>This is called a stacked bar chart. Each year has its own bar (<code>x = year</code>), and each bar has been divided up into different coloured segments, the length of which is determined by the number of observations associated with each storm type in that year (<code>fill = type</code>).</p>
+<p>We have all the right information in this graph, but it could be improved. Look at the labels on the x axis. Not every bar is labelled. This occurs because <code>year</code> is stored as a numeric vector in <code>storms</code>, yet we are treating it as a categorical variable in this analysis—<strong>ggplot2</strong> has no way of knowing this of course. We need a new trick here. We need to convert <code>year</code> to something that won’t be interpreted as a number. One way to do this is to convert <code>year</code> to a character vector<a href="#fn12" class="footnoteRef" id="fnref12"><sup>12</sup></a>. Once it’s in this format, <strong>ggplot2</strong> will assume that <code>year</code> is a categorical variable.</p>
+<p>We a numeric vector to a character vector with the <code>as.character</code> function. We could transform <code>year</code> inside <code>aes</code> ‘on the fly’, or alternatively, we can use the <code>mutate</code> function to construct a new version of <code>storms</code> containing the character version of <code>year</code>. We’ll do the latter so that we can keep reusing the new data frame:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">storms_alter &lt;-<span class="st"> </span><span class="kw">mutate</span>(storms, <span class="dt">year =</span> <span class="kw">as.character</span>(year))</code></pre></div>
+<p>We must load and attach <strong>dplyr</strong> to make this work. The new data frame <code>storms_alter</code> is identical to storms, except that <code>year</code> is now a character vector.</p>
+<p>Now we just need to construct and display the <strong>ggplot2</strong> object again using this new data frame:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(storms_alter, <span class="kw">aes</span>(<span class="dt">x =</span> year, <span class="dt">fill =</span> type)) +<span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_bar</span>()</code></pre></div>
+<p><img src="eda-for-bio_files/figure-html/unnamed-chunk-343-1.png" width="432" style="display: block; margin: auto;" /></p>
+<p>That’s an improvement. However, the ordering of the storm categories is not ideal because the order in which the different groups are presented does not reflect the ordinal scale we have in mind for storm category. We saw this same problem in the <a href="exploring-categorical-variables.html#exploring-categorical-variables">Exploring categorical variables</a> chapter—<strong>ggplot2</strong> treats does not ‘know’ the correct order of the <code>type</code> categories. Time for a new trick.</p>
+<p>We need to somehow embed the information about the required category order of <code>type</code> into our data. It turns out that R has a special kind of augmented vector, called a <strong>factor</strong>, that’s designed to do just this. We make use of this we need to know how to convert something into a factor. We use the <code>factor</code> function, setting its <code>levels</code> argument to be a vector of category names in the correct order:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># 1. make a vector of storm type names in the required order</span>
+storm_names &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Tropical Depression&quot;</span>, <span class="st">&quot;Extratropical&quot;</span>, <span class="st">&quot;Tropical Storm&quot;</span>, <span class="st">&quot;Hurricane&quot;</span>)
+<span class="co"># 2. now convert year to a character and type to a factor</span>
+storms_alter &lt;-<span class="st"> </span>
+<span class="st">  </span>storms %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">year =</span> <span class="kw">as.character</span>(year),
+         <span class="dt">type =</span> <span class="kw">factor</span>(type, <span class="dt">levels =</span> storm_names)) </code></pre></div>
+<p>This may look a little confusing at first glance, but all we did here was create a vector of ordered category names called <code>storm_names</code>, and then use mutate to change <code>type</code> to a factor using the ordering implied by <code>storm_names</code>. Just be careful with the spelling—the values in <code>storm_names</code> must match those in <code>type</code>. We did this with <strong>dplyr</strong>’s <code>mutate</code> function, again calling the modified data set <code>storms_alter</code>. Once we’ve applied the factor trick we can remake the bar chart:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># 3. make the histogram</span>
+<span class="kw">ggplot</span>(storms_alter, <span class="kw">aes</span>(<span class="dt">x =</span> year, <span class="dt">fill =</span> type)) +<span class="st"> </span>
+<span class="st">    </span><span class="kw">geom_bar</span>() </code></pre></div>
+<p><img src="eda-for-bio_files/figure-html/unnamed-chunk-345-1.png" width="432" style="display: block; margin: auto;" /></p>
+<div class="warning">
+<h4 id="factors">
+Factors
+</h4>
+<p>
+Factors are very useful. They crop up all the time in R. Unfortunately, they are also a pain to work with and a frequent source of errors. A complete treatment of factors would require a whole new chapter, so to save space, we’ve just shown one way to work with them via the <code>factor</code> function. This is enough to solve the reordering trick required to get <strong>ggplot2</strong> to work the way we want it to, but there’s a lot more to learn about factors.
+</p>
+</div>
+<p>A stacked bar chart is the default produced by <code>geom_bar</code>. One problem with this kind of chart is that it can be hard to spot associations among the two categorical variables. If we want to know how they are associated it’s often better to plot the counts for each combination of categories side-by-side. This isn’t hard to do. We switch to a side-by-side bar chart by assigning a value of <code>&quot;dodge&quot;</code> to the <code>position</code> argument of <code>geom_bar</code>:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(storms_alter, <span class="kw">aes</span>(<span class="dt">x =</span> year, <span class="dt">fill =</span> type)) +<span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_bar</span>(<span class="dt">position =</span> <span class="st">&quot;dodge&quot;</span>) +
+<span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Year&quot;</span>, 
+       <span class="dt">y =</span> <span class="st">&quot;Number of Observations&quot;</span>, 
+       <span class="dt">fill =</span> <span class="st">&quot;Storm Category&quot;</span>)</code></pre></div>
+<p><img src="eda-for-bio_files/figure-html/unnamed-chunk-347-1.png" width="576" style="display: block; margin: auto;" /></p>
+<p>The <code>position = &quot;dodge&quot;</code> argument says that we want the bars to ‘dodge’ one another along the x axis so that they are displayed next to one another. We snuck in one more tweak. Remember, we can use <code>labs</code> to set the labels of any aesthetic mapping we’ve defined—we used it here to set the label of the aesthetic mapping associated with the fill colour and the x/y axes.</p>
+<p>This final figure shows that on average, storm systems spend more time as hurricanes and tropical storms than tropical depressions or extratropical systems. Other than that, the story is a little messy. For example, 1997 was an odd year, with few storm events and relatively few hurricanes.</p>
+</div>
+</div>
+<div id="categorical" class="section level2">
+<h2><span class="header-section-number">22.3</span> Categorical-numerical associations</h2>
+<p>We’ve seen how to summarise the relationship between a pair of variables when they are of the same type: numeric vs. numeric or categorical vs. categorical. The obvious next question is, “How do we display the relationship between a categorical and numeric variable?” As usual, there are a range of different options.</p>
+<div id="descriptive-statistics-2" class="section level3">
+<h3><span class="header-section-number">22.3.1</span> Descriptive statistics</h3>
+<p>Numerical summaries can be constructed by taking the various ideas we’ve explored for numeric variables (means, medians, etc), and applying them to subsets of data defined by the values of the categorical variable. This is easy to do with the <strong>dplyr</strong> <code>group_by</code> and <code>summarise</code> pipeline. We won’t review it here though, because we’re going to do this in the next chapter.</p>
+</div>
+<div id="graphical-summaries-3" class="section level3">
+<h3><span class="header-section-number">22.3.2</span> Graphical summaries</h3>
+<p>The most common visualisation for exploring categorical-numerical relationships is the ‘box and whiskers plot’ (or just ‘box plot’). It’s easier to understand these plots once we’ve seen an example. To construct a box and whiskers plot we need to set ‘x’ and ‘y’ axis aesthetics for the categorical and numeric variable, and we use the <code>geom_boxplot</code> function to add the appropriate layer. Let’s examine the relationship between storm category and atmospheric pressure:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(storms_alter, <span class="kw">aes</span>(<span class="dt">x =</span> type, <span class="dt">y =</span> pressure)) +
+<span class="st">  </span><span class="kw">geom_boxplot</span>() +<span class="st"> </span>
+<span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Storm category&quot;</span>) +<span class="st"> </span><span class="kw">ylab</span>(<span class="st">&quot;Pressure (mbar)&quot;</span>)</code></pre></div>
+<p><img src="eda-for-bio_files/figure-html/unnamed-chunk-348-1.png" width="336" style="display: block; margin: auto;" /></p>
+<p>It’s fairly obvious why this is called a box and whiskers plot. Here’s a quick overview of the component parts of each box and whiskers:</p>
+<ul>
+<li><p>The horizontal line inside the box is the sample median. This is our measure of central tendency. It allows us to compare the most likely value of the numeric variable across the different categories.</p></li>
+<li><p>The boxes display the interquartile range (IQR) of the numeric variable in each category, i.e. the middle 50% of observations in each group according to their rank. This allows us to compare the spread of the numeric values in each category.</p></li>
+<li><p>The vertical lines that extend above and below each box are the “whiskers”. The interpretation of these depends on which kind of box plot we are making. By default, <strong>ggplot2</strong> produces a traditional Tukey box plot. Each whisker is drawn from each end of the box (the upper and lower quartiles) to a well-defined point. To find where the upper whisker ends we have to find the largest observation that is no more than 1.5 times the IQR away from the upper quartile. The lower whisker ends at the smallest observation that is no more than 1.5 times the IQR away from the lower quartile.</p></li>
+<li><p>Any points that do not fall inside the whiskers are plotted as an individual point. These may be outliers, although they could also be perfectly consistent with the wider distribution.</p></li>
+</ul>
+<p>The resulting plot compactly summarises the distribution of the numeric variable within each of the categories. We can see information about the central tendency, dispersion and skewness of each distribution. In addition, we can get a sense of whether there are potential outliers by noting the presence of individual points outside the whiskers.</p>
+<p>What does the above plot tell us about atmospheric pressure and storm type? It shows that <code>pressure</code> tends to display negative skew in all four storm categories, though the skewness seems to be higher in tropical storms and hurricanes. The pressure values of tropical depression, tropical storm, and hurricane histograms overlap, though not by much. The extratropical storm system seems to be something ‘in between’ a tropical storm and a tropical depression.</p>
+</div>
+<div id="alternatives-to-box-and-whiskers-plots" class="section level3">
+<h3><span class="header-section-number">22.3.3</span> Alternatives to box and whiskers plots</h3>
+<p>Box and whiskers plots are a good choice for exploring categorical-numerical relationships. They provide a lot of information about how the distribution of the numeric variable changes across categories. Sometimes we may want to squeeze even more information about these distributions into a plot. One way to do this is to make multiple histograms (or dot plots, if we don’t have much data).</p>
+<p>We already know how to make a histogram, and we have seen how aesthetic properties such as <code>colour</code> and <code>fill</code> are used to distinguish different categories of a variable in a layer. This suggests that we can overlay more than one histogram on a single plot. Let’s use this idea to see how the sample distribution of wind speed (<code>wind</code>) differs among the storm classes:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(storms_alter, <span class="kw">aes</span>(<span class="dt">x =</span> wind, <span class="dt">fill =</span> type))  +
+<span class="st">  </span><span class="kw">geom_histogram</span>(<span class="dt">position =</span> <span class="st">&quot;identity&quot;</span>, <span class="dt">alpha =</span> <span class="fl">0.6</span>, <span class="dt">binwidth =</span> <span class="dv">5</span>) +<span class="st"> </span>
+<span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Wind Speed (mph)&quot;</span>)</code></pre></div>
+<p><img src="eda-for-bio_files/figure-html/unnamed-chunk-349-1.png" width="336" style="display: block; margin: auto;" /></p>
+<p>We define two mappings: the continuous variable (<code>wind</code>) is mapped to the x axis, and the categorical variable (<code>type</code>) is mapped to the the fill colour. Notice that we also set the <code>position</code> argument to <code>&quot;identity&quot;</code>. This tells <strong>ggplot2</strong> not to stack the histograms on top of one another. Instead, they are allowed to overlap. It’s for this reason that we also made them semi-transparent by setting the <code>alpha</code> argument.</p>
+<p>Plotting several histograms in one layer like this places a lot of information in one plot, but it can be hard to make sense of this when the histograms overlap a lot. If the overlapping histograms are too difficult to interpret we might consider producing a separate one for each category. We’ve already seen a quick way to do this. Faceting works well here:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(storms_alter, <span class="kw">aes</span>(<span class="dt">x =</span> wind))  +
+<span class="st">  </span><span class="kw">geom_histogram</span>(<span class="dt">alpha =</span> <span class="fl">0.8</span>, <span class="dt">binwidth =</span> <span class="dv">5</span>) +<span class="st"> </span>
+<span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Wind Speed (mph)&quot;</span>) +
+<span class="st">  </span><span class="kw">facet_wrap</span>(~<span class="st"> </span>type, <span class="dt">ncol =</span> <span class="dv">4</span>)</code></pre></div>
+<p><img src="eda-for-bio_files/figure-html/unnamed-chunk-350-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p>We can see quite a lot in this plot and the last. The tropical depression, tropical storm, and hurricane histograms do not overlap (with a few minor exceptions). These three storm categories are obviously defined with respect to wind speed. Perhaps they represent different phases of one underlying physical phenomenon? The extratropical storm system seems to be something altogether different. In fact, an extratropical storm is a different kind of weather system from the other three. It can turn into a tropical depression (winds &lt; 39 mph) or a subtropical storm (winds &gt; 39 mph), but only a subtropical can turn into a hurricane.</p>
+<p>We’re oversimplifying, but the point is that the simple ordinal scale that we envisaged for the <code>type</code> variable is probably not very sensible. It’s not really true that an extratropical is “greater than” a subtropical depression (or vice versa). We should probably have characterised <code>type</code> as a nominal variable, although this designation ignores the fact that three of the storm types have a clear ordering. The take home message is that we have to understand our data before we start to really analyse it. This is why exploratory data analysis is so important.</p>
+
+</div>
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol start="12">
+<li id="fn12"><p>The alternative is to convert it to something called a factor. A factor is a special type of vector used by R to encode categorical variables. These are very useful, but we don’t use them in this book because they can be a bit tricky to work with.<a href="relationships-between-two-variables.html#fnref12">↩</a></p></li>
+</ol>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="exploring-categorical-variables.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="building-in-complexity.html" class="navigation navigation-next " aria-label="Next page""><i class="fa fa-angle-right"></i></a>
+
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/dzchilds/eda-for-bio/edit/master/3_06_bivariate.Rmd",
+"text": "Edit"
+},
+"download": null,
+"toc": {
+"collapse": "section"
+},
+"split_by": "section"
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    if (location.protocol !== "file:" && /^https?:/.test(script.src))
+      script.src  = script.src.replace(/^https?:/, '');
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

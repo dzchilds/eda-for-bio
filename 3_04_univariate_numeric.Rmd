@@ -88,7 +88,7 @@ ggplot(storms, aes(x = wind)) +
   xlab("Wind Speed (mph)") + ylab("Count")
 ```
 
-We end up with gaps in the histogram because some intervals do not include multiples of 5. This is not a good histogram because it fails to reliably summarise the distribution. Similar problems would occur if we chose a bin width that is greater than, but not a multiple of 5, because different bins would cover a different number of values that make up the `wind` variable. The take home message is that we have to know your data in order to produce meaningful summaries of it.
+We end up with gaps in the histogram because some intervals do not include multiples of 5. This is not a good histogram because it fails to reliably summarise the distribution. Similar problems would occur if we chose a bin width that is greater than, but not a multiple of 5, because different bins would cover a different number of values that make up the `wind` variable. The take home message is that we have to know our data in order to produce meaningful summaries of it.
 
 We'll finish up this subsection by briefly reviewing one alternative to the histogram. Histograms are good for visualising sample distributions when we have a reasonable sample size (at least dozens, and ideally, hundreds of observations). They aren't very effective when the sample is quite small. In this 'small data' situation it's better to use something called a __dot plot__^[Not to be confused with the 'Cleveland dot plot'. A standard dot plot summarises a sample distribution. The Cleveland dot plot is something quite different, which summarises the frequencies of a categorical variable. It's meant to serve as a simple alternative to bar charts and pie charts.]. 
 
@@ -114,7 +114,7 @@ So far we've been describing the properties of sample distributions in very gene
 
 * A measure of __central tendency__ describes a typical ('central') value of a distribution. Most people know at least one measure of central tendency. The "average" that they calculated at school is the arithmetic mean of a sample. There are many different measures of central tendency, each with their own pros and cons. Take a look at the [Wikipedia](http://en.wikipedia.org/wiki/Central_tendency) to see the most common ones. Among these, the median is the one that is used most often in exploratory analyses.
 
-* A measure of __dispersion__ describes how spread out a distribution is. Dispersion measures quantify the variability or scatter of a variable. If one distribution is more dispersed than another it means that in some sense it encompasses a wider range of values. What this means in practice depends on the kind of measure you are working with though. Basic statistics courses usually focus the two most common measures of the dispersion: the variance, and its square root, the standard deviation. There [are others](http://en.wikipedia.org/wiki/Statistical_dispersion) though. 
+* A measure of __dispersion__ describes how spread out a distribution is. Dispersion measures quantify the variability or scatter of a variable. If one distribution is more dispersed than another it means that in some sense it encompasses a wider range of values. What this means in practice depends on the kind of measure we're working with. Basic statistics courses tend to focus on the variance, and its square root, the standard deviation. There [are others](http://en.wikipedia.org/wiki/Statistical_dispersion) though. 
 
 ### Measuring central tendency
 

@@ -38,7 +38,7 @@ It is possible to calculate a __sample median__ of a categorical variable, but o
 ```{block, type="warning"}
 #### Be careful with `median`
 
-Unfortunately, if we apply the `median` function to a character vector it will give you an answer, e.g. `median(storms$type)` will spit something out. It is very likely to give us the wrong answer though. R has no way of knowing which categories are "high" and which are "low", so just sorts the elements of `type` alphabetically and then finds the middle value of this vector. If we really have to find the median value of an ordinal value we can do it by first converting the categories to integers--- assigning 1 to the lowest category, 2 to the next lowest, and so on--- and then use the median function to find out which value is the median.
+Unfortunately, if we apply the `median` function to a character vector it will give us an answer, e.g. `median(storms$type)` will spit something out. It is very likely to give us the wrong answer though. R has no way of knowing which categories are "high" and which are "low", so just sorts the elements of `type` alphabetically and then finds the middle value of this vector. If we really have to find the median value of an ordinal value we can do it by first converting the categories to integers--- assigning 1 to the lowest category, 2 to the next lowest, and so on--- and then use the median function to find out which value is the median.
 ```
 
 ## Graphical summaries of categorical variables
