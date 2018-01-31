@@ -2,7 +2,7 @@
 
 ## Introduction 
 
-The term "data structure" computer science jargon for a particular way of organising data on our computers, so that it can be accessed easily and efficiently. Computer languages use many different kinds of data structures, but fortunately, we only need to learn about a couple of relatively simple ones to use R for data analysis. In fact, in this book only two kinds of data structure really matter: "vectors" and "data frames". We'll learn how to work with data frames in the next section of the book. 
+The term "data structure" is computer science jargon for a particular way of organising data on our computers, so that it can be accessed easily and efficiently. Computer languages use many different kinds of data structures, but fortunately, we only need to learn about a couple of relatively simple ones to use R for data analysis. In fact, in this book only two kinds of data structure really matter: "vectors" and "data frames". We'll learn how to work with data frames in the next section of the book. 
 
 The next three chapters will consider vectors. This chapter has two goals. First, we want to learn the basics of how to work with vectors. For example, we'll see how "vectorised operations" may be used to express a repeated calculation. Second, we'll learn how to construct and use __numeric vectors__ to perform various calculations. Keep in mind that although we're going to focus on numeric vectors, many of the principles we learn here can be applied to the other kinds of vectors considered later.
 
@@ -184,7 +184,7 @@ rep(rep(seqvec, each = 2), times = 3)
 
 ## Vectorised operations
 
-All the simple arithmetic operators (e.g. `+` and `-`) and many mathematical functions are __vectorised__ in R . What this this means is that when we use a vectorised function it operates on vectors on an element-by-element basis. Take a look at this example to see what we mean by this:
+All the simple arithmetic operators (e.g. `+` and `-`) and many mathematical functions are __vectorised__ in R . What this means is that when we use a vectorised function it operates on vectors on an element-by-element basis. Take a look at this example to see what we mean by this:
 ```{r}
 # make a simple sequence
 x <- 1:10

@@ -2,18 +2,18 @@
 
 ## Introduction {#other-vectors}
 
-At the beginning of the last chapter we said that an atomic vector is a 1-dimensional object that contains an **ordered** collection of data values. Why is this view of a vector useful? It means that we can extract a subset of elements from a vector once we know their position in that vector. There are are two main ways to subset atomic vectors, both of which we'll cover in this chapter. Whatever the method we use, subsetting involves a pair opening and closing square brackets (`[` and `]`). These are always used together. 
+At the beginning of the last chapter we said that an atomic vector is a 1-dimensional object that contains an **ordered** collection of data values. Why is this view of a vector useful? It means that we can extract a subset of elements from a vector once we know their position in that vector. There are two main ways to subset atomic vectors, both of which we'll cover in this chapter. Whatever the method we use, subsetting involves a pair of opening and closing square brackets (`[` and `]`). These are always used together. 
 
 ## Subsetting by position 
 
 We can use the `[` construct with a vector to subset its elements directly using their position. Take a look at this example:
 ```{r}
-c_vec <- c(7.2, 3.6, 2.9)
-c_vec[2]
+numvec <- c(7.2, 3.6, 2.9)
+numvec[2]
 ```
-The `c_vec` variable is a length 3 character vector, with elements corresponding to his first, middle and last name. In order to subset it an retain only the first element -- his first name -- we used the `[ ]` construct with the number 1 inside, placing `[1]` next to the name of the vector. Notice that we do not place a space anywhere in this construct. We could, but this is not conventional.
+The `numvec` variable is a length 3 numeric vector. In order to subset it and retain only the second element we used the `[ ]` construct with the number 2 inside, placing `[2]` next to the name of the vector. Notice that we do not place a space anywhere in this construct. We could, but this is not conventional.
 
-Remember, "the number 1" is in fact a numeric vector of length 1. This suggest we might be able to use longer vectors to extract more than one element: 
+Remember, "the number 2" is in fact a numeric vector of length 1. This suggests we might be able to use longer vectors to extract more than one element: 
 ```{r}
 # make a numeric sequence
 my_vec <- seq(0, 0.5, by = 0.1)
@@ -23,7 +23,7 @@ i <- c(1, 3)
 # extract a subset of values
 my_vec[i]
 ```
-We first constructed a numeric vector of length 2 called `index`, which has elements `1` and `3`. We then used this to extract his first and third value by placing `i` inside the `[ ]`. We didn't have to carry out the subsetting operation in two steps. This achieves the same result:
+We first constructed a numeric vector of length 2 called `i`, which has elements `1` and `3`. We then used this to extract his first and third value by placing `i` inside the `[ ]`. We didn't have to carry out the subsetting operation in two steps. This achieves the same result:
 ```{r}
 my_vec[c(1, 3)]
 ```
@@ -35,7 +35,7 @@ my_vec[-c(2, 4, 5, 6)]
 ```
 The `my_vec[-c(2, 4, 5, 6)]` expression indicates that we want all the elements of `c_vec` __except__ those that at position 2, 4, 5, and 6.
 
-In the previous chapter we learned how use the `[` construct with a numeric vector of integer(s) to subset the elements of vector by their position. This works exactly the same way with character vectors:
+We have learned how to use the `[` construct with a numeric vector of integer(s) to subset the elements of vector by their position. This works exactly the same way with character vectors:
 ```{r}
 c_vec <- c("Dylan", "Zachary", "Childs")
 c_vec[1]
@@ -50,14 +50,14 @@ c_vec[-2]
 
 ## Subsetting with logical operators
 
-Subsetting vectors by position suffers from once major drawback---we have to know where the elements we want sit in the vector. A second way to subset a vector makes use of logical vectors alongside `[ ]`. This is usually done using two vectors of the same length: the focal vector we wish to subset, and a logical vector that specifies which elements to keep. Here is a very simple example:
+Subsetting vectors by position suffers from one major drawback---we have to know where the elements we want sit in the vector. A second way to subset a vector makes use of logical vectors alongside `[ ]`. This is usually done using two vectors of the same length: the focal vector we wish to subset, and a logical vector that specifies which elements to keep. Here is a very simple example:
 ```{r}
 i <- c(TRUE, FALSE, TRUE)
 c_vec[i]  
 ```
 This should be fairly self-explanatory. The logical vector method of subsetting works element-by-element, and an element in `c_vec` is retained wherever the corresponding element in `i` contains a `TRUE`; otherwise it is discarded.
 
-Why is this better that using position indexing? After all, using a vector of positions to subset a vector is much more direct. The reason is that we can use relational operators to help us select elements according to particular criteria. This is best illustrated with an example. We'll start by defining two vectors of the same length: 
+Why is this better than using position indexing? After all, using a vector of positions to subset a vector is much more direct. The reason is that we can use relational operators to help us select elements according to particular criteria. This is best illustrated with an example. We'll start by defining two vectors of the same length: 
 ```{r}
 name <- c("cat", "dog", "wren", "pig", "owl")
 name

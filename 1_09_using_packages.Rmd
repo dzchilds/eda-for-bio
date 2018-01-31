@@ -6,11 +6,11 @@ The R package system is probably the most important single factor driving increa
 
 > Packages are the fundamental units of reproducible R code. They include reusable R functions, the documentation that describes how to use them, and sample data.
 
-An R package is just a collection of folders and files in a standard, well-defined format. They bundle together together computer code, data, and documentation in a way that is easy to use and share with other users. The computer code might all be R code, but it can also include code written in other languages. Packages provide an R-friendly interface to use this "foreign" code without the need to understand how it works.
+An R package is just a collection of folders and files in a standard, well-defined format. They bundle together computer code, data, and documentation in a way that is easy to use and share with other users. The computer code might all be R code, but it can also include code written in other languages. Packages provide an R-friendly interface to use this "foreign" code without the need to understand how it works.
 
 The base R distribution it comes with quiet a few pre-installed packages. These are "mature" packages that implement widely used statistical and plotting functionality. These base R packages represent a very small subset of the available R packages. The majority of these are hosted on a network of web servers around the world collectively know as [CRAN](http://cran.r-project.org). This network---known as a repository---is the same one we used to download the base R distribution in the [Get up and running with R and RStudio] chapter. CRAN stands for the Comprehensive R Archive Network, pronounced either "see-ran" or "kran". CRAN is a fairly spartan web site, so it's easy to navigate. 
 
-When we [navigate to CRAN](http://cran.r-project.org) we see about a dozen links of the right hand side of the home page. Under the _Software_ section there is link called [Packages](http://cran.r-project.org/web/packages/). Near the top of this page there is a link called [Table of available packages, sorted by name](http://cran.r-project.org/web/packages/available_packages_by_name.html) that points to a very long list of all the packages on CRAN. The column on the left shows each package name, followed by a brief description of what the package does on the right. There are a huge number of packages here (over 10000 at the time of writing).
+When we [navigate to CRAN](http://cran.r-project.org) we see about a dozen links of the right hand side of the home page. Under the _Software_ section there is a link called [Packages](http://cran.r-project.org/web/packages/). Near the top of this page there is a link called [Table of available packages, sorted by name](http://cran.r-project.org/web/packages/available_packages_by_name.html) that points to a very long list of all the packages on CRAN. The column on the left shows each package name, followed by a brief description of what the package does on the right. There are a huge number of packages here (over 12000 at the time of writing).
 
 ## Task views
 
@@ -22,7 +22,7 @@ The [Environmentrics](http://cran.r-project.org/web/views/Environmetrics.html) T
 
 Two things need to happen in order for us to use a package. First, we need to ensure that a copy of the folders and files that make up the package are copied to an appropriate folder on our computer. This process of putting the package files into the correct location is called __installing__ the package. Second, we need to __load and attach__ the package for use in a particular R session. As always, the word "session" refers to the time between when we start up R and close it down again. It's worth unpacking these two ideas a bit, because packages are a frequent source of confusion for new users:
 
-* If we don't have a copy of a package's folders and files in the right format and the right place on our computer we can't use it. This is probably fairly obvious. The process of making this copy is called __installing__ the package. it is possible to manually install packages by going to the CRAN website, downloading the package, and then using various tools install it. We won't be using this approach though because it's both inefficient and error prone. Instead, we'll use built-in R functions to grab the package from CRAN and install it for us, all in one step.
+* If we don't have a copy of a package's folders and files in the right format and the right place on our computer we can't use it. This is probably fairly obvious. The process of making this copy is called __installing__ the package. It is possible to manually install packages by going to the CRAN website, downloading the package, and then using various tools to install it. We won't be using this approach though because it's both inefficient and error prone. Instead, we'll use built-in R functions to grab the package from CRAN and install it for us, all in one step.
 
 * We don't need to re-install a packages we plan to use every time we start a new R session. It is worth saying that again, __there is no need to install a package every time we start up R / RStudio__. Once we have a copy of the package on our hard drive it will remain there for us to use. The only exception to this rule is that a major update to R (not RStudio!) will sometimes require a complete re-install of the packages. This is because the R installer will not copy installed packages to the major new version of R. These major updates are fairly infrequent though, occurring perhaps every 1-2 years.
 
@@ -32,7 +32,7 @@ Two things need to happen in order for us to use a package. First, we need to en
 
 We sometimes need to check whether a package is currently installed. RStudio provides a simple, intuitive way to see which packages are installed on our computer. The __Packages__ tab in the top right pane of RStudio shows the name of every installed package, a brief description (the same one seen on CRAN) and a version number. We can also manage our packages from this tab, as we are about to find out.
 
-There are also a few of R functions that can be used to check whether a package is currently installed. For example, the `find.package` function can do this:
+There are also a few R functions that can be used to check whether a package is currently installed. For example, the `find.package` function can do this:
 ```{r}
 find.package("MASS")
 ```
@@ -91,7 +91,7 @@ Once again, if we really don't like working in the Console RStudio can help us o
 ```{block, type="warning"}
 ### Don't use RStudio for loading packages!
 
-We looked at how it works, because at some point most people realise they can use RStudio to load and attach packages. We don't recommend using this route though. It's much better to put `library` statements into a script. Why? Because if we rely on RStudio to load packages, we have to do this every time we want to run a script, and if we forget one we need, the script won't work. This is another example of where relying on RStudio ultimately makes things a more, not less, challenging.
+We looked at how it works, because at some point most people realise they can use RStudio to load and attach packages. We don't recommend using this route though. It's much better to put `library` statements into a script. Why? Because if we rely on RStudio to load packages, we have to do this every time we want to run a script, and if we forget one we need, the script won't work. This is another example of where relying on RStudio ultimately makes things more, not less, challenging.
 
 One last tip: we can use library anywhere, but typically the `library` expressions live at the very beginning of a script so that everything is ready to use later on.
 ```

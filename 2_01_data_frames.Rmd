@@ -6,11 +6,11 @@ We learned in the [A quick introduction to R] chapter that the word "variable" i
 ```{r}
 num_vec <- 1:10
 ```
-When a computer scientist talks about variables they're usually referring to these sorts of name-value associations. However, the word "variable"" has a second, more abstract meaning in the world data analysis and statistics: it refers to anything we can control or measure. For example, if our data comes from an experiment, the data will typically involve variables whose values describe the experimental conditions (e.g. "control plots" vs. "fertiliser plots") and the quantities we chose to measure (e.g. species biomass and diversity). 
+When a computer scientist talks about variables they're usually referring to these sorts of name-value associations. However, the word "variable" has a second, more abstract meaning in the world of data analysis and statistics: it refers to anything we can control or measure. For example, if our data comes from an experiment, the data will typically involve variables whose values describe the experimental conditions (e.g. "control plots" vs. "fertiliser plots") and the quantities we chose to measure (e.g. species biomass and diversity). 
 
-These kinds of abstract variables are often called "statistical variables". Statistical variables can be further broken down into a range of different types, such as numeric and categorical variables. We'll discuss these later on in the [Basic exploratory data analysis] chapter. The reason we're pointing out the dual meaning of the word "variable" here is because we need to work with both interpretations. The dual meaning can be confusing, but both meanings are in widespread use so we just have to get used to them. We'll try to minimise confusion by using the phrase "statistical variable" when we are referring to data, rather than R objects.
+These kinds of abstract variables are often called "statistical variables". Statistical variables can be further broken down into a range of different types, such as numeric and categorical variables. We'll discuss these later on in the [Exploratory data analysis] chapter. The reason we're pointing out the dual meaning of the word "variable" here is because we need to work with both interpretations. The dual meaning can be confusing, but both meanings are in widespread use so we just have to get used to them. We'll try to minimise confusion by using the phrase "statistical variable" when we are referring to data, rather than R objects.
 
-We're introducing these ideas now because we're going to consider a new type of data object in R: the __data frame__. Real world data analysis involves collections of data ("data sets") that involve several related statistical variables. We've seen that an atomic vector can only be used to store one type of data such as a collection of numbers. This means a vector can be used to store a single statistical variable, How should we keep a large collection of variables organised? We could work with them separately but this is very error prone. Ideally, we need a way to keep related variables together. This is the problem that __data frames__ and are designed to manage.
+We're introducing these ideas now because we're going to consider a new type of data object in R: the __data frame__. Real world data analysis involves collections of data ("data sets") that involve several related statistical variables. We've seen that an atomic vector can only be used to store one type of data such as a collection of numbers. This means a vector can be used to store a single statistical variable, How should we keep a large collection of variables organised? We could work with them separately but this is very error prone. Ideally, we need a way to keep related variables together. This is the problem that __data frames__ are designed to manage.
 
 ## Data frames {#data-frames-intro}
 
@@ -18,7 +18,7 @@ Data frames are one of those R features that mark it out as a particularly good 
 
 Each column is a vector of some kind. These are usually simple vectors containing numbers or character strings, though it is also possible to include more complicated vectors inside data frames. We'll only work with data frames made up of relatively simple vectors in this book. The key constraint that a data frame applies is that each vector must have the same length. This is what gives a data frame it table-like structure. 
 
-The simplest way to get a feel for data frames is to make one. Data frames are usually constructed by reading some external data into R, but for the purposes of learning about them it is better to build one from from its component parts. We'll make some artificial data describing a hypothetical experiment to do this. Imagine that we've conducted a small experiment to examine biomass and community diversity in six field plots. Three plots were subjected to fertiliser enrichment. The other three plots act as experimental controls. We could store the data describing this experiment in three vectors: 
+The simplest way to get a feel for data frames is to make one. Data frames are usually constructed by reading some external data into R, but for the purposes of learning about them it is better to build one from its component parts. We'll make some artificial data describing a hypothetical experiment to do this. Imagine that we've conducted a small experiment to examine biomass and community diversity in six field plots. Three plots were subjected to fertiliser enrichment. The other three plots act as experimental controls. We could store the data describing this experiment in three vectors: 
 
 -   `trt` (short for "treatment") shows which experimental manipulation was used.
 
@@ -164,7 +164,7 @@ The second use of `[ ]` is designed to allow us to subset rows and columns at th
 rindex <- 1:3
 # column index 
 cindex <- c("Treatment", "Biomass")
-# subset the data farme
+# subset the data frame
 experim.data[rindex, cindex]
 ```
 This example extracts a subset of `experim.data` corresponding to rows 1 through 3, and columns "Treatment" and "Biomass". The `rindex` is a numeric vector of row positions, and `cindex` is a character vector of column names. This shows that rows and columns can be selected by referencing their position or their names. The rows are not named in `experim.data`, so we specified the positions.

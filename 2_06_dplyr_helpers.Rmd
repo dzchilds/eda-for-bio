@@ -13,7 +13,7 @@ There are a number of __helper functions__ supplied by **dplyr**. Many of these 
 
 ## Working with `select`
 
-There are relatively few of helper functions that can be used with `select`. The job of these functions is to make it easier to match variable names according to various criteria. We'll look at the three simplest of these, but look at the examples in the help file for `select` and the [cheat sheat](http://www.rstudio.com/resources/cheatsheets/) to see what else is available.
+There are relatively few helper functions that can be used with `select`. The job of these functions is to make it easier to match variable names according to various criteria. We'll look at the three simplest of these, but look at the examples in the help file for `select` and the [cheat sheat](http://www.rstudio.com/resources/cheatsheets/) to see what else is available.
 
 We can select variables according to the sequence of characters used at the start of their name with the `starts_with` function. For example, to select all the variables in `iris_tbl` that begin with the word "Petal", we use:
 ```{r}

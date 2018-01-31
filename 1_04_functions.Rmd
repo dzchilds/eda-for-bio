@@ -16,7 +16,7 @@ What about the bits inside the parentheses? These are called the __arguments__ o
 
 In the simple example above, we used the `round` function with two arguments. Each of these was supplied as a name-value pair, separated by a comma. When working with arguments, name-value pairs occur either side of the equals (`=`) sign, with the __name__ of the argument on the left hand side and the __value__ it takes on the right hand side (notice that the syntax highlighter we used to make this website helpfully colours the argument names differently from the values). The name serves to identify which argument we are working with, and the value is the thing that controls what that argument does in the function. 
 
-We refer to the process of associating argument names and values as "supplying the arguments" of the function (sometimes we also say "setting the arguments"). Notice the similarly between supplying function arguments and the assignment operation discussed in the last topic. The difference here is that name-value pairs are associated with the `=` symbol. This association is also temporary: it only lasts as long as it takes for the function to do whatever it does.
+We refer to the process of associating argument names and values as "supplying the arguments" of the function (sometimes we also say "setting the arguments"). Notice the similarity between supplying function arguments and the assignment operation discussed in the last topic. The difference here is that name-value pairs are associated with the `=` symbol. This association is also temporary: it only lasts as long as it takes for the function to do whatever it does.
 
 ```{block, type="warning"}
 #### Use `=` to assign arguments
@@ -24,7 +24,7 @@ We refer to the process of associating argument names and values as "supplying t
 __Do not__ use the assignment operator ` <- ` inside the parentheses when working with functions. This is a "trust us" situation: you will end up in all kinds of difficulty if you do this.
 ```
 
-The names of the arguments that we are allowed to use are typically determined for us by the function. That is, we are not free to choose whatever name we like. We say "typically", because R is a very flexible language and so there are certain exceptions to this simple rule of thumb. For now it is simpler to think of the names as constrained by the particular function we're using. The arguments control the behaviour of a function. Our job as users is to set the values of the these to get the behaviour we want. By now it is now probably fairly obvious what is going to happen when we used the `round` function like this at the Console:
+The names of the arguments that we are allowed to use are typically determined for us by the function. That is, we are not free to choose whatever name we like. We say "typically", because R is a very flexible language and so there are certain exceptions to this simple rule of thumb. For now it is simpler to think of the names as constrained by the particular function we're using. The arguments control the behaviour of a function. Our job as users is to set the values of these to get the behaviour we want. By now it is now probably fairly obvious what is going to happen when we used the `round` function like this at the Console:
 
 ```{r}
 round(x = 3.141593, digits = 2)
@@ -60,7 +60,7 @@ We said at the beginning of this section that a function may optionally __return
 ```{r}
 2 * round(x = 2.64, digits = 0)
 ```
-Here the The R interpreter first evaluates the function call, and then multiplies the value it returns by 2. If we want to reuse this value we have to assign the result of function call, for example:
+Here the R interpreter first evaluates the function call, and then multiplies the value it returns by 2. If we want to reuse this value we have to assign the result of function call, for example:
 ```{r}
 roundnum <- 2 * round(x = 2.64, digits = 0)
 ```
@@ -81,13 +81,13 @@ If we had meant to round the value of `myvar` so that we can use this new value 
 myvar <- 3.7
 myvar <- round(x = myvar, digits = 0)
 ```
-In this example, we just overwrote the old value, but we could just as easily have created a new variable. The reason this is worth pointing out is that new users sometimes assume certain types of functions will alter their arguments. Specifically, when working with functions manipulate something called a `data.frame`, there is a tendency to assume that the function changes the `data.frame` argument. It will not. If wee want to make use of the changes, rather than just see them printed to the Console, we need to assign the results. We can do this by creating a new variable or overwriting the old one. We'll gain first hand experience of this in the Data Wrangling block.
+In this example, we just overwrote the old value, but we could just as easily have created a new variable. The reason this is worth pointing out is that new users sometimes assume certain types of functions will alter their arguments. Specifically, when working with functions manipulate something called a `data.frame`, there is a tendency to assume that the function changes the `data.frame` argument. It will not. If we want to make use of the changes, rather than just see them printed to the Console, we need to assign the results. We can do this by creating a new variable or overwriting the old one. We'll gain first hand experience of this in the Data Wrangling block.
 
 Remember, functions do not have side effects! New R users sometimes forget this and create all kinds of headaches for themselves. Don't be that person.
 
 ## Combining functions {#combining-functions}
 
-Up until now we have not tried to do anything very complicated in our examples. Using R to actually get useful work almost always involves multiple steps, very often facilitated a number of different functions. There is more than one way to do this. Here's a simple example that takes an approach we already know about:
+Up until now we have not tried to do anything very complicated in our examples. Using R to actually get useful work almost always involves multiple steps, very often facilitated by a number of different functions. There is more than one way to do this. Here's a simple example that takes an approach we already know about:
 ```{r}
 myvar <- sqrt(x = 10)
 round(x = myvar, digits = 0)

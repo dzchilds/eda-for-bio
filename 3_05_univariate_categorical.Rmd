@@ -18,7 +18,7 @@ This illustrates an important idea: the classification of a variable will often 
 
 ### Numerical summaries
 
-When we calculate summaries of categorical variables we are aiming to describe the sample distribution of the variable, just as with numeric variables. The general question we need to address is, 'what are the relative frequencies of different categories?' We need to understand which catergories are common and which are rare. Since a categorical variable takes a finite number of possible values, the simplest thing to do is tabulate the number of occurances of each type. We've seen how the `table` function is used to do this:
+When we calculate summaries of categorical variables we are aiming to describe the sample distribution of the variable, just as with numeric variables. The general question we need to address is, 'what are the relative frequencies of different categories?' We need to understand which categories are common and which are rare. Since a categorical variable takes a finite number of possible values, the simplest thing to do is tabulate the number of occurances of each type. We've seen how the `table` function is used to do this:
 ```{r}
 table(storms$type)
 ```
@@ -31,9 +31,9 @@ type_counts / sum(type_counts)
 ```
 So about 2/3 of observations are associated with hurricanes and tropical storms, with a roughly equal split, and the remaining 1/3 associated with less severe storms.
 
-What about measuring the central tendency of a categorical sample distribution? Various measures exist, but these tend to be less useful than those used to describe numeric variables. We can we can find the __sample mode__ of ordinal and nominal variables easily though (in contrast to numeric variables, where it is difficult to define). This is just the most common category. For example, the tropical storm category is the modal value of the `type` variable. Only just though. The proportion of tropical storm observations is 0.34, while the proportion of hurricane observations is 0.33. These are very similar, and it's not hard to imagine that modal observation might have been the hurricane category in a different sample. The sample mode is sensitive to chance variation when two categories occur at similar frequencies.
+What about measuring the central tendency of a categorical sample distribution? Various measures exist, but these tend to be less useful than those used to describe numeric variables. We can find the __sample mode__ of ordinal and nominal variables easily though (in contrast to numeric variables, where it is difficult to define). This is just the most common category. For example, the tropical storm category is the modal value of the `type` variable. Only just though. The proportion of tropical storm observations is 0.34, while the proportion of hurricane observations is 0.33. These are very similar, and it's not hard to imagine that modal observation might have been the hurricane category in a different sample. The sample mode is sensitive to chance variation when two categories occur at similar frequencies.
 
-It is possible to calculate a __sample median__ of a categorical variable, but only for the ordinal case. The median value is the one that lies in the middle of an ordered set of values---it makes no sense to talk about "the middle" of a set of nominal values that have no inherent order. Unfortunately, even for an ordinal variables the sample median is not precisely defined. Imagine that we're working with a variable with only two categories: 'big' vs. 'small', and exactly 50% of the values are 'small' value and 50% are large. What is the median in this case? Because the median is not always well-defined, the developers of base R have chosen not to implement a function to calculate the median of ordinal variables (a few packages contain functions to do this though). 
+It is possible to calculate a __sample median__ of a categorical variable, but only for the ordinal case. The median value is the one that lies in the middle of an ordered set of values---it makes no sense to talk about "the middle" of a set of nominal values that have no inherent order. Unfortunately, even for ordinal variables the sample median is not precisely defined. Imagine that we're working with a variable with only two categories: 'big' vs. 'small', and exactly 50% of the values are 'small' value and 50% are large. What is the median in this case? Because the median is not always well-defined, the developers of base R have chosen not to implement a function to calculate the median of ordinal variables (a few packages contain functions to do this though). 
 
 ```{block, type="warning"}
 #### Be careful with `median`
@@ -56,7 +56,7 @@ From here we follow the usual **ggplot2** workflow, meaning the next step is to 
 bar_plt <- bar_plt + geom_bar()
 summary(bar_plt) 
 ```
-Look at the layer information below `----`. The `geom_bar` function sets the stat to "bin". Binning a categorical variable is anlagous to binning a numeric variable. The only difference is that there is no need to specify bin widths because `type` is categorical, i.e. `ggplot2` will sum up the number of observations associated with every category of `type`. Here's the resulting figure:
+Look at the layer information below `----`. The `geom_bar` function sets the stat to "bin". Binning a categorical variable is analogous to binning a numeric variable. The only difference is that there is no need to specify bin widths because `type` is categorical, i.e. `ggplot2` will sum up the number of observations associated with every category of `type`. Here's the resulting figure:
 ```{r}
 bar_plt
 ```

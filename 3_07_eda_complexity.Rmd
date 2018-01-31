@@ -2,9 +2,7 @@
 
 ## Multivariate relationships {#multivariate}
 
-We examined various plots that summarise associations between two variables in the last chapter. How do we explore relationships between more than two variables in a single graph? That is, how do we explore __multivariate associations__? It's difficult to give a concrete answer to this question, because it depends on the question we're trying to address, the kinds of variables we're working with, and to a large extent, our creativity and aptitude with an advanced graphing framework like **ggplot2**. 
-
-How do we explore relationships between more than two variables in a single graph, i.e. a __multivariate relationship__? It's difficult to give a concrete answer to this question, because it depends on the question we're trying to address, the kinds of variables we're working with, and to a large extent, our creativity and aptitude with an advanced graphing framework like **ggplot2**. Nonetheless, we already know enough about how **ggplot2** works to build some fairly sophisticated visualisations. There are two ways to add additional information to a visualisation: 
+We examined various plots that summarise associations between two variables in the last chapter. How do we explore relationships between more than two variables in a single graph? That is, how do we explore __multivariate associations__? It's difficult to give a concrete answer to this question, because it depends on the question we're trying to address, the kinds of variables we're working with, and to a large extent, our creativity and aptitude with an advanced graphing framework like **ggplot2**. Nonetheless, we already know enough about how **ggplot2** works to build some fairly sophisticated visualisations. There are two ways to add additional information to a visualisation: 
 
 1. Define aesthetic mappings to allow the properties of a layer to depend on the different values of one or more variable.
 

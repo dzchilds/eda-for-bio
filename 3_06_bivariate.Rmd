@@ -22,7 +22,7 @@ In R we can use the `cor` function to calculate Pearson's correlation coefficien
 ```{r}
 cor(storms$wind, storms$pressure)
 ```
-This is negative, indicating wind speed tends to decline with increasing pressure. It is also quite close to -1, indicating that this association is very strong. We saw this in the [Introduction to ggplot2] chapter when we plotted atmospheric pressure against wind speed.
+This is negative, indicating wind speed tends to decline with increasing pressure. It is also quite close to -1, indicating that this association is very strong. We saw this in the [Introduction to **ggplot2**] chapter when we plotted atmospheric pressure against wind speed.
 
 The Pearson's correlation coefficient must be interpreted with care. Two points are worth noting:
 
@@ -115,7 +115,7 @@ This is called a stacked bar chart. Each year has its own bar (`x = year`), and 
 
 We have all the right information in this graph, but it could be improved. Look at the labels on the x axis. Not every bar is labelled. This occurs because `year` is stored as a numeric vector in `storms`, yet we are treating it as a categorical variable in this analysis---**ggplot2** has no way of knowing this of course. We need a new trick here. We need to convert `year` to something that won't be interpreted as a number. One way to do this is to convert `year` to a character vector^[The alternative is to convert it to something called a factor. A factor is a special type of vector used by R to encode categorical variables. These are very useful, but we don't use them in this book because they can be a bit tricky to work with.]. Once it's in this format, **ggplot2** will assume that `year` is a categorical variable.
 
-We a numeric vector to a character vector with the `as.character` function. We could transform `year` inside `aes` 'on the fly', or alternatively, we can use the `mutate` function to construct a new version of `storms` containing the character version of `year`. We'll do the latter so that we can keep reusing the new data frame:
+We can convert a numeric vector to a character vector with the `as.character` function. We could transform `year` inside `aes` 'on the fly', or alternatively, we can use the `mutate` function to construct a new version of `storms` containing the character version of `year`. We'll do the latter so that we can keep reusing the new data frame:
 ```{r}
 storms_alter <- mutate(storms, year = as.character(year))
 ```

@@ -2,9 +2,9 @@
 
 ## Introduction
 
-We've seen that using variables is useful because it enables us to break down a problem into a series of simpler steps. Howevre, so far we've only been working in the Console. If we want to reuse a calculation when we're working like this, we have to change a variable or two and then evaluate the expressions that do the job of solving an equation, make a graph, whatever. We also have to do all of this in the correct order, or things will not work as intended.
+We've seen that using variables is useful because it enables us to break down a problem into a series of simpler steps. However, so far we've only been working in the Console. If we want to reuse a calculation when we're working like this, we have to change a variable or two and then evaluate the expressions that do the job of solving an equation, make a graph, whatever. We also have to do all of this in the correct order, or things will not work as intended.
 
-We can see that working in the Console is not going to be practical most of the time. So what should we do? The answer is: put our sequence of R expressions into a text file, called a __script__. Calling it a script makes it sound a bit fancy and clever---"I spent all day debugging my script". It is not. It is a boring text file that could be opend up in something like Notepad.exe. We just call it a script to signify the fact that the text contained in the file is a series of instructions telling our computer to do something.
+We can see that working in the Console is not going to be practical most of the time. So what should we do? The answer is: put our sequence of R expressions into a text file, called a __script__. Calling it a script makes it sound a bit fancy and clever---"I spent all day debugging my script". It is not. It is a boring text file that could be opened up in something like Notepad.exe. We just call it a script to signify the fact that the text contained in the file is a series of instructions telling our computer to do something.
 
 ```{block, type="warning"}
 Working directly at the Console is the simplest way to use R, but we do not recommend working this way unless you only need to do something very simple that involves a handful of steps. For more complicated activities you should always store your instructions in a script.
@@ -18,9 +18,9 @@ To open a new script in RStudio navigate to `File > New File > R Script`. This w
 knitr::include_graphics("images/RStudio-4-pane.png")
 ```
 
-When we work with a script we type the required sequence of R expressions into the Editor pane, **not directly into the Console**. This is important---if we mix and match mistakes happen. The worst of these is that we write a script that seems to work, only to find it is broken when we open it up and use it again later. This usually happens because we typed something into the Console that is needed to make the whole script run when we were preparing it, but then forget to put it into the script. Just don't swirch between using the Console and the Editor to avoid this.
+When we work with a script we type the required sequence of R expressions into the Editor pane, **not directly into the Console**. This is important---if we mix and match mistakes happen. The worst of these is that we write a script that seems to work, only to find it is broken when we open it up and use it again later. This usually happens because we typed something into the Console that is needed to make the whole script run when we were preparing it, but then forget to put it into the script. Just don't switch between using the Console and the Editor to avoid this.
 
-The easiest way to appreciate the benefits of using a script is to work with one. Here are a few lines of R code to copy-paste this into the new Editor pane...
+The easiest way to appreciate the benefits of using a script is to work with one. Here are a few lines of R code to copy-paste into the new Editor pane...
 
 ```{r, eval=FALSE}
 a <- 1
@@ -57,7 +57,7 @@ At this point we just want to emphasise that __you should always use comments in
 
 ## Running scripts in RStudio
 
-The whole point of writing a script is ultimatley to run it. The phrase "run our code" is shorthand for "send a number of R expressions to the R interpreter to be read and evaluated". The latter is tedious to write (and read) over and over again, so we will just write "run your/my/our code". We could run the code in the above script by copying and pasting it into the Console, but this is inefficient. Instead of relying on cut and paste, RStudio gives us different ways to run our code:
+The whole point of writing a script is ultimately to run it. The phrase "run our code" is shorthand for "send a number of R expressions to the R interpreter to be read and evaluated". The latter is tedious to write (and read) over and over again, so we will just write "run your/my/our code". We could run the code in the above script by copying and pasting it into the Console, but this is inefficient. Instead of relying on cut and paste, RStudio gives us different ways to run our code:
 
 * There is a `Run` button at the top right of the Editor pane. As we might imagine, clicking on this will run some code. If we haven't highlighted anything in the Editor, this runs whichever line the cursor is at, i.e. it runs just that one line. If we had highlighted a region inside the Editor, this button will run all of that in sequence.
 

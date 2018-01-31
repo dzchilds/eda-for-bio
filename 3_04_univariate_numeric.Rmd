@@ -25,7 +25,7 @@ We only looked at the first 100 values of the `wind` and `pressure` variables be
 
 What else might we do? One useful tool is 'binning'. The idea behind binning a variable is very simple. It involves two steps. First, we take the set of possible values of our numeric variable and divide this into a equal sized, non-overlapping intervals. We can use any interval size we like, as long as it is large enough to span at least two observations some of the time, though in practice some choices are more sensible than others. We then have to work out how many values of the our variable fall inside each bin. The resulting set of counts tells us quiet a lot about the sample distribution.
 
-let's see how this works with an example. Binning is very tedious to do by hand, but as we might expect, there are a couple of base R function that can do this for us: `cut` and `table`. Here's how to use these to bin the `pressure` variable into intervals of 10 mbar: 
+Let's see how this works with an example. Binning is very tedious to do by hand, but as we might expect, there are a couple of base R function that can do this for us: `cut` and `table`. Here's how to use these to bin the `pressure` variable into intervals of 10 mbar: 
 ```{r}
 presure_bins <- cut(storms$pressure, 
                   breaks = seq(900, 1020, by = 5), right = FALSE)

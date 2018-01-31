@@ -24,7 +24,7 @@ iris_tbl   <- tbl_df(iris)
 
 ## Summarising variables with `summarise`
 
-We use `summarise` to __calculate summaries of variables__ in a an object containing our data. We do this kind of calculation all the time when analysing data. In terms of pseudo-code, usage of `summarise` looks like this:
+We use `summarise` to __calculate summaries of variables__ in an object containing our data. We do this kind of calculation all the time when analysing data. In terms of pseudo-code, usage of `summarise` looks like this:
 ```{r, eval=FALSE}
 summarise(data_set, <expression1>, <expression2>, ...)
 ```

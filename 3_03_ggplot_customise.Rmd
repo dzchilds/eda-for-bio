@@ -2,7 +2,7 @@
 
 The default formatting used by **ggplot2** is generally fine for exploratory purposes. In fact, although they aren't universally popular, the defaults are carefully chosen to ensure that the information in a plot is easy to discern. These choices are a little unconventional though. For example, published figures usually use a white background. For this reason, we often need to change the appearance of a plot once we're ready to include it in a report. 
 
-Our aim in this chapter is to learn a little bit about the underlying logic of how to customise **ggplot2**. We aren't going to attempt to cover the many different permutations. Instead, we'll focus on the main principles underlying the different routes to customisation. We'll build on these as we review a range of different visualisations in later chapters. Using the storms data once again, we'll work on improving the simple scatter plot initially produced in the [Introduction to ggplot2] chapter:
+Our aim in this chapter is to learn a little bit about the underlying logic of how to customise **ggplot2**. We aren't going to attempt to cover the many different permutations. Instead, we'll focus on the main principles underlying the different routes to customisation. We'll build on these as we review a range of different visualisations in later chapters. Using the storms data once again, we'll work on improving the simple scatter plot initially produced in the [Introduction to **ggplot2**] chapter:
 
 ```{r}
 # 1. make the storms data available
@@ -13,7 +13,7 @@ ggplot(storms, aes(x = pressure, y = wind)) + geom_point()
 
 ## Working with layer specific geom properties
 
-What do we do if we if we need to change the properties of a geom? We're using the point geom at the moment. How might we change the colour or size of points in our scatter plot? It's quiet intuitive---we set the appropriate arguments in the `geom_point` function. Let's rebuild our example, this time setting the colour, size and transparency of points:
+What do we do if we if we need to change the properties of a geom? We're using the point geom at the moment. How might we change the colour or size of points in our scatter plot? It's quite intuitive---we set the appropriate arguments in the `geom_point` function. Let's rebuild our example, this time setting the colour, size and transparency of points:
 
 ```{r}
 ggplot(storms, aes(x = pressure, y = wind)) + 
@@ -120,13 +120,13 @@ ggplot(storms, aes(x = pressure, y = wind, colour = seasday)) +
        colour = "Day of \nSeason")
 ```
 
-We snuck one last trick into that last example. Notice that the "Day of Season" label is split over two lines. We did this by inserting the special sequnce `\n` into the label text. The `\n` inside a quoated label tells R to start a new line.
+We snuck one last trick into that last example. Notice that the "Day of Season" label is split over two lines. We did this by inserting the special sequnce `\n` into the label text. The `\n` inside a quoted label tells R to start a new line.
 
 ## Themes
 
 The final route to customisation we'll consider concerns something called the 'theme' of a plot. We haven't considered the **ggplot2** theme system at all yet. In simple terms, **ggplot2** themes deal with the visual aspects of a plot that aren't directly handled by adjusting geom properties or scales, i.e. the 'non-data' parts of a plot. This includes features such as the colour of the plotting region and the grid lines, whether or not those grid lines are even displayed, the position of labels, the font used in labels, and so on.
 
-The **ggplot2** theme system is extremely powerful. Once we know how to use it, we can set up a custom theme to meet our requirements and then apply it as needed with very little effort. However, the it's not an entirely trivial thing to learn about because there are so many components of every plot. Fortunately there are a range of themes built into **ggplot2** that are easily good enough for producing publication ready figures. Let's assume we have made a plot object `final_plt` containing all the information and data formatting we want:
+The **ggplot2** theme system is extremely powerful. Once we know how to use it, we can set up a custom theme to meet our requirements and then apply it as needed with very little effort. However, it's not an entirely trivial thing to learn about because there are so many components of every plot. Fortunately there are a range of themes built into **ggplot2** that are easily good enough for producing publication ready figures. Let's assume we have made a plot object `final_plt` containing all the information and data formatting we want:
 
 ```{r}
 final_plt <- 
@@ -146,7 +146,7 @@ final_plt + theme_bw()
 
 In this example we use `+` with the `theme_bw` function to use the built in 'black and white' theme. This removes the grey background that so many people dislike in **ggplot2**. 
 
-There aren't that many themes built into **ggplot2**---type `theme_` at the Console and hit the tab key to see the others. One popular alternative to `theme_bw` is the 'classic' theme, via `theme_bw`:
+There aren't that many themes built into **ggplot2**---type `theme_` at the Console and hit the tab key to see the others. One popular alternative to `theme_bw` is the 'classic' theme, via `theme_classic`:
 
 ```{r, fig.width=4.5}
 final_plt + theme_classic(base_size = 15)

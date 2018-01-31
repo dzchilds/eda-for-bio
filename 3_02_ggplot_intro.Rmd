@@ -12,7 +12,7 @@ We aren't going to survey all three of these plotting systems. There isn't space
 
 ## The anatomy of ggplot2 {#anatomy}
 
-The easiest way to learn **ggplot2** is by seeing in in action. Before we dive in it's worth surveying the essential features of the **ggplot2** 'grammar'. Most of this is fairly abstract and won't make sense on first reading. This is fine. Abstract ideas like 'aesthetics' and 'geoms' will start to make sense as we work through a range of different examples in the next few chapters.
+The easiest way to learn **ggplot2** is by seeing it in action. Before we dive in it's worth surveying the essential features of the **ggplot2** 'grammar'. Most of this is fairly abstract and won't make sense on first reading. This is fine. Abstract ideas like 'aesthetics' and 'geoms' will start to make sense as we work through a range of different examples in the next few chapters.
 
 **ggplot2** is designed to reflect Wilkinson's grammar of graphics. The **ggplot2** version of this grammar revolves around the idea of **layers**. The underlying idea is that we construct a visualisation in a structured manner by defining one or more of these layers, which together with a few other components define a complete **ggplot2** object. Each layer may have its own data or it may share its data with another layer, and each layer displays its data in a specific way. The resulting **ggplot2** object is defined by a combination of:
 
@@ -211,7 +211,7 @@ ggplot(storms, aes(x = pressure, y = wind, colour = seasday)) +
   facet_wrap(~ year, nrow = 2, ncol = 3)
 ```
 
-The first argument of `facet_wrap` (`~ year`) says to split up the data set according to the values of `year`. The `nrow` and `ncol` arguments just specify how to split the panels across rows and columns of the resulting plot. Notice that the panels shares the same scales for the 'x' and 'y' axes. This makes it easy to compare information. 
+The first argument of `facet_wrap` (`~ year`) says to split up the data set according to the values of `year`. The `nrow` and `ncol` arguments just specify how to split the panels across rows and columns of the resulting plot. Notice that the panels share the same scales for the 'x' and 'y' axes. This makes it easy to compare information. 
 
 The plot indicates that the wind speed -- pressure relationship is more or less invariant across years, and that perhaps 1997 and 2000 were not such bad storm years compared to the others. This isn't really surprising. The occurrence of tropical storms is somewhat stochastic, but the laws of atmospheric physics don't change from one year to the next!
 

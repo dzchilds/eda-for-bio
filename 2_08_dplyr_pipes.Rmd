@@ -1,4 +1,4 @@
-# Building piplines
+# Building pipelines
 
 This chapter will introduce something called the pipe operator: `%>%`. We don't often use the various **dplyr** verbs in isolation. Instead, starting with our raw data, they are combined in a sequence to prepare the data for further analysis (e.g. making a plot, calculating summaries, fitting a statistical model, and so on). The function of the pipe operator is to make the data wrangling part of such a workflow as transparent as possible.
 
