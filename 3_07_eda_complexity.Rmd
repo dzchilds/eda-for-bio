@@ -48,17 +48,17 @@ storms_sum <-
 storms_sum
 ```
 
-We used `group_by` and `summarise` to calculate the set of means, which we called `mean_wind`. The second step uses the new data frame (called `storms_sum`) as the default data in a new graphical object, sets x and y aesthetic mappings from `type` and `mean_wind`, and adds a layer with `geom_bar`: 
+We used `group_by` and `summarise` to calculate the set of means, which we called `mean_wind`. The second step uses the new data frame (called `storms_sum`) as the default data in a new graphical object, sets x and y aesthetic mappings from `type` and `mean_wind`, and adds a layer with `geom_col`: 
 
 ```{r, fig.height=2.5}
 mean.plt <-
   ggplot(storms_sum, aes(x = type, y = mean_wind)) +
-  geom_bar(stat = "identity") + 
+  geom_col() + 
   coord_flip() + xlab("Storm Category") + ylab("Mean Wind Speed (mph)")
 mean.plt
 ```
 
-The result is the same as the last plot. Notice that we had to set `stat` to `"identity"`. This is important. The default behaviour of `geom_bar` is to count the observations in each category. The `stat = "identity"` argument tells it that the information in `mean_wind` must be plotted 'as is'.
+The result is the same as the last plot. Note that we have used `geom_col` instead of `geom_bar` here. Remember here that the default behaviour of `geom_bar` is to count the observations in each category. Using the `geom_col` function tells it that the information in `mean_wind` must be plotted 'as is' instead.
 
 Which approach is better? The first approach is more compact though. We recommend the second long-winded way approach for new users because it separates the summary calculations from the plotting. This way, as long as we're comfortable with **dplyr**, we can get away with remembering less about how **ggplot2** works. It also makes it a bit easier to fix mistakes, as we can first check whether the right information is in the summary data frame, before we worry about plotting it.
 

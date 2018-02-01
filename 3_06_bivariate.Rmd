@@ -144,7 +144,7 @@ storms_alter <-
 This may look a little confusing at first glance, but all we did here was create a vector of ordered category names called `storm_names`, and then use mutate to change `type` to a factor using the ordering implied by `storm_names`. Just be careful with the spelling---the values in `storm_names` must match those in `type`. We did this with **dplyr**'s `mutate` function, again calling the modified data set `storms_alter`. Once we've applied the factor trick we can remake the bar chart:
 
 ```{r, fig.width=4.5}
-# 3. make the histogram
+# 3. make the bar plot
 ggplot(storms_alter, aes(x = year, fill = type)) + 
     geom_bar() 
 ```

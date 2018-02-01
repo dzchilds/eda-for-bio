@@ -51,12 +51,13 @@ bar_plt <- ggplot(storms, aes(x = type))
 ```
 We've called the object `bar_plt`, for obvious reasons. Notice that we only need to define one aesthetic mapping: we mapped `type` to the x axis. This produces a bar plot with vertical bars.
 
-From here we follow the usual **ggplot2** workflow, meaning the next step is to add a layer using one of the `geom_XX` functions. The sensibly named `geom_bar` is the one we need:
+From here we follow the usual **ggplot2** workflow, meaning the next step is to add a layer using one of the `geom_XX` functions. There are two functions we can use to create bar charts in ggplot, `geom_bar` and `geom_col`. By default `geom_col` counts the number of observations in each category, whilst `geom_bar` plots the actual numbers in the data frame. In this case as we want the number of storms of each `type` we will use  `geom_bar`:
+
 ```{r}
 bar_plt <- bar_plt + geom_bar()
 summary(bar_plt) 
 ```
-Look at the layer information below `----`. The `geom_bar` function sets the stat to "bin". Binning a categorical variable is analogous to binning a numeric variable. The only difference is that there is no need to specify bin widths because `type` is categorical, i.e. `ggplot2` will sum up the number of observations associated with every category of `type`. Here's the resulting figure:
+Look at the layer information below `----`. The `geom_bar` function sets the stat to "count". Counting a categorical variable is analogous to binning a numeric variable. The only difference is that there is no need to specify bin widths because `type` is categorical, i.e. `ggplot2` will sum up the number of observations associated with every category of `type`. Here's the resulting figure:
 ```{r}
 bar_plt
 ```
