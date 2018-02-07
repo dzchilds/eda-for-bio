@@ -32,8 +32,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
-<link rel="prev" href="introduction-to-ggplot2.html">
-<link rel="next" href="exploring-one-numeric-variable.html">
+<link rel="prev" href="grouping-and-summarising-data.html">
+<link rel="next" href="exploratory-data-analysis.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -368,127 +368,107 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="customising-plots" class="section level1">
-<h1><span class="header-section-number">Chapter 19</span> Customising plots</h1>
-<p>The default formatting used by <strong>ggplot2</strong> is generally fine for exploratory purposes. In fact, although they aren’t universally popular, the defaults are carefully chosen to ensure that the information in a plot is easy to discern. These choices are a little unconventional though. For example, published figures usually use a white background. For this reason, we often need to change the appearance of a plot once we’re ready to include it in a report.</p>
-<p>Our aim in this chapter is to learn a little bit about the underlying logic of how to customise <strong>ggplot2</strong>. We aren’t going to attempt to cover the many different permutations. Instead, we’ll focus on the main principles underlying the different routes to customisation. We’ll build on these as we review a range of different visualisations in later chapters. Using the storms data once again, we’ll work on improving the simple scatter plot initially produced in the <a href="introduction-to-ggplot2.html#introduction-to-ggplot2">Introduction to <strong>ggplot2</strong></a> chapter:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># 1. make the storms data available</span>
-<span class="kw">library</span>(nasaweather)
-<span class="co"># 2. plot wind speed against atmospheric pressure</span>
-<span class="kw">ggplot</span>(storms, <span class="kw">aes</span>(<span class="dt">x =</span> pressure, <span class="dt">y =</span> wind)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>()</code></pre></div>
-<p><img src="eda-for-bio_files/figure-html/unnamed-chunk-287-1.png" width="336" style="display: block; margin: auto;" /></p>
-<div id="working-with-layer-specific-geom-properties" class="section level2">
-<h2><span class="header-section-number">19.1</span> Working with layer specific geom properties</h2>
-<p>What do we do if we if we need to change the properties of a geom? We’re using the point geom at the moment. How might we change the colour or size of points in our scatter plot? It’s quite intuitive—we set the appropriate arguments in the <code>geom_point</code> function. Let’s rebuild our example, this time setting the colour, size and transparency of points:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(storms, <span class="kw">aes</span>(<span class="dt">x =</span> pressure, <span class="dt">y =</span> wind)) <span class="op">+</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">colour =</span> <span class="st">&quot;steelblue&quot;</span>, <span class="dt">size =</span> <span class="fl">1.5</span>, <span class="dt">alpha =</span> <span class="fl">0.3</span>)</code></pre></div>
-<p><img src="eda-for-bio_files/figure-html/unnamed-chunk-288-1.png" width="336" style="display: block; margin: auto;" /></p>
-<p>The point colour is set with the <code>colour</code> argument. There are many ways to specify colours in R, but if we only need to specify a few the simplest is to use a name R recognises. The point size is specified with the <code>size</code> argument. The baseline is 1, and so here we increased the point size by assigning this a value of 1.5. Finally, we made the points somewhat transparent by setting the value of the <code>alpha</code> argument to be less than 1. In graphical systems the ‘alpha channel’ essentially specifies transparency of something—a value of 0 is taken to mean ‘completely invisible’ and a value of 1 means ‘completely opaque’.</p>
+<div id="building-pipelines" class="section level1">
+<h1><span class="header-section-number">Chapter 16</span> Building pipelines</h1>
+<p>This chapter will introduce something called the pipe operator: <code>%&gt;%</code>. We don’t often use the various <strong>dplyr</strong> verbs in isolation. Instead, starting with our raw data, they are combined in a sequence to prepare the data for further analysis (e.g. making a plot, calculating summaries, fitting a statistical model, and so on). The function of the pipe operator is to make the data wrangling part of such a workflow as transparent as possible.</p>
+<div id="why-do-we-need-pipes" class="section level2">
+<h2><span class="header-section-number">16.1</span> Why do we need ‘pipes’?</h2>
+<p>We’ve seen that carrying out calculations on a per-group basis can be achieved by grouping a tibble, assigning this a name, and then applying the <code>summarise</code> function to the new tibble. For example, if we need the mean wind speed for every storm recorded in <code>storms_tbl</code>, we could use:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># 1. make a grouped copy of the storms data</span>
+storms_grouped &lt;-<span class="st"> </span><span class="kw">group_by</span>(storms_tbl, name)
+<span class="co"># 2. calculate the mean wind speed for each storm</span>
+<span class="kw">summarise</span>(storms_grouped, <span class="dt">mean.wind =</span> <span class="kw">mean</span>(wind))</code></pre></div>
+<pre><code>## # A tibble: 79 x 2
+##       name mean.wind
+##      &lt;chr&gt;     &lt;dbl&gt;
+##  1 Alberto  63.04598
+##  2    Alex  35.38462
+##  3 Allison  44.39394
+##  4     Ana  32.10526
+##  5  Arlene  39.03846
+##  6  Arthur  35.22727
+##  7   Barry  39.76190
+##  8  Bertha  60.00000
+##  9   Beryl  36.11111
+## 10    Bill  50.55556
+## # ... with 69 more rows</code></pre>
+<p>There’s nothing wrong with this way of doing things. However, this approach to building up an analysis is quite verbose—especially if an analysis involves more than a couple of steps—because we have to keep storing intermediate steps. It also tends to clutter the global environment with lots of data objects we don’t need.</p>
+<p>One way to make things more concise is to use a nested function call (we examined these in the <a href="using-functions.html#using-functions">Using functions</a> chapter), like this:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summarise</span>(<span class="kw">group_by</span>(storms_tbl, type), <span class="dt">mean.wind =</span> <span class="kw">mean</span>(wind))</code></pre></div>
+<pre><code>## # A tibble: 4 x 2
+##                  type mean.wind
+##                 &lt;chr&gt;     &lt;dbl&gt;
+## 1       Extratropical  40.06068
+## 2           Hurricane  84.65960
+## 3 Tropical Depression  27.35867
+## 4      Tropical Storm  47.32181</code></pre>
+<p>Here we placed the <code>group_by</code> function call inside the list of arguments to <code>summarise</code>. Remember, you have to read nested function calls from the inside out to understand what they are doing. This is exactly equivalent to the previous example. We get the same result without having to store intermediate data. However, there are a couple of good reasons why this approach is not advised:</p>
+<ul>
+<li><p>Experienced R users probably don’t mind this approach because they’re used to nested functions calls. Nonetheless, no reasonable person would argue that nesting functions inside one another is intuitive. Reading outward from the inside of a large number of nested functions is hard work.</p></li>
+<li><p>Even for experienced R users, using function nesting is a fairly error prone approach. For example, it’s very easy to accidentally put an argument or two on the wrong side of a closing <code>)</code>. If we’re lucky this will produce an error and we’ll catch the problem. If we’re not, we may just end up with nonsense in the output.</p></li>
+</ul>
+<p>There’s a third option for combing several functions that has the dual benefit of keeping our code concise and readable, while avoiding the need to clutter the global environment with intermediate objects. This third approach involves something called the “pipe” operator: <code>%&gt;%</code> (no spaces allowed). This isn’t part of base R though. Instead, it’s part of a package called <strong>magrittr</strong>. but there’s no need to install this if we’re using <strong>dplyr</strong> because <strong>dplyr</strong> imports it for us.</p>
+<p>The <code>%&gt;%</code> operator has become very popular in recent years. The main reason for this is because it allows us to specify a chain of function calls in a (reasonably) human readable format. Here’s how we write the previous example using the pipe operator <code>%&gt;%</code>:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">storms_tbl <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">group_by</span>(., type) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">summarise</span>(., <span class="dt">mean.wind =</span> <span class="kw">mean</span>(wind))</code></pre></div>
+<pre><code>## # A tibble: 4 x 2
+##                  type mean.wind
+##                 &lt;chr&gt;     &lt;dbl&gt;
+## 1       Extratropical  40.06068
+## 2           Hurricane  84.65960
+## 3 Tropical Depression  27.35867
+## 4      Tropical Storm  47.32181</code></pre>
+<p>How do we make sense of this? Every time we see the <code>%&gt;%</code> operator it means the following: take whatever is produced by the left hand expression and use it as an argument in the function on the right hand side. The <code>.</code> serves as a placeholder for the location of the corresponding argument. This means we can understand what a sequence of calculations is doing by reading from left to right, just as we would read the words in a book. This example says, take the <code>storms_tbl</code> data, group it by <code>type</code>, then take the resulting grouped tibble and apply the summarise function to it to calculate the mean of <code>wind</code>. It is exactly the same calculation we did above.</p>
+<p>When using the pipe operator we can often leave out the <code>.</code> placeholder. Remember, this signifies the argument of the function on the right of <code>%&gt;%</code> that is associated with the result from on left of <code>%&gt;%</code>. If we choose to leave out the <code>.</code>, the pipe operator assumes we meant to slot it into the first argument. This means we can simplify our example even more:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">storms_tbl <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">group_by</span>(type) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">summarise</span>(<span class="dt">mean.wind =</span> <span class="kw">mean</span>(wind))</code></pre></div>
+<pre><code>## # A tibble: 4 x 2
+##                  type mean.wind
+##                 &lt;chr&gt;     &lt;dbl&gt;
+## 1       Extratropical  40.06068
+## 2           Hurricane  84.65960
+## 3 Tropical Depression  27.35867
+## 4      Tropical Storm  47.32181</code></pre>
+<p>This is why the first argument of a <strong>dplyr</strong> verb is always the data object. This convention ensures that we can use <code>%&gt;%</code> without explicitly specifying the argument to match against.</p>
+<p>Remember, R does not care about white space, which means we can break a chained set of function calls over several lines if it becomes too long:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">storms_tbl <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">group_by</span>(type) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">summarise</span>(<span class="dt">mean.wind =</span> <span class="kw">mean</span>(wind))</code></pre></div>
+<pre><code>## # A tibble: 4 x 2
+##                  type mean.wind
+##                 &lt;chr&gt;     &lt;dbl&gt;
+## 1       Extratropical  40.06068
+## 2           Hurricane  84.65960
+## 3 Tropical Depression  27.35867
+## 4      Tropical Storm  47.32181</code></pre>
+<p>In fact, many <strong>dplyr</strong> users always place each part of a pipeline onto a new line to help with overall readability.</p>
+<p>Finally, when we need to assign the result of a chained functions we have to break the left to right rule a bit, placing the assignment at the beginning:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">new_data &lt;-<span class="st"> </span>
+<span class="st">  </span>storms_tbl <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">group_by</span>(type) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">summarise</span>(<span class="dt">mean.wind =</span> <span class="kw">mean</span>(wind))</code></pre></div>
+<p>(Actually, there is a rightward assignment operator, <code>-&gt;</code>, but let’s not worry about that)</p>
 <div class="info">
-<h4 id="built-in-colours-in-r">
-Built-in colours in R
+<h4 id="why-is-called-the-pipe-operator">
+Why is <code>%&gt;%</code> called the ‘pipe’ operator?
 </h4>
 <p>
-There is nothing special about “steelblue” other than the fact that it is colour name ‘known’ to R. There are over 650 colour names built-in to R. To see them, we can use a function called <code>colours</code> to print these to the Console. Try it.
+The <code>%&gt;%</code> operator takes the output from one function and “pipes it” to another as the input. It’s called ‘the pipe’ for the simple reason that it allows us to create an analysis ‘pipeline’ from a series of function calls. Incidentally, if you Google the phrase “magritt pipe” you’ll see that <strong>magrittr</strong> is a very clever name for an R package.
 </p>
 </div>
-<p>There are other arguments—such as <code>fill</code> and <code>shape</code>—that can be used to adjust the way the points are rendered. We won’t look at these here. The best way to learn how these work is to simply experiment with them.</p>
-<p>The <strong>key message</strong> to take away from this little customisation example is this: if we want to set the properties of a geom in a particular layer, we do so by specifying the appropriate arguments in the <code>geom_NAME</code> function that defines that layer. We <strong>do not</strong> change the arguments passed to the <code>ggplot</code> function.</p>
-<div class="info">
-<h4 id="how-should-we-format-ggplot2-code">
-How should we format <strong>ggplot2</strong> code?
-</h4>
-<p>
-Take another look at that last example. Notice that we split the <strong>ggplot2</strong> definition over two lines, placing each function on its own line. The whole thing will still be treated as a single expression when we do this because each line, apart from the last one, ends in a <code>+</code>. R doesn’t care about white space. As long as we leave the <code>+</code> at the end of each line R will consider each new line to be part of the same definition. Splitting the different parts of a graphical object definition across lines like this is a very good idea. It makes everything more readable and helps us spot errors. This way of formatting <strong>ggplot2</strong> code is pretty much essential once we start working with complex plots. We will always use this convention from now on.
-</p>
-</div>
-<div id="the-relationship-between-aesthetics-and-geom-properties." class="section level3">
-<h3><span class="header-section-number">19.1.1</span> The relationship between aesthetics and geom properties.</h3>
-<p>We’ve seen that we can introduce new information into a plot by setting up additional aesthetics. In the previous chapter we added the information about the time of year an observation was made by mapping the <code>seasday</code> variable to the colour aesthetic. Let’s try to add this to our new figure:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(storms, <span class="kw">aes</span>(<span class="dt">x =</span> pressure, <span class="dt">y =</span> wind, <span class="dt">colour =</span> seasday)) <span class="op">+</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">colour =</span> <span class="st">&quot;steelblue&quot;</span>, <span class="dt">size =</span> <span class="fl">1.5</span>, <span class="dt">alpha =</span> <span class="fl">0.3</span>)</code></pre></div>
-<p><img src="eda-for-bio_files/figure-html/unnamed-chunk-291-1.png" width="336" style="display: block; margin: auto;" /></p>
-<p>This doesn’t seem to have worked as hoped as the resulting scatter plot looks exactly like the previous one, i.e. all the points are the same colour. What went wrong? We’re still setting the colour argument of <code>geom_point</code>. When we add a layer, any layer-specific properties that we set will override the aesthetic mappings. We need to remove the <code>colour = &quot;steelblue&quot;</code> from inside <code>geom_point</code> to remedy this:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(storms, <span class="kw">aes</span>(<span class="dt">x =</span> pressure, <span class="dt">y =</span> wind, <span class="dt">colour =</span> seasday)) <span class="op">+</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">size =</span> <span class="fl">1.5</span>, <span class="dt">alpha =</span> <span class="fl">0.3</span>)</code></pre></div>
-<p><img src="eda-for-bio_files/figure-html/unnamed-chunk-292-1.png" width="432" style="display: block; margin: auto;" /></p>
-<p>That’s what we were aiming for. The points are now coloured again according to how they are associated with early (dark blue) or late (light blue) season observations.</p>
-<p>The <strong>key message</strong> to take away from this example is this: if we decide to change the properties of the geom in a particular layer, we will override any aesthetic mappings that conflict with our choice of customisation.</p>
-</div>
-</div>
-<div id="working-with-layer-specific-position-adjustments" class="section level2">
-<h2><span class="header-section-number">19.2</span> Working with layer specific position adjustments</h2>
-<p>What else might we do to make the plot a little easier to read? Wind speed is only measured to the nearest 5 mph, which is causing many points to be plotted on top of one another. One option to solve this problem is to randomly shuffle the vertical position of each point a little to avoid this over-plotting. This is called ‘jittering’. We do this by specifying a position adjustment in our layer. Remember, position adjustments are part of individual layers, not the whole plot. Here’s one way to do this:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(storms, <span class="kw">aes</span>(<span class="dt">x =</span> pressure, <span class="dt">y =</span> wind, <span class="dt">colour =</span> seasday)) <span class="op">+</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">alpha =</span> <span class="fl">0.3</span>, <span class="dt">size =</span> <span class="fl">1.5</span>, <span class="dt">position =</span> <span class="kw">position_jitter</span>(<span class="dt">w =</span> <span class="dv">0</span>, <span class="dt">h =</span> <span class="dv">4</span>))</code></pre></div>
-<p><img src="eda-for-bio_files/figure-html/unnamed-chunk-294-1.png" width="432" style="display: block; margin: auto;" /></p>
-<p>We used the <code>position_jitter</code> function to associate the necessary information with the position argument of <code>geom_point</code>. The <code>w</code> (’w’idth) and <code>h</code> (’h’eight) arguments of the <code>position_jitter</code> function specify how much to jitter points in the x and y directions. The resulting plot is a little easier to read.</p>
-<p>The <strong>key message</strong> to take away from this second customisation example is this: every layer has its own position adjustment, which we can change by setting the <code>position</code> argument inside the <code>geom_NAME</code> function that defines the corresponding layer. Just keep in mind that, very often, there’s no need to mess about with position adjustments (the defaults are fine).</p>
-</div>
-<div id="working-with-plot-specific-scales" class="section level2">
-<h2><span class="header-section-number">19.3</span> Working with plot specific scales</h2>
-<p>Let’s look at a different way to tweak our plot. So far we have been focussing on customisations that apply in a layer specific manner (geom properties and position adjustments). A second class of customisation applies to the whole plot. Specifically, this new type of customisation applies to the scales used in the plot. Here’s what we said about scales in the last chapter:</p>
-<blockquote>
-<p>The scale controls how the data is mapped to the aesthetic attributes. A scale takes the data and converts it into something we can perceive, such as an x/y location, or the colour and size of points in a plot. A scale must be defined for every aesthetic in a plot.</p>
-</blockquote>
-<p>Every aesthetic has a scale associated with it. We adjust ‘how the data is mapped to the aesthetic attributes’ by changing some aspect of the corresponding scale. This will seem very abstract at first. As always it’s best understood by example.</p>
-<p>We’re going to adjust the scale associated y axis aesthetic (‘y’). Specifically, we want to increase the number of ‘guides’ (the horizontal lines inside the plot) and their accompanying labels. Here is how we place guides at 20, 40, 60, 80, etc, on the y axis:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(storms, <span class="kw">aes</span>(<span class="dt">x =</span> pressure, <span class="dt">y =</span> wind, <span class="dt">colour =</span> seasday)) <span class="op">+</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">alpha =</span> <span class="fl">0.3</span>, <span class="dt">size =</span> <span class="fl">1.5</span>, <span class="dt">position =</span> <span class="kw">position_jitter</span>(<span class="dt">w =</span> <span class="dv">0</span>, <span class="dt">h =</span> <span class="dv">4</span>)) <span class="op">+</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">scale_y_continuous</span>(<span class="dt">breaks =</span> <span class="kw">seq</span>(<span class="dv">20</span>, <span class="dv">160</span>, <span class="dt">by =</span> <span class="dv">20</span>))</code></pre></div>
-<p><img src="eda-for-bio_files/figure-html/unnamed-chunk-295-1.png" width="432" style="display: block; margin: auto;" /></p>
-<p>What’s going on here? The functions that adjust a scale all have the general form <code>scale_XX_YY</code>. The <code>XX</code> bit in the name must reference the relevant aesthetics, while the <code>YY</code> part refers to the kind of scale we want to define. The aesthetic we wanted to alter was the y axis. It turns out (though it probably wasn’t obvious) that this is a continuous scale because wind is a numeric variable. This means we had to use the <code>scale_y_continuous</code> function to tweak the y axis (there is a <code>scale_x_continuous</code> function for altering the x axis). The <code>breaks</code> argument just takes a vector containing a numeric sequence and uses this to specify where the guides should be drawn.</p>
-<p>Scales are the hardest aspect of <strong>ggplot2</strong> to get to grips with. For one, there are a lot of them—type <code>scale_</code> at the Console and hit the tab key to see how many there are. Each of them can take a variety of different arguments. Luckily, the defaults used by <strong>ggplot2</strong> are often good enough that we can arrive at a good plot without having to manipulate the scales. We’ll take a look at a few more options as we progress through different visualisations.</p>
-<p>The <strong>key message</strong> to take away from this third customisation example is this: every aesthetic mapping has a scale associated with it. If we want to change how the information associated with an aesthetic is displayed we should change the corresponding scale. For example, if we want to change the way point colours are associated with the <code>seasday</code> variable we have to use one of the <code>scale_colour_YY</code> functions.</p>
-</div>
-<div id="adding-titles-and-labels" class="section level2">
-<h2><span class="header-section-number">19.4</span> Adding titles and labels</h2>
-<p>What else might we like to tweak? Look at the x and y axis labels. These are just the names of the data variables used to define the aesthetic mapping. These labels aren’t too bad in this case, but they could be more informative. We know “wind” stands for “wind speed”, but someone reading this figure may not realise this immediately. There are also no units – generally a big no-no for serious figures. Here is how to set the axis labels:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(storms, <span class="kw">aes</span>(<span class="dt">x =</span> pressure, <span class="dt">y =</span> wind, <span class="dt">colour =</span> seasday)) <span class="op">+</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">alpha =</span> <span class="fl">0.3</span>, <span class="dt">size =</span> <span class="fl">1.5</span>, <span class="dt">position =</span> <span class="kw">position_jitter</span>(<span class="dt">w =</span> <span class="dv">0</span>, <span class="dt">h =</span> <span class="dv">4</span>)) <span class="op">+</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">scale_y_continuous</span>(<span class="dt">breaks =</span> <span class="kw">seq</span>(<span class="dv">20</span>, <span class="dv">160</span>, <span class="dt">by =</span> <span class="dv">20</span>)) <span class="op">+</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Atmospheric Pressure (mbar)&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">ylab</span>(<span class="st">&quot;Wind Speed (mph)&quot;</span>)</code></pre></div>
-<p><img src="eda-for-bio_files/figure-html/unnamed-chunk-296-1.png" width="432" style="display: block; margin: auto;" /></p>
-<p>The axes labels are a feature of the whole plot. They do not belong to a particular layer. This is why we don’t alter axis labels by passing arguments to the function that built a layer (<code>geom_point</code> in this case). Instead, we use the <code>xlab</code> and <code>ylab</code> functions to set the x and y labels, respectively, using <code>+</code> to add them to our graphical object. If we need to add a title to a graph we can use the <code>ggtitle</code> function in the same way.</p>
-<p>The <code>labs</code> function provides a more flexible alternative to <code>xlab</code> and <code>ylab</code>. It’s more flexible because <code>labs</code> can be used to change the label of every aesthetic in the plot. For example, if we want to set the labels of the x and y axes, and the label associated with <code>seasday</code>, we use:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(storms, <span class="kw">aes</span>(<span class="dt">x =</span> pressure, <span class="dt">y =</span> wind, <span class="dt">colour =</span> seasday)) <span class="op">+</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">alpha =</span> <span class="fl">0.3</span>, <span class="dt">size =</span> <span class="fl">1.5</span>, <span class="dt">position =</span> <span class="kw">position_jitter</span>(<span class="dt">w =</span> <span class="dv">0</span>, <span class="dt">h =</span> <span class="dv">4</span>)) <span class="op">+</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">scale_y_continuous</span>(<span class="dt">breaks =</span> <span class="kw">seq</span>(<span class="dv">20</span>, <span class="dv">160</span>, <span class="dt">by =</span> <span class="dv">20</span>)) <span class="op">+</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Atmospheric Pressure (mbar)&quot;</span>, 
-       <span class="dt">y =</span> <span class="st">&quot;Wind Speed (mph)&quot;</span>,
-       <span class="dt">colour =</span> <span class="st">&quot;Day of </span><span class="ch">\n</span><span class="st">Season&quot;</span>)</code></pre></div>
-<p><img src="eda-for-bio_files/figure-html/unnamed-chunk-297-1.png" width="432" style="display: block; margin: auto;" /></p>
-<p>We snuck one last trick into that last example. Notice that the “Day of Season” label is split over two lines. We did this by inserting the special sequnce <code>\n</code> into the label text. The <code>\n</code> inside a quoted label tells R to start a new line.</p>
-</div>
-<div id="themes" class="section level2">
-<h2><span class="header-section-number">19.5</span> Themes</h2>
-<p>The final route to customisation we’ll consider concerns something called the ‘theme’ of a plot. We haven’t considered the <strong>ggplot2</strong> theme system at all yet. In simple terms, <strong>ggplot2</strong> themes deal with the visual aspects of a plot that aren’t directly handled by adjusting geom properties or scales, i.e. the ‘non-data’ parts of a plot. This includes features such as the colour of the plotting region and the grid lines, whether or not those grid lines are even displayed, the position of labels, the font used in labels, and so on.</p>
-<p>The <strong>ggplot2</strong> theme system is extremely powerful. Once we know how to use it, we can set up a custom theme to meet our requirements and then apply it as needed with very little effort. However, it’s not an entirely trivial thing to learn about because there are so many components of every plot. Fortunately there are a range of themes built into <strong>ggplot2</strong> that are easily good enough for producing publication ready figures. Let’s assume we have made a plot object <code>final_plt</code> containing all the information and data formatting we want:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">final_plt &lt;-<span class="st"> </span>
-<span class="st">  </span><span class="kw">ggplot</span>(storms, <span class="kw">aes</span>(<span class="dt">x =</span> pressure, <span class="dt">y =</span> wind, <span class="dt">colour =</span> seasday)) <span class="op">+</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">alpha =</span> <span class="fl">0.3</span>, <span class="dt">size =</span> <span class="fl">1.5</span>, <span class="dt">position =</span> <span class="kw">position_jitter</span>(<span class="dt">w =</span> <span class="dv">0</span>, <span class="dt">h =</span> <span class="dv">4</span>)) <span class="op">+</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">scale_y_continuous</span>(<span class="dt">breaks =</span> <span class="kw">seq</span>(<span class="dv">20</span>, <span class="dv">160</span>, <span class="dt">by =</span> <span class="dv">20</span>)) <span class="op">+</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Atmospheric Pressure (mbar)&quot;</span>, 
-       <span class="dt">y =</span> <span class="st">&quot;Wind Speed (mph)&quot;</span>,
-       <span class="dt">colour =</span> <span class="st">&quot;Day of </span><span class="ch">\n</span><span class="st">Season&quot;</span>)</code></pre></div>
-<p>Here’s how to use the built in themes to alter the themes used to plot the <code>final_plt</code> object:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">final_plt <span class="op">+</span><span class="st"> </span><span class="kw">theme_bw</span>()</code></pre></div>
-<p><img src="eda-for-bio_files/figure-html/unnamed-chunk-299-1.png" width="432" style="display: block; margin: auto;" /></p>
-<p>In this example we use <code>+</code> with the <code>theme_bw</code> function to use the built in ‘black and white’ theme. This removes the grey background that so many people dislike in <strong>ggplot2</strong>.</p>
-<p>There aren’t that many themes built into <strong>ggplot2</strong>—type <code>theme_</code> at the Console and hit the tab key to see the others. One popular alternative to <code>theme_bw</code> is the ‘classic’ theme, via <code>theme_classic</code>:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">final_plt <span class="op">+</span><span class="st"> </span><span class="kw">theme_classic</span>(<span class="dt">base_size =</span> <span class="dv">15</span>)</code></pre></div>
-<p><img src="eda-for-bio_files/figure-html/unnamed-chunk-300-1.png" width="432" style="display: block; margin: auto;" /></p>
-<p>This produces a very stripped down plot that’s much closer to those produced by the base graphics system. Notice that we did one more thing here: we set the <code>base_size</code> argument to 15 to increase the size of all the text in the figure (the default is 11). This can be used with any <code>theme_XX</code> function to quickly change the relative size of all the text in a plot.</p>
+<p>One final piece of advice: learn how to use the <code>%&gt;%</code> method of chaining together functions. Why? Because it’s the simplest and cleanest method for doing this, many of the examples in the <strong>dplyr</strong> help files and on the web use it, and the majority of people carrying out real world data wrangling with <strong>dplyr</strong> rely on piping.</p>
 
 </div>
+</div>
+
+
+
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="introduction-to-ggplot2.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="exploring-one-numeric-variable.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="grouping-and-summarising-data.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="exploratory-data-analysis.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -517,7 +497,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/dzchilds/eda-for-bio/edit/master/3_03_ggplot_customise.Rmd",
+"link": "https://github.com/dzchilds/eda-for-bio/edit/master/2_08_dplyr_pipes.Rmd",
 "text": "Edit"
 },
 "download": null,

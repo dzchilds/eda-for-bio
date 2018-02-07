@@ -6,9 +6,8 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>APS 135: Introduction to Exploratory Data Analysis with R</title>
-  <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
   <meta name="description" content="Course book for Introduction to Exploratory Data Analysis with R (APS 135) in the Department of Animal and Plant Sciences, University of Sheffield.">
-  <meta name="generator" content="bookdown 0.3 and GitBook 2.6.7">
+  <meta name="generator" content="bookdown 0.5 and GitBook 2.6.7">
 
   <meta property="og:title" content="APS 135: Introduction to Exploratory Data Analysis with R" />
   <meta property="og:type" content="book" />
@@ -26,7 +25,7 @@
 <meta name="author" content="Dylan Z. Childs">
 
 
-<meta name="date" content="2017-03-21">
+<meta name="date" content="2018-02-07">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -35,7 +34,6 @@
   
 <link rel="prev" href="customising-plots.html">
 <link rel="next" href="exploring-categorical-variables.html">
-
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -115,6 +113,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </head>
 
 <body>
+
 
 
   <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
@@ -277,8 +276,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul></li>
 <li class="chapter" data-level="15.3" data-path="grouping-and-summarising-data.html"><a href="grouping-and-summarising-data.html#removing-grouping-information"><i class="fa fa-check"></i><b>15.3</b> Removing grouping information</a></li>
 </ul></li>
-<li class="chapter" data-level="16" data-path="building-piplines.html"><a href="building-piplines.html"><i class="fa fa-check"></i><b>16</b> Building piplines</a><ul>
-<li class="chapter" data-level="16.1" data-path="building-piplines.html"><a href="building-piplines.html#why-do-we-need-pipes"><i class="fa fa-check"></i><b>16.1</b> Why do we need ‘pipes’?</a></li>
+<li class="chapter" data-level="16" data-path="building-pipelines.html"><a href="building-pipelines.html"><i class="fa fa-check"></i><b>16</b> Building pipelines</a><ul>
+<li class="chapter" data-level="16.1" data-path="building-pipelines.html"><a href="building-pipelines.html#why-do-we-need-pipes"><i class="fa fa-check"></i><b>16.1</b> Why do we need ‘pipes’?</a></li>
 </ul></li>
 <li class="part"><span><b>III Exporing Data</b></span></li>
 <li class="chapter" data-level="17" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html"><i class="fa fa-check"></i><b>17</b> Exploratory data analysis</a><ul>
@@ -377,7 +376,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p>We’ll work with the <code>wind</code> and <code>pressure</code> variables in <code>storms</code> to illustrate the key ideas. Wind speed and atmospheric pressure are clearly numeric variables. We can say a bit more. They are both numeric variables that are measured on a ratio scale because zero really is zero: it makes sense to say that 20 mph is twice as fast as 10 mph and 1000 mbar exerts twice as much pressure on objects as 500 mbar. Are these continuous or discrete variables? Think about the possible values that wind speed and atmospheric pressure can take. A wind speed and atmospheric pressure of 40.52 mph and 1000.23 mbar are perfectly reasonable values, so fundamentally, these are continuous variables.</p>
 <p>The simplest way to understand our data, if not the most effective, is to view it in its raw form. We can always use the <code>View</code> function to do this in RStudio. However, since this doesn’t work on a web page, we’ll take a quick look at the first 100 values of the <code>wind</code> and <code>pressure</code> variables in <code>storms</code>. We can print these to the Console by extracting each of them with the <code>$</code> operator, using the <code>[</code> construct to subset the first 100 elements of each vector:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># first 100 values of atmospheric pressure</span>
-storms$pressure[<span class="dv">1</span>:<span class="dv">100</span>]</code></pre></div>
+storms<span class="op">$</span>pressure[<span class="dv">1</span><span class="op">:</span><span class="dv">100</span>]</code></pre></div>
 <pre><code>##   [1] 1005 1004 1003 1001  997  995  987  988  988  990  990  993  993  994
 ##  [15]  995  995  992  990  988  984  982  984  989  993  995  996  997 1000
 ##  [29]  997  990  992  992  993 1019 1019 1018 1017 1016 1013 1011 1009 1007
@@ -387,7 +386,7 @@ storms$pressure[<span class="dv">1</span>:<span class="dv">100</span>]</code></p
 ##  [85]  998  998  999  999 1000 1000 1001 1002 1003 1005 1005 1009 1008 1008
 ##  [99] 1008 1007</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># first 100 values of wind speed</span>
-storms$wind[<span class="dv">1</span>:<span class="dv">100</span>]</code></pre></div>
+storms<span class="op">$</span>wind[<span class="dv">1</span><span class="op">:</span><span class="dv">100</span>]</code></pre></div>
 <pre><code>##   [1] 30 30 35 40 50 60 65 65 65 60 60 45 30 35 35 40 40 45 45 45 50 50 50
 ##  [24] 45 40 40 40 40 40 40 40 35 35 20 20 20 25 25 30 30 30 35 40 60 60 55
 ##  [47] 50 50 50 50 50 50 45 40 25 25 25 30 30 30 30 30 35 35 35 40 40 45 45
@@ -401,8 +400,8 @@ storms$wind[<span class="dv">1</span>:<span class="dv">100</span>]</code></pre><
 <h2><span class="header-section-number">20.2</span> Graphical summaries</h2>
 <p>We only looked at the first 100 values of the <code>wind</code> and <code>pressure</code> variables because the <code>storms</code> data set is too large to look everything at once. It’s hard to say much about the sample distribution of these two variables by just looking at such a small subset of values. If the data set has been sorted, these might not even be representative of the wider sample.</p>
 <p>What else might we do? One useful tool is ‘binning’. The idea behind binning a variable is very simple. It involves two steps. First, we take the set of possible values of our numeric variable and divide this into a equal sized, non-overlapping intervals. We can use any interval size we like, as long as it is large enough to span at least two observations some of the time, though in practice some choices are more sensible than others. We then have to work out how many values of the our variable fall inside each bin. The resulting set of counts tells us quiet a lot about the sample distribution.</p>
-<p>let’s see how this works with an example. Binning is very tedious to do by hand, but as we might expect, there are a couple of base R function that can do this for us: <code>cut</code> and <code>table</code>. Here’s how to use these to bin the <code>pressure</code> variable into intervals of 10 mbar:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">presure_bins &lt;-<span class="st"> </span><span class="kw">cut</span>(storms$pressure, 
+<p>Let’s see how this works with an example. Binning is very tedious to do by hand, but as we might expect, there are a couple of base R function that can do this for us: <code>cut</code> and <code>table</code>. Here’s how to use these to bin the <code>pressure</code> variable into intervals of 10 mbar:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">presure_bins &lt;-<span class="st"> </span><span class="kw">cut</span>(storms<span class="op">$</span>pressure, 
                   <span class="dt">breaks =</span> <span class="kw">seq</span>(<span class="dv">900</span>, <span class="dv">1020</span>, <span class="dt">by =</span> <span class="dv">5</span>), <span class="dt">right =</span> <span class="ot">FALSE</span>)
 <span class="kw">table</span>(presure_bins)</code></pre></div>
 <pre><code>## presure_bins
@@ -423,7 +422,7 @@ storms$wind[<span class="dv">1</span>:<span class="dv">100</span>]</code></pre><
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">plt_hist &lt;-<span class="st"> </span><span class="kw">ggplot</span>(storms, <span class="kw">aes</span>(<span class="dt">x =</span> pressure))</code></pre></div>
 <p>This is no different than the extended scatter plot example we stepped through earlier. The only difference is that a histogram requires only one aesthetic mapping. We supplied the argument <code>x = pressure</code> to <code>aes</code> because we want to display the map intervals associated with <code>pressure</code> to the x axis. We don’t need to supply an aesthetic mapping for the y axis because <code>ggplot2</code> is going to handle this for us.</p>
 <p>The second step adds a layer to the <code>plt_hist</code> object. We need to find the right <code>geom_XX</code> function to do this. Unsurprisingly, this is called <code>geom_histogram</code>:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">plt_hist &lt;-<span class="st"> </span>plt_hist +<span class="st"> </span><span class="kw">geom_histogram</span>()
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">plt_hist &lt;-<span class="st"> </span>plt_hist <span class="op">+</span><span class="st"> </span><span class="kw">geom_histogram</span>()
 <span class="kw">summary</span>(plt_hist)</code></pre></div>
 <pre><code>## data: name, year, month, day, hour, lat, long, pressure, wind,
 ##   type, seasday [2747x11]
@@ -459,32 +458,32 @@ storms$wind[<span class="dv">1</span>:<span class="dv">100</span>]</code></pre><
 <pre><code>## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
 <p><img src="eda-for-bio_files/figure-html/unnamed-chunk-307-1.png" width="336" style="display: block; margin: auto;" /></p>
 <p>The resulting plot is not quite the same as the example we saw above because it uses different bins. It’s a good idea to play around with the bin size to arrive at an informative histogram. We set the properties of the <code>geom_histogram</code> to tweak this kind of thing—the <code>binwidth</code> argument adjusts the width of the bins used. Let’s construct the histogram again with 7 mbar wide bins, as well as adjust the colour scheme and axis labels a bit:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(storms, <span class="kw">aes</span>(<span class="dt">x =</span> pressure)) +<span class="st"> </span>
-<span class="st">  </span><span class="kw">geom_histogram</span>(<span class="dt">binwidth =</span> <span class="dv">7</span>, <span class="dt">fill =</span> <span class="st">&quot;steelblue&quot;</span>, <span class="dt">colour=</span><span class="st">&quot;darkgrey&quot;</span>, <span class="dt">alpha =</span> <span class="fl">0.8</span>) +<span class="st"> </span>
-<span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Atmospheric Pressure (mbar)&quot;</span>) +<span class="st"> </span><span class="kw">ylab</span>(<span class="st">&quot;Count&quot;</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(storms, <span class="kw">aes</span>(<span class="dt">x =</span> pressure)) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_histogram</span>(<span class="dt">binwidth =</span> <span class="dv">7</span>, <span class="dt">fill =</span> <span class="st">&quot;steelblue&quot;</span>, <span class="dt">colour=</span><span class="st">&quot;darkgrey&quot;</span>, <span class="dt">alpha =</span> <span class="fl">0.8</span>) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Atmospheric Pressure (mbar)&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">ylab</span>(<span class="st">&quot;Count&quot;</span>)</code></pre></div>
 <p><img src="eda-for-bio_files/figure-html/unnamed-chunk-308-1.png" width="336" style="display: block; margin: auto;" /></p>
 <p>Whether or not that colour scheme is an improvement is a matter of taste. Mostly we wanted to demonstrate how the <code>fill</code>, <code>colour</code>, and <code>alpha</code> arguments change the output. Notice that the effect of increasing the bin width is to ‘smooth’ the histogram, i.e. this version looks less jagged than the last.</p>
 <p>We can use pretty much the same R code to produce a histogram summarising the wind speed sample distribution:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(storms, <span class="kw">aes</span>(<span class="dt">x =</span> wind)) +<span class="st"> </span>
-<span class="st">  </span><span class="kw">geom_histogram</span>(<span class="dt">binwidth =</span> <span class="dv">10</span>, <span class="dt">fill =</span> <span class="st">&quot;steelblue&quot;</span>, <span class="dt">colour=</span><span class="st">&quot;darkgrey&quot;</span>, <span class="dt">alpha =</span> <span class="fl">0.8</span>) +
-<span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Wind Speed (mph)&quot;</span>) +<span class="st"> </span><span class="kw">ylab</span>(<span class="st">&quot;Count&quot;</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(storms, <span class="kw">aes</span>(<span class="dt">x =</span> wind)) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_histogram</span>(<span class="dt">binwidth =</span> <span class="dv">10</span>, <span class="dt">fill =</span> <span class="st">&quot;steelblue&quot;</span>, <span class="dt">colour=</span><span class="st">&quot;darkgrey&quot;</span>, <span class="dt">alpha =</span> <span class="fl">0.8</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Wind Speed (mph)&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">ylab</span>(<span class="st">&quot;Count&quot;</span>)</code></pre></div>
 <p><img src="eda-for-bio_files/figure-html/unnamed-chunk-309-1.png" width="336" style="display: block; margin: auto;" /></p>
 <p>The only things that changed in this example were the aesthetic mapping and the bin width, which we set to 10. It reveals that the wind speed during a storm tends to be about 40 mph, though the range of wind speeds is about 100 mph and the shape of the distribution is asymmetric.</p>
 <p>We have to choose the bin widths carefully. Remember that wind speed is measured to the nearest 5 mph. This means we should choose a bin width that is a multiple of 5 to produce a meaningful histogram. Look what happens if we set the bin width to 3:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(storms, <span class="kw">aes</span>(<span class="dt">x =</span> wind)) +<span class="st"> </span>
-<span class="st">  </span><span class="kw">geom_histogram</span>(<span class="dt">binwidth =</span> <span class="dv">3</span>, <span class="dt">fill =</span> <span class="st">&quot;steelblue&quot;</span>, <span class="dt">colour=</span><span class="st">&quot;darkgrey&quot;</span>, <span class="dt">alpha =</span> <span class="fl">0.8</span>) +<span class="st"> </span>
-<span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Wind Speed (mph)&quot;</span>) +<span class="st"> </span><span class="kw">ylab</span>(<span class="st">&quot;Count&quot;</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(storms, <span class="kw">aes</span>(<span class="dt">x =</span> wind)) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_histogram</span>(<span class="dt">binwidth =</span> <span class="dv">3</span>, <span class="dt">fill =</span> <span class="st">&quot;steelblue&quot;</span>, <span class="dt">colour=</span><span class="st">&quot;darkgrey&quot;</span>, <span class="dt">alpha =</span> <span class="fl">0.8</span>) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Wind Speed (mph)&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">ylab</span>(<span class="st">&quot;Count&quot;</span>)</code></pre></div>
 <p><img src="eda-for-bio_files/figure-html/unnamed-chunk-310-1.png" width="336" style="display: block; margin: auto;" /></p>
 <p>We end up with gaps in the histogram because some intervals do not include multiples of 5. This is not a good histogram because it fails to reliably summarise the distribution. Similar problems would occur if we chose a bin width that is greater than, but not a multiple of 5, because different bins would cover a different number of values that make up the <code>wind</code> variable. The take home message is that we have to know our data in order to produce meaningful summaries of it.</p>
 <p>We’ll finish up this subsection by briefly reviewing one alternative to the histogram. Histograms are good for visualising sample distributions when we have a reasonable sample size (at least dozens, and ideally, hundreds of observations). They aren’t very effective when the sample is quite small. In this ‘small data’ situation it’s better to use something called a <strong>dot plot</strong><a href="#fn8" class="footnoteRef" id="fnref8"><sup>8</sup></a>.</p>
 <p>Let’s use <strong>dplyr</strong> to extract a small(ish) subset of the storms data:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">storms_small &lt;-<span class="st"> </span>
-<span class="st">  </span>storms %&gt;%<span class="st"> </span>
-<span class="st">  </span><span class="kw">filter</span>(year ==<span class="st"> </span><span class="dv">1998</span>, type ==<span class="st"> &quot;Hurricane&quot;</span>)</code></pre></div>
+<span class="st">  </span>storms <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">filter</span>(year <span class="op">==</span><span class="st"> </span><span class="dv">1998</span>, type <span class="op">==</span><span class="st"> &quot;Hurricane&quot;</span>)</code></pre></div>
 <p>This just extracts the subset of hurricane observations from 1998. The <strong>ggplot2</strong> code to make a dot plot with these data is very similar to the histogram case:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(storms_small, <span class="kw">aes</span>(<span class="dt">x =</span> pressure)) +<span class="st"> </span>
-<span class="st">  </span><span class="kw">geom_dotplot</span>(<span class="dt">binwidth =</span> <span class="dv">2</span>) +<span class="st"> </span>
-<span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Atmospheric Pressure (mbar)&quot;</span>) +<span class="st"> </span><span class="kw">ylab</span>(<span class="st">&quot;Count&quot;</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(storms_small, <span class="kw">aes</span>(<span class="dt">x =</span> pressure)) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_dotplot</span>(<span class="dt">binwidth =</span> <span class="dv">2</span>) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Atmospheric Pressure (mbar)&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">ylab</span>(<span class="st">&quot;Count&quot;</span>)</code></pre></div>
 <p><img src="eda-for-bio_files/figure-html/unnamed-chunk-312-1.png" width="336" style="display: block; margin: auto;" /></p>
 <p>Here, each observation in the data adds one dot, and dots that fall into the same bin are stacked up on top of one another. The resulting plot displays the same information about a sample distribution as a histogram, but it tends to be more informative when there are relatively few observations.</p>
 </div>
@@ -502,19 +501,19 @@ storms$wind[<span class="dv">1</span>:<span class="dv">100</span>]</code></pre><
 \bar{x} = \frac{1}{N}\sum\limits_{i=1}^{N}{x_i}
 \]</span> We need to define the terms to make sense of this. The <span class="math inline">\(\bar{x}\)</span> stands for the arithmetic sample mean. The <span class="math inline">\(N\)</span> in the right hand side of this expression is the sample size, i.e. the number of observations in a sample. The <span class="math inline">\(x_i\)</span> refer to the set of values the variable takes in the sample. The <span class="math inline">\(i\)</span> is an index used to reference each observation: the first observation has value <span class="math inline">\(x_1\)</span>, the second has value <span class="math inline">\(x_2\)</span>, and so on, up to the last value, <span class="math inline">\(x_N\)</span>. Finally, the <span class="math inline">\(\Sigma_{i=1}^{N}\)</span> stands for summation (‘adding up’) from <span class="math inline">\(i = 1\)</span> to <span class="math inline">\(N\)</span>.</p>
 <p>Most people have used this formula at some point even though they may not have realised it. The <code>mean</code> function in R will calculate the arithmetic mean for us:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">mean</span>(storms$wind)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">mean</span>(storms<span class="op">$</span>wind)</code></pre></div>
 <pre><code>## [1] 54.68329</code></pre>
 <p>This tells us that the arithmetic sample mean of wind speed is 55 mph. How useful is this?</p>
 <p>One limitation of the arithmetic mean is that it is affected by the shape of a distribution. It’s very sensitive to the extremes of a sample distribution. This is why, for example, it does not make much sense to look at the mean income of workers in a country to get a sense of what a ‘typical’ person earns. Income distribution are highly asymmetric, and those few who are lucky enough to earn very good salaries tend to shift the mean upward and well past anything that is really ‘typical’. The sample mean is also strongly affected by the presence of ‘outliers’. It’s difficult to give a precise definition of outliers—the appropriate definition depends on the context—but roughly speaking, these are unusually large or small values.</p>
 <p>Because the sample mean is sensitive to the shape of a distribution and the presence of outliers we often prefer a second measure of central tendency: the <strong>sample median</strong>. The median of a sample is the number separating the upper half from the lower half<a href="#fn10" class="footnoteRef" id="fnref10"><sup>10</sup></a>. We can find the sample median in R with the <code>median</code> function:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">median</span>(storms$wind)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">median</span>(storms<span class="op">$</span>wind)</code></pre></div>
 <pre><code>## [1] 50</code></pre>
 <p>The sample median of wind speed is 50 mph. This is still to the right of the most common values of wind speed, but it shifted less than the mean.</p>
 <div id="what-about-the-mode" class="section level4">
 <h4><span class="header-section-number">20.3.1.1</span> What about ‘the mode’?</h4>
 <p>What does the phrase “the most common values” (e.g. of wind speed) really mean when describing a distribution? In fact, this is an indirect reference to something called the <strong>mode</strong> of the distribution. The mode of a distribution is essentially its peak, i.e. it locates the most likely value of a variable. Notice that we didn’t use the phrase ‘sample mode’. It’s easy to calculate the mode of a theoretical distribution. Unfortunately, it’s not a simple matter to reliably estimate the mode of a sample from such a distribution.</p>
 <p>If a numeric variable is discrete, and we have a lot of data, we can sometimes arrive at an estimate of the mode by tabulating the number of observations in each numeric category. Although in truth wind speed is a continuous variable, it is only measured to the nearest 5mph in the <code>storms</code> data set. Therefore, it looks like a discrete variable. We can use the <code>table</code> function here to tabulate the number of observations at each value:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">table</span>(storms$wind)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">table</span>(storms<span class="op">$</span>wind)</code></pre></div>
 <pre><code>## 
 ##  15  20  25  30  35  40  45  50  55  60  65  70  75  80  85  90  95 100 
 ##   3 122 168 345 234 212 228 208 136 154 189 136 119  94  61  76  40  57 
@@ -529,11 +528,11 @@ storms$wind[<span class="dv">1</span>:<span class="dv">100</span>]</code></pre><
 <p>There are many ways to quantify the dispersion of a sample distribution. The most important quantities from the standpoint of statistics are the sample <strong>variance</strong> and <strong>standard deviation</strong>. The sample variance (<span class="math inline">\(s^2\)</span>) is ‘the sum of squared deviations’ (i.e. the differences) of each observation from the sample mean, divided by the sample size minus one. Here’s the mathematical definition: <span class="math display">\[
 s^2 = \frac{1}{N-1}\sum\limits_{i=1}^{N}{(x_i-\bar{x})^2}
 \]</span> The meaning of these terms is the same as for the sample mean. The <span class="math inline">\(\bar{x}\)</span> is the sample mean, the <span class="math inline">\(N\)</span> is the sample size, and the <span class="math inline">\(x_i\)</span> refers to the set of values the variable takes. We don’t have to actually apply this formula in R. There’s a function to calculate the sample variance:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">var</span>(storms$wind)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">var</span>(storms<span class="op">$</span>wind)</code></pre></div>
 <pre><code>## [1] 668.1444</code></pre>
 <p>What does that number actually mean? Variances are always non-negative. A small variance indicates that observations tend to be close to the mean (and to one another), while a high variance indicates that observations are very spread out. A variance of zero only occurs if all values are identical. However, it is difficult to interpret whether a sample variance is really “small” or “large” because the calculation involves squared deviations. For example, changing the measurement scale of a variable by 10 involves a 100-fold change (10<sup>2</sup>) in the variance.</p>
 <p>The variance is a important quantity in statistics that crops up over and over again. Many common statistical tools use changes in variance to formally compare how well different models describe a data set. However, it is very difficult to interpret variances, which is why we seldom use them in exploratory work. A better statistic is to describe sample dispersion is a closely related quantity called the <strong>standard deviation</strong> of the sample, usually denoted <span class="math inline">\(s\)</span>. The standard deviation is the square root of the variance. We calculate it using the <code>sd</code> function:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sd</span>(storms$wind)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sd</span>(storms<span class="op">$</span>wind)</code></pre></div>
 <pre><code>## [1] 25.84849</code></pre>
 <p>Why do we prefer the standard deviation over the variance? Consider the wind speed again. The standard deviation of the wind speed sample is 26. Take another look at the wind speed histogram. This shows that the wind speed measurements span about 5 standard deviations. If we had instead measured wind speed in kilometers per hour (kph), the standard deviation of the sample would be 42, because 1 mph ~ 1.6 kph. If we plot the histogram of wind speed in kph it is still the case that the data are spanned by about 5 standard deviations. The variance on the other hand increases from to approximately 668 to 1730, a factor of 1.6<sup>2</sup>. This is the reason we often use the standard deviation compare dispersion: it reflects the dispersion we perceive in the data.</p>
 <p>The sample standard deviation is not without problems though. Like the sample mean, it is sensitive to the shape of a distribution and the presence of outliers. A measure of dispersion that is more robust to these kinds of features is the <strong>interquartile range</strong>.</p>
@@ -549,7 +548,7 @@ The quartiles also have other names. The first quartile is sometimes called the 
 </p>
 </div>
 <p>The interquartile range (IQR) is defined as the difference between the third and first quartile. This means the IQR contains the middle 50% of values of a variable. Obviously, the more spread out the data are, the larger the IQR will be. The reason we prefer to use IQR to measure dispersion is that it only depends on the data in the “middle” of a sample distribution. This makes it robust to the presence of outliers. We can use the <code>IQR</code> function to find the interquartile range of the wind variable:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">IQR</span>(storms$wind)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">IQR</span>(storms<span class="op">$</span>wind)</code></pre></div>
 <pre><code>## [1] 35</code></pre>
 <p>The IQR is used as the basis for a useful data summary plot called a ‘box and whiskers’ plot. We’ll see how to construct this in a later next chapter.</p>
 </div>
@@ -578,8 +577,9 @@ The quartiles also have other names. The first quartile is sometimes called the 
         </div>
       </div>
 <a href="customising-plots.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="exploring-categorical-variables.html" class="navigation navigation-next " aria-label="Next page""><i class="fa fa-angle-right"></i></a>
-
+<a href="exploring-categorical-variables.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/lunr.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
@@ -588,7 +588,7 @@ The quartiles also have other names. The first quartile is sometimes called the 
 <script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
 <script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
 <script>
-require(["gitbook"], function(gitbook) {
+gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
 "sharing": {
 "github": false,
@@ -623,7 +623,7 @@ gitbook.start({
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    script.src  = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:" && /^https?:/.test(script.src))
       script.src  = script.src.replace(/^https?:/, '');
     document.getElementsByTagName("head")[0].appendChild(script);

@@ -6,9 +6,8 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>APS 135: Introduction to Exploratory Data Analysis with R</title>
-  <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
   <meta name="description" content="Course book for Introduction to Exploratory Data Analysis with R (APS 135) in the Department of Animal and Plant Sciences, University of Sheffield.">
-  <meta name="generator" content="bookdown 0.3 and GitBook 2.6.7">
+  <meta name="generator" content="bookdown 0.5 and GitBook 2.6.7">
 
   <meta property="og:title" content="APS 135: Introduction to Exploratory Data Analysis with R" />
   <meta property="og:type" content="book" />
@@ -26,7 +25,7 @@
 <meta name="author" content="Dylan Z. Childs">
 
 
-<meta name="date" content="2017-03-21">
+<meta name="date" content="2018-02-07">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -35,7 +34,6 @@
   
 <link rel="prev" href="scripts.html">
 <link rel="next" href="numeric-vectors.html">
-
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -115,6 +113,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </head>
 
 <body>
+
 
 
   <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
@@ -277,8 +276,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul></li>
 <li class="chapter" data-level="15.3" data-path="grouping-and-summarising-data.html"><a href="grouping-and-summarising-data.html#removing-grouping-information"><i class="fa fa-check"></i><b>15.3</b> Removing grouping information</a></li>
 </ul></li>
-<li class="chapter" data-level="16" data-path="building-piplines.html"><a href="building-piplines.html"><i class="fa fa-check"></i><b>16</b> Building piplines</a><ul>
-<li class="chapter" data-level="16.1" data-path="building-piplines.html"><a href="building-piplines.html#why-do-we-need-pipes"><i class="fa fa-check"></i><b>16.1</b> Why do we need ‘pipes’?</a></li>
+<li class="chapter" data-level="16" data-path="building-pipelines.html"><a href="building-pipelines.html"><i class="fa fa-check"></i><b>16</b> Building pipelines</a><ul>
+<li class="chapter" data-level="16.1" data-path="building-pipelines.html"><a href="building-pipelines.html#why-do-we-need-pipes"><i class="fa fa-check"></i><b>16.1</b> Why do we need ‘pipes’?</a></li>
 </ul></li>
 <li class="part"><span><b>III Exporing Data</b></span></li>
 <li class="chapter" data-level="17" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html"><i class="fa fa-check"></i><b>17</b> Exploratory data analysis</a><ul>
@@ -382,7 +381,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p>We have suppressed the output for now so that we can unpack things a bit first. Every time we use a function we always have to work with the same basic construct (there are a few exceptions, but we can ignore these for now). We start with the name of the function, that is, we use the name of the function as the prefix. In this case, the function name is <code>round</code>. After the function name, we need a pair of opening and closing parentheses. It is this combination of name and parentheses that that alerts R to fact that we are trying to use a function. Whenever we see name followed by opening and closing parentheses we’re seeing a function in action.</p>
 <p>What about the bits inside the parentheses? These are called the <strong>arguments</strong> of the function. That is a horrible name, but it is the one that everyone uses so we have to get used to it. Depending on how it was defined, a function can take zero, one, or more arguments. We will discuss this idea in more detail later in this section.</p>
 <p>In the simple example above, we used the <code>round</code> function with two arguments. Each of these was supplied as a name-value pair, separated by a comma. When working with arguments, name-value pairs occur either side of the equals (<code>=</code>) sign, with the <strong>name</strong> of the argument on the left hand side and the <strong>value</strong> it takes on the right hand side (notice that the syntax highlighter we used to make this website helpfully colours the argument names differently from the values). The name serves to identify which argument we are working with, and the value is the thing that controls what that argument does in the function.</p>
-<p>We refer to the process of associating argument names and values as “supplying the arguments” of the function (sometimes we also say “setting the arguments”). Notice the similarly between supplying function arguments and the assignment operation discussed in the last topic. The difference here is that name-value pairs are associated with the <code>=</code> symbol. This association is also temporary: it only lasts as long as it takes for the function to do whatever it does.</p>
+<p>We refer to the process of associating argument names and values as “supplying the arguments” of the function (sometimes we also say “setting the arguments”). Notice the similarity between supplying function arguments and the assignment operation discussed in the last topic. The difference here is that name-value pairs are associated with the <code>=</code> symbol. This association is also temporary: it only lasts as long as it takes for the function to do whatever it does.</p>
 <div class="warning">
 <h4 id="use-to-assign-arguments">
 Use <code>=</code> to assign arguments
@@ -391,7 +390,7 @@ Use <code>=</code> to assign arguments
 <strong>Do not</strong> use the assignment operator <code>&lt;-</code> inside the parentheses when working with functions. This is a “trust us” situation: you will end up in all kinds of difficulty if you do this.
 </p>
 </div>
-<p>The names of the arguments that we are allowed to use are typically determined for us by the function. That is, we are not free to choose whatever name we like. We say “typically”, because R is a very flexible language and so there are certain exceptions to this simple rule of thumb. For now it is simpler to think of the names as constrained by the particular function we’re using. The arguments control the behaviour of a function. Our job as users is to set the values of the these to get the behaviour we want. By now it is now probably fairly obvious what is going to happen when we used the <code>round</code> function like this at the Console:</p>
+<p>The names of the arguments that we are allowed to use are typically determined for us by the function. That is, we are not free to choose whatever name we like. We say “typically”, because R is a very flexible language and so there are certain exceptions to this simple rule of thumb. For now it is simpler to think of the names as constrained by the particular function we’re using. The arguments control the behaviour of a function. Our job as users is to set the values of these to get the behaviour we want. By now it is now probably fairly obvious what is going to happen when we used the <code>round</code> function like this at the Console:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">round</span>(<span class="dt">x =</span> <span class="fl">3.141593</span>, <span class="dt">digits =</span> <span class="dv">2</span>)</code></pre></div>
 <pre><code>## [1] 3.14</code></pre>
 <p>Remember, we said the <code>round</code> function rounds one or more numbers to a number of significant digits. The argument that specifies the focal number(s) is <code>x</code>; the second argument, <code>digits</code>, specifies the number of decimal places we require. Based on the supplied values of these arguments, <code>3.141593</code> and <code>2</code>, respectively, the <code>round</code> function spits out a value of <code>3.14</code>, which is then printed to the Console. If we had wanted to the answer to 3 significant digits we would use <code>digits = 3</code>. This is what we mean when we say the values of the supplied arguments controls the behaviour of the function.</p>
@@ -400,11 +399,11 @@ Use <code>=</code> to assign arguments
 <h2><span class="header-section-number">3.3</span> Evaluating arguments and returning results</h2>
 <p>Whenever R evaluates a function we refer to this action as “calling the function”. In our simple example, we called the <code>round</code> function with arguments <code>x</code> and <code>digits</code> (in this course we treat the phrases “use the function” and “call the function” as synonyms, as the former is more natural to new users). What we have just seen—although it may not be obvious—is that when we call functions they first <strong>evaluate</strong> their arguments, then perform some kind of action, and finally (optionally) <strong>return</strong> a value to us when they finish doing whatever it is they do</p>
 <p>We will discuss that word “return” in a moment. What do we mean by the word “evaluate” in this context? Take a look at this second example which uses <code>round</code> again:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">round</span>(<span class="dt">x =</span> <span class="fl">2.3</span> +<span class="st"> </span><span class="fl">1.4</span>, <span class="dt">digits =</span> <span class="dv">0</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">round</span>(<span class="dt">x =</span> <span class="fl">2.3</span> <span class="op">+</span><span class="st"> </span><span class="fl">1.4</span>, <span class="dt">digits =</span> <span class="dv">0</span>)</code></pre></div>
 <pre><code>## [1] 4</code></pre>
 <p>When we call a function, what typically happens is that everything on the right hand side of an <code>=</code> is first evaluated, the result of this evaluation becomes associated with the corresponding argument name, and then the function does its calculations using the resulting name-value pairs. We say “typically” because other kinds of behaviours are possible—remember, R is a very flexible language—though for the purposes of this course we can assume that what we just wrote is always true. What happened above is that R evaluated <code>2.3 + 1.4</code>, resulting in the number <code>3.7</code>, which was then associated with the argument <code>x</code>. We set <code>digits</code> to <code>0</code> this time so that <code>round</code> just returns a whole number, <code>4</code>.</p>
 <p>The important thing to realise is that the expression(s) on the right hand side of the <code>=</code> can be anything we like. This third example essentially equivalent to the last one:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">myvar &lt;-<span class="st"> </span><span class="fl">2.3</span> +<span class="st"> </span><span class="fl">1.4</span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">myvar &lt;-<span class="st"> </span><span class="fl">2.3</span> <span class="op">+</span><span class="st"> </span><span class="fl">1.4</span>
 <span class="kw">round</span>(<span class="dt">x =</span> myvar, <span class="dt">digits =</span> <span class="dv">0</span>)</code></pre></div>
 <pre><code>## [1] 4</code></pre>
 <p>This time we created a new variable called <code>myvar</code> and then supplied this as the value of the <code>x</code> argument. When we call the <code>round</code> function like this, the R interpreter spots the fact that something on the right hand side of an <code>=</code> is a variable and associates the value of this variable with <code>x</code> argument. As long as we have actually defined the numeric variable <code>myvar</code> at some point we can use it as the value of an argument.</p>
@@ -414,10 +413,10 @@ Use <code>=</code> to assign arguments
 <pre><code>## [1] 4</code></pre>
 <p>What is going on here? The key to understanding this is to realise that the symbol <code>x</code> is used in two different ways here. When it appears on the left hand side of the <code>=</code> it represents an argument name. When it appears on the right hand side it is treated as a variable name, which must have a value associated with it for the above to be valid. This is admittedly a slightly confusing way to use this function, but it is perfectly valid. The message here is that what matters is where things appear relative to the <code>=</code>, not the symbols used to represent them.</p>
 <p>We said at the beginning of this section that a function may optionally <strong>return</strong> a value to us when they finish complete their task. That word “return” is just jargon that refers to the process by which a function outputs a value. If we use a function at the Console this will be the value printed at the end. We can use this value in other ways too. For example, there is nothing to stop us combining function calls with the arithmetic operations:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="dv">2</span> *<span class="st"> </span><span class="kw">round</span>(<span class="dt">x =</span> <span class="fl">2.64</span>, <span class="dt">digits =</span> <span class="dv">0</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="dv">2</span> <span class="op">*</span><span class="st"> </span><span class="kw">round</span>(<span class="dt">x =</span> <span class="fl">2.64</span>, <span class="dt">digits =</span> <span class="dv">0</span>)</code></pre></div>
 <pre><code>## [1] 6</code></pre>
-<p>Here the The R interpreter first evaluates the function call, and then multiplies the value it returns by 2. If we want to reuse this value we have to assign the result of function call, for example:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">roundnum &lt;-<span class="st"> </span><span class="dv">2</span> *<span class="st"> </span><span class="kw">round</span>(<span class="dt">x =</span> <span class="fl">2.64</span>, <span class="dt">digits =</span> <span class="dv">0</span>)</code></pre></div>
+<p>Here the R interpreter first evaluates the function call, and then multiplies the value it returns by 2. If we want to reuse this value we have to assign the result of function call, for example:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">roundnum &lt;-<span class="st"> </span><span class="dv">2</span> <span class="op">*</span><span class="st"> </span><span class="kw">round</span>(<span class="dt">x =</span> <span class="fl">2.64</span>, <span class="dt">digits =</span> <span class="dv">0</span>)</code></pre></div>
 <p>Using a function with <code>&lt;-</code> is really no different from the examples using multiple arithmetic operations in the last topic. The R interpreter starts on the right hand side of the <code>&lt;-</code>, evaluates the function call there, and only then assigns the value to <code>roundnum</code>.</p>
 </div>
 <div id="functions-do-not-have-side-effects" class="section level2">
@@ -432,12 +431,12 @@ Use <code>=</code> to assign arguments
 <p>If we had meant to round the value of <code>myvar</code> so that we can use this new value later on, we have to assign the result of function evaluation, like this:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">myvar &lt;-<span class="st"> </span><span class="fl">3.7</span>
 myvar &lt;-<span class="st"> </span><span class="kw">round</span>(<span class="dt">x =</span> myvar, <span class="dt">digits =</span> <span class="dv">0</span>)</code></pre></div>
-<p>In this example, we just overwrote the old value, but we could just as easily have created a new variable. The reason this is worth pointing out is that new users sometimes assume certain types of functions will alter their arguments. Specifically, when working with functions manipulate something called a <code>data.frame</code>, there is a tendency to assume that the function changes the <code>data.frame</code> argument. It will not. If wee want to make use of the changes, rather than just see them printed to the Console, we need to assign the results. We can do this by creating a new variable or overwriting the old one. We’ll gain first hand experience of this in the Data Wrangling block.</p>
+<p>In this example, we just overwrote the old value, but we could just as easily have created a new variable. The reason this is worth pointing out is that new users sometimes assume certain types of functions will alter their arguments. Specifically, when working with functions manipulate something called a <code>data.frame</code>, there is a tendency to assume that the function changes the <code>data.frame</code> argument. It will not. If we want to make use of the changes, rather than just see them printed to the Console, we need to assign the results. We can do this by creating a new variable or overwriting the old one. We’ll gain first hand experience of this in the Data Wrangling block.</p>
 <p>Remember, functions do not have side effects! New R users sometimes forget this and create all kinds of headaches for themselves. Don’t be that person.</p>
 </div>
 <div id="combining-functions" class="section level2">
 <h2><span class="header-section-number">3.5</span> Combining functions</h2>
-<p>Up until now we have not tried to do anything very complicated in our examples. Using R to actually get useful work almost always involves multiple steps, very often facilitated a number of different functions. There is more than one way to do this. Here’s a simple example that takes an approach we already know about:</p>
+<p>Up until now we have not tried to do anything very complicated in our examples. Using R to actually get useful work almost always involves multiple steps, very often facilitated by a number of different functions. There is more than one way to do this. Here’s a simple example that takes an approach we already know about:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">myvar &lt;-<span class="st"> </span><span class="kw">sqrt</span>(<span class="dt">x =</span> <span class="dv">10</span>)
 <span class="kw">round</span>(<span class="dt">x =</span> myvar, <span class="dt">digits =</span> <span class="dv">0</span>)</code></pre></div>
 <pre><code>## [1] 3</code></pre>
@@ -447,7 +446,7 @@ myvar &lt;-<span class="st"> </span><span class="kw">round</span>(<span class="d
 <pre><code>## [1] 3</code></pre>
 <p>The technical name for this is <strong>function composition</strong>. Another way of referring to this kind of expression is as a <strong>nested function</strong> call: we say that the <code>sqrt</code> function is nested inside the <code>round</code> function. The way to should read these constructs is <strong>from the inside out</strong>. The <code>sqrt(x = 10)</code> expression is on the right hand side of an <code>=</code> symbol, so this is evaluated first, the result is associated with the <code>x</code> argument of the <code>round</code> function, and only then does the <code>round</code> function do its job.</p>
 <p>There aren’t really any new ideas here. We have already seen that the R interpreter evaluates whatever is on the right hand side of the <code>=</code> symbol first before associating the resulting value with the appropriate argument name. However, nested function calls can be confusing at first so we need to see them in action. There’s nothing to stop us using multiple levels of nesting either. Take a look at this example:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">round</span>(<span class="dt">x =</span> <span class="kw">sqrt</span>(<span class="dt">x =</span> <span class="kw">abs</span>(<span class="dt">x =</span> -<span class="dv">10</span>)), <span class="dt">digits =</span> <span class="dv">0</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">round</span>(<span class="dt">x =</span> <span class="kw">sqrt</span>(<span class="dt">x =</span> <span class="kw">abs</span>(<span class="dt">x =</span> <span class="op">-</span><span class="dv">10</span>)), <span class="dt">digits =</span> <span class="dv">0</span>)</code></pre></div>
 <pre><code>## [1] 3</code></pre>
 <p>The <code>abs</code> function takes the absolute value of a number, i.e. removes the <code>-</code> sign if it is there. Remember, read nested calls from the inside out. In this example, first we took the absolute value of -10, then we took the square root of the resulting number (10), and then we rounded this to a whole number.</p>
 <p>Nested function calls are useful because they make our R code less verbose (we have to write less), but this comes at the cost of reduced readability. We aim to keep function nesting to a minimum in this book, but we will occasionally have to work with the nesting construct so have to understand it even if we don’t like using it. We’ll see a much-easier-to-read method for applying a series of functions in the Data Wrangling block.</p>
@@ -495,8 +494,9 @@ What about position matching? This can also cause problems if we’re not paying
         </div>
       </div>
 <a href="scripts.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="numeric-vectors.html" class="navigation navigation-next " aria-label="Next page""><i class="fa fa-angle-right"></i></a>
-
+<a href="numeric-vectors.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/lunr.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
@@ -505,7 +505,7 @@ What about position matching? This can also cause problems if we’re not paying
 <script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
 <script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
 <script>
-require(["gitbook"], function(gitbook) {
+gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
 "sharing": {
 "github": false,
@@ -540,7 +540,7 @@ gitbook.start({
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    script.src  = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:" && /^https?:/.test(script.src))
       script.src  = script.src.replace(/^https?:/, '');
     document.getElementsByTagName("head")[0].appendChild(script);

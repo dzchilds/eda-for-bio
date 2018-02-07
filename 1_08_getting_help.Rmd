@@ -100,7 +100,7 @@ demo()
 When we use the `demo` function like this it only lists the demos associated with packages that have been loaded in the current session (via `library`). If we want to see all the demos we can run we need to use the somewhat cryptic `demo(package = .packages(all.available = TRUE))`. 
 
 In order to actually run a demo we use the `demo` function, setting the `topic` and `package` arguments. For example, to run the "colors" demo in the __grDevices__ package we would use:
-```{r, echo=FALSE}
+```{r, eval=FALSE}
 demo(colors, package = "grDevices", ask = FALSE)
 ```
 This particular demo shows off some of the pre-defined colours we might use to customise the appearance of a plot. We've suppressed the output though because so much is produced.

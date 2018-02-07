@@ -6,9 +6,8 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>APS 135: Introduction to Exploratory Data Analysis with R</title>
-  <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
   <meta name="description" content="Course book for Introduction to Exploratory Data Analysis with R (APS 135) in the Department of Animal and Plant Sciences, University of Sheffield.">
-  <meta name="generator" content="bookdown 0.3 and GitBook 2.6.7">
+  <meta name="generator" content="bookdown 0.5 and GitBook 2.6.7">
 
   <meta property="og:title" content="APS 135: Introduction to Exploratory Data Analysis with R" />
   <meta property="og:type" content="book" />
@@ -26,7 +25,7 @@
 <meta name="author" content="Dylan Z. Childs">
 
 
-<meta name="date" content="2017-03-21">
+<meta name="date" content="2018-02-07">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -35,7 +34,6 @@
   
 <link rel="prev" href="using-functions.html">
 <link rel="next" href="other-kinds-of-vectors.html">
-
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -115,6 +113,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </head>
 
 <body>
+
 
 
   <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
@@ -277,8 +276,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul></li>
 <li class="chapter" data-level="15.3" data-path="grouping-and-summarising-data.html"><a href="grouping-and-summarising-data.html#removing-grouping-information"><i class="fa fa-check"></i><b>15.3</b> Removing grouping information</a></li>
 </ul></li>
-<li class="chapter" data-level="16" data-path="building-piplines.html"><a href="building-piplines.html"><i class="fa fa-check"></i><b>16</b> Building piplines</a><ul>
-<li class="chapter" data-level="16.1" data-path="building-piplines.html"><a href="building-piplines.html#why-do-we-need-pipes"><i class="fa fa-check"></i><b>16.1</b> Why do we need ‘pipes’?</a></li>
+<li class="chapter" data-level="16" data-path="building-pipelines.html"><a href="building-pipelines.html"><i class="fa fa-check"></i><b>16</b> Building pipelines</a><ul>
+<li class="chapter" data-level="16.1" data-path="building-pipelines.html"><a href="building-pipelines.html#why-do-we-need-pipes"><i class="fa fa-check"></i><b>16.1</b> Why do we need ‘pipes’?</a></li>
 </ul></li>
 <li class="part"><span><b>III Exporing Data</b></span></li>
 <li class="chapter" data-level="17" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html"><i class="fa fa-check"></i><b>17</b> Exploratory data analysis</a><ul>
@@ -373,17 +372,17 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <h1><span class="header-section-number">Chapter 4</span> Numeric vectors</h1>
 <div id="introduction-1" class="section level2">
 <h2><span class="header-section-number">4.1</span> Introduction</h2>
-<p>The term “data structure” computer science jargon for a particular way of organising data on our computers, so that it can be accessed easily and efficiently. Computer languages use many different kinds of data structures, but fortunately, we only need to learn about a couple of relatively simple ones to use R for data analysis. In fact, in this book only two kinds of data structure really matter: “vectors” and “data frames”. We’ll learn how to work with data frames in the next section of the book.</p>
+<p>The term “data structure” is computer science jargon for a particular way of organising data on our computers, so that it can be accessed easily and efficiently. Computer languages use many different kinds of data structures, but fortunately, we only need to learn about a couple of relatively simple ones to use R for data analysis. In fact, in this book only two kinds of data structure really matter: “vectors” and “data frames”. We’ll learn how to work with data frames in the next section of the book.</p>
 <p>The next three chapters will consider vectors. This chapter has two goals. First, we want to learn the basics of how to work with vectors. For example, we’ll see how “vectorised operations” may be used to express a repeated calculation. Second, we’ll learn how to construct and use <strong>numeric vectors</strong> to perform various calculations. Keep in mind that although we’re going to focus on numeric vectors, many of the principles we learn here can be applied to the other kinds of vectors considered later.</p>
 </div>
 <div id="atomic-vectors" class="section level2">
 <h2><span class="header-section-number">4.2</span> Atomic vectors</h2>
 <p>A vector is a 1-dimensional object that contains a set of data values, which are accessible by their position: position 1, position 2, position 3, and so one. When people talk about vectors in R they’re often referring to <strong>atomic vectors</strong><a href="#fn6" class="footnoteRef" id="fnref6"><sup>6</sup></a>. An atomic vector is the simplest kind of data structure in R. There are a few different kinds of atomic vector, but the defining feature of each one is that it can only contain data of one type. An atomic vector might contain all integers (e.g. 2, 4, 6, …) or all characters (e.g. “A”, “B”, “C”), but it can’t mix and match integers and characters (e.g. “A”, 2, “C”, 5).</p>
 <p>The word “atomic” in the name refers to the fact that an atomic vector can’t be broken down into anything simpler—they are the simplest kind of data structure R knows about. Even when working with a single number we’re actually dealing with an atomic vector. It just happens to be of length one. Here’s the very first expression we evaluated in the first chapter:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="dv">1</span> +<span class="st"> </span><span class="dv">1</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="dv">1</span> <span class="op">+</span><span class="st"> </span><span class="dv">1</span></code></pre></div>
 <pre><code>## [1] 2</code></pre>
 <p>Look at the output. What is that <code>[1]</code> at the beginning? We ignored it before because we weren’t in a position to understand its significance. The <code>[1]</code> is a clue that the output resulting from <code>1 + 1</code> is a atomic vector. We can verify this with the <code>is.vector</code> and <code>is.atomic</code> functions:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="dv">1</span> +<span class="st"> </span><span class="dv">1</span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span><span class="dv">1</span>
 <span class="co"># what value is associated with x?</span>
 x</code></pre></div>
 <pre><code>## [1] 2</code></pre>
@@ -473,7 +472,7 @@ namedv</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">seq</span>(<span class="dt">from =</span> <span class="dv">0</span>, <span class="dt">to =</span> <span class="dv">11</span>, <span class="dt">by =</span> <span class="dv">2</span>)</code></pre></div>
 <pre><code>## [1]  0  2  4  6  8 10</code></pre>
 <p>We can generate a descending sequence by using a negative <code>by</code> value, like this:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">seq</span>(<span class="dt">from =</span> <span class="dv">12</span>, <span class="dt">to =</span> <span class="dv">0</span>, <span class="dt">by =</span> -<span class="dv">2</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">seq</span>(<span class="dt">from =</span> <span class="dv">12</span>, <span class="dt">to =</span> <span class="dv">0</span>, <span class="dt">by =</span> <span class="op">-</span><span class="dv">2</span>)</code></pre></div>
 <pre><code>## [1] 12 10  8  6  4  2  0</code></pre>
 <ol start="2" style="list-style-type: decimal">
 <li>Using the <code>length.out</code> argument generates a sequence of numbers where the resulting vector has the length specified by <code>length.out</code>:</li>
@@ -501,7 +500,7 @@ my_vec &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">seq</span>(<span class="dt">from =</span> <span class="dv">1</span>, <span class="dt">to =</span> <span class="dv">12</span>)</code></pre></div>
 <pre><code>##  [1]  1  2  3  4  5  6  7  8  9 10 11 12</code></pre>
 <p>Generating sequences of integers that go up or down in steps of 1 is something we do a lot in R. Because of this, there is a special operator to generate these simple sequences—the colon, <code>:</code>. For example, to produce the last sequence again we use:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="dv">1</span>:<span class="dv">12</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="dv">1</span><span class="op">:</span><span class="dv">12</span></code></pre></div>
 <pre><code>##  [1]  1  2  3  4  5  6  7  8  9 10 11 12</code></pre>
 <p>When we use the <code>:</code> operator the convention is to <strong>not</strong> leave spaces either side of it.</p>
 </div>
@@ -509,7 +508,7 @@ my_vec &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">
 <h3><span class="header-section-number">4.6.2</span> Generating repeated sequences of numbers</h3>
 <p>The <code>rep</code> function is designed to replicate the values inside a vector, i.e. it’s short for “replicate”. The first argument (called <code>x</code>) is the vector we want to replicate. There are two other arguments that control how this is done. The <code>times</code> argument specifies the number of times to replicate the whole vector:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># make a simple sequence of integers</span>
-seqvec &lt;-<span class="st"> </span><span class="dv">1</span>:<span class="dv">4</span>
+seqvec &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">4</span>
 seqvec</code></pre></div>
 <pre><code>## [1] 1 2 3 4</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># now replicate *the whole vector* 3 times</span>
@@ -517,7 +516,7 @@ seqvec</code></pre></div>
 <pre><code>##  [1] 1 2 3 4 1 2 3 4 1 2 3 4</code></pre>
 <p>All we did here was take a sequence of integers from 1 to 4 and replicate this end-to-end three times, resulting in a length-12 vector. Alternatively, we can use the <code>each</code> argument to replicate each element of a vector while retaining the original order:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># make a simple sequence of integers</span>
-seqvec &lt;-<span class="st"> </span><span class="dv">1</span>:<span class="dv">4</span>
+seqvec &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">4</span>
 seqvec</code></pre></div>
 <pre><code>## [1] 1 2 3 4</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># now replicate *each element* vector 3 times</span>
@@ -525,20 +524,20 @@ seqvec</code></pre></div>
 <pre><code>##  [1] 1 1 1 2 2 2 3 3 3 4 4 4</code></pre>
 <p>This example produced a similar vector to the previous one. It contains the same elements and has the same length, but now the order is different. All the 1’s appear first, then the 2’s, and so on.</p>
 <p>Predictably, we can also use both the <code>times</code> and <code>each</code> arguments together if we want to:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">seqvec &lt;-<span class="st"> </span><span class="dv">1</span>:<span class="dv">4</span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">seqvec &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">4</span>
 <span class="kw">rep</span>(seqvec, <span class="dt">times =</span> <span class="dv">3</span>, <span class="dt">each =</span> <span class="dv">2</span>)</code></pre></div>
 <pre><code>##  [1] 1 1 2 2 3 3 4 4 1 1 2 2 3 3 4 4 1 1 2 2 3 3 4 4</code></pre>
 <p>The way to think about how this works is to imagine that we apply <code>rep</code> twice, first with <code>each = 2</code>, then with <code>times = 3</code> (or vice versa). We can achieve the same thing using nested function calls, though it is much uglier:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">seqvec &lt;-<span class="st"> </span><span class="dv">1</span>:<span class="dv">4</span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">seqvec &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">4</span>
 <span class="kw">rep</span>(<span class="kw">rep</span>(seqvec, <span class="dt">each =</span> <span class="dv">2</span>), <span class="dt">times =</span> <span class="dv">3</span>)</code></pre></div>
 <pre><code>##  [1] 1 1 2 2 3 3 4 4 1 1 2 2 3 3 4 4 1 1 2 2 3 3 4 4</code></pre>
 </div>
 </div>
 <div id="vectorised-operations" class="section level2">
 <h2><span class="header-section-number">4.7</span> Vectorised operations</h2>
-<p>All the simple arithmetic operators (e.g. <code>+</code> and <code>-</code>) and many mathematical functions are <strong>vectorised</strong> in R . What this this means is that when we use a vectorised function it operates on vectors on an element-by-element basis. Take a look at this example to see what we mean by this:</p>
+<p>All the simple arithmetic operators (e.g. <code>+</code> and <code>-</code>) and many mathematical functions are <strong>vectorised</strong> in R . What this means is that when we use a vectorised function it operates on vectors on an element-by-element basis. Take a look at this example to see what we mean by this:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># make a simple sequence</span>
-x &lt;-<span class="st"> </span><span class="dv">1</span>:<span class="dv">10</span>
+x &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">10</span>
 x</code></pre></div>
 <pre><code>##  [1]  1  2  3  4  5  6  7  8  9 10</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># make another simple sequence *of the same length*</span>
@@ -546,7 +545,7 @@ y &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="fl">0.1
 y</code></pre></div>
 <pre><code>##  [1] 0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1.0</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># add them</span>
-x +<span class="st"> </span>y</code></pre></div>
+x <span class="op">+</span><span class="st"> </span>y</code></pre></div>
 <pre><code>##  [1]  1.1  2.2  3.3  4.4  5.5  6.6  7.7  8.8  9.9 11.0</code></pre>
 <p>We constructed two length-10 numeric vectors, called <code>x</code> and <code>y</code>, where <code>x</code> is a sequence from 1 to 10 and <code>y</code> is a sequence from 0.1 to 1. When R evaluates the expression <code>x + y</code> it does this by adding the first element of <code>x</code> to the first element of <code>y</code>, the second element of <code>x</code> to the second element of <code>y</code>, and so on, working through all 10 elements of <code>x</code> and <code>y</code>.</p>
 <p>Vectorisation is also implemented in the standard mathematical functions. For example, our friend the <code>round</code> function will round each element of a numeric vector:</p>
@@ -566,11 +565,11 @@ my_nums</code></pre></div>
 <p>Although <code>sum</code> obviously works on a numeric vector it is not “vectorised” in the sense that it works element-by-element to return an output vector of the same length as its main argument.</p>
 <p>Many functions apply the vectorisation principle to more than one argument. Take a look at this example to see what we mean by this:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># make a repeated set of non-integer values</span>
-my_nums &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="dv">2</span> /<span class="st"> </span><span class="dv">7</span>, <span class="dt">times =</span> <span class="dv">6</span>)
+my_nums &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="dv">2</span> <span class="op">/</span><span class="st"> </span><span class="dv">7</span>, <span class="dt">times =</span> <span class="dv">6</span>)
 my_nums</code></pre></div>
 <pre><code>## [1] 0.2857143 0.2857143 0.2857143 0.2857143 0.2857143 0.2857143</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># round each one to a different number of decimal places</span>
-<span class="kw">round</span>(my_nums, <span class="dt">digits =</span> <span class="dv">1</span>:<span class="dv">6</span>)</code></pre></div>
+<span class="kw">round</span>(my_nums, <span class="dt">digits =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">6</span>)</code></pre></div>
 <pre><code>## [1] 0.300000 0.290000 0.286000 0.285700 0.285710 0.285714</code></pre>
 <p>We constructed a length 6 vector containing the number 2/7 (~ 0.285714) and then used the <code>round</code> function to round each element to a different number of decimal places. The first element was rounded to 1 decimal place, the second to two decimal places, and so on. We get this behaviour because instead of using a single number for the <code>digits</code> argument, we used a vector that is an integer sequence from 1 to 6.</p>
 <div class="info">
@@ -597,8 +596,9 @@ R’s vectorised behaviour may seem like the “obvious” thing to do, but most
         </div>
       </div>
 <a href="using-functions.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="other-kinds-of-vectors.html" class="navigation navigation-next " aria-label="Next page""><i class="fa fa-angle-right"></i></a>
-
+<a href="other-kinds-of-vectors.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/lunr.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
@@ -607,7 +607,7 @@ R’s vectorised behaviour may seem like the “obvious” thing to do, but most
 <script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
 <script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
 <script>
-require(["gitbook"], function(gitbook) {
+gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
 "sharing": {
 "github": false,
@@ -642,7 +642,7 @@ gitbook.start({
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    script.src  = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:" && /^https?:/.test(script.src))
       script.src  = script.src.replace(/^https?:/, '');
     document.getElementsByTagName("head")[0].appendChild(script);

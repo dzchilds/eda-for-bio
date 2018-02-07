@@ -6,9 +6,8 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>APS 135: Introduction to Exploratory Data Analysis with R</title>
-  <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
   <meta name="description" content="Course book for Introduction to Exploratory Data Analysis with R (APS 135) in the Department of Animal and Plant Sciences, University of Sheffield.">
-  <meta name="generator" content="bookdown 0.3 and GitBook 2.6.7">
+  <meta name="generator" content="bookdown 0.5 and GitBook 2.6.7">
 
   <meta property="og:title" content="APS 135: Introduction to Exploratory Data Analysis with R" />
   <meta property="og:type" content="book" />
@@ -26,7 +25,7 @@
 <meta name="author" content="Dylan Z. Childs">
 
 
-<meta name="date" content="2017-03-21">
+<meta name="date" content="2018-02-07">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -35,7 +34,6 @@
   
 <link rel="prev" href="numeric-vectors.html">
 <link rel="next" href="extracting-subsets-of-vectors.html">
-
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -115,6 +113,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </head>
 
 <body>
+
 
 
   <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
@@ -277,8 +276,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul></li>
 <li class="chapter" data-level="15.3" data-path="grouping-and-summarising-data.html"><a href="grouping-and-summarising-data.html#removing-grouping-information"><i class="fa fa-check"></i><b>15.3</b> Removing grouping information</a></li>
 </ul></li>
-<li class="chapter" data-level="16" data-path="building-piplines.html"><a href="building-piplines.html"><i class="fa fa-check"></i><b>16</b> Building piplines</a><ul>
-<li class="chapter" data-level="16.1" data-path="building-piplines.html"><a href="building-piplines.html#why-do-we-need-pipes"><i class="fa fa-check"></i><b>16.1</b> Why do we need ‘pipes’?</a></li>
+<li class="chapter" data-level="16" data-path="building-pipelines.html"><a href="building-pipelines.html"><i class="fa fa-check"></i><b>16</b> Building pipelines</a><ul>
+<li class="chapter" data-level="16.1" data-path="building-pipelines.html"><a href="building-pipelines.html#why-do-we-need-pipes"><i class="fa fa-check"></i><b>16.1</b> Why do we need ‘pipes’?</a></li>
 </ul></li>
 <li class="part"><span><b>III Exporing Data</b></span></li>
 <li class="chapter" data-level="17" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html"><i class="fa fa-check"></i><b>17</b> Exploratory data analysis</a><ul>
@@ -413,7 +412,7 @@ my_name</code></pre></div>
 <span class="kw">rep</span>(l_vec, <span class="dt">times =</span> <span class="dv">2</span>)</code></pre></div>
 <pre><code>## [1]  TRUE FALSE  TRUE FALSE</code></pre>
 <p>Hopefully nothing about that output is surprising by this point.</p>
-<p>So why are logical vectors useful? Their allow us to represent the results of questions such as, “is x greater than y” or “is x equal to y”. The results of such comparisons may then be used to carry out various kinds of subsetting operations based.</p>
+<p>So why are logical vectors useful? Their allow us to represent the results of questions such as, “is x greater than y” or “is x equal to y”. The results of such comparisons may then be used to carry out various kinds of subsetting operations.</p>
 <p>Let’s first look at how we use logical vectors to evaluate comparisons. Before we can do that though we need to introduce <strong>relational operators</strong>. These sound fancy, but they are very simple: we use relational operators to evaluate the relative value of vector elements. Six are available in R:</p>
 <ul>
 <li><code>x &lt; y</code>: is x less than y?</li>
@@ -424,18 +423,18 @@ my_name</code></pre></div>
 <li><code>x != y</code>: is x not equal to y?</li>
 </ul>
 <p>The easiest way to understand how these work is to simply use them. We need a couple of numeric variables first:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="dv">11</span>:<span class="dv">20</span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="dv">11</span><span class="op">:</span><span class="dv">20</span>
 y &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">3</span>, <span class="dv">30</span>, <span class="dt">by =</span> <span class="dv">3</span>)
 x</code></pre></div>
 <pre><code>##  [1] 11 12 13 14 15 16 17 18 19 20</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">y</code></pre></div>
 <pre><code>##  [1]  3  6  9 12 15 18 21 24 27 30</code></pre>
 <p>Now, if we need to evaluate and represent a question like, “is x greater than than y”, we can use either <code>&lt;</code> or <code>&gt;</code>:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &gt;<span class="st"> </span>y</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x <span class="op">&gt;</span><span class="st"> </span>y</code></pre></div>
 <pre><code>##  [1]  TRUE  TRUE  TRUE  TRUE FALSE FALSE FALSE FALSE FALSE FALSE</code></pre>
-<p>The <code>x &gt; y</code> expression produces a logical vector, with <code>TRUE</code> values associated with elements in <code>x</code> are less than <code>y</code>, and <code>FALSE</code> otherwise. In this example, x is less than y until we reach the value of 15 in each sequence. Notice that that relational operators are vectorised: the work on an element by element basis. They wouldn’t be much use if this were not the case.</p>
+<p>The <code>x &gt; y</code> expression produces a logical vector, with <code>TRUE</code> values associated with elements in <code>x</code> are less than <code>y</code>, and <code>FALSE</code> otherwise. In this example, x is less than y until we reach the value of 15 in each sequence. Notice that relational operators are vectorised: they work on an element by element basis. They wouldn’t be much use if this were not the case.</p>
 <p>What does the <code>==</code> operator do? It compares the elements of two vectors to determine if they are exactly equal:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x ==<span class="st"> </span>y</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x <span class="op">==</span><span class="st"> </span>y</code></pre></div>
 <pre><code>##  [1] FALSE FALSE FALSE FALSE  TRUE FALSE FALSE FALSE FALSE FALSE</code></pre>
 <p>The output of this comparison is true only for one element, the number 15, which is at the 5<sup>th</sup> position in both <code>x</code> and <code>y</code>. The <code>!=</code> operator is essentially the opposite of <code>==</code>. It identifies cases where two elements are not exactly equal. We could step through each of the different the other relational operators, but hopefully they are self-explanatory at this point (if not, experiment with them).</p>
 <div class="warning">
@@ -455,8 +454,9 @@ If we want to test for equivalence between the elements of two vectors we must u
         </div>
       </div>
 <a href="numeric-vectors.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="extracting-subsets-of-vectors.html" class="navigation navigation-next " aria-label="Next page""><i class="fa fa-angle-right"></i></a>
-
+<a href="extracting-subsets-of-vectors.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/lunr.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
@@ -465,7 +465,7 @@ If we want to test for equivalence between the elements of two vectors we must u
 <script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
 <script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
 <script>
-require(["gitbook"], function(gitbook) {
+gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
 "sharing": {
 "github": false,
@@ -500,7 +500,7 @@ gitbook.start({
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    script.src  = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:" && /^https?:/.test(script.src))
       script.src  = script.src.replace(/^https?:/, '');
     document.getElementsByTagName("head")[0].appendChild(script);

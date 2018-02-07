@@ -2,7 +2,7 @@
 
 ## Introduction 
 
-[Data wrangling]
+Data wrangling refers to the process of manipulating raw data into the format that we want it in, for example for data visualisation or statistical analyses. There are a wide range of ways we may want to manipulate our data, for example by creating new variables, subsetting the data, or calculating summaries. Data wrangling is often a time consuming process. It is also not the most interesting part of any analysis - we are interested in answering biological questions, not in formatting data. However, it is a necessary step to go through to be able to conduct the analyses that we're really interested in. Learning how to manipulate data efficiently can save us a lot of time and trouble and is therefore a really important skill to master.
 
 ## The value of **dplyr** {#why-dplyr}
 

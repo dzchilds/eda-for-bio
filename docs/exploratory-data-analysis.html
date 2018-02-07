@@ -6,9 +6,8 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>APS 135: Introduction to Exploratory Data Analysis with R</title>
-  <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
   <meta name="description" content="Course book for Introduction to Exploratory Data Analysis with R (APS 135) in the Department of Animal and Plant Sciences, University of Sheffield.">
-  <meta name="generator" content="bookdown 0.3 and GitBook 2.6.7">
+  <meta name="generator" content="bookdown 0.5 and GitBook 2.6.7">
 
   <meta property="og:title" content="APS 135: Introduction to Exploratory Data Analysis with R" />
   <meta property="og:type" content="book" />
@@ -26,16 +25,15 @@
 <meta name="author" content="Dylan Z. Childs">
 
 
-<meta name="date" content="2017-03-21">
+<meta name="date" content="2018-02-07">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
-<link rel="prev" href="building-piplines.html">
+<link rel="prev" href="building-pipelines.html">
 <link rel="next" href="introduction-to-ggplot2.html">
-
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -115,6 +113,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </head>
 
 <body>
+
 
 
   <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
@@ -277,8 +276,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul></li>
 <li class="chapter" data-level="15.3" data-path="grouping-and-summarising-data.html"><a href="grouping-and-summarising-data.html#removing-grouping-information"><i class="fa fa-check"></i><b>15.3</b> Removing grouping information</a></li>
 </ul></li>
-<li class="chapter" data-level="16" data-path="building-piplines.html"><a href="building-piplines.html"><i class="fa fa-check"></i><b>16</b> Building piplines</a><ul>
-<li class="chapter" data-level="16.1" data-path="building-piplines.html"><a href="building-piplines.html#why-do-we-need-pipes"><i class="fa fa-check"></i><b>16.1</b> Why do we need ‘pipes’?</a></li>
+<li class="chapter" data-level="16" data-path="building-pipelines.html"><a href="building-pipelines.html"><i class="fa fa-check"></i><b>16</b> Building pipelines</a><ul>
+<li class="chapter" data-level="16.1" data-path="building-pipelines.html"><a href="building-pipelines.html#why-do-we-need-pipes"><i class="fa fa-check"></i><b>16.1</b> Why do we need ‘pipes’?</a></li>
 </ul></li>
 <li class="part"><span><b>III Exporing Data</b></span></li>
 <li class="chapter" data-level="17" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html"><i class="fa fa-check"></i><b>17</b> Exploratory data analysis</a><ul>
@@ -381,7 +380,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li><p>to provide a foundation for further data collection.</p></li>
 </ul>
 <p>EDA involves a mix of both numerical and visual methods of analysis. Statistical methods are sometimes used to supplement EDA, but its main purpose is to facilitate understanding before diving into formal statistical modelling.</p>
-<p>Even if we think we already know what kind of analysis we need to pursue, it’s always a good idea to <strong>explore a data set before diving into the analysis</strong>. At the very least, this will help us to determine whether or not our plans are sensible. Very often it uncovers new patterns and insights. In this chapter we’re going to examine some basic concepts that underpin EDA: 1) classifying different types data, and 2) distinguishing between populations and samples. This will set us up to learn how to explore our data in later chapters.</p>
+<p>Even if we think we already know what kind of analysis we need to pursue, it’s always a good idea to <strong>explore a data set before diving into the analysis</strong>. At the very least, this will help us to determine whether or not our plans are sensible. Very often it uncovers new patterns and insights. In this chapter we’re going to examine some basic concepts that underpin EDA: 1) classifying different types of data, and 2) distinguishing between populations and samples. This will set us up to learn how to explore our data in later chapters.</p>
 </div>
 <div id="variables" class="section level2">
 <h2><span class="header-section-number">17.2</span> Statistical variables and data</h2>
@@ -421,10 +420,10 @@ Be careful when classifying variables. It is dangerous to assume that just becau
 </div>
 <div id="populations-samples" class="section level2">
 <h2><span class="header-section-number">17.3</span> Populations, samples and distributions</h2>
-<p>When we collect data of any kind, we are working a sample of objects (e.g. trees, insects, fields) from a wider population. We usually want to know something about the wider population, but since it’s impossible to study every member of the population, we study the properties of one or more samples instead.</p>
+<p>When we collect data of any kind, we are working with a sample of objects (e.g. trees, insects, fields) from a wider population. We usually want to know something about the wider population, but since it’s impossible to study every member of the population, we study the properties of one or more samples instead.</p>
 <p>The problem with samples is that they are ‘noisy’. If we were repeat the same data collection protocol more than once we should expect to end up with a different sample each time, even if the wider population never changes. This results purely from chance variation in the sampling of different units. Picking apart the relationship between samples and populations is the basis of much of statistics. This topic is best dealt with in a dedicated statistics book, so we won’t develop these ideas in much detail here.</p>
 <p>The reason we mention the distinction between a population and a sample is because EDA is primarily concerned with properties of samples—it aims to characterise the sample in hand without trying to say too much about the wider population from which it is derived.</p>
-<p>When we talk about “exploring a variable” what we are really doing is exploring is the <strong>sample distribution</strong> of that variable. What is this? The sample distribution is a statement about the frequency with which different values occur in a particular sample. Imagine we took a a sample of undergraduates and measured their height. The majority of students would be round about 1.7m tall, even though there would obviously be some variation among students. Men would tend to be slightly taller than women, and very small or very tall people would be rare. We know from experience that no one in in this sample would be over 3 meters tall. These are all statements about a (hypothetical) sample distribution of undergraduate heights.</p>
+<p>When we talk about “exploring a variable” what we are really doing is exploring is the <strong>sample distribution</strong> of that variable. What is this? The sample distribution is a statement about the frequency with which different values occur in a particular sample. Imagine we took a sample of undergraduates and measured their height. The majority of students would be round about 1.7m tall, even though there would obviously be some variation among students. Men would tend to be slightly taller than women, and very small or very tall people would be rare. We know from experience that no one in this sample would be over 3 meters tall. These are all statements about a (hypothetical) sample distribution of undergraduate heights.</p>
 <p>Our goal when exploring the sample distribution of a variable is to answer questions such as, What are the most common values of the variable; and How much do observations differ from one another? Rather than simply describing these properties in verbal terms, as we did above, we want to describe in a more informative way. There are two ways to go about this:</p>
 <ol style="list-style-type: decimal">
 <li><p><strong>Calculate descriptive statistics</strong>. Descriptive statistics are used to quantify the basic features of a sample distribution. They provide simple summaries about the sample that can be used to make comparisons and draw preliminary conclusions. For example, we often use ‘the mean’ to summarise the ‘most likely’ values of a variable in a sample.</p></li>
@@ -442,9 +441,10 @@ Be careful when classifying variables. It is dangerous to assume that just becau
           </div>
         </div>
       </div>
-<a href="building-piplines.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="introduction-to-ggplot2.html" class="navigation navigation-next " aria-label="Next page""><i class="fa fa-angle-right"></i></a>
-
+<a href="building-pipelines.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="introduction-to-ggplot2.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/lunr.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
@@ -453,7 +453,7 @@ Be careful when classifying variables. It is dangerous to assume that just becau
 <script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
 <script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
 <script>
-require(["gitbook"], function(gitbook) {
+gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
 "sharing": {
 "github": false,
@@ -488,7 +488,7 @@ gitbook.start({
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    script.src  = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:" && /^https?:/.test(script.src))
       script.src  = script.src.replace(/^https?:/, '');
     document.getElementsByTagName("head")[0].appendChild(script);

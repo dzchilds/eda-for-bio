@@ -6,9 +6,8 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>APS 135: Introduction to Exploratory Data Analysis with R</title>
-  <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
   <meta name="description" content="Course book for Introduction to Exploratory Data Analysis with R (APS 135) in the Department of Animal and Plant Sciences, University of Sheffield.">
-  <meta name="generator" content="bookdown 0.3 and GitBook 2.6.7">
+  <meta name="generator" content="bookdown 0.5 and GitBook 2.6.7">
 
   <meta property="og:title" content="APS 135: Introduction to Exploratory Data Analysis with R" />
   <meta property="og:type" content="book" />
@@ -26,7 +25,7 @@
 <meta name="author" content="Dylan Z. Childs">
 
 
-<meta name="date" content="2017-03-21">
+<meta name="date" content="2018-02-07">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -35,7 +34,6 @@
   
 <link rel="prev" href="extracting-subsets-of-vectors.html">
 <link rel="next" href="packages.html">
-
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -115,6 +113,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </head>
 
 <body>
+
 
 
   <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
@@ -277,8 +276,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul></li>
 <li class="chapter" data-level="15.3" data-path="grouping-and-summarising-data.html"><a href="grouping-and-summarising-data.html#removing-grouping-information"><i class="fa fa-check"></i><b>15.3</b> Removing grouping information</a></li>
 </ul></li>
-<li class="chapter" data-level="16" data-path="building-piplines.html"><a href="building-piplines.html"><i class="fa fa-check"></i><b>16</b> Building piplines</a><ul>
-<li class="chapter" data-level="16.1" data-path="building-piplines.html"><a href="building-piplines.html#why-do-we-need-pipes"><i class="fa fa-check"></i><b>16.1</b> Why do we need ‘pipes’?</a></li>
+<li class="chapter" data-level="16" data-path="building-pipelines.html"><a href="building-pipelines.html"><i class="fa fa-check"></i><b>16</b> Building pipelines</a><ul>
+<li class="chapter" data-level="16.1" data-path="building-pipelines.html"><a href="building-pipelines.html#why-do-we-need-pipes"><i class="fa fa-check"></i><b>16.1</b> Why do we need ‘pipes’?</a></li>
 </ul></li>
 <li class="part"><span><b>III Exporing Data</b></span></li>
 <li class="chapter" data-level="17" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html"><i class="fa fa-check"></i><b>17</b> Exploratory data analysis</a><ul>
@@ -374,7 +373,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div id="console-help" class="section level2">
 <h2><span class="header-section-number">7.1</span> Introduction</h2>
 <p>R has a comprehensive built-in help system. This system is orientated around the base R functions and packages. Every good package comes with a set of <strong>help files</strong>. At a minimum these should provide information about the individual package functions and summaries of the data included with the package. They sometimes give descriptions of how different parts of the package should be used, and if we’re lucky, one or more “vignettes” that offer a practical demonstration of how to use a package. Other files are sometimes shipped with packages. For example, these might give an overview of the mathematical or computational theory a package relies on. We will not worry about these in this course.</p>
-<p>We may as well get something out of the way early on. The word “help” in the phrase “help file” is a bit of a misnomer. It is probably more accurate to say R has an extensive <strong>documentation</strong> system. The reason we say this is that the majority help files are associated with functions, and these kinds of files are designed first and foremost to document how a particular function or group of functions are meant to be used. For example, they describe what kinds of arguments a function can take and what kind of objects it will return to us. Help files are also written in a very precise, painful-to-read manner. They contain a lot of jargon which can be hard for new R users to decipher.</p>
+<p>We may as well get something out of the way early on. The word “help” in the phrase “help file” is a bit of a misnomer. It is probably more accurate to say R has an extensive <strong>documentation</strong> system. The reason we say this is that the majority of help files are associated with functions, and these kinds of files are designed first and foremost to document how a particular function or group of functions are meant to be used. For example, they describe what kinds of arguments a function can take and what kind of objects it will return to us. Help files are also written in a very precise, painful-to-read manner. They contain a lot of jargon which can be hard for new R users to decipher.</p>
 <p>The take-home message is that R help files are aimed more at experienced users than novices. Their primary purpose is to carefully document the different elements of a package, rather than explain how a particular function or the package as whole should be used to achieve a given end. That said, help files often contain useful examples, and many package authors do try to make our life easier by providing functional demonstrations of their package (those “vignettes” we mentioned above are a vehicle for doing this). It’s important to try to get to grips with the built in help system. It contains a great deal of useful information which we need to really start using R effectively. The road to enlightenment is bumpy though.</p>
 </div>
 <div id="browsing-the-help-system" class="section level2">
@@ -392,7 +391,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </div>
 <div id="searching-for-help-files" class="section level2">
 <h2><span class="header-section-number">7.3</span> Searching for help files</h2>
-<p>After browsing help files via <code>help.start</code> for a bit it quickly becomes apaprent that this way of searching for help is not very efficient. Quite often we know the name of the function we need to use and all we want to do is open that particular help file. We can do this with the <code>help</code> function:</p>
+<p>After browsing help files via <code>help.start</code> for a bit it quickly becomes apparent that this way of searching for help is not very efficient. Quite often we know the name of the function we need to use and all we want to do is open that particular help file. We can do this with the <code>help</code> function:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">help</span>(<span class="dt">topic =</span> Trig)</code></pre></div>
 <p>After we run this line RStudio opens up the help file for the trigonometry topic in the <strong>Help</strong> tab. This file provides information about the various trigonometric functions such as <code>sin</code> or <code>cos</code>. We’ll learn how to make sense of such help pages in the next subsection. For now, we just want to see how to use <code>help</code>.</p>
 <p>The <code>help</code> function needs a minimum of one argument: the name of the topic or function of interest. When we use it like this the help function searches across packages, looking for a help file whose name gives <strong>an exact match</strong> to the name we supplied. In this case, we opened the help file associated with the <code>Trig</code> topic. Most of the time we use the <code>help</code> function to find the help page for a specific function, rather than a general topic. This is fine if we can remember the name of the topic associated with different functions. Most of us cannot. Luckily, the help function will also match help pages by the name of the function(s) they cover:</p>
@@ -441,151 +440,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">demo</span>()</code></pre></div>
 <p>When we use the <code>demo</code> function like this it only lists the demos associated with packages that have been loaded in the current session (via <code>library</code>). If we want to see all the demos we can run we need to use the somewhat cryptic <code>demo(package = .packages(all.available = TRUE))</code>.</p>
 <p>In order to actually run a demo we use the <code>demo</code> function, setting the <code>topic</code> and <code>package</code> arguments. For example, to run the “colors” demo in the <strong>grDevices</strong> package we would use:</p>
-<pre><code>## 
-## 
-##  demo(colors)
-##  ---- ~~~~~~
-## 
-## &gt; ### ----------- Show (almost) all named colors ---------------------
-## &gt; 
-## &gt; ## 1) with traditional &#39;graphics&#39; package:
-## &gt; showCols1 &lt;- function(bg = &quot;gray&quot;, cex = 0.75, srt = 30) {
-## +     m &lt;- ceiling(sqrt(n &lt;- length(cl &lt;- colors())))
-## +     length(cl) &lt;- m*m; cm &lt;- matrix(cl, m)
-## +     ##
-## +     require(&quot;graphics&quot;)
-## +     op &lt;- par(mar=rep(0,4), ann=FALSE, bg = bg); on.exit(par(op))
-## +     plot(1:m,1:m, type=&quot;n&quot;, axes=FALSE)
-## +     text(col(cm), rev(row(cm)), cm,  col = cl, cex=cex, srt=srt)
-## + }
-## 
-## &gt; showCols1()</code></pre>
-<pre><code>## 
-## &gt; ## 2) with &#39;grid&#39; package:
-## &gt; showCols2 &lt;- function(bg = &quot;grey&quot;, cex = 0.75, rot = 30) {
-## +     m &lt;- ceiling(sqrt(n &lt;- length(cl &lt;- colors())))
-## +     length(cl) &lt;- m*m; cm &lt;- matrix(cl, m)
-## +     ##
-## +     require(&quot;grid&quot;)
-## +     grid.newpage(); vp &lt;- viewport(w = .92, h = .92)
-## +     grid.rect(gp=gpar(fill=bg))
-## +     grid.text(cm, x = col(cm)/m, y = rev(row(cm))/m, rot = rot,
-## +               vp=vp, gp=gpar(cex = cex, col = cm))
-## + }
-## 
-## &gt; showCols2()</code></pre>
-<pre><code>## Loading required package: grid</code></pre>
-<p><img src="eda-for-bio_files/figure-html/unnamed-chunk-148-1.png" width="336" style="display: block; margin: auto;" /><img src="eda-for-bio_files/figure-html/unnamed-chunk-148-2.png" width="336" style="display: block; margin: auto;" /></p>
-<pre><code>## 
-## &gt; showCols2(bg = &quot;gray33&quot;)</code></pre>
-<p><img src="eda-for-bio_files/figure-html/unnamed-chunk-148-3.png" width="336" style="display: block; margin: auto;" /></p>
-<pre><code>## 
-## &gt; ###
-## &gt; 
-## &gt; ##&#39; @title Comparing Colors
-## &gt; ##&#39; @param col
-## &gt; ##&#39; @param nrow
-## &gt; ##&#39; @param ncol
-## &gt; ##&#39; @param txt.col
-## &gt; ##&#39; @return the grid layout, invisibly
-## &gt; ##&#39; @author Marius Hofert, originally
-## &gt; plotCol &lt;- function(col, nrow=1, ncol=ceiling(length(col) / nrow),
-## +                     txt.col=&quot;black&quot;) {
-## +     stopifnot(nrow &gt;= 1, ncol &gt;= 1)
-## +     if(length(col) &gt; nrow*ncol)
-## +         warning(&quot;some colors will not be shown&quot;)
-## +     require(grid)
-## +     grid.newpage()
-## +     gl &lt;- grid.layout(nrow, ncol)
-## +     pushViewport(viewport(layout=gl))
-## +     ic &lt;- 1
-## +     for(i in 1:nrow) {
-## +         for(j in 1:ncol) {
-## +             pushViewport(viewport(layout.pos.row=i, layout.pos.col=j))
-## +             grid.rect(gp= gpar(fill=col[ic]))
-## +             grid.text(col[ic], gp=gpar(col=txt.col))
-## +             upViewport()
-## +             ic &lt;- ic+1
-## +         }
-## +     }
-## +     upViewport()
-## +     invisible(gl)
-## + }
-## 
-## &gt; ## A Chocolate Bar of colors:
-## &gt; plotCol(c(&quot;#CC8C3C&quot;, paste0(&quot;chocolate&quot;, 2:4),
-## +           paste0(&quot;darkorange&quot;, c(&quot;&quot;,1:2)), paste0(&quot;darkgoldenrod&quot;, 1:2),
-## +           &quot;orange&quot;, &quot;orange1&quot;, &quot;sandybrown&quot;, &quot;tan1&quot;, &quot;tan2&quot;),
-## +         nrow=2)</code></pre>
-<p><img src="eda-for-bio_files/figure-html/unnamed-chunk-148-4.png" width="336" style="display: block; margin: auto;" /></p>
-<pre><code>## 
-## &gt; ##&#39; Find close R colors() to a given color {original by Marius Hofert)
-## &gt; ##&#39; using Euclidean norm in (HSV / RGB / ...) color space
-## &gt; nearRcolor &lt;- function(rgb, cSpace = c(&quot;hsv&quot;, &quot;rgb255&quot;, &quot;Luv&quot;, &quot;Lab&quot;),
-## +                        dist = switch(cSpace, &quot;hsv&quot; = 0.10, &quot;rgb255&quot; = 30,
-## +                        &quot;Luv&quot; = 15, &quot;Lab&quot; = 12))
-## + {
-## +     if(is.character(rgb)) rgb &lt;- col2rgb(rgb)
-## +     stopifnot(length(rgb &lt;- as.vector(rgb)) == 3)
-## +     Rcol &lt;- col2rgb(.cc &lt;- colors())
-## +     uniqC &lt;- !duplicated(t(Rcol)) # gray9 == grey9 (etc)
-## +     Rcol &lt;- Rcol[, uniqC] ; .cc &lt;- .cc[uniqC]
-## +     cSpace &lt;- match.arg(cSpace)
-## +     convRGB2 &lt;- function(Rgb, to)
-## +         t(convertColor(t(Rgb), from=&quot;sRGB&quot;, to=to, scale.in=255))
-## +     ## the transformation,  rgb{0..255} --&gt; cSpace :
-## +     TransF &lt;- switch(cSpace,
-## +                      &quot;rgb255&quot; = identity,
-## +                      &quot;hsv&quot; = rgb2hsv,
-## +                      &quot;Luv&quot; = function(RGB) convRGB2(RGB, &quot;Luv&quot;),
-## +                      &quot;Lab&quot; = function(RGB) convRGB2(RGB, &quot;Lab&quot;))
-## +     d &lt;- sqrt(colSums((TransF(Rcol) - as.vector(TransF(rgb)))^2))
-## +     iS &lt;- sort.list(d[near &lt;- d &lt;= dist])# sorted: closest first
-## +     setNames(.cc[near][iS], format(d[near][iS], digits=3))
-## + }
-## 
-## &gt; nearRcolor(col2rgb(&quot;tan2&quot;), &quot;rgb&quot;)
-##          0.0         21.1         25.8         29.5 
-##       &quot;tan2&quot;       &quot;tan1&quot; &quot;sandybrown&quot;    &quot;sienna1&quot; 
-## 
-## &gt; nearRcolor(col2rgb(&quot;tan2&quot;), &quot;hsv&quot;)
-##       0.0000       0.0410       0.0618       0.0638       0.0667 
-##       &quot;tan2&quot;    &quot;sienna2&quot;     &quot;coral2&quot;    &quot;tomato2&quot;       &quot;tan1&quot; 
-##       0.0766       0.0778       0.0900       0.0912       0.0918 
-##      &quot;coral&quot;    &quot;sienna1&quot; &quot;sandybrown&quot;     &quot;coral1&quot;     &quot;tomato&quot; 
-## 
-## &gt; nearRcolor(col2rgb(&quot;tan2&quot;), &quot;Luv&quot;)
-##         0.00         7.42         7.48        12.41        13.69 
-##       &quot;tan2&quot;       &quot;tan1&quot; &quot;sandybrown&quot;    &quot;orange3&quot;    &quot;orange2&quot; 
-## 
-## &gt; nearRcolor(col2rgb(&quot;tan2&quot;), &quot;Lab&quot;)
-##         0.00         5.56         8.08        11.31 
-##       &quot;tan2&quot;       &quot;tan1&quot; &quot;sandybrown&quot;       &quot;peru&quot; 
-## 
-## &gt; nearRcolor(&quot;#334455&quot;)
-##          0.0867 
-## &quot;darkslategray&quot; 
-## 
-## &gt; ## Now, consider choosing a color by looking in the
-## &gt; ## neighborhood of one you know :
-## &gt; 
-## &gt; plotCol(nearRcolor(&quot;deepskyblue&quot;, &quot;rgb&quot;, dist=50))</code></pre>
-<p><img src="eda-for-bio_files/figure-html/unnamed-chunk-148-5.png" width="336" style="display: block; margin: auto;" /></p>
-<pre><code>## 
-## &gt; plotCol(nearRcolor(&quot;deepskyblue&quot;, dist=.1))</code></pre>
-<p><img src="eda-for-bio_files/figure-html/unnamed-chunk-148-6.png" width="336" style="display: block; margin: auto;" /></p>
-<pre><code>## 
-## &gt; plotCol(nearRcolor(&quot;tomato&quot;, &quot;rgb&quot;, dist= 50), nrow=3)</code></pre>
-<p><img src="eda-for-bio_files/figure-html/unnamed-chunk-148-7.png" width="336" style="display: block; margin: auto;" /></p>
-<pre><code>## 
-## &gt; plotCol(nearRcolor(&quot;tomato&quot;, &quot;hsv&quot;, dist=.12), nrow=3)</code></pre>
-<p><img src="eda-for-bio_files/figure-html/unnamed-chunk-148-8.png" width="336" style="display: block; margin: auto;" /></p>
-<pre><code>## 
-## &gt; plotCol(nearRcolor(&quot;tomato&quot;, &quot;Luv&quot;, dist= 25), nrow=3)</code></pre>
-<p><img src="eda-for-bio_files/figure-html/unnamed-chunk-148-9.png" width="336" style="display: block; margin: auto;" /></p>
-<pre><code>## 
-## &gt; plotCol(nearRcolor(&quot;tomato&quot;, &quot;Lab&quot;, dist= 18), nrow=3)</code></pre>
-<p><img src="eda-for-bio_files/figure-html/unnamed-chunk-148-10.png" width="336" style="display: block; margin: auto;" /> This particular demo shows off some of the pre-defined colours we might use to customise the appearance of a plot. We’ve suppressed the output though because so much is produced.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">demo</span>(colors, <span class="dt">package =</span> <span class="st">&quot;grDevices&quot;</span>, <span class="dt">ask =</span> <span class="ot">FALSE</span>)</code></pre></div>
+<p>This particular demo shows off some of the pre-defined colours we might use to customise the appearance of a plot. We’ve suppressed the output though because so much is produced.</p>
 
 </div>
 </div>
@@ -595,8 +451,9 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
         </div>
       </div>
 <a href="extracting-subsets-of-vectors.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="packages.html" class="navigation navigation-next " aria-label="Next page""><i class="fa fa-angle-right"></i></a>
-
+<a href="packages.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/lunr.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
@@ -605,7 +462,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
 <script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
 <script>
-require(["gitbook"], function(gitbook) {
+gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
 "sharing": {
 "github": false,
@@ -640,7 +497,7 @@ gitbook.start({
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    script.src  = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:" && /^https?:/.test(script.src))
       script.src  = script.src.replace(/^https?:/, '');
     document.getElementsByTagName("head")[0].appendChild(script);

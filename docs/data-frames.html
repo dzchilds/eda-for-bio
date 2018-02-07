@@ -6,9 +6,8 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>APS 135: Introduction to Exploratory Data Analysis with R</title>
-  <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
   <meta name="description" content="Course book for Introduction to Exploratory Data Analysis with R (APS 135) in the Department of Animal and Plant Sciences, University of Sheffield.">
-  <meta name="generator" content="bookdown 0.3 and GitBook 2.6.7">
+  <meta name="generator" content="bookdown 0.5 and GitBook 2.6.7">
 
   <meta property="og:title" content="APS 135: Introduction to Exploratory Data Analysis with R" />
   <meta property="og:type" content="book" />
@@ -26,7 +25,7 @@
 <meta name="author" content="Dylan Z. Childs">
 
 
-<meta name="date" content="2017-03-21">
+<meta name="date" content="2018-02-07">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -35,7 +34,6 @@
   
 <link rel="prev" href="packages.html">
 <link rel="next" href="working-directories-and-data-files.html">
-
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -115,6 +113,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </head>
 
 <body>
+
 
 
   <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
@@ -277,8 +276,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul></li>
 <li class="chapter" data-level="15.3" data-path="grouping-and-summarising-data.html"><a href="grouping-and-summarising-data.html#removing-grouping-information"><i class="fa fa-check"></i><b>15.3</b> Removing grouping information</a></li>
 </ul></li>
-<li class="chapter" data-level="16" data-path="building-piplines.html"><a href="building-piplines.html"><i class="fa fa-check"></i><b>16</b> Building piplines</a><ul>
-<li class="chapter" data-level="16.1" data-path="building-piplines.html"><a href="building-piplines.html#why-do-we-need-pipes"><i class="fa fa-check"></i><b>16.1</b> Why do we need ‘pipes’?</a></li>
+<li class="chapter" data-level="16" data-path="building-pipelines.html"><a href="building-pipelines.html"><i class="fa fa-check"></i><b>16</b> Building pipelines</a><ul>
+<li class="chapter" data-level="16.1" data-path="building-pipelines.html"><a href="building-pipelines.html#why-do-we-need-pipes"><i class="fa fa-check"></i><b>16.1</b> Why do we need ‘pipes’?</a></li>
 </ul></li>
 <li class="part"><span><b>III Exporing Data</b></span></li>
 <li class="chapter" data-level="17" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html"><i class="fa fa-check"></i><b>17</b> Exploratory data analysis</a><ul>
@@ -374,16 +373,16 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div id="introduction-2" class="section level2">
 <h2><span class="header-section-number">9.1</span> Introduction</h2>
 <p>We learned in the <a href="a-quick-introduction-to-r.html#a-quick-introduction-to-r">A quick introduction to R</a> chapter that the word “variable” is used as short hand for any kind of named object. For example, we can make a variable called <code>num_vec</code> that refers to a simple numeric vector using:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">num_vec &lt;-<span class="st"> </span><span class="dv">1</span>:<span class="dv">10</span></code></pre></div>
-<p>When a computer scientist talks about variables they’re usually referring to these sorts of name-value associations. However, the word “variable”&quot; has a second, more abstract meaning in the world data analysis and statistics: it refers to anything we can control or measure. For example, if our data comes from an experiment, the data will typically involve variables whose values describe the experimental conditions (e.g. “control plots” vs. “fertiliser plots”) and the quantities we chose to measure (e.g. species biomass and diversity).</p>
-<p>These kinds of abstract variables are often called “statistical variables”. Statistical variables can be further broken down into a range of different types, such as numeric and categorical variables. We’ll discuss these later on in the [Basic exploratory data analysis] chapter. The reason we’re pointing out the dual meaning of the word “variable” here is because we need to work with both interpretations. The dual meaning can be confusing, but both meanings are in widespread use so we just have to get used to them. We’ll try to minimise confusion by using the phrase “statistical variable” when we are referring to data, rather than R objects.</p>
-<p>We’re introducing these ideas now because we’re going to consider a new type of data object in R: the <strong>data frame</strong>. Real world data analysis involves collections of data (“data sets”) that involve several related statistical variables. We’ve seen that an atomic vector can only be used to store one type of data such as a collection of numbers. This means a vector can be used to store a single statistical variable, How should we keep a large collection of variables organised? We could work with them separately but this is very error prone. Ideally, we need a way to keep related variables together. This is the problem that <strong>data frames</strong> and are designed to manage.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">num_vec &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">10</span></code></pre></div>
+<p>When a computer scientist talks about variables they’re usually referring to these sorts of name-value associations. However, the word “variable” has a second, more abstract meaning in the world of data analysis and statistics: it refers to anything we can control or measure. For example, if our data comes from an experiment, the data will typically involve variables whose values describe the experimental conditions (e.g. “control plots” vs. “fertiliser plots”) and the quantities we chose to measure (e.g. species biomass and diversity).</p>
+<p>These kinds of abstract variables are often called “statistical variables”. Statistical variables can be further broken down into a range of different types, such as numeric and categorical variables. We’ll discuss these later on in the <a href="exploratory-data-analysis.html#exploratory-data-analysis">Exploratory data analysis</a> chapter. The reason we’re pointing out the dual meaning of the word “variable” here is because we need to work with both interpretations. The dual meaning can be confusing, but both meanings are in widespread use so we just have to get used to them. We’ll try to minimise confusion by using the phrase “statistical variable” when we are referring to data, rather than R objects.</p>
+<p>We’re introducing these ideas now because we’re going to consider a new type of data object in R: the <strong>data frame</strong>. Real world data analysis involves collections of data (“data sets”) that involve several related statistical variables. We’ve seen that an atomic vector can only be used to store one type of data such as a collection of numbers. This means a vector can be used to store a single statistical variable, How should we keep a large collection of variables organised? We could work with them separately but this is very error prone. Ideally, we need a way to keep related variables together. This is the problem that <strong>data frames</strong> are designed to manage.</p>
 </div>
 <div id="data-frames-intro" class="section level2">
 <h2><span class="header-section-number">9.2</span> Data frames</h2>
 <p>Data frames are one of those R features that mark it out as a particularly good environment for data analysis. We can think of a data frame as table-like objects with rows and columns. They collect together different statistical variables, storing each of them as a different column. Related observations are all found in the same row. This will make more sense in a moment. Let’s consider the columns first.</p>
 <p>Each column is a vector of some kind. These are usually simple vectors containing numbers or character strings, though it is also possible to include more complicated vectors inside data frames. We’ll only work with data frames made up of relatively simple vectors in this book. The key constraint that a data frame applies is that each vector must have the same length. This is what gives a data frame it table-like structure.</p>
-<p>The simplest way to get a feel for data frames is to make one. Data frames are usually constructed by reading some external data into R, but for the purposes of learning about them it is better to build one from from its component parts. We’ll make some artificial data describing a hypothetical experiment to do this. Imagine that we’ve conducted a small experiment to examine biomass and community diversity in six field plots. Three plots were subjected to fertiliser enrichment. The other three plots act as experimental controls. We could store the data describing this experiment in three vectors:</p>
+<p>The simplest way to get a feel for data frames is to make one. Data frames are usually constructed by reading some external data into R, but for the purposes of learning about them it is better to build one from its component parts. We’ll make some artificial data describing a hypothetical experiment to do this. Imagine that we’ve conducted a small experiment to examine biomass and community diversity in six field plots. Three plots were subjected to fertiliser enrichment. The other three plots act as experimental controls. We could store the data describing this experiment in three vectors:</p>
 <ul>
 <li><p><code>trt</code> (short for “treatment”) shows which experimental manipulation was used.</p></li>
 <li><p><code>bms</code> (short for “biomass”) shows the total biomass measured at the end of the experiment.</p></li>
@@ -478,8 +477,8 @@ The <code>View</code> function is designed to allow us to display the data in a 
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">is.numeric</span>(experim.data[[<span class="st">&quot;Biomass&quot;</span>]])</code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
 <p>A data frame really is nothing more than a collection of vectors. Notice that all we did was print the resulting vector to the Console. If we want to actually do something with this numeric vector we need to assign the result:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">bmass &lt;-<span class="st"> </span>experim.data$Biomass
-bmass^<span class="dv">2</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">bmass &lt;-<span class="st"> </span>experim.data<span class="op">$</span>Biomass
+bmass<span class="op">^</span><span class="dv">2</span></code></pre></div>
 <pre><code>## [1]  80656 107584  84681 913936 910116 469225</code></pre>
 <p>Here, we extracted the <code>Biomass</code> variable, assigned it to <code>bmass</code>, and then squared this. The value of <code>Biomass</code> variable inside the <code>experim.data</code> data frame is unchanged.</p>
 <p>Notice that we used <code>&quot;Biomass&quot;</code> instead of <code>Biomass</code> inside the double square brackets, i.e. we quoted the name of the variable. This is because we want R to treat the word “Biomass” as a literal value. This little detail is important! If we don’t quote the name then R will assume that <code>Biomass</code> is the name of an object and go in search of it in the global environment. Since we haven’t created something called <code>Biomass</code>, leaving out the quotes generates an error:</p>
@@ -491,7 +490,7 @@ experim.data[[vname]]</code></pre></div>
 <pre><code>## [1] 284 328 291 956 954 685</code></pre>
 <p>This works because we first defined <code>vname</code> to be a character vector of length one, whose value is the name of a variable in <code>experim.data</code>. When R encounters <code>vname</code> inside the <code>[[</code> construct it goes and finds the value associated with it and uses this value to determine the variable to extract.</p>
 <p>The second method for extracting a variable from a data frame uses the <code>$</code> operator. For example, to extract the <code>Biomass</code> column from the <code>experim.data</code> data frame, we use:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">experim.data$Biomass</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">experim.data<span class="op">$</span>Biomass</code></pre></div>
 <pre><code>## [1] 284 328 291 956 954 685</code></pre>
 <p>We use the <code>$</code> operator by placing the name of the data frame we want to work with on the left hand side and and the name of the column (i.e. the variable) we want to extract on the right hand side. Notice that this time we didn’t have to put quotes around the variable name when using the <code>$</code> operator. We can do this if we want to—i.e. <code>experim.data$&quot;Biomass&quot;</code> also works—but <code>$</code> doesn’t require it.</p>
 <p>Why is there more than one way to extract variables from a data frame? There’s no simple way to answer this question without getting into the details of how R represents data frames. The simple answer is that <code>$</code> and <code>[[</code> are not actually equivalent, even though they appear to do much the same thing. We’ve looked at the two extraction methods because they are both widely used. However, the <code>$</code> method is a bit easier to read and people tend to prefer it for interactive data analysis tasks (the <code>[[</code> construct tends to be used when we need a bit more flexibility).</p>
@@ -499,7 +498,7 @@ experim.data[[vname]]</code></pre></div>
 <div id="adding-a-variable-to-a-data-frame" class="section level3">
 <h3><span class="header-section-number">9.4.2</span> Adding a variable to a data frame</h3>
 <p>How do we add a new variable to an existing data frame? It turns out that the <code>$</code> operator is also be used for this job by combining it with the assignment operator. Using it this way is fairly intuitive. For example, if we want to add a new (made up) variable called <code>Elevation</code> to <code>experim.data</code>, we do it like this:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">experim.data$Elevation &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">364</span>, <span class="dv">294</span>, <span class="dv">321</span>, <span class="dv">358</span>, <span class="dv">298</span>, <span class="dv">312</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">experim.data<span class="op">$</span>Elevation &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">364</span>, <span class="dv">294</span>, <span class="dv">321</span>, <span class="dv">358</span>, <span class="dv">298</span>, <span class="dv">312</span>)</code></pre></div>
 <p>This assigns some fake elevation data to a new variable in <code>experim.data</code> using the <code>$</code> operator. The new variable is called <code>Elevation</code> because that was the name we used on the right hand side of <code>$</code>. This changes <code>experim.data</code>, such that it now contains four columns (variables):</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(experim.data, <span class="dt">n =</span> <span class="dv">3</span>)</code></pre></div>
 <pre><code>##   Treatment Biomass Diversity Elevation
@@ -512,7 +511,7 @@ experim.data[[vname]]</code></pre></div>
 <h3><span class="header-section-number">9.4.3</span> Subsetting data frames</h3>
 <p>What do we do if, instead of just extracting a single variable from a data frame, we need to select a subset of rows and/or columns? We use the single square brackets construct, <code>[</code>, to do this. There are two different ways we can use single square brackets, both of which involve the use of indexing vector(s) inside the <code>[</code> construct.</p>
 <p>The first use of <code>[</code> allows us to subset one or more columns while keeping all the rows. This works exactly as the <code>[</code> does for vectors. Just think of columns as the elements of the data frame. For example, if we want to subset <code>experim.data</code> such that we are only left with the first and second columns (<code>Treatment</code> and <code>Biomass</code>), we can use a numeric indexing vector:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">experim.data[<span class="kw">c</span>(<span class="dv">1</span>:<span class="dv">2</span>)]</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">experim.data[<span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>)]</code></pre></div>
 <pre><code>##   Treatment Biomass
 ## 1   Control     284
 ## 2   Control     328
@@ -531,10 +530,10 @@ experim.data[[vname]]</code></pre></div>
 ## 6 Fertilser     685</code></pre>
 <p>The second use of <code>[ ]</code> is designed to allow us to subset rows and columns at the same time. We have to specify both the rows and the columns we require, using a comma (“<code>,</code>”) to separate a row and column index vector. This is easiest to understand with an example:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># row index</span>
-rindex &lt;-<span class="st"> </span><span class="dv">1</span>:<span class="dv">3</span>
+rindex &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">3</span>
 <span class="co"># column index </span>
 cindex &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Treatment&quot;</span>, <span class="st">&quot;Biomass&quot;</span>)
-<span class="co"># subset the data farme</span>
+<span class="co"># subset the data frame</span>
 experim.data[rindex, cindex]</code></pre></div>
 <pre><code>##   Treatment Biomass
 ## 1   Control     284
@@ -542,13 +541,13 @@ experim.data[rindex, cindex]</code></pre></div>
 ## 3   Control     291</code></pre>
 <p>This example extracts a subset of <code>experim.data</code> corresponding to rows 1 through 3, and columns “Treatment” and “Biomass”. The <code>rindex</code> is a numeric vector of row positions, and <code>cindex</code> is a character vector of column names. This shows that rows and columns can be selected by referencing their position or their names. The rows are not named in <code>experim.data</code>, so we specified the positions.</p>
 <p>Storing the index vectors first is quite a long-winded way of subsetting a data frame. However, there is nothing to stop us doing everything in one step:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">experim.data[<span class="dv">1</span>:<span class="dv">3</span>, <span class="kw">c</span>(<span class="st">&quot;Treatment&quot;</span>, <span class="st">&quot;Biomass&quot;</span>)]</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">experim.data[<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="kw">c</span>(<span class="st">&quot;Treatment&quot;</span>, <span class="st">&quot;Biomass&quot;</span>)]</code></pre></div>
 <pre><code>##   Treatment Biomass
 ## 1   Control     284
 ## 2   Control     328
 ## 3   Control     291</code></pre>
 <p>If we need to subset just rows or columns we just leave out the appropriate index vector:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">experim.data[<span class="dv">1</span>:<span class="dv">3</span>, ]</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">experim.data[<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, ]</code></pre></div>
 <pre><code>##   Treatment Biomass Diversity Elevation
 ## 1   Control     284         8       364
 ## 2   Control     328        12       294
@@ -564,7 +563,7 @@ Subsetting with the <code>[rindex, cindex]</code> construct produces another dat
 </div>
 <p>The <code>[</code> construct works with three types of index vectors. We’ve just seen that the index vector can be a numeric or character type. The third approach uses a logical index vector. For example, we can subset the <code>experim.data</code> data frame, keeping just the rows where the <code>Treatment</code> variable is equal to “Control”, using:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># make a logical index vector</span>
-rindex &lt;-<span class="st"> </span>experim.data $<span class="st"> </span>Treatment ==<span class="st"> &quot;Control&quot;</span>
+rindex &lt;-<span class="st"> </span>experim.data <span class="op">$</span><span class="st"> </span>Treatment <span class="op">==</span><span class="st"> &quot;Control&quot;</span>
 rindex</code></pre></div>
 <pre><code>## [1]  TRUE  TRUE  TRUE FALSE FALSE FALSE</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># </span>
@@ -589,8 +588,9 @@ experim.data[rindex, ]</code></pre></div>
         </div>
       </div>
 <a href="packages.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="working-directories-and-data-files.html" class="navigation navigation-next " aria-label="Next page""><i class="fa fa-angle-right"></i></a>
-
+<a href="working-directories-and-data-files.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/lunr.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
@@ -599,7 +599,7 @@ experim.data[rindex, ]</code></pre></div>
 <script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
 <script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
 <script>
-require(["gitbook"], function(gitbook) {
+gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
 "sharing": {
 "github": false,
@@ -634,7 +634,7 @@ gitbook.start({
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    script.src  = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:" && /^https?:/.test(script.src))
       script.src  = script.src.replace(/^https?:/, '');
     document.getElementsByTagName("head")[0].appendChild(script);

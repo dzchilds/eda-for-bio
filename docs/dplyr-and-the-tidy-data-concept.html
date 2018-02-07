@@ -6,9 +6,8 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>APS 135: Introduction to Exploratory Data Analysis with R</title>
-  <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
   <meta name="description" content="Course book for Introduction to Exploratory Data Analysis with R (APS 135) in the Department of Animal and Plant Sciences, University of Sheffield.">
-  <meta name="generator" content="bookdown 0.3 and GitBook 2.6.7">
+  <meta name="generator" content="bookdown 0.5 and GitBook 2.6.7">
 
   <meta property="og:title" content="APS 135: Introduction to Exploratory Data Analysis with R" />
   <meta property="og:type" content="book" />
@@ -26,7 +25,7 @@
 <meta name="author" content="Dylan Z. Childs">
 
 
-<meta name="date" content="2017-03-21">
+<meta name="date" content="2018-02-07">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -35,7 +34,6 @@
   
 <link rel="prev" href="working-directories-and-data-files.html">
 <link rel="next" href="working-with-variables.html">
-
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -115,6 +113,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </head>
 
 <body>
+
 
 
   <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
@@ -277,8 +276,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul></li>
 <li class="chapter" data-level="15.3" data-path="grouping-and-summarising-data.html"><a href="grouping-and-summarising-data.html#removing-grouping-information"><i class="fa fa-check"></i><b>15.3</b> Removing grouping information</a></li>
 </ul></li>
-<li class="chapter" data-level="16" data-path="building-piplines.html"><a href="building-piplines.html"><i class="fa fa-check"></i><b>16</b> Building piplines</a><ul>
-<li class="chapter" data-level="16.1" data-path="building-piplines.html"><a href="building-piplines.html#why-do-we-need-pipes"><i class="fa fa-check"></i><b>16.1</b> Why do we need ‘pipes’?</a></li>
+<li class="chapter" data-level="16" data-path="building-pipelines.html"><a href="building-pipelines.html"><i class="fa fa-check"></i><b>16</b> Building pipelines</a><ul>
+<li class="chapter" data-level="16.1" data-path="building-pipelines.html"><a href="building-pipelines.html#why-do-we-need-pipes"><i class="fa fa-check"></i><b>16.1</b> Why do we need ‘pipes’?</a></li>
 </ul></li>
 <li class="part"><span><b>III Exporing Data</b></span></li>
 <li class="chapter" data-level="17" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html"><i class="fa fa-check"></i><b>17</b> Exploratory data analysis</a><ul>
@@ -373,7 +372,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <h1><span class="header-section-number">Chapter 11</span> <strong>dplyr</strong> and the tidy data concept</h1>
 <div id="introduction-4" class="section level2">
 <h2><span class="header-section-number">11.1</span> Introduction</h2>
-<p>[Data wrangling]</p>
+<p>Data wrangling refers to the process of manipulating raw data into the format that we want it in, for example for data visualisation or statistical analyses. There are a wide range of ways we may want to manipulate our data, for example by creating new variables, subsetting the data, or calculating summaries. Data wrangling is often a time consuming process. It is also not the most interesting part of any analysis - we are interested in answering biological questions, not in formatting data. However, it is a necessary step to go through to be able to conduct the analyses that we’re really interested in. Learning how to manipulate data efficiently can save us a lot of time and trouble and is therefore a really important skill to master.</p>
 </div>
 <div id="why-dplyr" class="section level2">
 <h2><span class="header-section-number">11.2</span> The value of <strong>dplyr</strong></h2>
@@ -443,18 +442,18 @@ The best way to make sure your data set is tidy is to store in that format <stro
 iris_tbl &lt;-<span class="st"> </span><span class="kw">tbl_df</span>(iris)
 <span class="co"># print it</span>
 iris_tbl</code></pre></div>
-<pre><code>## # A tibble: 150 × 5
+<pre><code>## # A tibble: 150 x 5
 ##    Sepal.Length Sepal.Width Petal.Length Petal.Width Species
 ##           &lt;dbl&gt;       &lt;dbl&gt;        &lt;dbl&gt;       &lt;dbl&gt;  &lt;fctr&gt;
-## 1           5.1         3.5          1.4         0.2  setosa
-## 2           4.9         3.0          1.4         0.2  setosa
-## 3           4.7         3.2          1.3         0.2  setosa
-## 4           4.6         3.1          1.5         0.2  setosa
-## 5           5.0         3.6          1.4         0.2  setosa
-## 6           5.4         3.9          1.7         0.4  setosa
-## 7           4.6         3.4          1.4         0.3  setosa
-## 8           5.0         3.4          1.5         0.2  setosa
-## 9           4.4         2.9          1.4         0.2  setosa
+##  1          5.1         3.5          1.4         0.2  setosa
+##  2          4.9         3.0          1.4         0.2  setosa
+##  3          4.7         3.2          1.3         0.2  setosa
+##  4          4.6         3.1          1.5         0.2  setosa
+##  5          5.0         3.6          1.4         0.2  setosa
+##  6          5.4         3.9          1.7         0.4  setosa
+##  7          4.6         3.4          1.4         0.3  setosa
+##  8          5.0         3.4          1.5         0.2  setosa
+##  9          4.4         2.9          1.4         0.2  setosa
 ## 10          4.9         3.1          1.5         0.1  setosa
 ## # ... with 140 more rows</code></pre>
 <p>Notice that only the first 10 rows are printed. This is much nicer than trying to wade through every row of a data frame.</p>
@@ -481,8 +480,9 @@ iris_tbl</code></pre></div>
         </div>
       </div>
 <a href="working-directories-and-data-files.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="working-with-variables.html" class="navigation navigation-next " aria-label="Next page""><i class="fa fa-angle-right"></i></a>
-
+<a href="working-with-variables.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/lunr.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
@@ -491,7 +491,7 @@ iris_tbl</code></pre></div>
 <script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
 <script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
 <script>
-require(["gitbook"], function(gitbook) {
+gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
 "sharing": {
 "github": false,
@@ -526,7 +526,7 @@ gitbook.start({
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    script.src  = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:" && /^https?:/.test(script.src))
       script.src  = script.src.replace(/^https?:/, '');
     document.getElementsByTagName("head")[0].appendChild(script);

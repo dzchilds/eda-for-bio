@@ -6,9 +6,8 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>APS 135: Introduction to Exploratory Data Analysis with R</title>
-  <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
   <meta name="description" content="Course book for Introduction to Exploratory Data Analysis with R (APS 135) in the Department of Animal and Plant Sciences, University of Sheffield.">
-  <meta name="generator" content="bookdown 0.3 and GitBook 2.6.7">
+  <meta name="generator" content="bookdown 0.5 and GitBook 2.6.7">
 
   <meta property="og:title" content="APS 135: Introduction to Exploratory Data Analysis with R" />
   <meta property="og:type" content="book" />
@@ -26,7 +25,7 @@
 <meta name="author" content="Dylan Z. Childs">
 
 
-<meta name="date" content="2017-03-21">
+<meta name="date" content="2018-02-07">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -35,7 +34,6 @@
   
 <link rel="prev" href="get-up-and-running-with-r-and-rstudio.html">
 <link rel="next" href="scripts.html">
-
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -115,6 +113,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </head>
 
 <body>
+
 
 
   <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
@@ -277,8 +276,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul></li>
 <li class="chapter" data-level="15.3" data-path="grouping-and-summarising-data.html"><a href="grouping-and-summarising-data.html#removing-grouping-information"><i class="fa fa-check"></i><b>15.3</b> Removing grouping information</a></li>
 </ul></li>
-<li class="chapter" data-level="16" data-path="building-piplines.html"><a href="building-piplines.html"><i class="fa fa-check"></i><b>16</b> Building piplines</a><ul>
-<li class="chapter" data-level="16.1" data-path="building-piplines.html"><a href="building-piplines.html#why-do-we-need-pipes"><i class="fa fa-check"></i><b>16.1</b> Why do we need ‘pipes’?</a></li>
+<li class="chapter" data-level="16" data-path="building-pipelines.html"><a href="building-pipelines.html"><i class="fa fa-check"></i><b>16</b> Building pipelines</a><ul>
+<li class="chapter" data-level="16.1" data-path="building-pipelines.html"><a href="building-pipelines.html#why-do-we-need-pipes"><i class="fa fa-check"></i><b>16.1</b> Why do we need ‘pipes’?</a></li>
 </ul></li>
 <li class="part"><span><b>III Exporing Data</b></span></li>
 <li class="chapter" data-level="17" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html"><i class="fa fa-check"></i><b>17</b> Exploratory data analysis</a><ul>
@@ -376,24 +375,24 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div id="basic-arithmetic" class="section level3">
 <h3><span class="header-section-number">1.1.1</span> Basic arithmetic</h3>
 <p>The end of the <a href="get-up-and-running-with-r-and-rstudio.html#get-up-and-running-with-r-and-rstudio">Get up and running with R and RStudio</a> chapter demonstrated that R can handle familiar arithmetic operations: addition, subtraction, multiplication, division. If we want to add or subtract a pair of numbers just place the <code>+</code> or <code>-</code> symbol in between two numbers, hit Enter, and R will read the expression, evaluate it, and print the result to the Console. This works exactly as we expect it to:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="dv">3</span> +<span class="st"> </span><span class="dv">2</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="dv">3</span> <span class="op">+</span><span class="st"> </span><span class="dv">2</span></code></pre></div>
 <pre><code>## [1] 5</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="dv">5</span> -<span class="st"> </span><span class="dv">1</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="dv">5</span> <span class="op">-</span><span class="st"> </span><span class="dv">1</span></code></pre></div>
 <pre><code>## [1] 4</code></pre>
 <p>Multiplication and division are no different, though we don’t use <code>x</code> or <code>÷</code> for these operations. Instead, we use <code>*</code> and <code>/</code> to multiply and divide:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="dv">7</span> *<span class="st"> </span><span class="dv">2</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="dv">7</span> <span class="op">*</span><span class="st"> </span><span class="dv">2</span></code></pre></div>
 <pre><code>## [1] 14</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="dv">3</span> /<span class="st"> </span><span class="dv">2</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="dv">3</span> <span class="op">/</span><span class="st"> </span><span class="dv">2</span></code></pre></div>
 <pre><code>## [1] 1.5</code></pre>
 <p>We can also exponentiate a numbers: raise one number to the power of another. We use the <code>^</code> operator to do this:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="dv">4</span>^<span class="dv">2</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="dv">4</span><span class="op">^</span><span class="dv">2</span></code></pre></div>
 <pre><code>## [1] 16</code></pre>
 <p>This raises 4 to the power of 2 (i.e. we squared it). In general, we can raise a number <code>x</code> to the power of <code>y</code> using <code>x^y</code>. Neither <code>x</code> or <code>y</code> need to be a whole numbers either.</p>
 <p>Arithmetic operations can also be combined into one expression. Assume we want to subtract 6 from 2<sup>3</sup>. The expression to perform this calculation is:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="dv">2</span>^<span class="dv">3</span> -<span class="st"> </span><span class="dv">6</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="dv">2</span><span class="op">^</span><span class="dv">3</span> <span class="op">-</span><span class="st"> </span><span class="dv">6</span></code></pre></div>
 <pre><code>## [1] 2</code></pre>
 <p><span class="math inline">\(2^3=8\)</span> and <span class="math inline">\(8-6=2\)</span>. Simple enough, but what if we had wanted to carry out a slightly longer calculation that required the last answer to then be divided by 2? This is the <strong>wrong</strong> the way to do it:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="dv">2</span>^<span class="dv">3</span> -<span class="st"> </span><span class="dv">6</span> /<span class="st"> </span><span class="dv">2</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="dv">2</span><span class="op">^</span><span class="dv">3</span> <span class="op">-</span><span class="st"> </span><span class="dv">6</span> <span class="op">/</span><span class="st"> </span><span class="dv">2</span></code></pre></div>
 <pre><code>## [1] 5</code></pre>
 <p>The answer we were looking for is <span class="math inline">\(1\)</span>. So what happened? R evaluated <span class="math inline">\(6/2\)</span> first and then subtracted this answer from <span class="math inline">\(2^3\)</span>.</p>
 <p>If that’s obvious, great. If not, it’s time to learn a bit about the <strong>order of precendence</strong> used by R. R uses a standard set of rules to decide the order in which arithmetic calculations feed into one another so that it can unambiguously evaluate any expression. It uses the same order as every other computer language, which thankfully is the same one we all learned in mathematics class at school. The order of precedence used is:</p>
@@ -411,20 +410,20 @@ If you find it difficult to remember order of precedence used by R, there are a 
 </p>
 </div>
 <p>In order to get the answer we were looking for we need to take control of the order of evaluation. We do this by enclosing grouping the necessary bits of the calculation inside parentheses (“round brackets”). That is, we place <code>(</code> and <code>)</code> either side of them. The order in which expressions inside different pairs of parentheses are evaluated follows the rules we all had to learn at school. The R expression we should have used is therefore:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">(<span class="dv">2</span>^<span class="dv">3</span> -<span class="st"> </span><span class="dv">6</span>) /<span class="st"> </span><span class="dv">2</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">(<span class="dv">2</span><span class="op">^</span><span class="dv">3</span> <span class="op">-</span><span class="st"> </span><span class="dv">6</span>) <span class="op">/</span><span class="st"> </span><span class="dv">2</span></code></pre></div>
 <pre><code>## [1] 1</code></pre>
 <p>We can use more than one pair of parentheses to control the order of evaluation in more complex calculations. For example, if we want to find the cube root of 2 (i.e. 2<sup>1/3</sup>) rather than 2<sup>3</sup> in that last calculation we would instead write:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">(<span class="dv">2</span>^(<span class="dv">1</span>/<span class="dv">3</span>) -<span class="st"> </span><span class="dv">6</span>) /<span class="st"> </span><span class="dv">2</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">(<span class="dv">2</span><span class="op">^</span>(<span class="dv">1</span><span class="op">/</span><span class="dv">3</span>) <span class="op">-</span><span class="st"> </span><span class="dv">6</span>) <span class="op">/</span><span class="st"> </span><span class="dv">2</span></code></pre></div>
 <pre><code>## [1] -2.370039</code></pre>
 <p>The parentheses around the <code>1/3</code> in the exponent are needed to ensure this is evaluated prior to being used as the exponent.</p>
 </div>
 <div id="problematic-calculations" class="section level3">
 <h3><span class="header-section-number">1.1.2</span> Problematic calculations</h3>
 <p>Now is a good time to highlight how R handles certain kinds of awkward numerical calculations. One of these involves division of a number by 0. Some programming languages will respond to an attempt to do this with an error. R is a bit more forgiving:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="dv">1</span>/<span class="dv">0</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="dv">1</span><span class="op">/</span><span class="dv">0</span></code></pre></div>
 <pre><code>## [1] Inf</code></pre>
 <p>Mathematically, division of a finite number by <code>0</code> equals A Very Large Number: infinity. R has a special built in data value that allows it to handle this kind of thing. This is <code>Inf</code>, which of course stands for “infinity”. The other special kind of value we sometimes run into can be generated by numerical calculations that don’t have a well-defined result. For example, it arises when we try to divide 0 or infinity by themselves:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="dv">0</span>/<span class="dv">0</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="dv">0</span><span class="op">/</span><span class="dv">0</span></code></pre></div>
 <pre><code>## [1] NaN</code></pre>
 <p>The <code>NaN</code> in this result stands for Not a Number. R produces <code>NaN</code> because <span class="math inline">\(0/0\)</span> is not defined mathematically: it produces something that is Not a Number. The reason we are pointing out <code>Inf</code> and <code>NaN</code> is not because we expect to use them. It’s important to know what they represent because they often arise as a result of a mistake somewhere in a program. It’s hard to track down such mistakes if we don’t know how <code>Inf</code> and <code>NaN</code> arise.</p>
 <p>That is enough about using R as a calculator for now. What we’ve seen—even though we haven’t said it yet—is that R functions as a REPL: a read-eval-print loop (there’s no need to remember this term). R takes user input, evaluates it, prints the results, and then waits for the next input. This is handy, because it means we can use it interactively, working through an analysis line-by-line. However, to use R to solve for complex problems we need to learn how to store and reuse results. We’ll look at this in the next section.</p>
@@ -443,9 +442,9 @@ Working at the Console soon gets tedious if we have to retype similar things ove
 <p>So far we’ve not tried to do anything remotely complicated or interesting, though we now know how to construct longer calculations using parentheses to control the order of evaluation. This approach is fine if the calculation is very simple. It quickly becomes unwieldy for dealing with anything more. The best way to see what we mean is by working through a simple example—solving a quadratic equation. Quadratic equations looks like this: <span class="math inline">\(a + bx + cx^2 = 0\)</span>. If we know the values of <span class="math inline">\(a\)</span>, <span class="math inline">\(b\)</span> and <span class="math inline">\(c\)</span> then we can solve this equation to find the values of <span class="math inline">\(x\)</span> that ensure the left hand side equals the right hand side. Here’s the well-known formula for these solutions: <span class="math display">\[
 x = \frac{-b\pm\sqrt{b^2-4ac}}{2a}
 \]</span> Let’s use R to calculate these solutions for us. Say that we want to find the solutions to the quadratic equation when <span class="math inline">\(a=1\)</span>, <span class="math inline">\(b=6\)</span> and <span class="math inline">\(c=5\)</span>. We just have to turn the above equation into a pair of R expressions:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">(-<span class="dv">6</span> +<span class="st"> </span>(<span class="dv">6</span>^<span class="dv">2</span> -<span class="dv">4</span> *<span class="st"> </span><span class="dv">1</span> *<span class="st"> </span><span class="dv">5</span>)^(<span class="dv">1</span>/<span class="dv">2</span>)) /<span class="st"> </span>(<span class="dv">2</span> *<span class="st"> </span><span class="dv">1</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">(<span class="op">-</span><span class="dv">6</span> <span class="op">+</span><span class="st"> </span>(<span class="dv">6</span><span class="op">^</span><span class="dv">2</span> <span class="op">-</span><span class="dv">4</span> <span class="op">*</span><span class="st"> </span><span class="dv">1</span> <span class="op">*</span><span class="st"> </span><span class="dv">5</span>)<span class="op">^</span>(<span class="dv">1</span><span class="op">/</span><span class="dv">2</span>)) <span class="op">/</span><span class="st"> </span>(<span class="dv">2</span> <span class="op">*</span><span class="st"> </span><span class="dv">1</span>)</code></pre></div>
 <pre><code>## [1] -1</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">(-<span class="dv">6</span> -<span class="st"> </span>(<span class="dv">6</span>^<span class="dv">2</span> -<span class="dv">4</span> *<span class="st"> </span><span class="dv">1</span> *<span class="st"> </span><span class="dv">5</span>)^(<span class="dv">1</span>/<span class="dv">2</span>)) /<span class="st"> </span>(<span class="dv">2</span> *<span class="st"> </span><span class="dv">1</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">(<span class="op">-</span><span class="dv">6</span> <span class="op">-</span><span class="st"> </span>(<span class="dv">6</span><span class="op">^</span><span class="dv">2</span> <span class="op">-</span><span class="dv">4</span> <span class="op">*</span><span class="st"> </span><span class="dv">1</span> <span class="op">*</span><span class="st"> </span><span class="dv">5</span>)<span class="op">^</span>(<span class="dv">1</span><span class="op">/</span><span class="dv">2</span>)) <span class="op">/</span><span class="st"> </span>(<span class="dv">2</span> <span class="op">*</span><span class="st"> </span><span class="dv">1</span>)</code></pre></div>
 <pre><code>## [1] -5</code></pre>
 <p>The output tells us that the two values of <span class="math inline">\(x\)</span> that satisfy this particular quadratic equation are -1 and -5. What should we do if we now need to solve a different quadratic equation? Working at the Console, we could bring up the expressions we typed (using the up arrow) and then go through each of these, changing the numbers to match the new values of <span class="math inline">\(a\)</span>, <span class="math inline">\(b\)</span> and <span class="math inline">\(c\)</span>. Editing individual expressions like this is fairly tedious, and more importantly, it’s fairly error prone because we have to make sure we substitute the new numbers at exactly the right positions.</p>
 <p>A partial solution to this problem is to store the values of <span class="math inline">\(a\)</span>, <span class="math inline">\(b\)</span> and <span class="math inline">\(c\)</span>. We’ll see precisely why this is useful in a moment. First, we need to learn how to store results in R. The key to this is to use the <strong>assigment operator</strong>, written as a left arrow <code>&lt;-</code>. Sticking with our original example, we need to store the numbers 1, 6 and 5. We do this using three expressions, one after the another:</p>
@@ -466,21 +465,21 @@ We use the assignment operator <code>&lt;-</code> all the time when working with
 <pre><code>## [1] 1</code></pre>
 <p>It looks the same as if we had typed the number <code>1</code> directly into the Console. The result of typing <code>b</code> or <code>c</code> is hopefully obvious. What we just did was to store the output that results from evaluating three separate R expressions, associating each a name so that we can access them again<a href="#fn3" class="footnoteRef" id="fnref3"><sup>3</sup></a>.</p>
 <p>Whenever we use the assignment operator <code>&lt;-</code> we are telling R to keep whatever kind of value results from the calculation on the right hand side of <code>&lt;-</code>, giving it the name on the left hand side so that we can access it later. Why is this useful? Let’s imagine we want to do more than one thing with our three numbers. If we want to know their sum or their product we can now use:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">a +<span class="st"> </span>b +<span class="st"> </span>c</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">a <span class="op">+</span><span class="st"> </span>b <span class="op">+</span><span class="st"> </span>c</code></pre></div>
 <pre><code>## [1] 12</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">a *<span class="st"> </span>b *<span class="st"> </span>c</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">a <span class="op">*</span><span class="st"> </span>b <span class="op">*</span><span class="st"> </span>c</code></pre></div>
 <pre><code>## [1] 30</code></pre>
 <p>So once we’ve stored a result and associated it with a name we can reuse it wherever it’s needed. Returning to our motivating example, we can now calculate the solutions to the quadratic equation by typing these two expressions into the Console:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">(-b +<span class="st"> </span>(b^<span class="dv">2</span> -<span class="dv">4</span> *<span class="st"> </span>a *<span class="st"> </span>c)^(<span class="dv">1</span>/<span class="dv">2</span>)) /<span class="st"> </span>(<span class="dv">2</span> *<span class="st"> </span>a)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">(<span class="op">-</span>b <span class="op">+</span><span class="st"> </span>(b<span class="op">^</span><span class="dv">2</span> <span class="op">-</span><span class="dv">4</span> <span class="op">*</span><span class="st"> </span>a <span class="op">*</span><span class="st"> </span>c)<span class="op">^</span>(<span class="dv">1</span><span class="op">/</span><span class="dv">2</span>)) <span class="op">/</span><span class="st"> </span>(<span class="dv">2</span> <span class="op">*</span><span class="st"> </span>a)</code></pre></div>
 <pre><code>## [1] -1</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">(-b -<span class="st"> </span>(b^<span class="dv">2</span> -<span class="dv">4</span> *<span class="st"> </span>a *<span class="st"> </span>c)^(<span class="dv">1</span>/<span class="dv">2</span>)) /<span class="st"> </span>(<span class="dv">2</span> *<span class="st"> </span>a)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">(<span class="op">-</span>b <span class="op">-</span><span class="st"> </span>(b<span class="op">^</span><span class="dv">2</span> <span class="op">-</span><span class="dv">4</span> <span class="op">*</span><span class="st"> </span>a <span class="op">*</span><span class="st"> </span>c)<span class="op">^</span>(<span class="dv">1</span><span class="op">/</span><span class="dv">2</span>)) <span class="op">/</span><span class="st"> </span>(<span class="dv">2</span> <span class="op">*</span><span class="st"> </span>a)</code></pre></div>
 <pre><code>## [1] -5</code></pre>
 <p>Imagine we’d like to find the solutions to a different quadratic equation where <span class="math inline">\(a=1\)</span>, <span class="math inline">\(b=5\)</span> and <span class="math inline">\(c=5\)</span>. We just changed the value of <span class="math inline">\(b\)</span> here to keep things simple. To find our new solutions we have to do two things. First we change the value of the number associated with <code>b</code>…</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">b &lt;-<span class="st"> </span><span class="dv">5</span></code></pre></div>
 <p>…then we bring up those lines that calculate the solutions to the quadratic equation and run them, one after the other:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">(-b +<span class="st"> </span>(b^<span class="dv">2</span> -<span class="dv">4</span> *<span class="st"> </span>a *<span class="st"> </span>c)^(<span class="dv">1</span>/<span class="dv">2</span>)) /<span class="st"> </span>(<span class="dv">2</span> *<span class="st"> </span>a)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">(<span class="op">-</span>b <span class="op">+</span><span class="st"> </span>(b<span class="op">^</span><span class="dv">2</span> <span class="op">-</span><span class="dv">4</span> <span class="op">*</span><span class="st"> </span>a <span class="op">*</span><span class="st"> </span>c)<span class="op">^</span>(<span class="dv">1</span><span class="op">/</span><span class="dv">2</span>)) <span class="op">/</span><span class="st"> </span>(<span class="dv">2</span> <span class="op">*</span><span class="st"> </span>a)</code></pre></div>
 <pre><code>## [1] -1.381966</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">(-b -<span class="st"> </span>(b^<span class="dv">2</span> -<span class="dv">4</span> *<span class="st"> </span>a *<span class="st"> </span>c)^(<span class="dv">1</span>/<span class="dv">2</span>)) /<span class="st"> </span>(<span class="dv">2</span> *<span class="st"> </span>a)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">(<span class="op">-</span>b <span class="op">-</span><span class="st"> </span>(b<span class="op">^</span><span class="dv">2</span> <span class="op">-</span><span class="dv">4</span> <span class="op">*</span><span class="st"> </span>a <span class="op">*</span><span class="st"> </span>c)<span class="op">^</span>(<span class="dv">1</span><span class="op">/</span><span class="dv">2</span>)) <span class="op">/</span><span class="st"> </span>(<span class="dv">2</span> <span class="op">*</span><span class="st"> </span>a)</code></pre></div>
 <pre><code>## [1] -3.618034</code></pre>
 <p>We didn’t have to retype those two expressions. We could just use the up arrow to bring each one back to the prompt and hit Enter. This is much simpler than editing the expressions. More importantly, we are beginning to see the benefits of using something like R: we can break down complex calculations into a series of steps, storing and reusing intermediate results as required.</p>
 </div>
@@ -491,9 +490,9 @@ We use the assignment operator <code>&lt;-</code> all the time when working with
 myvar &lt;-<span class="st"> </span><span class="dv">7</span></code></pre></div>
 <p>The first time we used <code>&lt;-</code> with <code>myvar</code> on the left hand side we <strong>created</strong> a variable <code>myvar</code> associated with the value 1. The second line <code>myvar &lt;- 7</code> <strong>modified</strong> the value of <code>myvar</code> to be 7. This is why we refer to <code>myvar</code> as a variable: we can change the its value as we please. What happened to the old value associated with <code>myvar</code>? In short, it is gone, kaput, lost… forever. The moment we assign a new value to <code>myvar</code> the old one is destroyed and can no longer be accessed. Remember this.</p>
 <p>Keep in mind that the expression on the right hand side of <code>&lt;-</code> can be any kind of calculation, not just just a number. For example, if I want to store the number 1, associating it with <code>answer</code>, I could do this:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">answer &lt;-<span class="st"> </span>(<span class="dv">1</span> +<span class="st"> </span><span class="dv">2</span>^<span class="dv">3</span>) /<span class="st"> </span>(<span class="dv">2</span> +<span class="st"> </span><span class="dv">7</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">answer &lt;-<span class="st"> </span>(<span class="dv">1</span> <span class="op">+</span><span class="st"> </span><span class="dv">2</span><span class="op">^</span><span class="dv">3</span>) <span class="op">/</span><span class="st"> </span>(<span class="dv">2</span> <span class="op">+</span><span class="st"> </span><span class="dv">7</span>)</code></pre></div>
 <p>That is a strange way to assign the number 1, but it illustrates the point. More generally, as along as the expression on the right hand side generates an output it can be used with the assignment operator. For example, we can create new variables from old variables:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">newvar &lt;-<span class="st"> </span><span class="dv">2</span> *<span class="st"> </span>answer</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">newvar &lt;-<span class="st"> </span><span class="dv">2</span> <span class="op">*</span><span class="st"> </span>answer</code></pre></div>
 <p>What happened here? Start at the right hand side of <code>&lt;-</code>. The expression on this side contained the variable <code>answer</code> so R went to see if <code>answer</code> actually exists in the global environment. It does, so it then substituted the value associated with <code>answer</code> into the requested calculation, and then assigned the resulting value of 2 to <code>newvar</code>. We created a new variable <code>newvar</code> using information associated with <code>answer</code>.</p>
 <p>Now look at what happens if we just copy a variable using the assignment operator:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">myvar &lt;-<span class="st"> </span><span class="dv">7</span>
@@ -549,8 +548,9 @@ We are allowed to begin a name with a <code>.</code>, but this usually is A Bad 
         </div>
       </div>
 <a href="get-up-and-running-with-r-and-rstudio.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="scripts.html" class="navigation navigation-next " aria-label="Next page""><i class="fa fa-angle-right"></i></a>
-
+<a href="scripts.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/lunr.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
@@ -559,7 +559,7 @@ We are allowed to begin a name with a <code>.</code>, but this usually is A Bad 
 <script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
 <script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
 <script>
-require(["gitbook"], function(gitbook) {
+gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
 "sharing": {
 "github": false,
@@ -594,7 +594,7 @@ gitbook.start({
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    script.src  = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:" && /^https?:/.test(script.src))
       script.src  = script.src.replace(/^https?:/, '');
     document.getElementsByTagName("head")[0].appendChild(script);

@@ -6,9 +6,8 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>APS 135: Introduction to Exploratory Data Analysis with R</title>
-  <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
   <meta name="description" content="Course book for Introduction to Exploratory Data Analysis with R (APS 135) in the Department of Animal and Plant Sciences, University of Sheffield.">
-  <meta name="generator" content="bookdown 0.3 and GitBook 2.6.7">
+  <meta name="generator" content="bookdown 0.5 and GitBook 2.6.7">
 
   <meta property="og:title" content="APS 135: Introduction to Exploratory Data Analysis with R" />
   <meta property="og:type" content="book" />
@@ -26,7 +25,7 @@
 <meta name="author" content="Dylan Z. Childs">
 
 
-<meta name="date" content="2017-03-21">
+<meta name="date" content="2018-02-07">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -35,7 +34,6 @@
   
 <link rel="prev" href="exploratory-data-analysis.html">
 <link rel="next" href="customising-plots.html">
-
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -115,6 +113,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </head>
 
 <body>
+
 
 
   <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
@@ -277,8 +276,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul></li>
 <li class="chapter" data-level="15.3" data-path="grouping-and-summarising-data.html"><a href="grouping-and-summarising-data.html#removing-grouping-information"><i class="fa fa-check"></i><b>15.3</b> Removing grouping information</a></li>
 </ul></li>
-<li class="chapter" data-level="16" data-path="building-piplines.html"><a href="building-piplines.html"><i class="fa fa-check"></i><b>16</b> Building piplines</a><ul>
-<li class="chapter" data-level="16.1" data-path="building-piplines.html"><a href="building-piplines.html#why-do-we-need-pipes"><i class="fa fa-check"></i><b>16.1</b> Why do we need ‘pipes’?</a></li>
+<li class="chapter" data-level="16" data-path="building-pipelines.html"><a href="building-pipelines.html"><i class="fa fa-check"></i><b>16</b> Building pipelines</a><ul>
+<li class="chapter" data-level="16.1" data-path="building-pipelines.html"><a href="building-pipelines.html#why-do-we-need-pipes"><i class="fa fa-check"></i><b>16.1</b> Why do we need ‘pipes’?</a></li>
 </ul></li>
 <li class="part"><span><b>III Exporing Data</b></span></li>
 <li class="chapter" data-level="17" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html"><i class="fa fa-check"></i><b>17</b> Exploratory data analysis</a><ul>
@@ -380,7 +379,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p>We aren’t going to survey all three of these plotting systems. There isn’t space, and in any case, it’s possible to meet most data visualisation needs by becoming proficient with just one of them. This book focuses on <strong>ggplot2</strong>. In many ways the <strong>ggplot2</strong> package hits the ‘sweet spot’ between standard graphics and <strong>lattice</strong>. It allows us to produce complex visualisations without the need to write lines and lines of R code, but is still flexible enough to allow us to tweak the appearance of a figure so that it meets our specific needs.</p>
 <div id="anatomy" class="section level2">
 <h2><span class="header-section-number">18.1</span> The anatomy of ggplot2</h2>
-<p>The easiest way to learn <strong>ggplot2</strong> is by seeing in in action. Before we dive in it’s worth surveying the essential features of the <strong>ggplot2</strong> ‘grammar’. Most of this is fairly abstract and won’t make sense on first reading. This is fine. Abstract ideas like ‘aesthetics’ and ‘geoms’ will start to make sense as we work through a range of different examples in the next few chapters.</p>
+<p>The easiest way to learn <strong>ggplot2</strong> is by seeing it in action. Before we dive in it’s worth surveying the essential features of the <strong>ggplot2</strong> ‘grammar’. Most of this is fairly abstract and won’t make sense on first reading. This is fine. Abstract ideas like ‘aesthetics’ and ‘geoms’ will start to make sense as we work through a range of different examples in the next few chapters.</p>
 <p><strong>ggplot2</strong> is designed to reflect Wilkinson’s grammar of graphics. The <strong>ggplot2</strong> version of this grammar revolves around the idea of <strong>layers</strong>. The underlying idea is that we construct a visualisation in a structured manner by defining one or more of these layers, which together with a few other components define a complete <strong>ggplot2</strong> object. Each layer may have its own data or it may share its data with another layer, and each layer displays its data in a specific way. The resulting <strong>ggplot2</strong> object is defined by a combination of:</p>
 <ol style="list-style-type: decimal">
 <li><p>a default data set along with a set of mappings from variables to aesthetics,</p></li>
@@ -489,7 +488,7 @@ Notice that the while package is called <strong>ggplot2</strong>, the actual fun
 <p>Notice that when we summarise the resulting object this time we see that the variables inside <code>storms</code> (<code>name</code>, <code>year</code>, <code>month</code>, etc) now comprise the data inside our <code>plt</code> object.</p>
 <p>The next step is to add a default aesthetic mapping to our graphical object. Remember, these describe how variables in the data are mapped to the aesthetic properties of the layer(s). One way to think about aesthetic mappings is that they define what kind of relationships our plot will describe. Since we’re making a scatter plot we need to define mappings for positions on the ‘x’ and ‘y’ axes. We want to investigate how wind speed depends on atmospheric pressure, so we need to associate <code>wind</code> with the y axis and <code>pressure</code> with the x axis.</p>
 <p>We define an aesthetic mapping with the <code>aes</code> function (‘aesthetic mapping’). One way to do this is like this:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">plt &lt;-<span class="st"> </span>plt +<span class="st"> </span><span class="kw">aes</span>(<span class="dt">x =</span> pressure, <span class="dt">y =</span> wind)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">plt &lt;-<span class="st"> </span>plt <span class="op">+</span><span class="st"> </span><span class="kw">aes</span>(<span class="dt">x =</span> pressure, <span class="dt">y =</span> wind)</code></pre></div>
 <p>This little snippet of R code may look quite strange at first glance. There are a couple things to take away from this:</p>
 <ol style="list-style-type: decimal">
 <li>We ‘add’ the aesthetic mapping to the <code>plt</code> object using the <code>+</code> operator. This has nothing to do with arithmetic. The <strong>ggplot2</strong> package uses some clever programming tricks to redefine the way <code>+</code> works with its objects so that it can be used to combine them. This is nice because it makes building up a plot from the components of the grammar very natural.</li>
@@ -526,7 +525,7 @@ Notice that the while package is called <strong>ggplot2</strong>, the actual fun
 <p>In order to produce a plotable version of <code>plt</code> we now need to specify a layer. This will tell <strong>ggplot2</strong> how to visualise the data. Remember, each layer has five different components: data, aesthetic mappings, a geom, a stat and a position adjustment. Since we’ve already set up the default data and aesthetic mappings, there’s no need to define these again—<strong>ggplot2</strong> will use the defaults if we leave them out of the definition. This leaves the geom, stat and position adjustment.</p>
 <p>What kind of geom do we need? A scatter plots allow us to explore a relationship as a series of <em>points</em>. We need to add a layer that uses the <em>point</em> geom. What about the stat and position? These are difficult to explain (and understand) without drilling down into the details of how <strong>ggplot2</strong> works. The important insight is that both the stat and the position adjustment components change our data in some way before plotting it. If we want to avoid having <strong>ggplot2</strong> do anything to our data, the key word is ‘identity’. We use this as the value when we want <strong>ggplot2</strong> to plot our data ‘as is’.</p>
 <p>We’re going examine the easy way to add a layer in a moment. However we’ll start with a long-winded approach first, because this reveals exactly what happens whenever we build a <strong>ggplot2</strong> object. The general function for adding a layer is simply called <code>layer</code>. Here’s how it works in its most basic usage:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">plt &lt;-<span class="st"> </span>plt +<span class="st"> </span><span class="kw">layer</span>(<span class="dt">geom =</span> <span class="st">&quot;point&quot;</span>, <span class="dt">stat =</span> <span class="st">&quot;identity&quot;</span>, <span class="dt">position =</span> <span class="st">&quot;identity&quot;</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">plt &lt;-<span class="st"> </span>plt <span class="op">+</span><span class="st"> </span><span class="kw">layer</span>(<span class="dt">geom =</span> <span class="st">&quot;point&quot;</span>, <span class="dt">stat =</span> <span class="st">&quot;identity&quot;</span>, <span class="dt">position =</span> <span class="st">&quot;identity&quot;</span>)</code></pre></div>
 <p>All we did here was take the <code>plt</code> object, add a layer to it with the <code>layer</code> function, and then overwrite the old version of <code>plt</code>. Again, we add the new component using the <code>+</code> symbol. We passed three arguments to the <code>layer</code> function to…</p>
 <ol style="list-style-type: decimal">
 <li><p>define the <strong>geom</strong>: the name of this argument was <code>geom</code> and the value assigned to it was <code>&quot;point&quot;</code>.</p></li>
@@ -572,9 +571,9 @@ Notice that the while package is called <strong>ggplot2</strong>, the actual fun
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># step 1. set up the skeleton object with a default data set</span>
 plt &lt;-<span class="st"> </span><span class="kw">ggplot</span>(storms)
 <span class="co"># step 2. add the default aesthetic mappings</span>
-plt &lt;-<span class="st"> </span>plt +<span class="st"> </span><span class="kw">aes</span>(<span class="dt">x =</span> pressure, <span class="dt">y =</span> wind)
+plt &lt;-<span class="st"> </span>plt <span class="op">+</span><span class="st"> </span><span class="kw">aes</span>(<span class="dt">x =</span> pressure, <span class="dt">y =</span> wind)
 <span class="co"># step 3. specify the layer we want to use</span>
-plt &lt;-<span class="st"> </span>plt +<span class="st"> </span><span class="kw">layer</span>(<span class="dt">geom =</span> <span class="st">&quot;point&quot;</span>, <span class="dt">stat =</span> <span class="st">&quot;identity&quot;</span>, <span class="dt">position =</span> <span class="st">&quot;identity&quot;</span>)
+plt &lt;-<span class="st"> </span>plt <span class="op">+</span><span class="st"> </span><span class="kw">layer</span>(<span class="dt">geom =</span> <span class="st">&quot;point&quot;</span>, <span class="dt">stat =</span> <span class="st">&quot;identity&quot;</span>, <span class="dt">position =</span> <span class="st">&quot;identity&quot;</span>)
 <span class="co"># step 4. render the plot</span>
 <span class="kw">print</span>(plt)</code></pre></div>
 <div class="warning">
@@ -619,10 +618,10 @@ It’s possible to construct any <strong>ggplot2</strong> visualisation using th
 ##     super:  &lt;ggproto object: Class FacetNull, Facet&gt;</code></pre>
 <p>In this form the <code>aes</code> function is used inside <code>ggplot</code>, i.e. it supplies a second argument to <code>ggplot</code>. This approach is the most commonly used approach for setting up a graphical object with default data and aesthetic mappings. We will use it from now on.</p>
 <p>The next step is to add a layer. We just saw that the <code>layer</code> function can be used to construct a layer from its component parts. However, <code>ggplot</code> provides a number of functions that add layers according to the type of geom they use. They look like this: <code>geom_NAME</code>, where <code>NAME</code> stands for the name of the different possible geoms. An alternative to the last line is therefore:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">plt &lt;-<span class="st"> </span>plt +<span class="st"> </span><span class="kw">geom_point</span>()</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">plt &lt;-<span class="st"> </span>plt <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>()</code></pre></div>
 <p>We didn’t have to specify the stat or the position adjustment components of the layer because the <code>geom_NAME</code> functions all choose sensible defaults, though these can be overridden if needed, but 90% of the time there’s no need to do this. This way of defining a layer is much simpler and less error prone than the <code>layer</code> method. We will use the <code>geom_NAME</code> method from now on.</p>
 <p>There’s one last trick we need to learn to use <strong>ggplot2</strong> efficiently. We’ve been building a plot object in several steps, giving the intermediates the name <code>plt</code>, and then manually printing the object to display it when it’s ready. This is useful if we want to make different versions of the same plot. However, we very often just want to build the plot and display it in one go. This is done by combining everything with <code>+</code> and printing the resulting object directly:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(storms, <span class="kw">aes</span>(<span class="dt">x =</span> pressure, <span class="dt">y =</span> wind)) +<span class="st"> </span><span class="kw">geom_point</span>()</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(storms, <span class="kw">aes</span>(<span class="dt">x =</span> pressure, <span class="dt">y =</span> wind)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>()</code></pre></div>
 <p><img src="eda-for-bio_files/figure-html/unnamed-chunk-282-1.png" width="336" style="display: block; margin: auto;" /></p>
 <p>That’s it! As we have seen, there’s a lot going on underneath this, but this small snippet of R code contains everything <strong>ggplot2</strong> needs to construct and display the simple scatter plot of wind speed against atmospheric pressure.</p>
 </div>
@@ -633,7 +632,7 @@ It’s possible to construct any <strong>ggplot2</strong> visualisation using th
 <div id="using-additional-aesthetics" class="section level3">
 <h3><span class="header-section-number">18.3.1</span> Using additional aesthetics</h3>
 <p>How can we learn about relationship of these two variables to time of year (<code>seasday</code>)? We need to include information in the <code>seasday</code> variable in our scatter plot somehow. There are different ways we might do this, but the basic trick is to map the <code>seasday</code> variable to a new aesthetic. We need to change the way we are using <code>aes</code>. One option is to map the <code>seasday</code> to the point colours so that the colour of the points correspond to the time of year:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(storms, <span class="kw">aes</span>(<span class="dt">x =</span> pressure, <span class="dt">y =</span> wind, <span class="dt">colour =</span> seasday)) +<span class="st"> </span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(storms, <span class="kw">aes</span>(<span class="dt">x =</span> pressure, <span class="dt">y =</span> wind, <span class="dt">colour =</span> seasday)) <span class="op">+</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">geom_point</span>()</code></pre></div>
 <p><img src="eda-for-bio_files/figure-html/unnamed-chunk-283-1.png" width="432" style="display: block; margin: auto;" /></p>
 <p>Notice that <strong>ggplot2</strong> automatically adds a legend to the figure to help us interpret it. A colour scale is not much use without a legend. Points are now coloured according to whether they are associated with early (dark blue) or late (light blue) observations. There’s a hint that lower intensity storms tend to be at the beginning an end of the storm season, but it’s hard to be sure because there is so much overplotting—i.e. many points are in the same place.</p>
@@ -643,11 +642,11 @@ It’s possible to construct any <strong>ggplot2</strong> visualisation using th
 <h3><span class="header-section-number">18.3.2</span> Using facets</h3>
 <p>What if we want to see how the wind speed and pressure relationship might vary among years? One way to do this is to make a separate scatter plot for each year. We don’t have to do this manually though. We can use the faceting facility of <strong>ggplot2</strong> instead. This allows us to break up our data set up into subsets according to the unique values of one or two variables and produce a separate plot for each subset, but without having to write much R code.</p>
 <p>Faceting operates on the whole figure so we can’t apply it by changing the properties of a layer. Instead, we have to use a new function to add the faceting information. Here’s how we split things up by year using the <code>facet_wrap</code> function:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(storms, <span class="kw">aes</span>(<span class="dt">x =</span> pressure, <span class="dt">y =</span> wind, <span class="dt">colour =</span> seasday)) +<span class="st"> </span>
-<span class="st">  </span><span class="kw">geom_point</span>() +<span class="st"> </span>
-<span class="st">  </span><span class="kw">facet_wrap</span>(~<span class="st"> </span>year, <span class="dt">nrow =</span> <span class="dv">2</span>, <span class="dt">ncol =</span> <span class="dv">3</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(storms, <span class="kw">aes</span>(<span class="dt">x =</span> pressure, <span class="dt">y =</span> wind, <span class="dt">colour =</span> seasday)) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span><span class="st"> </span>year, <span class="dt">nrow =</span> <span class="dv">2</span>, <span class="dt">ncol =</span> <span class="dv">3</span>)</code></pre></div>
 <p><img src="eda-for-bio_files/figure-html/unnamed-chunk-284-1.png" width="643.2" style="display: block; margin: auto;" /></p>
-<p>The first argument of <code>facet_wrap</code> (<code>~ year</code>) says to split up the data set according to the values of <code>year</code>. The <code>nrow</code> and <code>ncol</code> arguments just specify how to split the panels across rows and columns of the resulting plot. Notice that the panels shares the same scales for the ‘x’ and ‘y’ axes. This makes it easy to compare information.</p>
+<p>The first argument of <code>facet_wrap</code> (<code>~ year</code>) says to split up the data set according to the values of <code>year</code>. The <code>nrow</code> and <code>ncol</code> arguments just specify how to split the panels across rows and columns of the resulting plot. Notice that the panels share the same scales for the ‘x’ and ‘y’ axes. This makes it easy to compare information.</p>
 <p>The plot indicates that the wind speed – pressure relationship is more or less invariant across years, and that perhaps 1997 and 2000 were not such bad storm years compared to the others. This isn’t really surprising. The occurrence of tropical storms is somewhat stochastic, but the laws of atmospheric physics don’t change from one year to the next!</p>
 <div class="warning">
 <h4 id="dont-forget-the">
@@ -667,8 +666,9 @@ We have to include the <code>~</code> symbol at the beginning of the <code>~ yea
         </div>
       </div>
 <a href="exploratory-data-analysis.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="customising-plots.html" class="navigation navigation-next " aria-label="Next page""><i class="fa fa-angle-right"></i></a>
-
+<a href="customising-plots.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/lunr.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
@@ -677,7 +677,7 @@ We have to include the <code>~</code> symbol at the beginning of the <code>~ yea
 <script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
 <script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
 <script>
-require(["gitbook"], function(gitbook) {
+gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
 "sharing": {
 "github": false,
@@ -712,7 +712,7 @@ gitbook.start({
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    script.src  = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:" && /^https?:/.test(script.src))
       script.src  = script.src.replace(/^https?:/, '');
     document.getElementsByTagName("head")[0].appendChild(script);

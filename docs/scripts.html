@@ -6,9 +6,8 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>APS 135: Introduction to Exploratory Data Analysis with R</title>
-  <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
   <meta name="description" content="Course book for Introduction to Exploratory Data Analysis with R (APS 135) in the Department of Animal and Plant Sciences, University of Sheffield.">
-  <meta name="generator" content="bookdown 0.3 and GitBook 2.6.7">
+  <meta name="generator" content="bookdown 0.5 and GitBook 2.6.7">
 
   <meta property="og:title" content="APS 135: Introduction to Exploratory Data Analysis with R" />
   <meta property="og:type" content="book" />
@@ -26,7 +25,7 @@
 <meta name="author" content="Dylan Z. Childs">
 
 
-<meta name="date" content="2017-03-21">
+<meta name="date" content="2018-02-07">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -35,7 +34,6 @@
   
 <link rel="prev" href="a-quick-introduction-to-r.html">
 <link rel="next" href="using-functions.html">
-
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -115,6 +113,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </head>
 
 <body>
+
 
 
   <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
@@ -277,8 +276,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul></li>
 <li class="chapter" data-level="15.3" data-path="grouping-and-summarising-data.html"><a href="grouping-and-summarising-data.html#removing-grouping-information"><i class="fa fa-check"></i><b>15.3</b> Removing grouping information</a></li>
 </ul></li>
-<li class="chapter" data-level="16" data-path="building-piplines.html"><a href="building-piplines.html"><i class="fa fa-check"></i><b>16</b> Building piplines</a><ul>
-<li class="chapter" data-level="16.1" data-path="building-piplines.html"><a href="building-piplines.html#why-do-we-need-pipes"><i class="fa fa-check"></i><b>16.1</b> Why do we need ‘pipes’?</a></li>
+<li class="chapter" data-level="16" data-path="building-pipelines.html"><a href="building-pipelines.html"><i class="fa fa-check"></i><b>16</b> Building pipelines</a><ul>
+<li class="chapter" data-level="16.1" data-path="building-pipelines.html"><a href="building-pipelines.html#why-do-we-need-pipes"><i class="fa fa-check"></i><b>16.1</b> Why do we need ‘pipes’?</a></li>
 </ul></li>
 <li class="part"><span><b>III Exporing Data</b></span></li>
 <li class="chapter" data-level="17" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html"><i class="fa fa-check"></i><b>17</b> Exploratory data analysis</a><ul>
@@ -373,8 +372,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <h1><span class="header-section-number">Chapter 2</span> Building scripts</h1>
 <div id="introduction" class="section level2">
 <h2><span class="header-section-number">2.1</span> Introduction</h2>
-<p>We’ve seen that using variables is useful because it enables us to break down a problem into a series of simpler steps. Howevre, so far we’ve only been working in the Console. If we want to reuse a calculation when we’re working like this, we have to change a variable or two and then evaluate the expressions that do the job of solving an equation, make a graph, whatever. We also have to do all of this in the correct order, or things will not work as intended.</p>
-<p>We can see that working in the Console is not going to be practical most of the time. So what should we do? The answer is: put our sequence of R expressions into a text file, called a <strong>script</strong>. Calling it a script makes it sound a bit fancy and clever—“I spent all day debugging my script”. It is not. It is a boring text file that could be opend up in something like Notepad.exe. We just call it a script to signify the fact that the text contained in the file is a series of instructions telling our computer to do something.</p>
+<p>We’ve seen that using variables is useful because it enables us to break down a problem into a series of simpler steps. However, so far we’ve only been working in the Console. If we want to reuse a calculation when we’re working like this, we have to change a variable or two and then evaluate the expressions that do the job of solving an equation, make a graph, whatever. We also have to do all of this in the correct order, or things will not work as intended.</p>
+<p>We can see that working in the Console is not going to be practical most of the time. So what should we do? The answer is: put our sequence of R expressions into a text file, called a <strong>script</strong>. Calling it a script makes it sound a bit fancy and clever—“I spent all day debugging my script”. It is not. It is a boring text file that could be opened up in something like Notepad.exe. We just call it a script to signify the fact that the text contained in the file is a series of instructions telling our computer to do something.</p>
 <div class="warning">
 <p>
 Working directly at the Console is the simplest way to use R, but we do not recommend working this way unless you only need to do something very simple that involves a handful of steps. For more complicated activities you should always store your instructions in a script.
@@ -385,16 +384,16 @@ Working directly at the Console is the simplest way to use R, but we do not reco
 <h2><span class="header-section-number">2.2</span> Writing scripts in RStudio</h2>
 <p>To open a new script in RStudio navigate to <code>File &gt; New File &gt; R Script</code>. This will open the new file in a fourth pane. This pane is the Source Code Editor we mentioned in the <a href="get-up-and-running-with-r-and-rstudio.html#get-up-and-running-with-r-and-rstudio">Get up and running with R and RStudio</a> chapter. The name of the tab where this new file lives will be set to <strong>Untitled1</strong> if we haven’t opened any other new R Scripts. Here is what RStudio looks like after we do this (we’ve highlighted the new pane with a red asterisk):</p>
 <p><img src="images/RStudio-4-pane.png" style="display: block; margin: auto;" /></p>
-<p>When we work with a script we type the required sequence of R expressions into the Editor pane, <strong>not directly into the Console</strong>. This is important—if we mix and match mistakes happen. The worst of these is that we write a script that seems to work, only to find it is broken when we open it up and use it again later. This usually happens because we typed something into the Console that is needed to make the whole script run when we were preparing it, but then forget to put it into the script. Just don’t swirch between using the Console and the Editor to avoid this.</p>
-<p>The easiest way to appreciate the benefits of using a script is to work with one. Here are a few lines of R code to copy-paste this into the new Editor pane…</p>
+<p>When we work with a script we type the required sequence of R expressions into the Editor pane, <strong>not directly into the Console</strong>. This is important—if we mix and match mistakes happen. The worst of these is that we write a script that seems to work, only to find it is broken when we open it up and use it again later. This usually happens because we typed something into the Console that is needed to make the whole script run when we were preparing it, but then forget to put it into the script. Just don’t switch between using the Console and the Editor to avoid this.</p>
+<p>The easiest way to appreciate the benefits of using a script is to work with one. Here are a few lines of R code to copy-paste into the new Editor pane…</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">a &lt;-<span class="st"> </span><span class="dv">1</span>
 b &lt;-<span class="st"> </span><span class="dv">6</span>
 c &lt;-<span class="st"> </span><span class="dv">5</span>
 
-sqrt.b2ac &lt;-<span class="st"> </span>(b^<span class="dv">2</span> -<span class="dv">4</span> *<span class="st"> </span>a *<span class="st"> </span>c)^(<span class="dv">1</span>/<span class="dv">2</span>)
+sqrt.b2ac &lt;-<span class="st"> </span>(b<span class="op">^</span><span class="dv">2</span> <span class="op">-</span><span class="dv">4</span> <span class="op">*</span><span class="st"> </span>a <span class="op">*</span><span class="st"> </span>c)<span class="op">^</span>(<span class="dv">1</span><span class="op">/</span><span class="dv">2</span>)
 
-(-b +<span class="st"> </span>sqrt.b2ac) /<span class="st"> </span>(<span class="dv">2</span> *<span class="st"> </span>a)
-(-b -<span class="st"> </span>sqrt.b2ac) /<span class="st"> </span>(<span class="dv">2</span> *<span class="st"> </span>a)</code></pre></div>
+(<span class="op">-</span>b <span class="op">+</span><span class="st"> </span>sqrt.b2ac) <span class="op">/</span><span class="st"> </span>(<span class="dv">2</span> <span class="op">*</span><span class="st"> </span>a)
+(<span class="op">-</span>b <span class="op">-</span><span class="st"> </span>sqrt.b2ac) <span class="op">/</span><span class="st"> </span>(<span class="dv">2</span> <span class="op">*</span><span class="st"> </span>a)</code></pre></div>
 <p>…and here’s a partial screenshot of how the Editor pane might look (the details depend on how RStudio is set up):</p>
 <p><img src="images/editor-eg.png" style="display: block; margin: auto;" /></p>
 <p>Notice that parts of the R code is formatted by colour. This is called <strong>syntax highlighting</strong>. Syntax highlighting is a must have feature of any Editor. In a nutshell, syntax is a bit like the grammar of a computer language. It is the set of rules that determine how we form valid expressions, assign variables, and so on. The purpose of syntax highlighting is to draw attention to different components of syntax. We can see that when we use the Cobalt highlighting option, RStudio sets the background to black and displays variables in white, parentheses and arithmetic operators in orange, and numbers in red. It doesn’t matter so much what the colours are. What matters is that we have a visual means to distinguish these different kinds of elements, making it much easier to read a script.</p>
@@ -418,7 +417,7 @@ At this point we just want to emphasise that <strong>you should always use comme
 </div>
 <div id="running-scripts-in-rstudio" class="section level2">
 <h2><span class="header-section-number">2.3</span> Running scripts in RStudio</h2>
-<p>The whole point of writing a script is ultimatley to run it. The phrase “run our code” is shorthand for “send a number of R expressions to the R interpreter to be read and evaluated”. The latter is tedious to write (and read) over and over again, so we will just write “run your/my/our code”. We could run the code in the above script by copying and pasting it into the Console, but this is inefficient. Instead of relying on cut and paste, RStudio gives us different ways to run our code:</p>
+<p>The whole point of writing a script is ultimately to run it. The phrase “run our code” is shorthand for “send a number of R expressions to the R interpreter to be read and evaluated”. The latter is tedious to write (and read) over and over again, so we will just write “run your/my/our code”. We could run the code in the above script by copying and pasting it into the Console, but this is inefficient. Instead of relying on cut and paste, RStudio gives us different ways to run our code:</p>
 <ul>
 <li><p>There is a <code>Run</code> button at the top right of the Editor pane. As we might imagine, clicking on this will run some code. If we haven’t highlighted anything in the Editor, this runs whichever line the cursor is at, i.e. it runs just that one line. If we had highlighted a region inside the Editor, this button will run all of that in sequence.</p></li>
 <li><p>No one likes clicking buttons. Luckily, pressing Control+Enter (or Command+Enter on a Mac) does exactly the same thing as the <code>Run</code> button. It also uses the same rules to decide which bits of code to run or not<a href="#fn4" class="footnoteRef" id="fnref4"><sup>4</sup></a>.</p></li>
@@ -428,10 +427,10 @@ At this point we just want to emphasise that <strong>you should always use comme
 b &lt;-<span class="st"> </span><span class="dv">6</span>
 c &lt;-<span class="st"> </span><span class="dv">5</span>
 
-sqrt.b2ac &lt;-<span class="st"> </span>(b^<span class="dv">2</span> -<span class="dv">4</span> *<span class="st"> </span>a *<span class="st"> </span>c)^(<span class="dv">1</span>/<span class="dv">2</span>)</code></pre></div>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">(-b +<span class="st"> </span>sqrt.b2ac) /<span class="st"> </span>(<span class="dv">2</span> *<span class="st"> </span>a)</code></pre></div>
+sqrt.b2ac &lt;-<span class="st"> </span>(b<span class="op">^</span><span class="dv">2</span> <span class="op">-</span><span class="dv">4</span> <span class="op">*</span><span class="st"> </span>a <span class="op">*</span><span class="st"> </span>c)<span class="op">^</span>(<span class="dv">1</span><span class="op">/</span><span class="dv">2</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">(<span class="op">-</span>b <span class="op">+</span><span class="st"> </span>sqrt.b2ac) <span class="op">/</span><span class="st"> </span>(<span class="dv">2</span> <span class="op">*</span><span class="st"> </span>a)</code></pre></div>
 <pre><code>## [1] -1</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">(-b -<span class="st"> </span>sqrt.b2ac) /<span class="st"> </span>(<span class="dv">2</span> *<span class="st"> </span>a)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">(<span class="op">-</span>b <span class="op">-</span><span class="st"> </span>sqrt.b2ac) <span class="op">/</span><span class="st"> </span>(<span class="dv">2</span> <span class="op">*</span><span class="st"> </span>a)</code></pre></div>
 <pre><code>## [1] -5</code></pre>
 <p>This works exactly as though we typed or pasted the sequence of R expressions into the Console, hitting Enter each time we get to the end of a line. What this means is that we can use this script to find the solutions to any quadratic equation with ‘real roots’. All we have to do is edit the values assigned to <code>a</code>, <code>b</code> and <code>c</code> and then rerun <strong>the whole script</strong>. We can’t just rerun bits of it because everything is designed to work together, in sequence.</p>
 <p>Now that we have a script that does something a little bit useful we might wish to reuse it at some point. It’s just a text file, so we can save the script as we would any other file. We can do this using the familiar menu-based approach (<code>File &gt; Save As...</code>) or via the keyboard shortcut <code>Control+S</code> (or <code>Command+S</code> on a Mac). The only thing to keep in mind is that we must use the file extension <code>.R</code> or <code>.r</code> when we name the file, e.g. <code>my_great_script.R</code>. This is because RStudio uses the file extension to detect the fact that a file is an R script and not an ordinary text file. If we don’t do this, then next time we open up the file in RStudio we won’t be able to access the fancy Editor features like syntax highlighting, nor will we be able to send lines to the Console without using copy-paste.</p>
@@ -450,7 +449,7 @@ sqrt.b2ac &lt;-<span class="st"> </span>(b^<span class="dv">2</span> -<span clas
 <div id="errors" class="section level3">
 <h3><span class="header-section-number">2.4.2</span> Errors</h3>
 <p>Here is an example of what happens at the Console when we generate an error:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">xyz +<span class="st"> </span><span class="dv">2</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">xyz <span class="op">+</span><span class="st"> </span><span class="dv">2</span></code></pre></div>
 <pre><code>## Error in eval(expr, envir, enclos): object &#39;xyz&#39; not found</code></pre>
 <p>In general terms, what happened is that R read in the instruction <code>xyz + 2</code>, tried to evaluate it, and found it could not. This is because the variable <code>xyz</code> does not exist, i.e. we never made a variable called <code>xyz</code>. Upon running into the error, R printed something to the screen to tell us we’ve made a mistake (“Error: object ‘xyz’ not found”).</p>
 <p>When this happens we say R has ‘thrown an error’. We know its an error because the message is in a warning colour (probably red or orange—it depends how RStudio is set up) and contains the word <code>Error</code>. The bit after the <code>:</code> is an attempt by R to tell us what went wrong. Always <strong>read the error messages</strong>. They will be incomprehensible at first, but they will eventually start to make more sense and become helpful (usually—sometimes they make no sense whatsoever, even to experienced users). This way of learning only works if we read the error messages in the first place though.</p>
@@ -470,8 +469,9 @@ sqrt.b2ac &lt;-<span class="st"> </span>(b^<span class="dv">2</span> -<span clas
         </div>
       </div>
 <a href="a-quick-introduction-to-r.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="using-functions.html" class="navigation navigation-next " aria-label="Next page""><i class="fa fa-angle-right"></i></a>
-
+<a href="using-functions.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/lunr.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
@@ -480,7 +480,7 @@ sqrt.b2ac &lt;-<span class="st"> </span>(b^<span class="dv">2</span> -<span clas
 <script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
 <script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
 <script>
-require(["gitbook"], function(gitbook) {
+gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
 "sharing": {
 "github": false,
@@ -515,7 +515,7 @@ gitbook.start({
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    script.src  = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:" && /^https?:/.test(script.src))
       script.src  = script.src.replace(/^https?:/, '');
     document.getElementsByTagName("head")[0].appendChild(script);

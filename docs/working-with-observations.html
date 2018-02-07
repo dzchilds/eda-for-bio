@@ -6,9 +6,8 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>APS 135: Introduction to Exploratory Data Analysis with R</title>
-  <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
   <meta name="description" content="Course book for Introduction to Exploratory Data Analysis with R (APS 135) in the Department of Animal and Plant Sciences, University of Sheffield.">
-  <meta name="generator" content="bookdown 0.3 and GitBook 2.6.7">
+  <meta name="generator" content="bookdown 0.5 and GitBook 2.6.7">
 
   <meta property="og:title" content="APS 135: Introduction to Exploratory Data Analysis with R" />
   <meta property="og:type" content="book" />
@@ -26,7 +25,7 @@
 <meta name="author" content="Dylan Z. Childs">
 
 
-<meta name="date" content="2017-03-21">
+<meta name="date" content="2018-02-07">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -35,7 +34,6 @@
   
 <link rel="prev" href="working-with-variables.html">
 <link rel="next" href="helper-functions.html">
-
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -115,6 +113,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </head>
 
 <body>
+
 
 
   <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
@@ -277,8 +276,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul></li>
 <li class="chapter" data-level="15.3" data-path="grouping-and-summarising-data.html"><a href="grouping-and-summarising-data.html#removing-grouping-information"><i class="fa fa-check"></i><b>15.3</b> Removing grouping information</a></li>
 </ul></li>
-<li class="chapter" data-level="16" data-path="building-piplines.html"><a href="building-piplines.html"><i class="fa fa-check"></i><b>16</b> Building piplines</a><ul>
-<li class="chapter" data-level="16.1" data-path="building-piplines.html"><a href="building-piplines.html#why-do-we-need-pipes"><i class="fa fa-check"></i><b>16.1</b> Why do we need ‘pipes’?</a></li>
+<li class="chapter" data-level="16" data-path="building-pipelines.html"><a href="building-pipelines.html"><i class="fa fa-check"></i><b>16</b> Building pipelines</a><ul>
+<li class="chapter" data-level="16.1" data-path="building-pipelines.html"><a href="building-pipelines.html#why-do-we-need-pipes"><i class="fa fa-check"></i><b>16.1</b> Why do we need ‘pipes’?</a></li>
 </ul></li>
 <li class="part"><span><b>III Exporing Data</b></span></li>
 <li class="chapter" data-level="17" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html"><i class="fa fa-check"></i><b>17</b> Exploratory data analysis</a><ul>
@@ -390,26 +389,26 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </div>
 <div id="subset-observations-with-filter" class="section level2">
 <h2><span class="header-section-number">13.2</span> Subset observations with <code>filter</code></h2>
-<p>We use <code>filter</code> to <strong>subset observations</strong> in a an data frame or tibble containing our data. This is often done when we want to limit an analysis to a subset of observations. Basic usage of <code>filter</code> looks something like this:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">filter</span>(data_set, &lt;expression1&gt;, &lt;expression1&gt;, ...)</code></pre></div>
+<p>We use <code>filter</code> to <strong>subset observations</strong> in a data frame or tibble containing our data. This is often done when we want to limit an analysis to a subset of observations. Basic usage of <code>filter</code> looks something like this:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">filter</span>(data_set, <span class="op">&lt;</span>expression1<span class="op">&gt;</span>, <span class="op">&lt;</span>expression1<span class="op">&gt;</span>, ...)</code></pre></div>
 <p>Remember, this is pseudo code (it’s not an example we can run). The first argument, <code>data_set</code>, must the name of the object containing our data. We then include one or more additional arguments, where each of these is a valid R expression involving one or more variables in <code>data_set</code>. Each expression must return a logical vector. We’ve expressed these as <code>&lt;expression1&gt;, &lt;expression2&gt;, ...</code>, where <code>&lt;expression1&gt;</code> and <code>&lt;expression2&gt;</code> represent the first two expressions, and the <code>...</code> is acting as placeholder for the remaining expressions.</p>
-<p>To see how <code>filter</code> in action, we’ll use it to subset observations in the storms_tbl dataset, based on two relational criteria:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">filter</span>(storms_tbl, pressure &lt;=<span class="st"> </span><span class="dv">960</span>, wind &gt;=<span class="st"> </span><span class="dv">100</span>)</code></pre></div>
-<pre><code>## # A tibble: 199 × 11
+<p>To see how <code>filter</code> works in action, we’ll use it to subset observations in the <code>storms_tbl</code> dataset, based on two relational criteria:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">filter</span>(storms_tbl, pressure <span class="op">&lt;=</span><span class="st"> </span><span class="dv">960</span>, wind <span class="op">&gt;=</span><span class="st"> </span><span class="dv">100</span>)</code></pre></div>
+<pre><code>## # A tibble: 199 x 11
 ##     name  year month   day  hour   lat  long pressure  wind      type
 ##    &lt;chr&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt;    &lt;int&gt; &lt;int&gt;     &lt;chr&gt;
-## 1  Felix  1995     8    12     0  22.1 -57.8      955   100 Hurricane
-## 2  Felix  1995     8    12     6  22.9 -59.0      943   110 Hurricane
-## 3  Felix  1995     8    12    12  23.6 -60.2      932   115 Hurricane
-## 4  Felix  1995     8    12    18  24.3 -61.0      929   120 Hurricane
-## 5  Felix  1995     8    13     0  25.1 -61.6      930   115 Hurricane
-## 6  Felix  1995     8    13     6  25.9 -61.9      937   105 Hurricane
-## 7  Felix  1995     8    13    12  26.6 -62.3      942   100 Hurricane
-## 8   Luis  1995     9     1     6  15.8 -42.6      958   105 Hurricane
-## 9   Luis  1995     9     1    12  16.2 -43.6      950   115 Hurricane
+##  1 Felix  1995     8    12     0  22.1 -57.8      955   100 Hurricane
+##  2 Felix  1995     8    12     6  22.9 -59.0      943   110 Hurricane
+##  3 Felix  1995     8    12    12  23.6 -60.2      932   115 Hurricane
+##  4 Felix  1995     8    12    18  24.3 -61.0      929   120 Hurricane
+##  5 Felix  1995     8    13     0  25.1 -61.6      930   115 Hurricane
+##  6 Felix  1995     8    13     6  25.9 -61.9      937   105 Hurricane
+##  7 Felix  1995     8    13    12  26.6 -62.3      942   100 Hurricane
+##  8  Luis  1995     9     1     6  15.8 -42.6      958   105 Hurricane
+##  9  Luis  1995     9     1    12  16.2 -43.6      950   115 Hurricane
 ## 10  Luis  1995     9     1    18  16.5 -44.7      948   115 Hurricane
 ## # ... with 189 more rows, and 1 more variables: seasday &lt;int&gt;</code></pre>
-<p>In this example we’ve created a subset of <code>storms_tbl</code> that only includes observation where the <code>pressure</code> variable is less than or equal to 960 and the <code>wind</code> variable is greater than or equal to 100. Both conditions must be met for an observation to be included in the resulting tibble. The conditions are not combined as an either/or operation.</p>
+<p>In this example we’ve created a subset of <code>storms_tbl</code> that only includes observations where the <code>pressure</code> variable is less than or equal to 960 and the <code>wind</code> variable is greater than or equal to 100. Both conditions must be met for an observation to be included in the resulting tibble. The conditions are not combined as an either/or operation.</p>
 <p>This is probably starting to become repetitious, but there are a few features of <code>filter</code> that we should note:</p>
 <ul>
 <li><p>Each expression that performs a comparison is not surrounded by quotes. This makes sense, because the expression is meant to be evaluated to return a logical vector – it is not “a value”.</p></li>
@@ -417,43 +416,43 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li><p>The <code>filter</code> function will return the same kind of data object it is working on: it returns a data frame if our data was originally in a data frame, and a tibble if it was a tibble.</p></li>
 </ul>
 <p>We can achieve the same result as the above example in a different way. This involves the <code>&amp;</code> operator:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">filter</span>(storms_tbl, pressure &lt;=<span class="st"> </span><span class="dv">960</span> &amp;<span class="st"> </span>wind &gt;=<span class="st"> </span><span class="dv">100</span>)</code></pre></div>
-<pre><code>## # A tibble: 199 × 11
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">filter</span>(storms_tbl, pressure <span class="op">&lt;=</span><span class="st"> </span><span class="dv">960</span> <span class="op">&amp;</span><span class="st"> </span>wind <span class="op">&gt;=</span><span class="st"> </span><span class="dv">100</span>)</code></pre></div>
+<pre><code>## # A tibble: 199 x 11
 ##     name  year month   day  hour   lat  long pressure  wind      type
 ##    &lt;chr&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt;    &lt;int&gt; &lt;int&gt;     &lt;chr&gt;
-## 1  Felix  1995     8    12     0  22.1 -57.8      955   100 Hurricane
-## 2  Felix  1995     8    12     6  22.9 -59.0      943   110 Hurricane
-## 3  Felix  1995     8    12    12  23.6 -60.2      932   115 Hurricane
-## 4  Felix  1995     8    12    18  24.3 -61.0      929   120 Hurricane
-## 5  Felix  1995     8    13     0  25.1 -61.6      930   115 Hurricane
-## 6  Felix  1995     8    13     6  25.9 -61.9      937   105 Hurricane
-## 7  Felix  1995     8    13    12  26.6 -62.3      942   100 Hurricane
-## 8   Luis  1995     9     1     6  15.8 -42.6      958   105 Hurricane
-## 9   Luis  1995     9     1    12  16.2 -43.6      950   115 Hurricane
+##  1 Felix  1995     8    12     0  22.1 -57.8      955   100 Hurricane
+##  2 Felix  1995     8    12     6  22.9 -59.0      943   110 Hurricane
+##  3 Felix  1995     8    12    12  23.6 -60.2      932   115 Hurricane
+##  4 Felix  1995     8    12    18  24.3 -61.0      929   120 Hurricane
+##  5 Felix  1995     8    13     0  25.1 -61.6      930   115 Hurricane
+##  6 Felix  1995     8    13     6  25.9 -61.9      937   105 Hurricane
+##  7 Felix  1995     8    13    12  26.6 -62.3      942   100 Hurricane
+##  8  Luis  1995     9     1     6  15.8 -42.6      958   105 Hurricane
+##  9  Luis  1995     9     1    12  16.2 -43.6      950   115 Hurricane
 ## 10  Luis  1995     9     1    18  16.5 -44.7      948   115 Hurricane
 ## # ... with 189 more rows, and 1 more variables: seasday &lt;int&gt;</code></pre>
 <p>Once again, we created a subset of <code>storms_tbl</code> that only includes observation where the <code>pressure</code> variable is less than or equal to 960 <em>and</em> the <code>wind</code> variable is greater than or equal to 100. However, rather than supplying <code>pressure &lt;= 960</code> and <code>wind &gt;= 100</code> as two arguments, we used a single R expression, combining them with the <code>&amp;</code>. We’re pointing this out because we sometimes need to subset on an either/or basis, and in those cases we have to use this second approach. For example:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">filter</span>(storms_tbl, pressure &lt;=<span class="st"> </span><span class="dv">960</span> |<span class="st"> </span>wind &gt;=<span class="st"> </span><span class="dv">100</span>)</code></pre></div>
-<pre><code>## # A tibble: 266 × 11
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">filter</span>(storms_tbl, pressure <span class="op">&lt;=</span><span class="st"> </span><span class="dv">960</span> <span class="op">|</span><span class="st"> </span>wind <span class="op">&gt;=</span><span class="st"> </span><span class="dv">100</span>)</code></pre></div>
+<pre><code>## # A tibble: 266 x 11
 ##     name  year month   day  hour   lat  long pressure  wind      type
 ##    &lt;chr&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt;    &lt;int&gt; &lt;int&gt;     &lt;chr&gt;
-## 1  Felix  1995     8    12     0  22.1 -57.8      955   100 Hurricane
-## 2  Felix  1995     8    12     6  22.9 -59.0      943   110 Hurricane
-## 3  Felix  1995     8    12    12  23.6 -60.2      932   115 Hurricane
-## 4  Felix  1995     8    12    18  24.3 -61.0      929   120 Hurricane
-## 5  Felix  1995     8    13     0  25.1 -61.6      930   115 Hurricane
-## 6  Felix  1995     8    13     6  25.9 -61.9      937   105 Hurricane
-## 7  Felix  1995     8    13    12  26.6 -62.3      942   100 Hurricane
-## 8  Felix  1995     8    13    18  27.4 -62.3      947    95 Hurricane
-## 9  Felix  1995     8    14     0  28.2 -62.5      948    90 Hurricane
+##  1 Felix  1995     8    12     0  22.1 -57.8      955   100 Hurricane
+##  2 Felix  1995     8    12     6  22.9 -59.0      943   110 Hurricane
+##  3 Felix  1995     8    12    12  23.6 -60.2      932   115 Hurricane
+##  4 Felix  1995     8    12    18  24.3 -61.0      929   120 Hurricane
+##  5 Felix  1995     8    13     0  25.1 -61.6      930   115 Hurricane
+##  6 Felix  1995     8    13     6  25.9 -61.9      937   105 Hurricane
+##  7 Felix  1995     8    13    12  26.6 -62.3      942   100 Hurricane
+##  8 Felix  1995     8    13    18  27.4 -62.3      947    95 Hurricane
+##  9 Felix  1995     8    14     0  28.2 -62.5      948    90 Hurricane
 ## 10 Felix  1995     8    14     6  29.0 -62.9      954    80 Hurricane
 ## # ... with 256 more rows, and 1 more variables: seasday &lt;int&gt;</code></pre>
 <p>This creates a subset of <code>storms_tbl</code> that only includes observation where the <code>pressure</code> variable is less than or equal to 960 <em>or</em> the <code>wind</code> variable is greater than or equal to 100.</p>
-<p>We’re also not restricted to using some combination of relational operators such as <code>==</code>, <code>&gt;=</code> or <code>!=</code> when working with <code>filter</code>. The conditions specified in the <code>filter</code> function can be any expression that returns a logical vector. The only constraint is that the length of this logical vector has to equal the lenght of its input vectors.</p>
+<p>We’re also not restricted to using some combination of relational operators such as <code>==</code>, <code>&gt;=</code> or <code>!=</code> when working with <code>filter</code>. The conditions specified in the <code>filter</code> function can be any expression that returns a logical vector. The only constraint is that the length of this logical vector has to equal the length of its input vectors.</p>
 <p>Here’s an example. The group membership <code>%in%</code> operator (part of base R, not <code>dplyr</code>) is used to determine whether the values in one vector occurs among the values in a second vector. It’s used like this: <code>vec1 %in% vec2</code>. This returns a vector where the values are <code>TRUE</code> if an element of <code>vec1</code> is in <code>vec2</code>, and <code>FALSE</code> otherwise. We can use the <code>%in%</code> operator with <code>filter</code> to select to subset rows by the values of one or more variables:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sub_storms_tbl &lt;-<span class="st"> </span><span class="kw">filter</span>(storms_tbl, name %in%<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Roxanne&quot;</span>, <span class="st">&quot;Marilyn&quot;</span>, <span class="st">&quot;Dolly&quot;</span>))
-<span class="co"># print the </span>
-sub_storms_tbl $<span class="st"> </span>name</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sub_storms_tbl &lt;-<span class="st"> </span><span class="kw">filter</span>(storms_tbl, name <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Roxanne&quot;</span>, <span class="st">&quot;Marilyn&quot;</span>, <span class="st">&quot;Dolly&quot;</span>))
+<span class="co"># print the output</span>
+sub_storms_tbl <span class="op">$</span><span class="st"> </span>name</code></pre></div>
 <pre><code>##   [1] &quot;Marilyn&quot; &quot;Marilyn&quot; &quot;Marilyn&quot; &quot;Marilyn&quot; &quot;Marilyn&quot; &quot;Marilyn&quot; &quot;Marilyn&quot;
 ##   [8] &quot;Marilyn&quot; &quot;Marilyn&quot; &quot;Marilyn&quot; &quot;Marilyn&quot; &quot;Marilyn&quot; &quot;Marilyn&quot; &quot;Marilyn&quot;
 ##  [15] &quot;Marilyn&quot; &quot;Marilyn&quot; &quot;Marilyn&quot; &quot;Marilyn&quot; &quot;Marilyn&quot; &quot;Marilyn&quot; &quot;Marilyn&quot;
@@ -485,18 +484,18 @@ sub_storms_tbl $<span class="st"> </span>name</code></pre></div>
 <p>Yes, this is pseudo-code. As always, the first argument, <code>data_set</code>, is the name of the object containing our data. We then include a series of one or more additional arguments, where each of these should be the name of a variable in <code>data_set</code>: <code>vname1</code> and <code>vname2</code> are names of the first two ordering variables, and the <code>...</code> is acting as placeholder for the remaining variables.</p>
 <p>To see <code>arrange</code> in action, let’s construct a new version of <code>storms_tbl</code> where the rows have been reordered first by <code>wind</code>, and then by <code>pressure</code>:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">arrange</span>(storms_tbl, wind, pressure)</code></pre></div>
-<pre><code>## # A tibble: 2,747 × 11
+<pre><code>## # A tibble: 2,747 x 11
 ##       name  year month   day  hour   lat  long pressure  wind
 ##      &lt;chr&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt;    &lt;int&gt; &lt;int&gt;
-## 1     Fran  1996     9     9    12  45.7 -72.3     1006    15
-## 2     Fran  1996     9     9    18  46.0 -71.1     1008    15
-## 3     Fran  1996     9    10     0  46.7 -70.0     1010    15
-## 4  Frances  1998     9    13     6  31.7 -96.9     1002    20
-## 5     Dean  1995     7    31    18  30.5 -96.5     1003    20
-## 6     Erin  1995     8     4    12  33.2 -89.7     1003    20
-## 7     Erin  1995     8     4    18  34.1 -90.2     1003    20
-## 8     Erin  1995     8     5     0  34.8 -90.2     1003    20
-## 9     Erin  1995     8     5     6  35.4 -90.1     1003    20
+##  1    Fran  1996     9     9    12  45.7 -72.3     1006    15
+##  2    Fran  1996     9     9    18  46.0 -71.1     1008    15
+##  3    Fran  1996     9    10     0  46.7 -70.0     1010    15
+##  4 Frances  1998     9    13     6  31.7 -96.9     1002    20
+##  5    Dean  1995     7    31    18  30.5 -96.5     1003    20
+##  6    Erin  1995     8     4    12  33.2 -89.7     1003    20
+##  7    Erin  1995     8     4    18  34.1 -90.2     1003    20
+##  8    Erin  1995     8     5     0  34.8 -90.2     1003    20
+##  9    Erin  1995     8     5     6  35.4 -90.1     1003    20
 ## 10    Erin  1995     8     5    12  36.3 -89.8     1003    20
 ## # ... with 2,737 more rows, and 2 more variables: type &lt;chr&gt;,
 ## #   seasday &lt;int&gt;</code></pre>
@@ -509,18 +508,18 @@ sub_storms_tbl $<span class="st"> </span>name</code></pre></div>
 </ul>
 <p>There isn’t much else we need to to learn about <code>arrange</code>. By default, it sorts variables in ascending order. If we need it to sort a variable in descending order, we wrap the variable name in the <code>desc</code> function:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">arrange</span>(storms_tbl, wind, <span class="kw">desc</span>(pressure))</code></pre></div>
-<pre><code>## # A tibble: 2,747 × 11
+<pre><code>## # A tibble: 2,747 x 11
 ##       name  year month   day  hour   lat  long pressure  wind
 ##      &lt;chr&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt;    &lt;int&gt; &lt;int&gt;
-## 1     Fran  1996     9    10     0  46.7 -70.0     1010    15
-## 2     Fran  1996     9     9    18  46.0 -71.1     1008    15
-## 3     Fran  1996     9     9    12  45.7 -72.3     1006    15
-## 4    Barry  1995     7     5     6  32.0 -72.0     1019    20
-## 5    Barry  1995     7     5    12  32.0 -72.0     1019    20
-## 6    Barry  1995     7     5    18  31.9 -72.0     1018    20
-## 7  Marilyn  1995     9    30    12  34.6 -49.3     1016    20
-## 8  Marilyn  1995     9    30    18  34.7 -50.0     1016    20
-## 9  Marilyn  1995    10     1     0  34.8 -50.5     1016    20
+##  1    Fran  1996     9    10     0  46.7 -70.0     1010    15
+##  2    Fran  1996     9     9    18  46.0 -71.1     1008    15
+##  3    Fran  1996     9     9    12  45.7 -72.3     1006    15
+##  4   Barry  1995     7     5     6  32.0 -72.0     1019    20
+##  5   Barry  1995     7     5    12  32.0 -72.0     1019    20
+##  6   Barry  1995     7     5    18  31.9 -72.0     1018    20
+##  7 Marilyn  1995     9    30    12  34.6 -49.3     1016    20
+##  8 Marilyn  1995     9    30    18  34.7 -50.0     1016    20
+##  9 Marilyn  1995    10     1     0  34.8 -50.5     1016    20
 ## 10 Marilyn  1995    10     1     6  35.0 -51.0     1016    20
 ## # ... with 2,737 more rows, and 2 more variables: type &lt;chr&gt;,
 ## #   seasday &lt;int&gt;</code></pre>
@@ -534,8 +533,9 @@ sub_storms_tbl $<span class="st"> </span>name</code></pre></div>
         </div>
       </div>
 <a href="working-with-variables.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="helper-functions.html" class="navigation navigation-next " aria-label="Next page""><i class="fa fa-angle-right"></i></a>
-
+<a href="helper-functions.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/lunr.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
@@ -544,7 +544,7 @@ sub_storms_tbl $<span class="st"> </span>name</code></pre></div>
 <script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
 <script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
 <script>
-require(["gitbook"], function(gitbook) {
+gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
 "sharing": {
 "github": false,
@@ -579,7 +579,7 @@ gitbook.start({
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    script.src  = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:" && /^https?:/.test(script.src))
       script.src  = script.src.replace(/^https?:/, '');
     document.getElementsByTagName("head")[0].appendChild(script);

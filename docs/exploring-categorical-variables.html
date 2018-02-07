@@ -6,9 +6,8 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>APS 135: Introduction to Exploratory Data Analysis with R</title>
-  <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
   <meta name="description" content="Course book for Introduction to Exploratory Data Analysis with R (APS 135) in the Department of Animal and Plant Sciences, University of Sheffield.">
-  <meta name="generator" content="bookdown 0.3 and GitBook 2.6.7">
+  <meta name="generator" content="bookdown 0.5 and GitBook 2.6.7">
 
   <meta property="og:title" content="APS 135: Introduction to Exploratory Data Analysis with R" />
   <meta property="og:type" content="book" />
@@ -26,7 +25,7 @@
 <meta name="author" content="Dylan Z. Childs">
 
 
-<meta name="date" content="2017-03-21">
+<meta name="date" content="2018-02-07">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -35,7 +34,6 @@
   
 <link rel="prev" href="exploring-one-numeric-variable.html">
 <link rel="next" href="relationships-between-two-variables.html">
-
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -115,6 +113,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </head>
 
 <body>
+
 
 
   <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
@@ -277,8 +276,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul></li>
 <li class="chapter" data-level="15.3" data-path="grouping-and-summarising-data.html"><a href="grouping-and-summarising-data.html#removing-grouping-information"><i class="fa fa-check"></i><b>15.3</b> Removing grouping information</a></li>
 </ul></li>
-<li class="chapter" data-level="16" data-path="building-piplines.html"><a href="building-piplines.html"><i class="fa fa-check"></i><b>16</b> Building piplines</a><ul>
-<li class="chapter" data-level="16.1" data-path="building-piplines.html"><a href="building-piplines.html#why-do-we-need-pipes"><i class="fa fa-check"></i><b>16.1</b> Why do we need ‘pipes’?</a></li>
+<li class="chapter" data-level="16" data-path="building-pipelines.html"><a href="building-pipelines.html"><i class="fa fa-check"></i><b>16</b> Building pipelines</a><ul>
+<li class="chapter" data-level="16.1" data-path="building-pipelines.html"><a href="building-pipelines.html#why-do-we-need-pipes"><i class="fa fa-check"></i><b>16.1</b> Why do we need ‘pipes’?</a></li>
 </ul></li>
 <li class="part"><span><b>III Exporing Data</b></span></li>
 <li class="chapter" data-level="17" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html"><i class="fa fa-check"></i><b>17</b> Exploratory data analysis</a><ul>
@@ -376,7 +375,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <h2><span class="header-section-number">21.1</span> Understanding categorical variables</h2>
 <p>Exploring categorical variables is generally simpler than working with numeric variables because we have fewer options, or at least life is simpler if we only require basic summaries. We’ll work with the <code>year</code> and <code>type</code> variables in <code>storms</code> to illustrate the key ideas.</p>
 <p>Which kind of categorical variable is <code>type</code>? There are four storm categories in type. We can use the <code>unique</code> function to print these for us:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">unique</span>(storms$type)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">unique</span>(storms<span class="op">$</span>type)</code></pre></div>
 <pre><code>## [1] &quot;Tropical Depression&quot; &quot;Tropical Storm&quot;      &quot;Hurricane&quot;          
 ## [4] &quot;Extratropical&quot;</code></pre>
 <p>The first question we should ask is, is <code>type</code> an ordinal or nominal variable? It’s hard to know how to classify <code>type</code> without knowing something about tropical storms. Some googling indicates that <code>type</code> can reasonably be considered an ordinal variable: a tropical depression is the least severe storm and a hurricane is the most severe class; in between are extra tropical and tropical storm categories.</p>
@@ -384,8 +383,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p>This illustrates an important idea: the classification of a variable will often depend on the objectives of an analysis. The classification of a variable matters because it influences how we choose to summarise it, how we interpret its relationship with other variables, and whether a specific statistical model is appropriate for our data or not. Fortunately, our choice of classification is less important when we are just trying to summarise the variable numerically or graphically. For now, let’s assume that it’s fine to treat year as a categorical variable.</p>
 <div id="numerical-summaries" class="section level3">
 <h3><span class="header-section-number">21.1.1</span> Numerical summaries</h3>
-<p>When we calculate summaries of categorical variables we are aiming to describe the sample distribution of the variable, just as with numeric variables. The general question we need to address is, ‘what are the relative frequencies of different categories?’ We need to understand which catergories are common and which are rare. Since a categorical variable takes a finite number of possible values, the simplest thing to do is tabulate the number of occurances of each type. We’ve seen how the <code>table</code> function is used to do this:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">table</span>(storms$type)</code></pre></div>
+<p>When we calculate summaries of categorical variables we are aiming to describe the sample distribution of the variable, just as with numeric variables. The general question we need to address is, ‘what are the relative frequencies of different categories?’ We need to understand which categories are common and which are rare. Since a categorical variable takes a finite number of possible values, the simplest thing to do is tabulate the number of occurances of each type. We’ve seen how the <code>table</code> function is used to do this:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">table</span>(storms<span class="op">$</span>type)</code></pre></div>
 <pre><code>## 
 ##       Extratropical           Hurricane Tropical Depression 
 ##                 412                 896                 513 
@@ -393,16 +392,16 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 ##                 926</code></pre>
 <p>This shows that the number of observations associated with hurricanes and tropical storms are about equal, that the number of observations associated with extratropical and tropical systems is similar, and the former pair of categories are more common than the latter. This indicates that in general, storm systems in Central America spend relatively more time in the more severe classes.</p>
 <p>Raw frequencies give us information about the rates of occurance of different categories in a dataset. However, it’s difficult to compare raw counts across different data sets if the sample sizes vary (which they usually do). This is why we often convert counts to proportions. To do this, we have to divide each count by the total count across all categories. This is easy to do in R because it’s vectorised:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">type_counts &lt;-<span class="st"> </span><span class="kw">table</span>(storms$type)
-type_counts /<span class="st"> </span><span class="kw">sum</span>(type_counts)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">type_counts &lt;-<span class="st"> </span><span class="kw">table</span>(storms<span class="op">$</span>type)
+type_counts <span class="op">/</span><span class="st"> </span><span class="kw">sum</span>(type_counts)</code></pre></div>
 <pre><code>## 
 ##       Extratropical           Hurricane Tropical Depression 
 ##           0.1499818           0.3261740           0.1867492 
 ##      Tropical Storm 
 ##           0.3370950</code></pre>
 <p>So about 2/3 of observations are associated with hurricanes and tropical storms, with a roughly equal split, and the remaining 1/3 associated with less severe storms.</p>
-<p>What about measuring the central tendency of a categorical sample distribution? Various measures exist, but these tend to be less useful than those used to describe numeric variables. We can we can find the <strong>sample mode</strong> of ordinal and nominal variables easily though (in contrast to numeric variables, where it is difficult to define). This is just the most common category. For example, the tropical storm category is the modal value of the <code>type</code> variable. Only just though. The proportion of tropical storm observations is 0.34, while the proportion of hurricane observations is 0.33. These are very similar, and it’s not hard to imagine that modal observation might have been the hurricane category in a different sample. The sample mode is sensitive to chance variation when two categories occur at similar frequencies.</p>
-<p>It is possible to calculate a <strong>sample median</strong> of a categorical variable, but only for the ordinal case. The median value is the one that lies in the middle of an ordered set of values—it makes no sense to talk about “the middle” of a set of nominal values that have no inherent order. Unfortunately, even for an ordinal variables the sample median is not precisely defined. Imagine that we’re working with a variable with only two categories: ‘big’ vs. ‘small’, and exactly 50% of the values are ‘small’ value and 50% are large. What is the median in this case? Because the median is not always well-defined, the developers of base R have chosen not to implement a function to calculate the median of ordinal variables (a few packages contain functions to do this though).</p>
+<p>What about measuring the central tendency of a categorical sample distribution? Various measures exist, but these tend to be less useful than those used to describe numeric variables. We can find the <strong>sample mode</strong> of ordinal and nominal variables easily though (in contrast to numeric variables, where it is difficult to define). This is just the most common category. For example, the tropical storm category is the modal value of the <code>type</code> variable. Only just though. The proportion of tropical storm observations is 0.34, while the proportion of hurricane observations is 0.33. These are very similar, and it’s not hard to imagine that modal observation might have been the hurricane category in a different sample. The sample mode is sensitive to chance variation when two categories occur at similar frequencies.</p>
+<p>It is possible to calculate a <strong>sample median</strong> of a categorical variable, but only for the ordinal case. The median value is the one that lies in the middle of an ordered set of values—it makes no sense to talk about “the middle” of a set of nominal values that have no inherent order. Unfortunately, even for ordinal variables the sample median is not precisely defined. Imagine that we’re working with a variable with only two categories: ‘big’ vs. ‘small’, and exactly 50% of the values are ‘small’ value and 50% are large. What is the median in this case? Because the median is not always well-defined, the developers of base R have chosen not to implement a function to calculate the median of ordinal variables (a few packages contain functions to do this though).</p>
 <div class="warning">
 <h4 id="be-careful-with-median">
 Be careful with <code>median</code>
@@ -419,8 +418,8 @@ Unfortunately, if we apply the <code>median</code> function to a character vecto
 <p>Constructing a bar graph to display the counts is very easy with <code>ggplot2</code>. We will do this for the <code>type</code> variable. As always, we start by using the <code>ggplot</code> function to construct a graphical object containing the necessary default data and aesthetic mapping.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">bar_plt &lt;-<span class="st"> </span><span class="kw">ggplot</span>(storms, <span class="kw">aes</span>(<span class="dt">x =</span> type)) </code></pre></div>
 <p>We’ve called the object <code>bar_plt</code>, for obvious reasons. Notice that we only need to define one aesthetic mapping: we mapped <code>type</code> to the x axis. This produces a bar plot with vertical bars.</p>
-<p>From here we follow the usual <strong>ggplot2</strong> workflow, meaning the next step is to add a layer using one of the <code>geom_XX</code> functions. The sensibly named <code>geom_bar</code> is the one we need:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">bar_plt &lt;-<span class="st"> </span>bar_plt +<span class="st"> </span><span class="kw">geom_bar</span>()
+<p>From here we follow the usual <strong>ggplot2</strong> workflow, meaning the next step is to add a layer using one of the <code>geom_XX</code> functions. There are two functions we can use to create bar charts in ggplot, <code>geom_bar</code> and <code>geom_col</code>. By default <code>geom_col</code> counts the number of observations in each category, whilst <code>geom_bar</code> plots the actual numbers in the data frame. In this case as we want the number of storms of each <code>type</code> we will use <code>geom_bar</code>:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">bar_plt &lt;-<span class="st"> </span>bar_plt <span class="op">+</span><span class="st"> </span><span class="kw">geom_bar</span>()
 <span class="kw">summary</span>(bar_plt) </code></pre></div>
 <pre><code>## data: name, year, month, day, hour, lat, long, pressure, wind,
 ##   type, seasday [2747x11]
@@ -451,29 +450,29 @@ Unfortunately, if we apply the <code>median</code> function to a character vecto
 ## geom_bar: width = NULL, na.rm = FALSE
 ## stat_count: width = NULL, na.rm = FALSE
 ## position_stack</code></pre>
-<p>Look at the layer information below <code>----</code>. The <code>geom_bar</code> function sets the stat to “bin”. Binning a categorical variable is anlagous to binning a numeric variable. The only difference is that there is no need to specify bin widths because <code>type</code> is categorical, i.e. <code>ggplot2</code> will sum up the number of observations associated with every category of <code>type</code>. Here’s the resulting figure:</p>
+<p>Look at the layer information below <code>----</code>. The <code>geom_bar</code> function sets the stat to “count”. Counting a categorical variable is analogous to binning a numeric variable. The only difference is that there is no need to specify bin widths because <code>type</code> is categorical, i.e. <code>ggplot2</code> will sum up the number of observations associated with every category of <code>type</code>. Here’s the resulting figure:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">bar_plt</code></pre></div>
 <p><img src="eda-for-bio_files/figure-html/unnamed-chunk-328-1.png" width="336" style="display: block; margin: auto;" /></p>
 <p>This is the same summary information we produced using the <code>table</code> function, only now it’s presented in graphical form. We can customise this bar graph if needed with functions like <code>xlab</code> and <code>ylab</code>, and by setting various properties inside <code>geom_bar</code>. For example:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(storms, <span class="kw">aes</span>(<span class="dt">x =</span> type)) +<span class="st"> </span>
-<span class="st">  </span><span class="kw">geom_bar</span>(<span class="dt">fill =</span> <span class="st">&quot;orange&quot;</span>, <span class="dt">width =</span> <span class="fl">0.7</span>) +<span class="st"> </span>
-<span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Storm Type&quot;</span>) +<span class="st"> </span><span class="kw">ylab</span>(<span class="st">&quot;Number of Observations&quot;</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(storms, <span class="kw">aes</span>(<span class="dt">x =</span> type)) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_bar</span>(<span class="dt">fill =</span> <span class="st">&quot;orange&quot;</span>, <span class="dt">width =</span> <span class="fl">0.7</span>) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Storm Type&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">ylab</span>(<span class="st">&quot;Number of Observations&quot;</span>)</code></pre></div>
 <p><img src="eda-for-bio_files/figure-html/unnamed-chunk-329-1.png" width="336" style="display: block; margin: auto;" /> The only new thing here is that we used the <code>width</code> argument of <code>geom_bar</code> to make the bars a little narrower than the default.</p>
 <p>There is one slight problem with this graph: the order in which the different groups is presented does not reflect the ordinal scale. This occurs because <code>ggplot2</code> does not “know” that we want to treat <code>type</code> as a ordinal variable. There is no way for <code>ggplot2</code> to “guess” the appropriate order, so it uses the alphabetical ordering of the category names to set the order of the bars.</p>
 <p>To fix this we need to customise the scale associated with the ‘x’ aesthetic. We can start by making a short character vector containing all the category names in the focal variable, ensuring these are listed in the order they need to be plotted in:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ords &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Tropical Depression&quot;</span>, <span class="st">&quot;Extratropical&quot;</span>, <span class="st">&quot;Tropical Storm&quot;</span>, <span class="st">&quot;Hurricane&quot;</span>)</code></pre></div>
 <p>Keep an eye on the spelling too—R is not forgiving of spelling errors. We use this with the <code>limits</code> argument of the <code>scale_x_discrete</code> function to fix the ordering:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(storms, <span class="kw">aes</span>(<span class="dt">x =</span> type)) +<span class="st"> </span>
-<span class="st">  </span><span class="kw">geom_bar</span>(<span class="dt">fill =</span> <span class="st">&quot;orange&quot;</span>, <span class="dt">width =</span> <span class="fl">0.7</span>) +<span class="st"> </span>
-<span class="st">  </span><span class="kw">scale_x_discrete</span>(<span class="dt">limits =</span> ords) +
-<span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Storm Type&quot;</span>) +<span class="st"> </span><span class="kw">ylab</span>(<span class="st">&quot;Number of Observations&quot;</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(storms, <span class="kw">aes</span>(<span class="dt">x =</span> type)) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_bar</span>(<span class="dt">fill =</span> <span class="st">&quot;orange&quot;</span>, <span class="dt">width =</span> <span class="fl">0.7</span>) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">scale_x_discrete</span>(<span class="dt">limits =</span> ords) <span class="op">+</span>
+<span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Storm Type&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">ylab</span>(<span class="st">&quot;Number of Observations&quot;</span>)</code></pre></div>
 <p><img src="eda-for-bio_files/figure-html/unnamed-chunk-331-1.png" width="336" style="display: block; margin: auto;" /> We had to use one of the <code>scale_x_YY</code> functions here because we needed to change the way an aesthetic appears. We use <code>scale_x_discrete</code> because ‘discrete’ is <strong>gplot2</strong>-speak for ‘categorical’, which is what we have mapped to the ‘x’ aesthetic.</p>
 <p>What else might we change? The categories of <code>type</code> have quite long names, meaning the axis labels are all bunched together. One way to fix this is to make the labels smaller or rotate them via the ‘themes’ system. Here’s an alternative solution: just flip the x and y axes to make a horizontal bar chart. We can do this with the <code>coord_flip</code> function (this is new):</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(storms, <span class="kw">aes</span>(<span class="dt">x =</span> type)) +<span class="st"> </span>
-<span class="st">  </span><span class="kw">geom_bar</span>(<span class="dt">fill =</span> <span class="st">&quot;orange&quot;</span>, <span class="dt">width =</span> <span class="fl">0.7</span>) +<span class="st"> </span>
-<span class="st">  </span><span class="kw">scale_x_discrete</span>(<span class="dt">limits =</span> ords) +
-<span class="st">  </span><span class="kw">coord_flip</span>() +<span class="st"> </span>
-<span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Storm Type&quot;</span>) +<span class="st"> </span><span class="kw">ylab</span>(<span class="st">&quot;Number of Observations&quot;</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(storms, <span class="kw">aes</span>(<span class="dt">x =</span> type)) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_bar</span>(<span class="dt">fill =</span> <span class="st">&quot;orange&quot;</span>, <span class="dt">width =</span> <span class="fl">0.7</span>) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">scale_x_discrete</span>(<span class="dt">limits =</span> ords) <span class="op">+</span>
+<span class="st">  </span><span class="kw">coord_flip</span>() <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Storm Type&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">ylab</span>(<span class="st">&quot;Number of Observations&quot;</span>)</code></pre></div>
 <p><img src="eda-for-bio_files/figure-html/unnamed-chunk-332-1.png" width="480" style="display: block; margin: auto;" /></p>
 
 </div>
@@ -484,8 +483,9 @@ Unfortunately, if we apply the <code>median</code> function to a character vecto
         </div>
       </div>
 <a href="exploring-one-numeric-variable.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="relationships-between-two-variables.html" class="navigation navigation-next " aria-label="Next page""><i class="fa fa-angle-right"></i></a>
-
+<a href="relationships-between-two-variables.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/lunr.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
@@ -494,7 +494,7 @@ Unfortunately, if we apply the <code>median</code> function to a character vecto
 <script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
 <script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
 <script>
-require(["gitbook"], function(gitbook) {
+gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
 "sharing": {
 "github": false,
@@ -529,7 +529,7 @@ gitbook.start({
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    script.src  = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:" && /^https?:/.test(script.src))
       script.src  = script.src.replace(/^https?:/, '');
     document.getElementsByTagName("head")[0].appendChild(script);
