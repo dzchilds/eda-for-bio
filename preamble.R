@@ -4,6 +4,7 @@ library("nasaweather")
 library("magrittr")
 library("knitr")
 library("hexbin")
+library("cowplot")
 
 # knitr options
 
