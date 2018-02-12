@@ -32,8 +32,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
-<link rel="prev" href="dplyr-and-the-tidy-data-concept.html">
-<link rel="next" href="working-with-observations.html">
+<link rel="prev" href="building-in-complexity.html">
+
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -375,265 +375,172 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="working-with-variables" class="section level1">
-<h1><span class="header-section-number">Chapter 12</span> Working with variables</h1>
-<div id="introduction-5" class="section level2">
-<h2><span class="header-section-number">12.1</span> Introduction</h2>
-<p>This chapter will explore the the <strong>dplyr</strong> <code>select</code> and <code>mutate</code> verbs, as well as the related <code>rename</code> and <code>transmute</code> verbs. These four verbs are considered together because they all operate on the variables (i.e. the columns) of a data frame or tibble:</p>
-<ul>
-<li><p>The <code>select</code> function selects a subset of variables to retain and (optionally) renames them in the process.</p></li>
-<li><p>The <code>mutate</code> function creates new variables from preexisting ones and retains the original variables.</p></li>
-<li><p>The <code>rename</code> function renames one or more variables while keeping the remaining variable names unchanged.</p></li>
-<li><p>The <code>transmute</code> function creates new variables from preexisting ones and drops the original variables.</p></li>
-</ul>
-<div id="getting-ready" class="section level3">
-<h3><span class="header-section-number">12.1.1</span> Getting ready</h3>
-<p>A script that uses <strong>dplyr</strong> will typically start by loading and attaching the package:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">&quot;dplyr&quot;</span>)</code></pre></div>
-<p>Obviously we need to have first installed <code>dplyr</code> package for this to work.</p>
-<p>We’ll use the <code>iris</code> data set in the <strong>datasets</strong> package to illustrate the ideas in this chapter. The <strong>datasets</strong> package ships with R and is loaded and attached at start up, so there’s no need to do anything to make <code>iris</code> available. The <code>iris</code> data set is an ordinary data frame. Before we start working, it’s handy to convert this to a tibble so that it prints to the Console in a compact way:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">iris_tbl   &lt;-<span class="st"> </span><span class="kw">tbl_df</span>(iris)</code></pre></div>
-<p>We gave the new tibble version a new name. We didn’t have to do this, but it will remind us that we’re working with tibbles.</p>
+<div id="doing-more-with-ggplot2" class="section level1">
+<h1><span class="header-section-number">Chapter 24</span> Doing more with <strong>ggplot2</strong></h1>
+<p>Throughout this block we have learnt a range of ways to plot our data using <strong>ggplot2</strong>. Here we provide a few more examples of ways you may wish to customise your plots. You will not be examined on the material in this chapter, however it will be helpful when you have to make plots for other modules, such as during your Level 1 projects.</p>
+<p>We will use the <code>storms</code> data set again from the <strong>nasaweather</strong> package. As in the <a href="relationships-between-two-variables.html#relationships-between-two-variables">Relationships between two variables</a> chapter we will reorder the levels of the <code>type</code> variable so that they get increasingly fierce.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># 1. make a vector of storm type names in the required order</span>
+storm_names &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Tropical Depression&quot;</span>, <span class="st">&quot;Extratropical&quot;</span>, <span class="st">&quot;Tropical Storm&quot;</span>, <span class="st">&quot;Hurricane&quot;</span>)
+<span class="co"># 2. now convert type to a factor</span>
+storms_alter &lt;-<span class="st"> </span>
+<span class="st">  </span>storms <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">type =</span> <span class="kw">factor</span>(type, <span class="dt">levels =</span> storm_names)) </code></pre></div>
+<div id="adding-error-bars" class="section level2">
+<h2><span class="header-section-number">24.1</span> Adding error bars</h2>
+<p>In the <a href="building-in-complexity.html#building-in-complexity">Building in Complexity</a> chapter we learnt how to make a bar chart showing the means of our data. However, we generally want to show how variable the data are as well as the central tendency (e.g. mean) of the data. To do this we can include error bars showing for example the standard deviation or standard error of the mean. We’ll demonstrate this using the storms data set again, by plotting the means and standard errors of wind speed for each storm type.</p>
+<p>We start by calculating the means and standard deviations for each group.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">storms_sum &lt;-<span class="st"> </span>
+<span class="st">  </span>storms_alter <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">group_by</span>(type) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">summarise</span>(<span class="dt">mean_wind =</span> <span class="kw">mean</span>(wind), <span class="dt">std =</span> <span class="kw">sd</span>(wind))
+storms_sum</code></pre></div>
+<pre><code>## # A tibble: 4 x 3
+##                  type mean_wind       std
+##                &lt;fctr&gt;     &lt;dbl&gt;     &lt;dbl&gt;
+## 1 Tropical Depression  27.35867  3.520588
+## 2       Extratropical  40.06068 13.246997
+## 3      Tropical Storm  47.32181 11.092150
+## 4           Hurricane  84.65960 18.790856</code></pre>
+<p>We can now use this data frame to make the plot, using <code>geom_col</code> to plot the means and the unsurprisingly named <code>geom_errorbar</code> to add the error bars.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(storms_sum, <span class="kw">aes</span>(<span class="dt">x=</span>type, <span class="dt">y =</span> mean_wind)) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="co"># Plot the means</span>
+<span class="st">  </span><span class="kw">geom_col</span>(<span class="dt">fill =</span> <span class="st">&quot;orange&quot;</span>) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="co"># Add the error bars</span>
+<span class="st">  </span><span class="kw">geom_errorbar</span>(<span class="kw">aes</span>(<span class="dt">ymin =</span> mean_wind <span class="op">-</span><span class="st"> </span>std, <span class="dt">ymax =</span> mean_wind <span class="op">+</span><span class="st"> </span>std), <span class="dt">width =</span> <span class="fl">0.1</span>) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="co"># Flip the axes round to prevent labels overlapping</span>
+<span class="st">  </span><span class="kw">coord_flip</span>() <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="co"># Use a more professional theme </span>
+<span class="st">  </span><span class="kw">theme_classic</span>(<span class="dt">base_size =</span> <span class="dv">12</span>) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="co"># Change the axes labels</span>
+<span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Storm Category&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">ylab</span>(<span class="st">&quot;Mean Wind Speed (mph)&quot;</span>)</code></pre></div>
+<p><img src="eda-for-bio_files/figure-html/unnamed-chunk-361-1.png" width="480" style="display: block; margin: auto;" /></p>
+<p>The <code>ymin</code> and <code>ymax</code> arguments of the <code>geom_errorbar</code> function give the lower and upper limits of error bars. Here, we have plotted the mean +/- 1 standard deviation. Note that we can change the width of the error bars using the <code>width</code> argument. Also remember if you’re including error bars on a plot that you <strong>MUST</strong> specify in the figure legend what they show (e.g. standard deviation, standard error of the mean, 95% confidence intervals).</p>
 </div>
+<div id="adding-text-to-plots" class="section level2">
+<h2><span class="header-section-number">24.2</span> Adding text to plots</h2>
+<p>There may be some cases in which you want to add text to plots, for example to show the sample size for each group or to show which categories are significantly different from each other if you’ve performed a statistical test (we’ll come back to this at Level 2).</p>
+<p>Here we’re going to add a label for each bar on our bar chart. To do this we start by adding the labels that we want to use to the data frame. For example, here we will calculate the mean (using the <code>mean</code> function) and the sample size (using the function <code>n</code>) for each group.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">storms_sum &lt;-<span class="st"> </span>
+<span class="st">  </span>storms <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">group_by</span>(type) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">summarise</span>(<span class="dt">mean_wind =</span> <span class="kw">mean</span>(wind), <span class="dt">samp =</span> <span class="kw">n</span>())
+storms_sum</code></pre></div>
+<pre><code>## # A tibble: 4 x 3
+##                  type mean_wind  samp
+##                 &lt;chr&gt;     &lt;dbl&gt; &lt;int&gt;
+## 1       Extratropical  40.06068   412
+## 2           Hurricane  84.65960   896
+## 3 Tropical Depression  27.35867   513
+## 4      Tropical Storm  47.32181   926</code></pre>
+<p>Then we can add the text showing the sample size to our plot using the function <code>geom_text</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(storms_sum, <span class="kw">aes</span>(<span class="dt">x =</span> type, <span class="dt">y =</span> mean_wind)) <span class="op">+</span>
+<span class="st"> </span><span class="co"># Add the bars</span>
+<span class="st"> </span><span class="kw">geom_col</span>(<span class="dt">fill =</span> <span class="st">&quot;orange&quot;</span>) <span class="op">+</span>
+<span class="st"> </span><span class="co"># Flip the axes round</span>
+<span class="st"> </span><span class="kw">coord_flip</span>() <span class="op">+</span>
+<span class="st"> </span><span class="co"># Change the axes labels</span>
+<span class="st"> </span><span class="kw">xlab</span>(<span class="st">&quot;Storm Category&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">ylab</span>(<span class="st">&quot;Mean Wind Speed (mph)&quot;</span>) <span class="op">+</span>
+<span class="st"> </span><span class="co"># Add the text</span>
+<span class="st"> </span><span class="kw">geom_text</span>(<span class="kw">aes</span>(<span class="dt">label =</span> samp, <span class="dt">y =</span> <span class="dv">10</span>)) <span class="op">+</span><span class="st"> </span>
+<span class="st"> </span><span class="co"># Use a more professional theme</span>
+<span class="st"> </span><span class="kw">theme_classic</span>(<span class="dt">base_size =</span> <span class="dv">12</span>)</code></pre></div>
+<p><img src="eda-for-bio_files/figure-html/unnamed-chunk-363-1.png" width="384" style="display: block; margin: auto;" /></p>
 </div>
-<div id="subset-variables-with-select" class="section level2">
-<h2><span class="header-section-number">12.2</span> Subset variables with <code>select</code></h2>
-<p>We use <code>select</code> to <strong>select variables</strong> from a data frame or tibble. This is typically used when we have a data set with many variables but only need to work with a subset of these. Basic usage of <code>select</code> looks like this:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">select</span>(data_set, vname1, vname2, ...)</code></pre></div>
-<p>take note: this is not an example we can run. This is a “pseudo code” example, designed to show, in abstract terms, how we use <code>select</code>:</p>
-<ul>
-<li><p>The first argument, <code>data_set</code> (“data object”), must be the name of the object containing our data.</p></li>
-<li><p>We then include a series of one or more additional arguments, where each one is the name of a variable in <code>data_set</code>. We’ve expressed this as <code>vname1, vname2, ...</code>, where <code>vname1</code> and <code>vname2</code> are names of the first two variables, and the <code>...</code> is acting as placeholder for the remaining variables (there could be any number of these).</p></li>
-</ul>
-<p>It’s easiest to understand how a function like <code>select</code> works by seeing it in action. We select the <code>Species</code>, <code>Petal.Length</code> and <code>Petal.Width</code> variables from <code>iris_tbl</code> like this:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">select</span>(iris_tbl, Species, Petal.Length, Petal.Width)</code></pre></div>
-<pre><code>## # A tibble: 150 x 3
-##    Species Petal.Length Petal.Width
-##     &lt;fctr&gt;        &lt;dbl&gt;       &lt;dbl&gt;
-##  1  setosa          1.4         0.2
-##  2  setosa          1.4         0.2
-##  3  setosa          1.3         0.2
-##  4  setosa          1.5         0.2
-##  5  setosa          1.4         0.2
-##  6  setosa          1.7         0.4
-##  7  setosa          1.4         0.3
-##  8  setosa          1.5         0.2
-##  9  setosa          1.4         0.2
-## 10  setosa          1.5         0.1
-## # ... with 140 more rows</code></pre>
-<p>Hopefully nothing about this example is surprising or confusing. There are a few things to notice about how <code>select</code> works though:</p>
-<ul>
-<li><p>The <code>select</code> function is one of those non-standard functions we briefly mentioned in the <a href="using-functions.html#using-functions">Using functions</a> chapter. This means the variable names should not be surrounded by quotes unless they have spaces in them (which is best avoided).</p></li>
-<li><p>The <code>select</code> function is just like other R functions: it does not have “side effects”. What this means is that it does not change the original <code>iris_tbl</code>. We printed the result produced by <code>select</code> to the Console, so we can’t access the new data set. If we need to access the result we have to assign it a name using <code>&lt;-</code>.</p></li>
-<li><p>The order of variables (i.e. the column order) in the resulting object is the same as the order in which they were supplied as arguments. This means we can reorder variables at the same time as selecting them if we need to.</p></li>
-<li><p>The <code>select</code> function will return the same kind of data object it is working on. It returns a data frame if our data was originally in a data frame and a tibble if it was a tibble. In this example, R prints a tibble because we had converted <code>iris_tbl</code> from a data frame to a tibble.</p></li>
-</ul>
-<p>It’s sometimes more convenient to use <code>select</code> to subset variables by specifying those we do <strong>not</strong> need, rather than specifying of the ones to keep. We use the <code>-</code> operator indicate that variables should be dropped. For example, to drop the <code>Petal.Width</code> and <code>Petal.Length</code> columns, we use:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">select</span>(iris_tbl, <span class="op">-</span>Petal.Width, <span class="op">-</span>Petal.Length)</code></pre></div>
-<pre><code>## # A tibble: 150 x 3
-##    Sepal.Length Sepal.Width Species
-##           &lt;dbl&gt;       &lt;dbl&gt;  &lt;fctr&gt;
-##  1          5.1         3.5  setosa
-##  2          4.9         3.0  setosa
-##  3          4.7         3.2  setosa
-##  4          4.6         3.1  setosa
-##  5          5.0         3.6  setosa
-##  6          5.4         3.9  setosa
-##  7          4.6         3.4  setosa
-##  8          5.0         3.4  setosa
-##  9          4.4         2.9  setosa
-## 10          4.9         3.1  setosa
-## # ... with 140 more rows</code></pre>
-<p>This returns a tibble with just the remaining variables:<code>Sepal.Length</code>, <code>Sepal.Width</code> and <code>Species</code>.</p>
-<p>The <code>select</code> function can also be used to grab (or drop) a set of variables that occur in a sequence next to one another. We specify a series of adjacent variables using the <code>:</code> operator. This must be used with two variable names, one on the left hand side and one on the right. When we use <code>:</code> like this, <code>select</code> will subset both those variables along with any others that fall in between them. For example, if we need the two <code>Petal</code> variables and <code>Species</code>, we use:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">select</span>(iris_tbl, Petal.Length<span class="op">:</span>Species)</code></pre></div>
-<pre><code>## # A tibble: 150 x 3
-##    Petal.Length Petal.Width Species
-##           &lt;dbl&gt;       &lt;dbl&gt;  &lt;fctr&gt;
-##  1          1.4         0.2  setosa
-##  2          1.4         0.2  setosa
-##  3          1.3         0.2  setosa
-##  4          1.5         0.2  setosa
-##  5          1.4         0.2  setosa
-##  6          1.7         0.4  setosa
-##  7          1.4         0.3  setosa
-##  8          1.5         0.2  setosa
-##  9          1.4         0.2  setosa
-## 10          1.5         0.1  setosa
-## # ... with 140 more rows</code></pre>
-<p>The <code>:</code> operator can be combined with <code>-</code> if we need to drop a series of variables according to their position in a data frame or tibble:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">select</span>(iris_tbl, <span class="op">-</span>(Petal.Length<span class="op">:</span>Species))</code></pre></div>
-<pre><code>## # A tibble: 150 x 2
-##    Sepal.Length Sepal.Width
-##           &lt;dbl&gt;       &lt;dbl&gt;
-##  1          5.1         3.5
-##  2          4.9         3.0
-##  3          4.7         3.2
-##  4          4.6         3.1
-##  5          5.0         3.6
-##  6          5.4         3.9
-##  7          4.6         3.4
-##  8          5.0         3.4
-##  9          4.4         2.9
-## 10          4.9         3.1
-## # ... with 140 more rows</code></pre>
-<p>The extra <code>( )</code> around are <code>Petal.Length:Species</code> important here — <code>select</code> will throw an error if we don’t include them.</p>
-<div id="renaming-variables-with-select-and-rename" class="section level3">
-<h3><span class="header-section-number">12.2.1</span> Renaming variables with <code>select</code> and <code>rename</code></h3>
-<p>In addition to selecting a subset of variables, the <code>select</code> function can also rename variables at the same time. To do this, we have to name the arguments using <code>=</code>, placing the new name on the left hand side. For example, to select the<code>Species</code>, <code>Petal.Length</code> and <code>Petal.Width</code> variables from <code>iris_tbl</code>, but also rename <code>Petal.Length</code> and <code>Petal.Width</code> to <code>Petal_Length</code> and <code>Petal_Width</code>, we use:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">select</span>(iris_tbl, Species, <span class="dt">Petal_Length =</span> Petal.Length, <span class="dt">Petal_Width =</span> Petal.Width)</code></pre></div>
-<pre><code>## # A tibble: 150 x 3
-##    Species Petal_Length Petal_Width
-##     &lt;fctr&gt;        &lt;dbl&gt;       &lt;dbl&gt;
-##  1  setosa          1.4         0.2
-##  2  setosa          1.4         0.2
-##  3  setosa          1.3         0.2
-##  4  setosa          1.5         0.2
-##  5  setosa          1.4         0.2
-##  6  setosa          1.7         0.4
-##  7  setosa          1.4         0.3
-##  8  setosa          1.5         0.2
-##  9  setosa          1.4         0.2
-## 10  setosa          1.5         0.1
-## # ... with 140 more rows</code></pre>
-<p>Renaming variables is a common task when working with data frames and tibbles. What should we do if the <em>only</em> thing we would like to achieve is to rename a variables, rather than rename and select variables? The <code>dplyr</code> provides an additional function called <code>rename</code> for this purpose. This function renames certain variables while retaining all others. It works in a similar way to <code>select</code>. For example, to rename <code>Petal.Length</code> and <code>Petal.Width</code> to <code>Petal_Length</code> and <code>Petal_Width</code>, we use:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">rename</span>(iris_tbl, <span class="dt">Petal_Length =</span> Petal.Length, <span class="dt">Petal_Width =</span> Petal.Width)</code></pre></div>
-<pre><code>## # A tibble: 150 x 5
-##    Sepal.Length Sepal.Width Petal_Length Petal_Width Species
-##           &lt;dbl&gt;       &lt;dbl&gt;        &lt;dbl&gt;       &lt;dbl&gt;  &lt;fctr&gt;
-##  1          5.1         3.5          1.4         0.2  setosa
-##  2          4.9         3.0          1.4         0.2  setosa
-##  3          4.7         3.2          1.3         0.2  setosa
-##  4          4.6         3.1          1.5         0.2  setosa
-##  5          5.0         3.6          1.4         0.2  setosa
-##  6          5.4         3.9          1.7         0.4  setosa
-##  7          4.6         3.4          1.4         0.3  setosa
-##  8          5.0         3.4          1.5         0.2  setosa
-##  9          4.4         2.9          1.4         0.2  setosa
-## 10          4.9         3.1          1.5         0.1  setosa
-## # ... with 140 more rows</code></pre>
-<p>Notice that the rename function also preserves the order of the variables found in the original data.</p>
+<div id="customising-text" class="section level2">
+<h2><span class="header-section-number">24.3</span> Customising text</h2>
+<p>Sometimes we may want to change the appearance of the text on the plot. For example, sometimes if the axis labels are quite long they may be bunched together or overlap each other, making it difficult to read them. We saw this before in the <a href="exploring-categorical-variables.html#exploring-categorical-variables">Exploring Categorical Variables</a> chapter.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(storms_alter, <span class="kw">aes</span>(<span class="dt">x =</span> type)) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_bar</span>(<span class="dt">fill =</span> <span class="st">&quot;orange&quot;</span>, <span class="dt">width =</span> <span class="fl">0.7</span>) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Storm Type&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">ylab</span>(<span class="st">&quot;Number of Observations&quot;</span>)</code></pre></div>
+<p><img src="eda-for-bio_files/figure-html/unnamed-chunk-364-1.png" width="432" style="display: block; margin: auto;" /></p>
+<p>Here it is very difficult to read the categories on the <span class="math inline">\(x\)</span> axis as the text is overlapping. In the <a href="exploring-categorical-variables.html#exploring-categorical-variables">Exploring Categorical Variables</a> chapter we saw one way to deal with this, by using <code>coord_flip</code> to rotate the axes. An alternative to this is to change the size of text - a simple way to do this is to use the <code>base_size</code> argument within a ggplot <code>theme_XX</code> function as follows:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(storms, <span class="kw">aes</span>(<span class="dt">x =</span> type)) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_bar</span>(<span class="dt">fill =</span> <span class="st">&quot;orange&quot;</span>, <span class="dt">width =</span> <span class="fl">0.7</span>) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Storm Type&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">ylab</span>(<span class="st">&quot;Number of Observations&quot;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">theme_classic</span>(<span class="dt">base_size =</span> <span class="dv">10</span>)</code></pre></div>
+<p><img src="eda-for-bio_files/figure-html/unnamed-chunk-365-1.png" width="432" style="display: block; margin: auto;" /></p>
+<p>The <code>base_size</code> argument changes the size of all of the text within the plot.</p>
+<p>It is also possible to rotate the labels themselves rather than the whole plot. Here, we use the <code>angle</code> argument of the <code>element_text</code> function again inside <code>theme</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(storms, <span class="kw">aes</span>(<span class="dt">x =</span> type)) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_bar</span>(<span class="dt">fill =</span> <span class="st">&quot;orange&quot;</span>, <span class="dt">width =</span> <span class="fl">0.7</span>) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Storm Type&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">ylab</span>(<span class="st">&quot;Number of Observations&quot;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">theme</span>(<span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">angle =</span> <span class="dv">90</span>))</code></pre></div>
+<p><img src="eda-for-bio_files/figure-html/unnamed-chunk-366-1.png" width="336" style="display: block; margin: auto;" /></p>
+<p>Here we used the argument ‘axis.text.x’ so that only the labels on the <span class="math inline">\(x\)</span> axis were rotated.</p>
 </div>
+<div id="saving-plots" class="section level2">
+<h2><span class="header-section-number">24.4</span> Saving plots</h2>
+<p>When using RStudio plots can be saved using the <code>Export</code> button. However, such plots are often pixelated. R also has a range of functions that can be used to save plots. When making figures with <code>ggplot</code> we can use the <code>ggsave</code> function.</p>
+<p>For example, here we will create a scatter plot using the <code>storms</code> data set again.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(storms, <span class="kw">aes</span>(<span class="dt">x =</span> pressure, <span class="dt">y =</span> wind)) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="co"># Add the points</span>
+<span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="co"># Change the axis labels</span>
+<span class="st">  </span><span class="kw">labs</span>(<span class="dt">x=</span><span class="st">&quot;Atmospheric pressure (mbar)&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;Wind speed (mph)&quot;</span>)</code></pre></div>
+<p><img src="eda-for-bio_files/figure-html/unnamed-chunk-367-1.png" width="432" style="display: block; margin: auto;" /></p>
+<p>Once you’re happy with the plot you can use the <code>ggsave</code> function to save it as follows:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggsave</span>(<span class="st">&quot;Stormsplot.pdf&quot;</span>, <span class="dt">height =</span> <span class="dv">5</span>, <span class="dt">width =</span> <span class="dv">5</span>)</code></pre></div>
+<p>The first argument that this function takes is the name of the file that you will save. By default <code>ggsave</code> will save the last plot that you’ve made. You can also provide the name of a plot as the second argument to the function if you have assigned it a name. Note that R will save the plot to your working directory (you can change where the plot is saved to using the <code>path</code> argument in the <code>ggsave</code> function). Note that if you do not specify the <code>width</code> and <code>height</code> arguments to <code>ggsave</code> it will use the current size of your plotting window.</p>
+<p>You can also add the <code>ggsave</code> function on to the code for a specific plot</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(storms, <span class="kw">aes</span>(<span class="dt">x =</span> pressure, <span class="dt">y =</span> wind)) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="co"># Add the points</span>
+<span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="co"># Change the axis labels</span>
+<span class="st">  </span><span class="kw">labs</span>(<span class="dt">x=</span><span class="st">&quot;Atmospheric pressure (mbar)&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;Wind speed (mph)&quot;</span>) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="co"># Save the figure</span>
+<span class="st">  </span><span class="kw">ggsave</span>(<span class="st">&quot;Stormsplot.pdf&quot;</span>, <span class="dt">height =</span> <span class="dv">5</span>, <span class="dt">width =</span> <span class="dv">5</span>)</code></pre></div>
 </div>
-<div id="creating-variables-with-mutate" class="section level2">
-<h2><span class="header-section-number">12.3</span> Creating variables with <code>mutate</code></h2>
-<p>We use <code>mutate</code> to <strong>add new variables</strong> to a data frame or tibble. This is useful if we need to construct one or more derived variables to support an analysis. Basic usage of <code>mutate</code> looks like this:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">mutate</span>(data_set, <span class="op">&lt;</span>expression1<span class="op">&gt;</span>, <span class="op">&lt;</span>expression2<span class="op">&gt;</span>, ...)</code></pre></div>
-<p>Again, this is not an example we can run; it’s pseudo code that highlights in abstract terms how to use <code>mutate</code>. As always with <code>dplyr</code>, the first argument, <code>data_set</code>, should be the name of the object containing our data. We then include a series of one or more additional arguments, where each of these is a valid R expression involving one or more variables in <code>data_set</code>. We’ve have expressed these as <code>&lt;expression1&gt;, &lt;expression2&gt;</code>, where <code>&lt;expression1&gt;</code> and <code>&lt;expression2&gt;</code> represent the first two expressions, and the <code>...</code> is acting as placeholder for the remaining expressions. Remember, this is not valid R code. It is just intended to demonstrate the general usage of <code>mutate</code>.</p>
-<p>To see <code>mutate</code> in action, let’s construct a new version of <code>iris_tbl</code> that contains a variable summarising the approximate area of sepals:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">mutate</span>(iris_tbl, Sepal.Width <span class="op">*</span><span class="st"> </span>Sepal.Length)</code></pre></div>
-<pre><code>## Warning: package &#39;bindrcpp&#39; was built under R version 3.3.2</code></pre>
-<pre><code>## # A tibble: 150 x 6
-##    Sepal.Length Sepal.Width Petal.Length Petal.Width Species
-##           &lt;dbl&gt;       &lt;dbl&gt;        &lt;dbl&gt;       &lt;dbl&gt;  &lt;fctr&gt;
-##  1          5.1         3.5          1.4         0.2  setosa
-##  2          4.9         3.0          1.4         0.2  setosa
-##  3          4.7         3.2          1.3         0.2  setosa
-##  4          4.6         3.1          1.5         0.2  setosa
-##  5          5.0         3.6          1.4         0.2  setosa
-##  6          5.4         3.9          1.7         0.4  setosa
-##  7          4.6         3.4          1.4         0.3  setosa
-##  8          5.0         3.4          1.5         0.2  setosa
-##  9          4.4         2.9          1.4         0.2  setosa
-## 10          4.9         3.1          1.5         0.1  setosa
-## # ... with 140 more rows, and 1 more variables: `Sepal.Width *
-## #   Sepal.Length` &lt;dbl&gt;</code></pre>
-<p>This creates a copy of <code>iris_tbl</code> with a new column called <code>Sepal.Width * Sepal.Length</code> (mentioned at the bottom of the printed output). Most of the rules that apply to <code>select</code> also apply to <code>mutate</code>:</p>
-<ul>
-<li><p>The expression that performs the required calculation is not surrounded by quotes. This makes sense, because an expression is meant to be evaluated so that it “does something”. It is not a value.</p></li>
-<li><p>Once again, we just printed the result produced by <code>mutate</code> to the Console, rather than assigning the result a name using <code>&lt;-</code>. The <code>mutate</code> function does not have side effects, meaning it does not change the original <code>iris_tbl</code> in any way.</p></li>
-<li><p>The <code>select</code> function returns the same kind of data object as the one it is working on: a data frame if our data was originally in a data frame, a tibble if it was a tibble.</p></li>
-</ul>
-<p>Creating a variable called something like <code>Sepal.Width * Sepal.Length</code> is not exactly ideal because it’s a difficult name to work with. The <code>mutate</code> function can name variables at the same time as they are created. We have to name the arguments using <code>=</code>, placing the name on the left hand side, to do this. Here’s how to use this construct to name the new area variable <code>Sepal.Area</code>:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">mutate</span>(iris_tbl, <span class="dt">Sepal.Area =</span> Sepal.Width <span class="op">*</span><span class="st"> </span>Sepal.Length)</code></pre></div>
-<pre><code>## # A tibble: 150 x 6
-##    Sepal.Length Sepal.Width Petal.Length Petal.Width Species Sepal.Area
-##           &lt;dbl&gt;       &lt;dbl&gt;        &lt;dbl&gt;       &lt;dbl&gt;  &lt;fctr&gt;      &lt;dbl&gt;
-##  1          5.1         3.5          1.4         0.2  setosa      17.85
-##  2          4.9         3.0          1.4         0.2  setosa      14.70
-##  3          4.7         3.2          1.3         0.2  setosa      15.04
-##  4          4.6         3.1          1.5         0.2  setosa      14.26
-##  5          5.0         3.6          1.4         0.2  setosa      18.00
-##  6          5.4         3.9          1.7         0.4  setosa      21.06
-##  7          4.6         3.4          1.4         0.3  setosa      15.64
-##  8          5.0         3.4          1.5         0.2  setosa      17.00
-##  9          4.4         2.9          1.4         0.2  setosa      12.76
-## 10          4.9         3.1          1.5         0.1  setosa      15.19
-## # ... with 140 more rows</code></pre>
-<p>We can create more than one variable by supplying <code>mutate</code> multiple (named) arguments:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">mutate</span>(iris_tbl, 
-       <span class="dt">Sepal.Area =</span> Sepal.Width <span class="op">*</span><span class="st"> </span>Sepal.Length,
-       <span class="dt">Petal.Area =</span> Petal.Width <span class="op">*</span><span class="st"> </span>Petal.Length,
-       <span class="dt">Area.Ratio =</span> Petal.Area <span class="op">/</span><span class="st"> </span>Petal.Area)</code></pre></div>
-<pre><code>## # A tibble: 150 x 8
-##    Sepal.Length Sepal.Width Petal.Length Petal.Width Species Sepal.Area
-##           &lt;dbl&gt;       &lt;dbl&gt;        &lt;dbl&gt;       &lt;dbl&gt;  &lt;fctr&gt;      &lt;dbl&gt;
-##  1          5.1         3.5          1.4         0.2  setosa      17.85
-##  2          4.9         3.0          1.4         0.2  setosa      14.70
-##  3          4.7         3.2          1.3         0.2  setosa      15.04
-##  4          4.6         3.1          1.5         0.2  setosa      14.26
-##  5          5.0         3.6          1.4         0.2  setosa      18.00
-##  6          5.4         3.9          1.7         0.4  setosa      21.06
-##  7          4.6         3.4          1.4         0.3  setosa      15.64
-##  8          5.0         3.4          1.5         0.2  setosa      17.00
-##  9          4.4         2.9          1.4         0.2  setosa      12.76
-## 10          4.9         3.1          1.5         0.1  setosa      15.19
-## # ... with 140 more rows, and 2 more variables: Petal.Area &lt;dbl&gt;,
-## #   Area.Ratio &lt;dbl&gt;</code></pre>
-<p>Notice that here we placed each argument on a new line, remembering the comma to separate arguments. There is nothing to stop us doing this because R ignores white space. This is useful though, because it allows us, the user, to makes long function calls easier to read by breaking them up on different lines.</p>
-<p>This last example reveals a nice feature of <code>mutate</code>: we can use newly created variables in further calculations. Here we constructed approximate sepal and petal area variables, and then used these to construct a third variable containing the ratio of these two quantities, <code>Area.Ratio</code>.</p>
-<div id="transforming-and-dropping-variables" class="section level3">
-<h3><span class="header-section-number">12.3.1</span> Transforming and dropping variables</h3>
-<p>Occasionally we may want to construct one or more new variables, and then drop all other variables in the original dataset. The <code>transmute</code> function is designed to do this. It works exactly like <code>mutate</code>, but it has a slightly different behaviour:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">transmute</span>(iris_tbl,
-          <span class="dt">Sepal.Area =</span> Sepal.Width <span class="op">*</span><span class="st"> </span>Sepal.Length,
-          <span class="dt">Petal.Area =</span> Petal.Width <span class="op">*</span><span class="st"> </span>Petal.Length,
-          <span class="dt">Area.Ratio =</span> Petal.Area <span class="op">/</span><span class="st"> </span>Petal.Area)</code></pre></div>
-<pre><code>## # A tibble: 150 x 3
-##    Sepal.Area Petal.Area Area.Ratio
-##         &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt;
-##  1      17.85       0.28          1
-##  2      14.70       0.28          1
-##  3      15.04       0.26          1
-##  4      14.26       0.30          1
-##  5      18.00       0.28          1
-##  6      21.06       0.68          1
-##  7      15.64       0.42          1
-##  8      17.00       0.30          1
-##  9      12.76       0.28          1
-## 10      15.19       0.15          1
-## # ... with 140 more rows</code></pre>
-<p>Here we repeated the previous example, but now only the new variables were retained in the resulting tibble. If we also want to retain one or more variables without altering them we just have to pass them as unnamed arguments. For example, if we need to retain species identity in the output, we use:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">transmute</span>(iris_tbl,
-          Species,
-          <span class="dt">Sepal.Area =</span> Sepal.Width <span class="op">*</span><span class="st"> </span>Sepal.Length,
-          <span class="dt">Petal.Area =</span> Petal.Width <span class="op">*</span><span class="st"> </span>Petal.Length,
-          <span class="dt">Area.Ratio =</span> Petal.Area <span class="op">/</span><span class="st"> </span>Petal.Area)</code></pre></div>
-<pre><code>## # A tibble: 150 x 4
-##    Species Sepal.Area Petal.Area Area.Ratio
-##     &lt;fctr&gt;      &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt;
-##  1  setosa      17.85       0.28          1
-##  2  setosa      14.70       0.28          1
-##  3  setosa      15.04       0.26          1
-##  4  setosa      14.26       0.30          1
-##  5  setosa      18.00       0.28          1
-##  6  setosa      21.06       0.68          1
-##  7  setosa      15.64       0.42          1
-##  8  setosa      17.00       0.30          1
-##  9  setosa      12.76       0.28          1
-## 10  setosa      15.19       0.15          1
-## # ... with 140 more rows</code></pre>
+<div id="panel-plots" class="section level2">
+<h2><span class="header-section-number">24.5</span> Panel plots</h2>
+<p>We have already seen how the <code>facet_wrap</code> function can be used to produce multiple panels in the <a href="introduction-to-ggplot2.html#introduction-to-ggplot2">Introduction to <strong>ggplot2</strong></a> chapter. This function can be used where you want to make multiple plots each showing a different level of a factor. However, sometimes you may wish to present a multi-panel plot using different variables in the different panels.</p>
+<p>There are multiple ways to do this, we’re going to show you one using the <strong>cowplot</strong> package. First make sure that this package is installed (if you haven’t used it before) and loaded (every time you use it). Then make the individual plots that you want to include your multi-panel plot using <code>ggplot</code> as normal. For example we might want to look at a) the relative frequency of different storm types occuring and b) the mean wind speed associated with each storm type. First we make these two plots that we want to include in the panel and assign these to names.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">plta &lt;-<span class="st"> </span><span class="kw">ggplot</span>(storms, <span class="kw">aes</span>(<span class="dt">x =</span> type)) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_bar</span>(<span class="dt">fill =</span> <span class="st">&quot;orange&quot;</span>) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Storm Type&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">ylab</span>(<span class="st">&quot;Number of Observations&quot;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">theme_classic</span>(<span class="dt">base_size =</span> <span class="dv">10</span>) 
+
+pltb &lt;-<span class="st"> </span><span class="kw">ggplot</span>(storms_sum, <span class="kw">aes</span>(<span class="dt">x=</span>type, <span class="dt">y =</span> mean_wind)) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="co"># Plot the means</span>
+<span class="st">  </span><span class="kw">geom_col</span>(<span class="dt">fill =</span> <span class="st">&quot;orange&quot;</span>) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="co"># Change the axes labels</span>
+<span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Storm Category&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">ylab</span>(<span class="st">&quot;Mean Wind Speed (mph)&quot;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">theme_classic</span>(<span class="dt">base_size =</span> <span class="dv">10</span>)</code></pre></div>
+<p>Then we can use the <code>plot_grid</code> function from the <strong>cowplot</strong> package to create the multi-panel plot.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot_grid</span>(plta, pltb, <span class="dt">nrow =</span> <span class="dv">1</span>, <span class="dt">labels =</span> <span class="kw">c</span>(<span class="st">&quot;auto&quot;</span>), <span class="dt">label_size =</span> <span class="dv">10</span>)</code></pre></div>
+<p><img src="eda-for-bio_files/figure-html/unnamed-chunk-371-1.png" width="816" style="display: block; margin: auto;" /></p>
+<p>The <code>plot_grid</code> function allows the panel to be customised easily, for example by changing the number of plots in each row (<code>nrow</code> argument) and including labels for each panel (<code>labels</code> argument).</p>
+<p>We can then use the <code>ggsave</code> function to save our multi-panel plot as before.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Create the multi-panel plot</span>
+<span class="kw">plot_grid</span>(plta, pltb, <span class="dt">nrow =</span> <span class="dv">1</span>, <span class="dt">labels =</span> <span class="kw">c</span>(<span class="st">&quot;auto&quot;</span>), <span class="dt">label_size =</span> <span class="dv">10</span>) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="co"># Save it</span>
+<span class="st">  </span><span class="kw">ggsave</span>(<span class="st">&quot;Stormsplot.pdf&quot;</span>, <span class="dt">height =</span> <span class="dv">4</span>, <span class="dt">width =</span> <span class="dv">8</span>)</code></pre></div>
 
 </div>
 </div>
-</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
             </section>
 
           </div>
         </div>
       </div>
-<a href="dplyr-and-the-tidy-data-concept.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="working-with-observations.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="building-in-complexity.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -662,7 +569,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/dzchilds/eda-for-bio/edit/master/2_04_dplyr_variables.Rmd",
+"link": "https://github.com/dzchilds/eda-for-bio/edit/master/3_08_ggplot_doingmore.Rmd",
 "text": "Edit"
 },
 "download": null,

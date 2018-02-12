@@ -20,7 +20,7 @@ description: "Course book for Introduction to Exploratory Data Analysis with R (
 
 # Information and overview {-}
 
-This is the online course book for the __Introduction to Exploratory Data Analysis with R__ component of ([APS 135](https://www.shef.ac.uk/aps/currentug/level2/aps135)) module. You can view this book in any modern desktop browser, as well as on your phone or tablet device. The site is self-contained---it contains all the material you are expected to learn this year. [Dylan Childs](https://www.shef.ac.uk/aps/staff-and-students/acadstaff/childs) is the author. Please [email him](mailto:d.childs@sheffield.ac.uk?Subject=APS%20133%20general%20query) if you spot any problems.
+This is the online course book for the __Introduction to Exploratory Data Analysis with R__ component of ([APS 135](https://www.shef.ac.uk/aps/currentug/level2/aps135)) module. You can view this book in any modern desktop browser, as well as on your phone or tablet device. The site is self-contained---it contains all the material you are expected to learn this year. Bethan Hindle is running the course this year. Please [email her](mailto:bjhindle1@sheffield.ac.uk?Subject=APS%20135%20general%20query) if you spot any problems.
 
 ## Aims {-}
 
@@ -89,7 +89,7 @@ You will learn various ways of finding help about R in this book. If you find yo
 
 2. If an hour of Googling does not solve a problem, post a question on the [APS 135 Facebook page](https://www.facebook.com/groups/UoSaps133/). If you find something difficult, the chances are that someone else finds it difficult too. You are strongly encouraged to try to address one anothers' problems via this page. Thinking through and explaining the answer to a question someone else has posed is a __really__ good way of learning. Dylan will check the Facebook page from time to time, and will offer a solution if no-one else has suggested one. We would much prefer you to help each other though.
 
-3. We encourage you to try options 1 and 2 first. Nonetheless, on occasion Google may turn out not to be your friend and a post to the Facebook page might not elicit a satisfactory response. In these instances you are welcome to [email Dylan](mailto:d.childs@sheffield.ac.uk?Subject=APS%20133%20Question) with your query. You are unlikely to receive an answer at the weekend though.
+3. We encourage you to try options 1 and 2 first. Nonetheless, on occasion Google may turn out not to be your friend and a post to the Facebook page might not elicit a satisfactory response. In these instances you are welcome to [email Bethan](mailto:bjhindle1@sheffield.ac.uk?Subject=APS%20135%20Question) with your query. You are unlikely to receive an answer at the weekend though.
 
 ## Updates {-}
 

@@ -1,4 +1,4 @@
-# Doing more with ggplot
+# Doing more with **ggplot2**
 
 Throughout this block we have learnt a range of ways to plot our data using **ggplot2**. Here we provide a few more examples of ways you may wish to customise your plots. You will not be examined on the material in this chapter, however it will be helpful when you have to make plots for other modules, such as during your Level 1 projects. 
 

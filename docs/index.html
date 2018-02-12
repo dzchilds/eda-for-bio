@@ -25,7 +25,7 @@
 <meta name="author" content="Dylan Z. Childs">
 
 
-<meta name="date" content="2018-02-09">
+<meta name="date" content="2018-02-12">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -348,12 +348,12 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="23.1" data-path="building-in-complexity.html"><a href="building-in-complexity.html#multivariate"><i class="fa fa-check"></i><b>23.1</b> Multivariate relationships</a></li>
 <li class="chapter" data-level="23.2" data-path="building-in-complexity.html"><a href="building-in-complexity.html#summaries"><i class="fa fa-check"></i><b>23.2</b> Comparing descriptive statistics</a></li>
 </ul></li>
-<li class="chapter" data-level="24" data-path="doing-more-with-ggplot.html"><a href="doing-more-with-ggplot.html"><i class="fa fa-check"></i><b>24</b> Doing more with ggplot</a><ul>
-<li class="chapter" data-level="24.1" data-path="doing-more-with-ggplot.html"><a href="doing-more-with-ggplot.html#adding-error-bars"><i class="fa fa-check"></i><b>24.1</b> Adding error bars</a></li>
-<li class="chapter" data-level="24.2" data-path="doing-more-with-ggplot.html"><a href="doing-more-with-ggplot.html#adding-text-to-plots"><i class="fa fa-check"></i><b>24.2</b> Adding text to plots</a></li>
-<li class="chapter" data-level="24.3" data-path="doing-more-with-ggplot.html"><a href="doing-more-with-ggplot.html#customising-text"><i class="fa fa-check"></i><b>24.3</b> Customising text</a></li>
-<li class="chapter" data-level="24.4" data-path="doing-more-with-ggplot.html"><a href="doing-more-with-ggplot.html#saving-plots"><i class="fa fa-check"></i><b>24.4</b> Saving plots</a></li>
-<li class="chapter" data-level="24.5" data-path="doing-more-with-ggplot.html"><a href="doing-more-with-ggplot.html#panel-plots"><i class="fa fa-check"></i><b>24.5</b> Panel plots</a></li>
+<li class="chapter" data-level="24" data-path="doing-more-with-ggplot2.html"><a href="doing-more-with-ggplot2.html"><i class="fa fa-check"></i><b>24</b> Doing more with <strong>ggplot2</strong></a><ul>
+<li class="chapter" data-level="24.1" data-path="doing-more-with-ggplot2.html"><a href="doing-more-with-ggplot2.html#adding-error-bars"><i class="fa fa-check"></i><b>24.1</b> Adding error bars</a></li>
+<li class="chapter" data-level="24.2" data-path="doing-more-with-ggplot2.html"><a href="doing-more-with-ggplot2.html#adding-text-to-plots"><i class="fa fa-check"></i><b>24.2</b> Adding text to plots</a></li>
+<li class="chapter" data-level="24.3" data-path="doing-more-with-ggplot2.html"><a href="doing-more-with-ggplot2.html#customising-text"><i class="fa fa-check"></i><b>24.3</b> Customising text</a></li>
+<li class="chapter" data-level="24.4" data-path="doing-more-with-ggplot2.html"><a href="doing-more-with-ggplot2.html#saving-plots"><i class="fa fa-check"></i><b>24.4</b> Saving plots</a></li>
+<li class="chapter" data-level="24.5" data-path="doing-more-with-ggplot2.html"><a href="doing-more-with-ggplot2.html#panel-plots"><i class="fa fa-check"></i><b>24.5</b> Panel plots</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -378,11 +378,11 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div id="header">
 <h1 class="title">APS 135: Introduction to Exploratory Data Analysis with R</h1>
 <h4 class="author"><em>Dylan Z. Childs</em></h4>
-<h4 class="date"><em>2018-02-09</em></h4>
+<h4 class="date"><em>2018-02-12</em></h4>
 </div>
 <div id="information-and-overview" class="section level1 unnumbered">
 <h1>Information and overview</h1>
-<p>This is the online course book for the <strong>Introduction to Exploratory Data Analysis with R</strong> component of (<a href="https://www.shef.ac.uk/aps/currentug/level2/aps135">APS 135</a>) module. You can view this book in any modern desktop browser, as well as on your phone or tablet device. The site is self-contained—it contains all the material you are expected to learn this year. <a href="https://www.shef.ac.uk/aps/staff-and-students/acadstaff/childs">Dylan Childs</a> is the author. Please <a href="mailto:d.childs@sheffield.ac.uk?Subject=APS%20133%20general%20query">email him</a> if you spot any problems.</p>
+<p>This is the online course book for the <strong>Introduction to Exploratory Data Analysis with R</strong> component of (<a href="https://www.shef.ac.uk/aps/currentug/level2/aps135">APS 135</a>) module. You can view this book in any modern desktop browser, as well as on your phone or tablet device. The site is self-contained—it contains all the material you are expected to learn this year. Bethan Hindle is running the course this year. Please <a href="mailto:bjhindle1@sheffield.ac.uk?Subject=APS%20135%20general%20query">email her</a> if you spot any problems.</p>
 <div id="aims" class="section level2 unnumbered">
 <h2>Aims</h2>
 <ol style="list-style-type: decimal">
@@ -440,7 +440,7 @@ This is an <strong>information</strong> box. These aim to offer a not-too-techni
 <ol style="list-style-type: decimal">
 <li><p>Google is your friend. One of the nice consequences of R’s growing popularity and the rise of blogging – take a look at <a href="http://www.r-bloggers.com">R Bloggers</a> for a flavour of R-specific blogs – is that the web is now packed full of useful tutorials and tips, many of which are aimed at beginners. One of the objectives of this book is turn you into a self sufficient useR. Learning how to solve your own R-related problems is an essential pre-requisite for this to happen. Solving your own problems will also help you learn how to use R more effectively.</p></li>
 <li><p>If an hour of Googling does not solve a problem, post a question on the <a href="https://www.facebook.com/groups/UoSaps133/">APS 135 Facebook page</a>. If you find something difficult, the chances are that someone else finds it difficult too. You are strongly encouraged to try to address one anothers’ problems via this page. Thinking through and explaining the answer to a question someone else has posed is a <strong>really</strong> good way of learning. Dylan will check the Facebook page from time to time, and will offer a solution if no-one else has suggested one. We would much prefer you to help each other though.</p></li>
-<li><p>We encourage you to try options 1 and 2 first. Nonetheless, on occasion Google may turn out not to be your friend and a post to the Facebook page might not elicit a satisfactory response. In these instances you are welcome to <a href="mailto:d.childs@sheffield.ac.uk?Subject=APS%20133%20Question">email Dylan</a> with your query. You are unlikely to receive an answer at the weekend though.</p></li>
+<li><p>We encourage you to try options 1 and 2 first. Nonetheless, on occasion Google may turn out not to be your friend and a post to the Facebook page might not elicit a satisfactory response. In these instances you are welcome to <a href="mailto:bjhindle1@sheffield.ac.uk?Subject=APS%20135%20Question">email Bethan</a> with your query. You are unlikely to receive an answer at the weekend though.</p></li>
 </ol>
 </div>
 <div id="updates" class="section level2 unnumbered">
