@@ -11,7 +11,7 @@ output:
 ---
 
 ```{r, include = FALSE}
-showAnswers <- TRUE
+showAnswers <- FALSE
 library(dplyr)
 library(ggplot2)
 library(nasaweather)

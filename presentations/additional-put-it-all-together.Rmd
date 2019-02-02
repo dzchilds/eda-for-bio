@@ -1,0 +1,58 @@
+---
+title: "Putting it all together"
+output:
+  html_document:
+    theme: united
+    highlight: zenburn
+---
+
+```{r, echo=FALSE, warning = FALSE, message = FALSE}
+showAnswers <- FALSE
+library(dplyr)
+library(nasaweather)
+library(ggplot2)
+```
+
+```{r, include = FALSE}
+i <- 0
+```
+
+Put all of your working into a well-commented (lot's of `#`) and organised script. Once finished, you should be able to restart R and rerun your script without errors. Make sure you try doing this. 
+
+### Question `r {i <- i + 1; i}`
+
+a) Have a look at the built in `Orange` data set. Make sure you understand what the variables are (remember you can use the `?` function on built in data sets as well as on functions). 
+
+b) Use that data set to explore how tree circumference increases with age. Do you see the same pattern across all of the trees? What is the mean tree circumference on the last day of the study?
+
+
+### Question `r {i <- i + 1; i}`
+
+a) Use the ? function to find out what variables the builtin data set `InsectSpray` contains
+
+b) Decide what would be an appropriate way to plot these data to see which spray was most effective. Which spray do you think worked best? and worst?
+
+
+### Question `r {i <- i + 1; i}`
+
+a) Have a look at the esoph data set.
+
+b) Use this data set to make the graph below. You'll need to think about how to calculate the proportion of individuals first. 
+
+c) What effect do alcohol and tobacco use have on the oesophagol cancer? What other factors might be important?
+
+
+```{r, echo = FALSE, warning = FALSE, message = FALSE}
+esoph_prop <- esoph %>% group_by(alcgp, tobgp) %>% mutate(prop = ncases/ncontrols) 
+ggplot(esoph_prop, aes(x=tobgp, y = prop, fill = alcgp)) + 
+  geom_col(position = position_dodge(0.95)) + 
+  labs(x="Tobacco use", y = "Proportion of individuals with oesophagol cancer", 
+       fill = "Alcohol use")
+```
+
+
+### Question `r {i <- i + 1; i}`
+
+Have a look at the built in `msleep` data set. Make sure you understand what the variables are.
+
+Use that data set to explore how brain weight differs according to body size and order.

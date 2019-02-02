@@ -1,0 +1,426 @@
+---
+title: "Packages and help"
+author: "Bethan Hindle"
+date: "15 February 2018"
+output:
+  ioslides_presentation:
+    css: extras.css
+    smaller: no
+    wide: yes
+highlighter: pygments
+---
+
+```{r, echo=FALSE}
+showAnswers <- TRUE
+```
+
+## Before we start...
+
+DO THIS NOW!
+
+- Go to the APS 135 MOLE site and open today's lecture ("Presentation 2"). You can navigate through this with the arrow keys.
+
+- Open up RStudio from the Programs Menu on your PC. Grab a TA for help if there seems to be a problem.
+
+- Open a new script.
+
+- Get your ucards out to be scanned.
+
+Refresher exercises
+====================================================================
+
+## Exercise {.build}
+
+<div id="exercise-box">
+__Vectorised operations__
+<div id="box-text">
+Use the `c` function to make a pair of numeric vectors containing the two following sets of numbers:
+
+a. 7, 2, 5, 3, 1   
+b. 1, 4, 8, 3, 9
+
+Assign them the names `A` and `B`. Write some R code to determine the result of `A + B` and `A + B + 6`. 
+
+Look carefully at the results. What happens when we add two numeric vectors together? What happens when we add a single number to a vector? 
+
+Now make a new numeric vector containing the following set of numbers (call it `X`):
+
+1, 2
+
+Add this to the `A` vector. What happens when you add numeric vectors with different lengths?
+</div>
+</div>
+
+
+## Exercise {.build}
+
+<div>
+```{r, include=showAnswers}
+# make `A`
+A <- c(7, 2, 5, 3, 1)
+A
+# make `B`
+B <- c(1, 4, 8, 3, 9)
+B
+```
+</div>
+
+## Exercise {.build}
+
+<div>
+```{r, include = showAnswers}
+A + B
+A + B + 6
+```
+</div>
+
+```{r, include = showAnswers}
+X <- 1:2
+A + X
+```
+
+## Exercise {.build}
+
+<div id="exercise-box">
+__Extracting elements from a vector__
+<div id="box-text">
+
+Create a vector containing the letters of the alphabet in reverse order. 
+
+Extension: Imagine that you want to access the last element of a vector, but you don't know how long it is (i.e. you can't use `LETTERS[26]`). How could you do it? 
+
+</div>
+</div>
+
+
+```{r, include=showAnswers}
+LETTERS[26:1]
+```
+
+## Exercise
+
+```{r, include=showAnswers}
+length(LETTERS)
+LETTERS[length(LETTERS)]
+```
+
+One last bit of the basics... | Logical comparisons
+====================================================================
+
+## Comparing vectors {.build .smaller}
+
+<div>
+We use __relational operators__ to compare the elements of numeric vectors:
+
+- `x < y `: is x less than y?
+- `x > y `: is x greater than y?
+- `x <= y`: is x less than or equal to y?
+- `x >= y`: is x greater than or equal to y?
+- `x == y`: is x equal to y?
+- `x != y`: is x not equal to y?
+
+These operators produce something called a __logical vector__ (a vector of TRUE and FALSE values---nothing else allowed)
+</div>
+
+<div>
+__Example__
+```{r}
+x <- 1:9
+y <- rep(5, 9)
+x == y
+```
+</div>
+
+## Exercise {.build}
+
+<div id="exercise-box">
+__Using relational operators__
+<div id="box-text">
+Make two vectors named `num1` and `num2`, where `num1` is a sequence from 0 to 20, and `num2` is a sequence from 25 to 5. Once you have made these print them to screen, then experiment with `<`, `>`, `<=`, `>=`, `==` and `!=` to convince yourself you understand how they work.
+</div>
+</div>
+
+```{r, echo=FALSE}
+num1 <- 0:20
+num2 <- 5:25
+```
+
+<div>
+```{r, include=showAnswers}
+num1
+num2
+
+```
+</div>
+
+## Exercise {.build}
+
+<div>
+```{r, include=showAnswers}
+num1
+num2
+```
+</div>
+
+```{r, include=showAnswers}
+num1 == num2
+num1 != num2
+```
+
+## Exercise {.build}
+
+<div>
+```{r, include=showAnswers}
+num1
+num2
+```
+</div>
+
+```{r, include=showAnswers}
+num1 <  num2
+num1 <= num2
+```
+
+## Combining comparisons {.build .smaller}
+
+<div>
+We use __logical operators__ to combine logical statements:
+
+- `!x `: __negation__ = `TRUE` becomes `FALSE`, `FALSE` becomes `TRUE`
+- `x & y `: __AND__  = `TRUE` if __both__ x and y are `TRUE`, `FALSE` otherwise
+- `x | y`: __OR__  = `TRUE` if __either__ x and y are `TRUE`, `FALSE` otherwise
+
+These operators produce another __logical vector__ (a vector of TRUE / FALSE values)
+</div>
+
+<div>
+__Example__
+```{r}
+x <- c(TRUE, TRUE, FALSE, FALSE)
+y <- c(FALSE, TRUE, FALSE, TRUE)
+x & y
+x | y
+```
+</div>
+
+R packages | A great source of confusion 
+====================================================================
+
+## A (very) quick overview {.build}
+
+<div>
+Packages extend what base R can do. Two things have to happen before you can use a package:
+
+1. You have to **install** it. This is a "do once" operation. After a package is installed you can close down and reopen R and it is still installed.
+
+2. You have to **load and attach** it. This is a "do every time" operation. You have to load and attach the package every time you start a new session (= open R).
+</div>
+
+<hr>
+
+<div>
+A mobile phone App analogy: 
+
+- installing a package <=> getting an App from an App store
+
+- loading and attaching a package <=> opening the App on your phone
+</div>
+
+## How do we access packages?
+
+1. We **install** a package with the `install.packages` function
+
+2. We **load and attach** an installed package with the `library` function
+
+**TIPS**
+
+- Do not use `install.packages` inside your scripts! You don't want to reinstall a package every time you plan to use it. 
+
+- You can also install a package via the Packages tab in RStudio. It is fine to use this if you don't like using `install.packages`.
+
+## Exercise {.smaller}
+
+<div id="exercise-box">
+__Working with packages__
+<div id="box-text">
+We want to use the `fortune` function (singular!) that resides in the **fortunes** package (plural!). Do the following, in the order given, working directly in the Console:
+
+1. Try to use the `fortune` function, i.e. type `fortune()` straight into the Console. Does this work or do you see an error?
+
+2. Try to use `library` to load and attach the **fortunes** package. Does this work or do you see an error?
+
+3. Look in the **Packages** tab in RStudio. Can you see anything called fortunes? Now install the **fortunes** package with `install.packages`. Look for it the **Packages** tab again. 
+
+4. Try again to use the `fortune` function. Does this work? If not, why not?
+
+5. Use `library` to load and attach the **fortunes** package (plural!). What happens?
+
+6. Try again to use the `fortune` function. Does this work or do you see an error?
+</div>
+</div>
+
+
+## Exercise {.smaller .build}
+
+<div id="exercise-box">
+__Working with packages (still)__
+<div id="box-text">
+
+Now try the following:
+
+1. Close down Rstudio completely then open it again.
+
+2. Try to use the `fortune` function, i.e. type `fortune()` straight into the Console. Does this work or do you see an error?
+
+3. Use `library` to load and attach the **fortunes** package (plural!). What happens?
+
+4. Try again to use the `fortune` function. Does this work or do you see an error?
+
+</div>
+</div>
+
+## Exercise {.small}
+
+In the next few weeks we're going to be using two packages: `dplyr` and `ggplot2`.
+The TAs installed these packages on a lot of your computers last week.   
+<br>
+Check whether they're installed now using the following code:
+
+```{r, warning = FALSE, message = FALSE}
+library(ggplot2)
+library(dplyr)
+```
+
+If you get an error message (NOT a warning) - stick your hand up.
+
+Getting help | Learning about a function
+======================================================================================
+
+## Help files
+
+Do the following:
+
+```{r, eval=FALSE}
+?round
+```
+
+Help files are really **documentation** files:
+
+- Description
+- Usage
+- Arguments
+- Details
+- References
+- Examples
+
+Let's step though the help for `round`...
+
+## Exercise {.smaller .build}
+
+<div id="exercise-box">
+__Using the help files__
+<div id="box-text">
+
+Use the `rep` function to create the following three sequences:
+```{r, echo=FALSE}
+rep(1:6, each = 3)
+rep(c(2, 5), times = 4)
+rep(3:6, each = 2, times = 3)
+```
+
+</div>
+</div>
+
+## Exercise {.build}
+
+```{r, include=showAnswers}
+rep(1:6, each = 3)
+rep(c(2, 5), times = 4)
+rep(3:6, each = 2, times = 3)
+```
+
+## Exercise {.smaller .build}
+
+<div id="exercise-box">
+__Using the help files__
+<div id="box-text">
+
+Use the `seq` function to create the following numeric vector. 
+```{r, echo=FALSE}
+seq(0, 1, by = 0.1)
+```
+Assign the vector to a name of your choice.   
+Change the 6th element to have a value of 14. 
+</div>
+</div>
+
+```{r, include=showAnswers}
+myseq <- seq(0, 1, by = 0.1)
+myseq
+```
+
+```{r, include=showAnswers}
+myseq[6] <- 14
+myseq
+```
+
+## What if you don't know the function name?
+Do the following:
+
+```{r, eval=FALSE}
+??round
+```
+
+## Other sources of help {.smaller .build}
+
+The internet is packed full of helpful resources:
+
+- **Google** -- this might be obvious, but you have to work on your "Google-fu" to find what you want. The key is to pick the right search terms:
+
+    - include the function or package name
+    
+    - include the letter R!
+    
+    - be selective about which sites you look at...
+
+- **Stack Overflow** -- probably the best question and answer site for computing stuff. People can be a bit blunt though:
+
+    - check whether your question has been asked before (Google)
+    
+    - read the community guidelines
+    
+    - provide example code with your questions
+
+## Other sources of help {.build}
+
+- **Each other**
+  
+- **The TAs**
+  
+- **Me** - email (bjhindle1@sheffield.ac.uk) to arrange a meeting - if none of the above have helped
+
+
+## Changing the appearance of RStudio
+
+Navigate through RStudio's menus to Tools > Global Options
+
+Click on Appearance
+
+Experiment with the different themes
+
+## Useful keyboard shortcuts
+
+Move cursor to script:    Ctrl + 1  
+Move cursor to console:   Ctrl + 2
+Navigate command history: Up/down  
+Assignment operator:      Alt + -
+
+## And finally...
+
+- There will **not** be a lecture tomorrow morning.
+
+- Keep working through the online coursebook
+
+- Provide feedback on the course so far at: https://goo.gl/forms/x2x5JZdhygDti09q2
+
+- Next week we'll actually start using some data

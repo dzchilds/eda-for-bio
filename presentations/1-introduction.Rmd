@@ -1,7 +1,7 @@
 ---
 title: "Introduction to R and RStudio"
-author: "Dylan Z. Childs"
-date: "8 February 2017"
+author: "Bethan Hindle"
+date: "8 February 2018"
 output:
   ioslides_presentation:
     css: extras.css
@@ -22,7 +22,7 @@ DO THIS NOW!
 
 - Open up RStudio from the Programs Menu on your PC. Grab a TA for help if there seems to be a problem.
 
-- The attendance sheet will be passed around the room. Please don't forget to sign this before you leave.
+- Get your ucards out to be swiped. 
 
 Course overview   
 ======================================================================================
@@ -43,7 +43,7 @@ __Each block is 2 weeks long__
 
 __Assessment__
 
-- One set of roughly 20 questions in week 3 of semester 2B
+- MOLE assessment in semester 2B (after Easter)
 
 ## What are we aiming to do 
 
@@ -509,10 +509,8 @@ And finally...
 
 <div>
 1. __Lecture tomorrow__. We're going to survey the facilities provided by R, set out what you'll be learning in level 1 and level 2, and explain why you care about learning some basic programming.
-</div>
 <div>
-2. __Read through through the the online course book__ over next 1-2 weeks. Take note: nobody is expecting everything to make perfect sense yet (!), but you should try to at least familiarise yourself with the book.
-</div>
+<br>
+2. __Read through the online course book__ over next 1-2 weeks. Take note: nobody is expecting everything to make perfect sense yet (!), but you should try to at least familiarise yourself with the book.
 <div>
-3. __Dylan is away next week__. There will be a practise / help session to reinforce some of today's ideas. If you are having trouble with R / RStudio on your own machine this is a good time to get help. Attendance is compulsory.
 </div>

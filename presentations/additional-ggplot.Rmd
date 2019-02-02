@@ -1,0 +1,53 @@
+---
+title: "Additional plotting exercises"
+output:
+  html_document:
+    theme: united
+    highlight: zenburn
+---
+
+```{r, include = FALSE}
+i <- 0
+```
+
+```{r, echo=FALSE, warning = FALSE, message = FALSE}
+showAnswers <- TRUE
+library(dplyr)
+library(nasaweather)
+library(ggplot2)
+```
+
+Put all of your working into a well-commented (lot's of `#`) and organised script. Once finished, you should be able to restart R and rerun your script without errors. Make sure you try doing this. 
+
+## Density plots
+
+During today's session we have used histograms and dotplots to explore the distribuion of variables. When we have a very large number of observations we can use density plots instead.
+
+Here is an example, showing the distribution of the pressure variable in the storms data set:
+
+```{r, echo = FALSE}
+dplot <- ggplot(storms, aes(x = pressure))
+dplot <- dplot + geom_density() + labs(x = "Pressure", y = "Density")  
+print(dplot)
+```
+
+## Exercise 1
+
+See if you can work out which `geom_` function you'll need to use to create a density plot. Use this to recreate the plot above using the storms data set. What can you say about the distribution of the pressure variable?
+
+## Grouped density plots
+
+We can also plot several different density plots at the same time. Here is an example, where we plot different density plots for each storm type:
+
+```{r, fig.width=5, echo = FALSE}
+dplot <- ggplot(storms, aes(x = pressure, colour = type))
+dplot <- dplot + geom_density() + labs(x = "Pressure", y = "Density")  
+print(dplot)
+```
+
+## Exercise 2
+
+Work out how you need to modify your answer to exercise one to recreate this second plot.   
+What does this plot tell us about the relationship between pressure and storm type?  
+Can you work out how to make this plot without changing the colour of the density plots according to the storm type?  
+How could you change the fill of the plots rather than the outline colour? What else would you need to change on this plot to make sure all of the density plots are still visible?

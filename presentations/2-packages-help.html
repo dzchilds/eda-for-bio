@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Packages, help and data frames</title>
+  <title>Packages and help</title>
 
   <meta charset="utf-8">
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -10,7 +10,7 @@
 
 
 
-  <meta name="date" content="2017-02-23" />
+  <meta name="date" content="2018-02-15" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -21,7 +21,7 @@
     var SLIDE_CONFIG = {
       // Slide settings
       settings: {
-                title: 'Packages, help and data frames',
+                title: 'Packages and help',
                         useBuilds: true,
         usePrettify: true,
         enableSlideAreas: true,
@@ -31,7 +31,7 @@
       // Author information
       presenters: [
             {
-        name:  'Dylan Childs' ,
+        name:  'Bethan Hindle' ,
         company: '',
         gplus: '',
         twitter: '',
@@ -87,7 +87,7 @@
 
 <body style="opacity: 0">
 
-<slides>
+<slides class="layout-widescreen">
 
   <slide class="title-slide segue nobackground">
         <!-- The content of this hgroup is replaced programmatically through the slide_config.json. -->
@@ -95,11 +95,106 @@
       <h1 data-config-title><!-- populated from slide_config.json --></h1>
       <h2 data-config-subtitle><!-- populated from slide_config.json --></h2>
       <p data-config-presenter><!-- populated from slide_config.json --></p>
-            <p style="margin-top: 6px; margin-left: -2px;">February 23, 2017</p>
+            <p style="margin-top: 6px; margin-left: -2px;">15 February 2018</p>
           </hgroup>
   </slide>
 
-<slide class='segue dark nobackground level1'><hgroup class = 'auto-fadein'><h2>One last bit of the basics&#8230; </h2><h3> Logical comparisons</h3></hgroup><article  id="one-last-bit-of-the-basics...-logical-comparisons">
+<slide class=''><hgroup><h2>Before we start&#8230;</h2></hgroup><article  id="before-we-start...">
+
+<p>DO THIS NOW!</p>
+
+<ul>
+<li><p>Go to the APS 135 MOLE site and open today&#39;s lecture (&quot;Presentation 2&quot;). You can navigate through this with the arrow keys.</p></li>
+<li><p>Open up RStudio from the Programs Menu on your PC. Grab a TA for help if there seems to be a problem.</p></li>
+<li><p>Open a new script.</p></li>
+<li><p>Get your ucards out to be scanned.</p></li>
+</ul>
+
+</article></slide><slide class='segue dark nobackground level1'><hgroup class = 'auto-fadein'><h2>Refresher exercises</h2></hgroup><article  id="refresher-exercises">
+
+</article></slide><slide class=''><hgroup><h2>Exercise</h2></hgroup><article  id="exercise" class="build">
+
+<div id="exercise-box">
+<strong>Vectorised operations</strong>
+
+<div id="box-text">
+<p>Use the <code>c</code> function to make a pair of numeric vectors containing the two following sets of numbers:</p>
+
+<ol>
+<li>7, 2, 5, 3, 1<br/></li>
+<li>1, 4, 8, 3, 9</li>
+</ol>
+
+<p>Assign them the names <code>A</code> and <code>B</code>. Write some R code to determine the result of <code>A + B</code> and <code>A + B + 6</code>.</p>
+
+<p>Look carefully at the results. What happens when we add two numeric vectors together? What happens when we add a single number to a vector?</p>
+
+<p>Now make a new numeric vector containing the following set of numbers (call it <code>X</code>):</p>
+
+<p>1, 2</p>
+
+<p>Add this to the <code>A</code> vector. What happens when you add numeric vectors with different lengths?</p></div></div>
+
+</article></slide><slide class=''><hgroup><h2>Exercise</h2></hgroup><article  id="exercise-1" class="build">
+
+<div>
+<pre class = 'prettyprint lang-r'># make `A`
+A &lt;- c(7, 2, 5, 3, 1)
+A</pre>
+
+<pre >## [1] 7 2 5 3 1</pre>
+
+<pre class = 'prettyprint lang-r'># make `B`
+B &lt;- c(1, 4, 8, 3, 9)
+B</pre>
+
+<pre >## [1] 1 4 8 3 9</pre></div>
+
+</article></slide><slide class=''><hgroup><h2>Exercise</h2></hgroup><article  id="exercise-2" class="build">
+
+<div>
+<pre class = 'prettyprint lang-r'>A + B</pre>
+
+<pre >## [1]  8  6 13  6 10</pre>
+
+<pre class = 'prettyprint lang-r'>A + B + 6</pre>
+
+<pre >## [1] 14 12 19 12 16</pre></div>
+
+<pre class = 'prettyprint lang-r'>X &lt;- 1:2
+A + X</pre>
+
+<pre >## Warning in A + X: longer object length is not a multiple of shorter object
+## length</pre>
+
+<pre >## [1] 8 4 6 5 2</pre>
+
+</article></slide><slide class=''><hgroup><h2>Exercise</h2></hgroup><article  id="exercise-3" class="build">
+
+<div id="exercise-box">
+<strong>Extracting elements from a vector</strong>
+
+<div id="box-text">
+<p>Create a vector containing the letters of the alphabet in reverse order.</p>
+
+<p>Extension: Imagine that you want to access the last element of a vector, but you don&#39;t know how long it is (i.e. you can&#39;t use <code>LETTERS[26]</code>). How could you do it?</p></div></div>
+
+<pre class = 'prettyprint lang-r'>LETTERS[26:1]</pre>
+
+<pre >##  [1] &quot;Z&quot; &quot;Y&quot; &quot;X&quot; &quot;W&quot; &quot;V&quot; &quot;U&quot; &quot;T&quot; &quot;S&quot; &quot;R&quot; &quot;Q&quot; &quot;P&quot; &quot;O&quot; &quot;N&quot; &quot;M&quot; &quot;L&quot; &quot;K&quot; &quot;J&quot;
+## [18] &quot;I&quot; &quot;H&quot; &quot;G&quot; &quot;F&quot; &quot;E&quot; &quot;D&quot; &quot;C&quot; &quot;B&quot; &quot;A&quot;</pre>
+
+</article></slide><slide class=''><hgroup><h2>Exercise</h2></hgroup><article  id="exercise-4">
+
+<pre class = 'prettyprint lang-r'>length(LETTERS)</pre>
+
+<pre >## [1] 26</pre>
+
+<pre class = 'prettyprint lang-r'>LETTERS[length(LETTERS)]</pre>
+
+<pre >## [1] &quot;Z&quot;</pre>
+
+</article></slide><slide class='segue dark nobackground level1'><hgroup class = 'auto-fadein'><h2>One last bit of the basics&#8230; </h2><h3> Logical comparisons</h3></hgroup><article  id="one-last-bit-of-the-basics...-logical-comparisons">
 
 </article></slide><slide class=''><hgroup><h2>Comparing vectors</h2></hgroup><article  id="comparing-vectors" class="build smaller">
 
@@ -120,66 +215,70 @@
 <div>
 <p><strong>Example</strong></p>
 
-<pre class = 'prettyprint lang-r'>x &lt;- seq(1, 9)
+<pre class = 'prettyprint lang-r'>x &lt;- 1:9
 y &lt;- rep(5, 9)
 x == y</pre>
 
 <pre >## [1] FALSE FALSE FALSE FALSE  TRUE FALSE FALSE FALSE FALSE</pre></div>
 
-</article></slide><slide class=''><hgroup><h2>Exercise</h2></hgroup><article  id="exercise" class="build">
+</article></slide><slide class=''><hgroup><h2>Exercise</h2></hgroup><article  id="exercise-5" class="build">
 
 <div id="exercise-box">
 <strong>Using relational operators</strong>
 
 <div id="box-text">
-<p>Make two vectors named <code>num1</code> and <code>num2</code>, where <code>num1</code> is a sequence from 0 to 20 in steps of 2, and <code>num2</code> is a sequence from 5 to 15 in steps of 1. You can do it like this: <code>num1 &lt;- seq(0, 20, 2)</code> and <code>num2 &lt;- seq(5, 15, 1)</code>. Once you have made these print them to screen so that you know exactly what they look like, then experiment with <code>&lt;</code>, <code>&gt;</code>, <code>&lt;=</code>, <code>&gt;=</code>, <code>==</code> and <code>!=</code> to convince yourself you understand how the work.</p></div></div>
+<p>Make two vectors named <code>num1</code> and <code>num2</code>, where <code>num1</code> is a sequence from 0 to 20, and <code>num2</code> is a sequence from 25 to 5. Once you have made these print them to screen, then experiment with <code>&lt;</code>, <code>&gt;</code>, <code>&lt;=</code>, <code>&gt;=</code>, <code>==</code> and <code>!=</code> to convince yourself you understand how they work.</p></div></div>
 
 <div>
 <pre class = 'prettyprint lang-r'>num1</pre>
 
-<pre >##  [1]  0  2  4  6  8 10 12 14 16 18 20</pre>
+<pre >##  [1]  0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20</pre>
 
 <pre class = 'prettyprint lang-r'>num2</pre>
 
-<pre >##  [1]  5  6  7  8  9 10 11 12 13 14 15</pre></div>
+<pre >##  [1]  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25</pre></div>
 
-</article></slide><slide class=''><hgroup><h2>Exercise</h2></hgroup><article  id="exercise-1" class="build">
+</article></slide><slide class=''><hgroup><h2>Exercise</h2></hgroup><article  id="exercise-6" class="build">
 
 <div>
 <pre class = 'prettyprint lang-r'>num1</pre>
 
-<pre >##  [1]  0  2  4  6  8 10 12 14 16 18 20</pre>
+<pre >##  [1]  0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20</pre>
 
 <pre class = 'prettyprint lang-r'>num2</pre>
 
-<pre >##  [1]  5  6  7  8  9 10 11 12 13 14 15</pre></div>
+<pre >##  [1]  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25</pre></div>
 
 <pre class = 'prettyprint lang-r'>num1 == num2</pre>
 
-<pre >##  [1] FALSE FALSE FALSE FALSE FALSE  TRUE FALSE FALSE FALSE FALSE FALSE</pre>
+<pre >##  [1] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+## [12] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE</pre>
 
 <pre class = 'prettyprint lang-r'>num1 != num2</pre>
 
-<pre >##  [1]  TRUE  TRUE  TRUE  TRUE  TRUE FALSE  TRUE  TRUE  TRUE  TRUE  TRUE</pre>
+<pre >##  [1] TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE
+## [15] TRUE TRUE TRUE TRUE TRUE TRUE TRUE</pre>
 
-</article></slide><slide class=''><hgroup><h2>Exercise</h2></hgroup><article  id="exercise-2" class="build">
+</article></slide><slide class=''><hgroup><h2>Exercise</h2></hgroup><article  id="exercise-7" class="build">
 
 <div>
 <pre class = 'prettyprint lang-r'>num1</pre>
 
-<pre >##  [1]  0  2  4  6  8 10 12 14 16 18 20</pre>
+<pre >##  [1]  0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20</pre>
 
 <pre class = 'prettyprint lang-r'>num2</pre>
 
-<pre >##  [1]  5  6  7  8  9 10 11 12 13 14 15</pre></div>
+<pre >##  [1]  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25</pre></div>
 
 <pre class = 'prettyprint lang-r'>num1 &lt;  num2</pre>
 
-<pre >##  [1]  TRUE  TRUE  TRUE  TRUE  TRUE FALSE FALSE FALSE FALSE FALSE FALSE</pre>
+<pre >##  [1] TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE
+## [15] TRUE TRUE TRUE TRUE TRUE TRUE TRUE</pre>
 
 <pre class = 'prettyprint lang-r'>num1 &lt;= num2</pre>
 
-<pre >##  [1]  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE FALSE FALSE FALSE FALSE FALSE</pre>
+<pre >##  [1] TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE
+## [15] TRUE TRUE TRUE TRUE TRUE TRUE TRUE</pre>
 
 </article></slide><slide class=''><hgroup><h2>Combining comparisons</h2></hgroup><article  id="combining-comparisons" class="build smaller">
 
@@ -207,240 +306,7 @@ x &amp; y</pre>
 
 <pre >## [1]  TRUE  TRUE FALSE  TRUE</pre></div>
 
-</article></slide><slide class='segue dark nobackground level1'><hgroup class = 'auto-fadein'><h2>The working directory </h2><h3> Where R &quot;looks&quot; for files</h3></hgroup><article  id="the-working-directory-where-r-looks-for-files">
-
-</article></slide><slide class=''><hgroup><h2>What is the working directory?</h2></hgroup><article  id="what-is-the-working-directory" class="build">
-
-<p>A quick overview of what it is and how to work with it&#8230;</p>
-
-<ul>
-<li><p>The <strong>working directory</strong> is a default location where R looks for files you want to use. It is just a folder on your computer.</p></li>
-<li><p>If you don&#39;t set the working directory, R will do it for you. It will seldom choose the exact folder you want to use.</p></li>
-<li><p>YOU should set the working directory EVERY time you start R/RStudio. Setting your working directory should be the first thing you do.</p></li>
-<li><p>Don&#39;t do this using R code in your script. Instead, do it via the Console (hard and error prone) or using the RStudio menu system (easy and reliable).</p></li>
-</ul>
-
-<div>
-<p><strong>Set your working directory now using&#8230;</strong> <strong><code>Session &gt; Set Working Directory &gt; Choose Directory...</code></strong></p></div>
-
-</article></slide><slide class='segue dark nobackground level1'><hgroup class = 'auto-fadein'><h2>Data frames </h2><h3> A place for your data</h3></hgroup><article  id="data-frames-a-place-for-your-data">
-
-</article></slide><slide class=''><hgroup><h2>Two views of data frames</h2></hgroup><article  id="two-views-of-data-frames" class="build">
-
-<p>The first view: <strong>Data frames are a collection of vectors</strong>. These may be different types (numeric, character, others), but they must all be the same length.</p>
-
-<div>
-<p>Here is how to make one &quot;by hand&quot; using the <code>data.frame</code> function:</p>
-
-<pre class = 'prettyprint lang-r'>mydf &lt;- data.frame(Var1 = 1:4, Var2 = LETTERS[1:4], Var3 = c(1,2,4,8))
-mydf</pre>
-
-<pre >##   Var1 Var2 Var3
-## 1    1    A    1
-## 2    2    B    2
-## 3    3    C    4
-## 4    4    D    8</pre>
-
-<p>Data frames are central to data analysis in R. You can think of each vector as corresponding to a <strong>statistical variable</strong> that we want to analyse (more on that in the course book).</p></div>
-
-</article></slide><slide class=''><hgroup><h2>Selecting vectors from data frames</h2></hgroup><article  id="selecting-vectors-from-data-frames" class="build">
-
-<p>We can extract a vector from a data frame in a few different ways:</p>
-
-<div>
-<ul>
-<li>Using the name and the <code>$</code> operator</li>
-</ul>
-
-<pre class = 'prettyprint lang-r'>mydf $ Var1</pre>
-
-<pre >## [1] 1 2 3 4</pre>
-
-<ul>
-<li>Using the name and the <code>[[ ]]</code> operator</li>
-<li>Using the position and the <code>[[ ]]</code> operator</li>
-</ul></div>
-
-</article></slide><slide class=''><hgroup><h2>Selecting vectors from data frames</h2></hgroup><article  id="selecting-vectors-from-data-frames-1">
-
-<p>We can extract a vector from a data frame in a few different ways:</p>
-
-<ul>
-<li>Using the name and the <code>$</code> operator</li>
-<li>Using the name and the <code>[[ ]]</code> operator</li>
-</ul>
-
-<pre class = 'prettyprint lang-r'>mydf[[&quot;Var1&quot;]] # &lt;- WE HAVE TO USE QUOTES!</pre>
-
-<pre >## [1] 1 2 3 4</pre>
-
-<ul>
-<li>Using the position and the <code>[[ ]]</code> operator</li>
-</ul>
-
-</article></slide><slide class=''><hgroup><h2>Selecting vectors from data frames</h2></hgroup><article  id="selecting-vectors-from-data-frames-2">
-
-<p>We can extract a vector from a data frame in a few different ways:</p>
-
-<ul>
-<li>Using the name and the <code>$</code> operator</li>
-<li>Using the name and the <code>[[ ]]</code> operator</li>
-<li>Using the position and the <code>[[ ]]</code> operator</li>
-</ul>
-
-<pre class = 'prettyprint lang-r'>mydf[[1]]</pre>
-
-<pre >## [1] 1 2 3 4</pre>
-
-<br><br><br>
-
-<hr>
-
-<p>N.B. We will only use the first version in this course. Remember what <code>$</code> does. You <strong>will</strong> need to use it.</p>
-
-</article></slide><slide class=''><hgroup><h2>Exercise</h2></hgroup><article  id="exercise-3" class="build">
-
-<div id="exercise-box">
-<strong>Extracting vectors from data frames</strong>
-
-<div id="box-text">
-<p>R has many datasets built into it, stored as data frames. One of these is the famous <code>iris</code> data. Type this into your Console: <code>View(iris)</code>. How many vectors (i.e. columns) are stored in <code>iris</code>? Extract the one named <code>Sepal.Width</code>.</p></div></div>
-
-<div>
-<pre class = 'prettyprint lang-r'>iris$Sepal.Width</pre>
-
-<pre >##   [1] 3.5 3.0 3.2 3.1 3.6 3.9 3.4 3.4 2.9 3.1 3.7 3.4 3.0 3.0 4.0 4.4 3.9
-##  [18] 3.5 3.8 3.8 3.4 3.7 3.6 3.3 3.4 3.0 3.4 3.5 3.4 3.2 3.1 3.4 4.1 4.2
-##  [35] 3.1 3.2 3.5 3.6 3.0 3.4 3.5 2.3 3.2 3.5 3.8 3.0 3.8 3.2 3.7 3.3 3.2
-##  [52] 3.2 3.1 2.3 2.8 2.8 3.3 2.4 2.9 2.7 2.0 3.0 2.2 2.9 2.9 3.1 3.0 2.7
-##  [69] 2.2 2.5 3.2 2.8 2.5 2.8 2.9 3.0 2.8 3.0 2.9 2.6 2.4 2.4 2.7 2.7 3.0
-##  [86] 3.4 3.1 2.3 3.0 2.5 2.6 3.0 2.6 2.3 2.7 3.0 2.9 2.9 2.5 2.8 3.3 2.7
-## [103] 3.0 2.9 3.0 3.0 2.5 2.9 2.5 3.6 3.2 2.7 3.0 2.5 2.8 3.2 3.0 3.8 2.6
-## [120] 2.2 3.2 2.8 2.8 2.7 3.3 3.2 2.8 3.0 2.8 3.0 2.8 3.8 2.8 2.8 2.6 3.0
-## [137] 3.4 3.1 3.0 3.1 3.1 3.1 2.7 3.2 3.3 3.0 2.5 3.0 3.4 3.0</pre></div>
-
-</article></slide><slide class=''><hgroup><h2>Two views of data frames</h2></hgroup><article  id="two-views-of-data-frames-1" class="build">
-
-<p>The second view: <strong>Data frames are table-like objects</strong>. Take another look at our simple data frame:</p>
-
-<pre class = 'prettyprint lang-r'>mydf</pre>
-
-<pre >##   Var1 Var2 Var3
-## 1    1    A    1
-## 2    2    B    2
-## 3    3    C    4
-## 4    4    D    8</pre>
-
-<p>This clearly has rows and columns. We can extract elements of the data frame using the square brackets <code>[ ]</code>:</p>
-
-<pre class = 'prettyprint lang-r'>mydf[2, 3]</pre>
-
-<pre >## [1] 2</pre>
-
-<p><strong>[Row #, Col #]</strong>: This extracted the element in the second row and third column.</p>
-
-</article></slide><slide class=''><hgroup><h2>Exercise</h2></hgroup><article  id="exercise-4" class="build">
-
-<div id="exercise-box">
-<strong>Extracting elements from data frames</strong>
-
-<div id="box-text">
-<p>See if you can use the <code>[,]</code> construct to get the elements in rows 2 to 3 <strong>and</strong> columns 1 to 4 from the <code>iris</code> data. Hint: you will need to use the <code>:</code> operator, twice inside <code>[,]</code></p></div></div>
-
-<div>
-<pre class = 'prettyprint lang-r'>iris[2:3, 1:4]</pre>
-
-<pre >##   Sepal.Length Sepal.Width Petal.Length Petal.Width
-## 2          4.9         3.0          1.4         0.2
-## 3          4.7         3.2          1.3         0.2</pre></div>
-
-<p><strong>Note</strong>: this produced a new data frame.</p>
-
-</article></slide><slide class=''><hgroup><h2>Exercise</h2></hgroup><article  id="exercise-5" class="build smaller">
-
-<div id="exercise-box">
-<strong>Examining a data frame</strong>
-
-<div id="box-text">
-<p>We&#39;ve seen that <code>View(iris)</code> can be used to examine a data frame in a spreadsheet like view. There are many other functions that allow us to examine the structure of a data frame. Using the <code>iris</code> data, experiment with the <code>head</code>, <code>tail</code>, and <code>str</code> functions to see what they do.</p></div></div>
-
-<div>
-<pre class = 'prettyprint lang-r'>head(iris, n = 2)</pre>
-
-<pre >##   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
-## 1          5.1         3.5          1.4         0.2  setosa
-## 2          4.9         3.0          1.4         0.2  setosa</pre></div>
-
-<div>
-<pre class = 'prettyprint lang-r'>str(iris)</pre>
-
-<pre >## &#39;data.frame&#39;:    150 obs. of  5 variables:
-##  $ Sepal.Length: num  5.1 4.9 4.7 4.6 5 5.4 4.6 5 4.4 4.9 ...
-##  $ Sepal.Width : num  3.5 3 3.2 3.1 3.6 3.9 3.4 3.4 2.9 3.1 ...
-##  $ Petal.Length: num  1.4 1.4 1.3 1.5 1.4 1.7 1.4 1.5 1.4 1.5 ...
-##  $ Petal.Width : num  0.2 0.2 0.2 0.2 0.2 0.4 0.3 0.2 0.2 0.1 ...
-##  $ Species     : Factor w/ 3 levels &quot;setosa&quot;,&quot;versicolor&quot;,..: 1 1 1 1 1 1 1 1 1 1 ...</pre></div>
-
-</article></slide><slide class='segue dark nobackground level1'><hgroup class = 'auto-fadein'><h2>Reading in data </h2><h3> A great source of confusion</h3></hgroup><article  id="reading-in-data-a-great-source-of-confusion">
-
-</article></slide><slide class=''><hgroup><h2>We need some data&#8230;.</h2></hgroup><article  id="we-need-some-data....">
-
-<p><strong>1. Grab the &quot;iris_morphology.xlsx&quot; file from MOLE</strong>:</p>
-
-<p>(APS135 Skills for Biologists &gt; Information Technology &gt; Data files needed in semester 2)</p>
-
-<p><strong>2. Save this anywhere you like</strong></p>
-
-<p>Make sure you remember where you put it!</p>
-
-<p><strong>3. Open up your copy of &quot;iris_morphology.xlsx&quot; in Excel</strong></p>
-
-<p>How many columns (&quot;variables&quot;) and rows (&quot;observations&quot;) are there?</p>
-
-<p><strong>4. Once you understand the data, close Excel down</strong></p>
-
-<p>We&#39;re ready&#8230;</p>
-
-</article></slide><slide class=''><hgroup><h2>Getting data from Excel into R</h2></hgroup><article  id="getting-data-from-excel-into-r" class="build smaller">
-
-<p>Essentially a two step process</p>
-
-<div>
-<p><strong>STEP 1. Export data from Excel to a CSV file</strong>:</p>
-
-<ul>
-<li><p>Open the &quot;iris_morphology.xlsx&quot; spreadsheet up in Excel</p></li>
-<li><p>In Excel, go to <code>Save As...</code> and choose the <code>Comma Separated Values (csv)</code> option</p></li>
-<li>Keep the default file name (&quot;iris_morphology.csv&quot;), but make sure the file is saved <strong>in your working directory</strong> (you set this earlier)</li>
-</ul></div>
-
-<div>
-<p><strong>STEP 2. Now import the CSV file into using RStudio:</strong></p>
-
-<ul>
-<li>Include the following line in your script, and send it to the Console</li>
-</ul>
-
-<pre class = 'prettyprint lang-r'>my.iris &lt;- read.csv(&quot;iris_morphology.csv&quot;, stringsAsFactors = FALSE)
-my.iris</pre>
-
-<ul>
-<li>What happened? Did you see any error messages? If you did, check your spelling and make sure your working directory is set to the right place.</li>
-</ul></div>
-
-</article></slide><slide class=''><hgroup><h2>The other way&#8230;</h2></hgroup><article  id="the-other-way...">
-
-<p><strong>This is how to import data in a CSV file using RStudio:</strong></p>
-
-<ul>
-<li><p>Select <code>Import Dataset &gt; From Text File...</code></p></li>
-<li><p>Select the file your saved and click Open</p></li>
-<li><p>Enter a name (no spaces allowed) and click Import</p></li>
-</ul>
-
-<p><strong>Some advice: Don&#39;t use this method!!!</strong> You have to remember do it everytime you want to run your script. This is very error prone.</p>
-
-</article></slide><slide class='segue dark nobackground level1'><hgroup class = 'auto-fadein'><h2>R packages </h2><h3> The other great source of confusion</h3></hgroup><article  id="r-packages-the-other-great-source-of-confusion">
+</article></slide><slide class='segue dark nobackground level1'><hgroup class = 'auto-fadein'><h2>R packages </h2><h3> A great source of confusion</h3></hgroup><article  id="r-packages-a-great-source-of-confusion">
 
 </article></slide><slide class=''><hgroup><h2>A (very) quick overview</h2></hgroup><article  id="a-very-quick-overview" class="build">
 
@@ -476,7 +342,7 @@ my.iris</pre>
 <li><p>You can also install a package via the Packages tab in RStudio. It is fine to use this if you don&#39;t like using <code>install.packages</code>.</p></li>
 </ul>
 
-</article></slide><slide class=''><hgroup><h2>Exercise</h2></hgroup><article  id="exercise-6" class="smaller">
+</article></slide><slide class=''><hgroup><h2>Exercise</h2></hgroup><article  id="exercise-8" class="smaller">
 
 <div id="exercise-box">
 <strong>Working with packages</strong>
@@ -492,6 +358,30 @@ my.iris</pre>
 <li><p>Use <code>library</code> to load and attach the <strong>fortunes</strong> package (plural!). What happens?</p></li>
 <li>Try again to use the <code>fortune</code> function. Does this work or do you see an error?</li>
 </ol></div></div>
+
+</article></slide><slide class=''><hgroup><h2>Exercise</h2></hgroup><article  id="exercise-9" class="smaller build">
+
+<div id="exercise-box">
+<strong>Working with packages (still)</strong>
+
+<div id="box-text">
+<p>Now try the following:</p>
+
+<ol>
+<li><p>Close down Rstudio completely then open it again.</p></li>
+<li><p>Try to use the <code>fortune</code> function, i.e. type <code>fortune()</code> straight into the Console. Does this work or do you see an error?</p></li>
+<li><p>Use <code>library</code> to load and attach the <strong>fortunes</strong> package (plural!). What happens?</p></li>
+<li><p>Try again to use the <code>fortune</code> function. Does this work or do you see an error?</p></li>
+</ol></div></div>
+
+</article></slide><slide class=''><hgroup><h2>Exercise</h2></hgroup><article  id="exercise-10" class="small">
+
+<p>In the next few weeks we&#39;re going to be using two packages: <code>dplyr</code> and <code>ggplot2</code>. The TAs installed these packages on a lot of your computers last week.<br/><br> Check whether they&#39;re installed now using the following code:</p>
+
+<pre class = 'prettyprint lang-r'>library(ggplot2)
+library(dplyr)</pre>
+
+<p>If you get an error message (NOT a warning) - stick your hand up.</p>
 
 </article></slide><slide class='segue dark nobackground level1'><hgroup class = 'auto-fadein'><h2>Getting help </h2><h3> Learning about a function</h3></hgroup><article  id="getting-help-learning-about-a-function">
 
@@ -514,11 +404,67 @@ my.iris</pre>
 
 <p>Let&#39;s step though the help for <code>round</code>&#8230;</p>
 
+</article></slide><slide class=''><hgroup><h2>Exercise</h2></hgroup><article  id="exercise-11" class="smaller build">
+
+<div id="exercise-box">
+<strong>Using the help files</strong>
+
+<div id="box-text">
+<p>Use the <code>rep</code> function to create the following three sequences:</p>
+
+<pre >##  [1] 1 1 1 2 2 2 3 3 3 4 4 4 5 5 5 6 6 6</pre>
+
+<pre >## [1] 2 5 2 5 2 5 2 5</pre>
+
+<pre >##  [1] 3 3 4 4 5 5 6 6 3 3 4 4 5 5 6 6 3 3 4 4 5 5 6 6</pre></div></div>
+
+</article></slide><slide class=''><hgroup><h2>Exercise</h2></hgroup><article  id="exercise-12" class="build">
+
+<pre class = 'prettyprint lang-r'>rep(1:6, each = 3)</pre>
+
+<pre >##  [1] 1 1 1 2 2 2 3 3 3 4 4 4 5 5 5 6 6 6</pre>
+
+<pre class = 'prettyprint lang-r'>rep(c(2, 5), times = 4)</pre>
+
+<pre >## [1] 2 5 2 5 2 5 2 5</pre>
+
+<pre class = 'prettyprint lang-r'>rep(3:6, each = 2, times = 3)</pre>
+
+<pre >##  [1] 3 3 4 4 5 5 6 6 3 3 4 4 5 5 6 6 3 3 4 4 5 5 6 6</pre>
+
+</article></slide><slide class=''><hgroup><h2>Exercise</h2></hgroup><article  id="exercise-13" class="smaller build">
+
+<div id="exercise-box">
+<strong>Using the help files</strong>
+
+<div id="box-text">
+<p>Use the <code>seq</code> function to create the following numeric vector.</p>
+
+<pre >##  [1] 0.0 0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1.0</pre>
+
+<p>Assign the vector to a name of your choice.<br/>Change the 6th element to have a value of 14.</p></div></div>
+
+<pre class = 'prettyprint lang-r'>myseq &lt;- seq(0, 1, by = 0.1)
+myseq</pre>
+
+<pre >##  [1] 0.0 0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1.0</pre>
+
+<pre class = 'prettyprint lang-r'>myseq[6] &lt;- 14
+myseq</pre>
+
+<pre >##  [1]  0.0  0.1  0.2  0.3  0.4 14.0  0.6  0.7  0.8  0.9  1.0</pre>
+
+</article></slide><slide class=''><hgroup><h2>What if you don&#39;t know the function name?</h2></hgroup><article  id="what-if-you-dont-know-the-function-name">
+
+<p>Do the following:</p>
+
+<pre class = 'prettyprint lang-r'>??round</pre>
+
 </article></slide><slide class=''><hgroup><h2>Other sources of help</h2></hgroup><article  id="other-sources-of-help" class="smaller build">
 
 <p>The internet is packed full of helpful resources:</p>
 
-<ol>
+<ul>
 <li><p><strong>Google</strong> &#8211; this might be obvious, but you have to work on your &quot;Google-fu&quot; to find what you want. The key is to pick the right search terms:</p>
 
 <ul>
@@ -526,29 +472,43 @@ my.iris</pre>
 <li><p>include the letter R!</p></li>
 <li><p>be selective about which sites you look at&#8230;</p></li>
 </ul></li>
-</ol>
-
-<div>
-<ol>
 <li><p><strong>Stack Overflow</strong> &#8211; probably the best question and answer site for computing stuff. People can be a bit blunt though:</p>
 
 <ul>
 <li><p>check whether your question has been asked before (Google)</p></li>
 <li><p>read the community guidelines</p></li>
-<li>provide example code with your questions</li>
+<li><p>provide example code with your questions</p></li>
 </ul></li>
-</ol></div>
+</ul>
 
-</article></slide><slide class=''><hgroup><h2>What happens next?</h2></hgroup><article  id="what-happens-next">
+</article></slide><slide class=''><hgroup><h2>Other sources of help</h2></hgroup><article  id="other-sources-of-help-1" class="build">
 
-<p><br><br></p>
+<ul>
+<li><p><strong>Each other</strong></p></li>
+<li><p><strong>The TAs</strong></p></li>
+<li><p><strong>Me</strong> - email (<a href='mailto:bjhindle1@sheffield.ac.uk' title=''>bjhindle1@sheffield.ac.uk</a>) to arrange a meeting - if none of the above have helped</p></li>
+</ul>
 
-<ol>
-<li><p><strong>No lecture</strong> tomorrow.</p></li>
-<li><p>Keep reading through the online course book.</p></li>
-<li><p>Reminder: DZC office hours are 12-3pm every Tuesday.</p></li>
-<li><p>We&#39;ll start getting the useful stuff next week. I promise!</p></li>
-</ol></article></slide>
+</article></slide><slide class=''><hgroup><h2>Changing the appearance of RStudio</h2></hgroup><article  id="changing-the-appearance-of-rstudio">
+
+<p>Navigate through RStudio&#39;s menus to Tools &gt; Global Options</p>
+
+<p>Click on Appearance</p>
+
+<p>Experiment with the different themes</p>
+
+</article></slide><slide class=''><hgroup><h2>Useful keyboard shortcuts</h2></hgroup><article  id="useful-keyboard-shortcuts">
+
+<p>Move cursor to script: Ctrl + 1<br/>Move cursor to console: Ctrl + 2 Navigate command history: Up/down<br/>Assignment operator: Alt + -</p>
+
+</article></slide><slide class=''><hgroup><h2>And finally&#8230;</h2></hgroup><article  id="and-finally...">
+
+<ul>
+<li><p>There will <strong>not</strong> be a lecture tomorrow morning.</p></li>
+<li><p>Keep working through the online coursebook</p></li>
+<li><p>Provide feedback on the course so far at: <a href='https://goo.gl/forms/x2x5JZdhygDti09q2' title=''>https://goo.gl/forms/x2x5JZdhygDti09q2</a></p></li>
+<li><p>Next week we&#39;ll actually start using some data</p></li>
+</ul></article></slide>
 
 
   <slide class="backdrop"></slide>
@@ -560,7 +520,7 @@ my.iris</pre>
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
     document.getElementsByTagName("head")[0].appendChild(script);
   })();
 </script>
