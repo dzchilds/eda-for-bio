@@ -5,11 +5,11 @@
 
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>APS 135: Introduction to Exploratory Data Analysis with R</title>
+  <title>Chapter 24 Doing more with ggplot2 | APS 135: Introduction to Exploratory Data Analysis with R</title>
   <meta name="description" content="Course book for Introduction to Exploratory Data Analysis with R (APS 135) in the Department of Animal and Plant Sciences, University of Sheffield.">
-  <meta name="generator" content="bookdown 0.5 and GitBook 2.6.7">
+  <meta name="generator" content="bookdown  and GitBook 2.6.7">
 
-  <meta property="og:title" content="APS 135: Introduction to Exploratory Data Analysis with R" />
+  <meta property="og:title" content="Chapter 24 Doing more with ggplot2 | APS 135: Introduction to Exploratory Data Analysis with R" />
   <meta property="og:type" content="book" />
   
   
@@ -17,7 +17,7 @@
   <meta name="github-repo" content="dzchilds/eda-for-bio" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="APS 135: Introduction to Exploratory Data Analysis with R" />
+  <meta name="twitter:title" content="Chapter 24 Doing more with ggplot2 | APS 135: Introduction to Exploratory Data Analysis with R" />
   
   <meta name="twitter:description" content="Course book for Introduction to Exploratory Data Analysis with R (APS 135) in the Department of Animal and Plant Sciences, University of Sheffield." />
   
@@ -25,7 +25,7 @@
 <meta name="author" content="Dylan Z. Childs">
 
 
-<meta name="date" content="2018-02-12">
+<meta name="date" content="2019-02-03">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -36,6 +36,7 @@
 
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
@@ -395,12 +396,12 @@ storms_alter &lt;-<span class="st"> </span>
 <span class="st">  </span><span class="kw">summarise</span>(<span class="dt">mean_wind =</span> <span class="kw">mean</span>(wind), <span class="dt">std =</span> <span class="kw">sd</span>(wind))
 storms_sum</code></pre></div>
 <pre><code>## # A tibble: 4 x 3
-##                  type mean_wind       std
-##                &lt;fctr&gt;     &lt;dbl&gt;     &lt;dbl&gt;
-## 1 Tropical Depression  27.35867  3.520588
-## 2       Extratropical  40.06068 13.246997
-## 3      Tropical Storm  47.32181 11.092150
-## 4           Hurricane  84.65960 18.790856</code></pre>
+##   type                mean_wind   std
+##   &lt;fct&gt;                   &lt;dbl&gt; &lt;dbl&gt;
+## 1 Tropical Depression      27.4  3.52
+## 2 Extratropical            40.1 13.2 
+## 3 Tropical Storm           47.3 11.1 
+## 4 Hurricane                84.7 18.8</code></pre>
 <p>We can now use this data frame to make the plot, using <code>geom_col</code> to plot the means and the unsurprisingly named <code>geom_errorbar</code> to add the error bars.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(storms_sum, <span class="kw">aes</span>(<span class="dt">x=</span>type, <span class="dt">y =</span> mean_wind)) <span class="op">+</span><span class="st"> </span>
 <span class="st">  </span><span class="co"># Plot the means</span>
@@ -426,12 +427,12 @@ storms_sum</code></pre></div>
 <span class="st">  </span><span class="kw">summarise</span>(<span class="dt">mean_wind =</span> <span class="kw">mean</span>(wind), <span class="dt">samp =</span> <span class="kw">n</span>())
 storms_sum</code></pre></div>
 <pre><code>## # A tibble: 4 x 3
-##                  type mean_wind  samp
-##                 &lt;chr&gt;     &lt;dbl&gt; &lt;int&gt;
-## 1       Extratropical  40.06068   412
-## 2           Hurricane  84.65960   896
-## 3 Tropical Depression  27.35867   513
-## 4      Tropical Storm  47.32181   926</code></pre>
+##   type                mean_wind  samp
+##   &lt;chr&gt;                   &lt;dbl&gt; &lt;int&gt;
+## 1 Extratropical            40.1   412
+## 2 Hurricane                84.7   896
+## 3 Tropical Depression      27.4   513
+## 4 Tropical Storm           47.3   926</code></pre>
 <p>Then we can add the text showing the sample size to our plot using the function <code>geom_text</code>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(storms_sum, <span class="kw">aes</span>(<span class="dt">x =</span> type, <span class="dt">y =</span> mean_wind)) <span class="op">+</span>
 <span class="st"> </span><span class="co"># Add the bars</span>
@@ -558,10 +559,11 @@ gitbook.start({
 "facebook": true,
 "twitter": true,
 "google": false,
+"linkedin": false,
 "weibo": false,
-"instapper": false,
+"instapaper": false,
 "vk": false,
-"all": ["facebook", "google", "twitter", "weibo", "instapaper"]
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
 "theme": "white",
@@ -571,6 +573,10 @@ gitbook.start({
 "edit": {
 "link": "https://github.com/dzchilds/eda-for-bio/edit/master/3_08_ggplot_doingmore.Rmd",
 "text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
 },
 "download": null,
 "toc": {
@@ -586,9 +592,11 @@ gitbook.start({
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    script.src  = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:" && /^https?:/.test(script.src))
-      script.src  = script.src.replace(/^https?:/, '');
+    var src = "";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(src))
+      src = src.replace(/^https?:/, '');
+    script.src = src;
     document.getElementsByTagName("head")[0].appendChild(script);
   })();
 </script>

@@ -5,11 +5,11 @@
 
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>APS 135: Introduction to Exploratory Data Analysis with R</title>
+  <title>Chapter 15 Grouping and summarising data | APS 135: Introduction to Exploratory Data Analysis with R</title>
   <meta name="description" content="Course book for Introduction to Exploratory Data Analysis with R (APS 135) in the Department of Animal and Plant Sciences, University of Sheffield.">
-  <meta name="generator" content="bookdown 0.5 and GitBook 2.6.7">
+  <meta name="generator" content="bookdown  and GitBook 2.6.7">
 
-  <meta property="og:title" content="APS 135: Introduction to Exploratory Data Analysis with R" />
+  <meta property="og:title" content="Chapter 15 Grouping and summarising data | APS 135: Introduction to Exploratory Data Analysis with R" />
   <meta property="og:type" content="book" />
   
   
@@ -17,7 +17,7 @@
   <meta name="github-repo" content="dzchilds/eda-for-bio" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="APS 135: Introduction to Exploratory Data Analysis with R" />
+  <meta name="twitter:title" content="Chapter 15 Grouping and summarising data | APS 135: Introduction to Exploratory Data Analysis with R" />
   
   <meta name="twitter:description" content="Course book for Introduction to Exploratory Data Analysis with R (APS 135) in the Department of Animal and Plant Sciences, University of Sheffield." />
   
@@ -25,7 +25,7 @@
 <meta name="author" content="Dylan Z. Childs">
 
 
-<meta name="date" content="2018-02-12">
+<meta name="date" content="2019-02-03">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -36,6 +36,7 @@
 <link rel="next" href="building-pipelines.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
@@ -403,7 +404,7 @@ iris_tbl   &lt;-<span class="st"> </span><span class="kw">tbl_df</span>(iris)</c
 <pre><code>## # A tibble: 1 x 2
 ##   `mean(Petal.Length)` `mean(Petal.Width)`
 ##                  &lt;dbl&gt;               &lt;dbl&gt;
-## 1                3.758            1.199333</code></pre>
+## 1                 3.76                1.20</code></pre>
 <p>Notice what kind of object <code>summarise</code> returns: it’s a tibble with only one row and two columns. There are two columns because we calculated two means, and there is one row containing these means. Simple. There are a few other things to note about how <code>summarise</code> works:</p>
 <ul>
 <li><p>As with all <strong>dplyr</strong> functions, the expression that performs the required summary calculation is not surrounded by quotes because it is an expression that it “does some calculations”.</p></li>
@@ -420,9 +421,9 @@ iris_means<span class="op">$</span><span class="st">`</span><span class="dt">mea
 <p>It’s better to avoid using the default names. The <code>summarise</code> function can name the new variables at the same time as they are created. Predictably, we do this by naming the arguments using <code>=</code>, placing the name we require on the left hand side. For example:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summarise</span>(iris_tbl, <span class="dt">Mean_PL =</span> <span class="kw">mean</span>(Petal.Length), <span class="dt">Mean_PW =</span> <span class="kw">mean</span>(Petal.Width))</code></pre></div>
 <pre><code>## # A tibble: 1 x 2
-##   Mean_PL  Mean_PW
-##     &lt;dbl&gt;    &lt;dbl&gt;
-## 1   3.758 1.199333</code></pre>
+##   Mean_PL Mean_PW
+##     &lt;dbl&gt;   &lt;dbl&gt;
+## 1    3.76    1.20</code></pre>
 <p>There are very many base R functions that can be used with <code>summarise</code>. A few useful ones for calculating summaries of numeric variables are:</p>
 <ul>
 <li><p><code>min</code> and <code>max</code> calculate the minimum and maximum values of a vector.</p></li>
@@ -434,9 +435,9 @@ iris_means<span class="op">$</span><span class="st">`</span><span class="dt">mea
           <span class="dt">Mn_Md_PL =</span> <span class="kw">mean</span>(Petal.Length) <span class="op">/</span><span class="st"> </span><span class="kw">median</span>(Petal.Length),
           <span class="dt">Mn_Md_PW =</span> <span class="kw">mean</span>(Petal.Width)  <span class="op">/</span><span class="st"> </span><span class="kw">median</span>(Petal.Width))</code></pre></div>
 <pre><code>## # A tibble: 1 x 2
-##   Mn_Md_PL  Mn_Md_PW
-##      &lt;dbl&gt;     &lt;dbl&gt;
-## 1 0.863908 0.9225641</code></pre>
+##   Mn_Md_PL Mn_Md_PW
+##      &lt;dbl&gt;    &lt;dbl&gt;
+## 1    0.864    0.923</code></pre>
 <p>Notice that we placed each argument on a separate line in this example. This is just a style issue—we don’t have to do this, but since R doesn’t care about white space, we can use new lines and spaces to keep everything a bit more more human-readable. It pays to organise <code>summarise</code> calculations like this as they become longer. It allows us to see the logic of the calculations more easily, and helps us spot potential errors when they occur.</p>
 <div id="helper-functions-1" class="section level3">
 <h3><span class="header-section-number">15.1.1</span> Helper functions</h3>
@@ -460,49 +461,47 @@ iris_means<span class="op">$</span><span class="st">`</span><span class="dt">mea
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">group_by</span>(storms_tbl, type)</code></pre></div>
 <pre><code>## # A tibble: 2,747 x 11
 ## # Groups:   type [4]
-##       name  year month   day  hour   lat  long pressure  wind
-##      &lt;chr&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt;    &lt;int&gt; &lt;int&gt;
-##  1 Allison  1995     6     3     0  17.4 -84.3     1005    30
-##  2 Allison  1995     6     3     6  18.3 -84.9     1004    30
-##  3 Allison  1995     6     3    12  19.3 -85.7     1003    35
-##  4 Allison  1995     6     3    18  20.6 -85.8     1001    40
-##  5 Allison  1995     6     4     0  22.0 -86.0      997    50
-##  6 Allison  1995     6     4     6  23.3 -86.3      995    60
-##  7 Allison  1995     6     4    12  24.7 -86.2      987    65
-##  8 Allison  1995     6     4    18  26.2 -86.2      988    65
-##  9 Allison  1995     6     5     0  27.6 -86.1      988    65
-## 10 Allison  1995     6     5     6  28.5 -85.6      990    60
-## # ... with 2,737 more rows, and 2 more variables: type &lt;chr&gt;,
-## #   seasday &lt;int&gt;</code></pre>
+##    name    year month   day  hour   lat  long pressure  wind type   seasday
+##    &lt;chr&gt;  &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt;    &lt;int&gt; &lt;int&gt; &lt;chr&gt;    &lt;int&gt;
+##  1 Allis…  1995     6     3     0  17.4 -84.3     1005    30 Tropi…       3
+##  2 Allis…  1995     6     3     6  18.3 -84.9     1004    30 Tropi…       3
+##  3 Allis…  1995     6     3    12  19.3 -85.7     1003    35 Tropi…       3
+##  4 Allis…  1995     6     3    18  20.6 -85.8     1001    40 Tropi…       3
+##  5 Allis…  1995     6     4     0  22   -86        997    50 Tropi…       4
+##  6 Allis…  1995     6     4     6  23.3 -86.3      995    60 Tropi…       4
+##  7 Allis…  1995     6     4    12  24.7 -86.2      987    65 Hurri…       4
+##  8 Allis…  1995     6     4    18  26.2 -86.2      988    65 Hurri…       4
+##  9 Allis…  1995     6     5     0  27.6 -86.1      988    65 Hurri…       5
+## 10 Allis…  1995     6     5     6  28.5 -85.6      990    60 Tropi…       5
+## # … with 2,737 more rows</code></pre>
 <p>Compare this to the output produced when we print the original <code>storms_tbl</code> data set:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">storms_tbl</code></pre></div>
 <pre><code>## # A tibble: 2,747 x 11
-##       name  year month   day  hour   lat  long pressure  wind
-##      &lt;chr&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt;    &lt;int&gt; &lt;int&gt;
-##  1 Allison  1995     6     3     0  17.4 -84.3     1005    30
-##  2 Allison  1995     6     3     6  18.3 -84.9     1004    30
-##  3 Allison  1995     6     3    12  19.3 -85.7     1003    35
-##  4 Allison  1995     6     3    18  20.6 -85.8     1001    40
-##  5 Allison  1995     6     4     0  22.0 -86.0      997    50
-##  6 Allison  1995     6     4     6  23.3 -86.3      995    60
-##  7 Allison  1995     6     4    12  24.7 -86.2      987    65
-##  8 Allison  1995     6     4    18  26.2 -86.2      988    65
-##  9 Allison  1995     6     5     0  27.6 -86.1      988    65
-## 10 Allison  1995     6     5     6  28.5 -85.6      990    60
-## # ... with 2,737 more rows, and 2 more variables: type &lt;chr&gt;,
-## #   seasday &lt;int&gt;</code></pre>
+##    name    year month   day  hour   lat  long pressure  wind type   seasday
+##    &lt;chr&gt;  &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt;    &lt;int&gt; &lt;int&gt; &lt;chr&gt;    &lt;int&gt;
+##  1 Allis…  1995     6     3     0  17.4 -84.3     1005    30 Tropi…       3
+##  2 Allis…  1995     6     3     6  18.3 -84.9     1004    30 Tropi…       3
+##  3 Allis…  1995     6     3    12  19.3 -85.7     1003    35 Tropi…       3
+##  4 Allis…  1995     6     3    18  20.6 -85.8     1001    40 Tropi…       3
+##  5 Allis…  1995     6     4     0  22   -86        997    50 Tropi…       4
+##  6 Allis…  1995     6     4     6  23.3 -86.3      995    60 Tropi…       4
+##  7 Allis…  1995     6     4    12  24.7 -86.2      987    65 Hurri…       4
+##  8 Allis…  1995     6     4    18  26.2 -86.2      988    65 Hurri…       4
+##  9 Allis…  1995     6     5     0  27.6 -86.1      988    65 Hurri…       5
+## 10 Allis…  1995     6     5     6  28.5 -85.6      990    60 Tropi…       5
+## # … with 2,737 more rows</code></pre>
 <p>There is almost no change in the printed information—<code>group_by</code> really doesn’t do much on its own. The main change is that the tibble resulting from the <code>group_by</code> operation has a little bit of additional information printed at the top: <code>Groups: type [4]</code>. The <code>Groups: type</code> part of this tells us that the tibble is grouped by the <code>type</code> variable and nothing else. The <code>[4]</code> part tells us that there are 4 different groups.</p>
 <p>The only thing <code>group_by</code> did was add this grouping information to a copy of <code>storms_tbl</code>. The original <code>storms_tbl</code> object was not altered in any way. If we actually want to do anything useful useful with the result we need to assign it a name so that we can work with it:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">storms_grouped &lt;-<span class="st"> </span><span class="kw">group_by</span>(storms_tbl, type)</code></pre></div>
 <p>Now we have a grouped tibble called <code>storms_grouped</code>, where the groups are defined by the values of <code>type</code>. Any operations on this tibble will now be performed on a “by group” basis. To see this in action, we use <code>summarise</code> to calculate the mean wind speed:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summarise</span>(storms_grouped, <span class="dt">mean.wind =</span> <span class="kw">mean</span>(wind))</code></pre></div>
 <pre><code>## # A tibble: 4 x 2
-##                  type mean.wind
-##                 &lt;chr&gt;     &lt;dbl&gt;
-## 1       Extratropical  40.06068
-## 2           Hurricane  84.65960
-## 3 Tropical Depression  27.35867
-## 4      Tropical Storm  47.32181</code></pre>
+##   type                mean.wind
+##   &lt;chr&gt;                   &lt;dbl&gt;
+## 1 Extratropical            40.1
+## 2 Hurricane                84.7
+## 3 Tropical Depression      27.4
+## 4 Tropical Storm           47.3</code></pre>
 <p>When we used <code>summarise</code> on an ungrouped tibble the result was a tibble with one row: the overall global mean. Now the resulting tibble has four rows, one for each value of <code>type</code>: The <code>type</code> variable in the new tibble tells us what these values are; the <code>mean.wind</code> variable shows the mean wind speed for each value.</p>
 <div id="more-than-one-grouping-variable" class="section level3">
 <h3><span class="header-section-number">15.2.1</span> More than one grouping variable</h3>
@@ -513,39 +512,38 @@ storms_grouped &lt;-<span class="st"> </span><span class="kw">group_by</span>(st
 storms_grouped</code></pre></div>
 <pre><code>## # A tibble: 2,747 x 11
 ## # Groups:   type, year [24]
-##       name  year month   day  hour   lat  long pressure  wind
-##      &lt;chr&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt;    &lt;int&gt; &lt;int&gt;
-##  1 Allison  1995     6     3     0  17.4 -84.3     1005    30
-##  2 Allison  1995     6     3     6  18.3 -84.9     1004    30
-##  3 Allison  1995     6     3    12  19.3 -85.7     1003    35
-##  4 Allison  1995     6     3    18  20.6 -85.8     1001    40
-##  5 Allison  1995     6     4     0  22.0 -86.0      997    50
-##  6 Allison  1995     6     4     6  23.3 -86.3      995    60
-##  7 Allison  1995     6     4    12  24.7 -86.2      987    65
-##  8 Allison  1995     6     4    18  26.2 -86.2      988    65
-##  9 Allison  1995     6     5     0  27.6 -86.1      988    65
-## 10 Allison  1995     6     5     6  28.5 -85.6      990    60
-## # ... with 2,737 more rows, and 2 more variables: type &lt;chr&gt;,
-## #   seasday &lt;int&gt;</code></pre>
+##    name    year month   day  hour   lat  long pressure  wind type   seasday
+##    &lt;chr&gt;  &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt;    &lt;int&gt; &lt;int&gt; &lt;chr&gt;    &lt;int&gt;
+##  1 Allis…  1995     6     3     0  17.4 -84.3     1005    30 Tropi…       3
+##  2 Allis…  1995     6     3     6  18.3 -84.9     1004    30 Tropi…       3
+##  3 Allis…  1995     6     3    12  19.3 -85.7     1003    35 Tropi…       3
+##  4 Allis…  1995     6     3    18  20.6 -85.8     1001    40 Tropi…       3
+##  5 Allis…  1995     6     4     0  22   -86        997    50 Tropi…       4
+##  6 Allis…  1995     6     4     6  23.3 -86.3      995    60 Tropi…       4
+##  7 Allis…  1995     6     4    12  24.7 -86.2      987    65 Hurri…       4
+##  8 Allis…  1995     6     4    18  26.2 -86.2      988    65 Hurri…       4
+##  9 Allis…  1995     6     5     0  27.6 -86.1      988    65 Hurri…       5
+## 10 Allis…  1995     6     5     6  28.5 -85.6      990    60 Tropi…       5
+## # … with 2,737 more rows</code></pre>
 <p>We grouped the <code>storms_tbl</code> data by <code>type</code> and <code>year</code> and assigned the grouped tibble the name <code>storms_grouped</code>. When we print this to the Console we see <code>Groups: type, year [24]</code> near the top, which tells us that the tibble is grouped by two variables with 24 unique combinations of values. We then calculate the mean wind speed and pressure of each storm type in each year:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summarise</span>(storms_grouped, 
           <span class="dt">mean_wind     =</span> <span class="kw">mean</span>(wind), 
           <span class="dt">mean_pressure =</span> <span class="kw">mean</span>(pressure))</code></pre></div>
 <pre><code>## # A tibble: 24 x 4
 ## # Groups:   type [?]
-##             type  year mean_wind mean_pressure
-##            &lt;chr&gt; &lt;int&gt;     &lt;dbl&gt;         &lt;dbl&gt;
-##  1 Extratropical  1995  38.67521      995.2991
-##  2 Extratropical  1996  40.42105      991.2526
-##  3 Extratropical  1997  38.94737      999.7632
-##  4 Extratropical  1998  42.92208      990.6104
-##  5 Extratropical  1999  38.86364      992.0909
-##  6 Extratropical  2000  39.68254      996.7619
-##  7     Hurricane  1995  81.99187      969.6016
-##  8     Hurricane  1996  85.50336      969.1275
-##  9     Hurricane  1997  80.39474      976.3947
-## 10     Hurricane  1998  87.04142      972.4260
-## # ... with 14 more rows</code></pre>
+##    type           year mean_wind mean_pressure
+##    &lt;chr&gt;         &lt;int&gt;     &lt;dbl&gt;         &lt;dbl&gt;
+##  1 Extratropical  1995      38.7          995.
+##  2 Extratropical  1996      40.4          991.
+##  3 Extratropical  1997      38.9         1000.
+##  4 Extratropical  1998      42.9          991.
+##  5 Extratropical  1999      38.9          992.
+##  6 Extratropical  2000      39.7          997.
+##  7 Hurricane      1995      82.0          970.
+##  8 Hurricane      1996      85.5          969.
+##  9 Hurricane      1997      80.4          976.
+## 10 Hurricane      1998      87.0          972.
+## # … with 14 more rows</code></pre>
 <p>This calculates mean wind speed and atmospheric pressure for different combination of <code>type</code> and <code>year</code>. The first line shows us that the mean wind speed and pressure associated with extra-tropical storms in 1995 was 38.7 mph and 995 millibars, the second line shows us that the mean wind speed and pressure associated with extra-tropical storms in 1995 was 40.4 mph and 991 millibars, and so on. There are 24 rows in total because there were 24 unique combinations of <code>type</code> and <code>year</code> in the original <code>storms_tbl</code>.</p>
 </div>
 <div id="using-group_by-with-other-verbs" class="section level3">
@@ -555,22 +553,21 @@ storms_grouped</code></pre></div>
 storms_grouped &lt;-<span class="st"> </span><span class="kw">group_by</span>(storms_tbl, name)
 <span class="co"># create a data set &#39;mean centred&#39; wind speed variable</span>
 <span class="kw">transmute</span>(storms_grouped, <span class="dt">wind_centred =</span> wind <span class="op">-</span><span class="st"> </span><span class="kw">mean</span>(wind))</code></pre></div>
-<pre><code>## Adding missing grouping variables: `name`</code></pre>
 <pre><code>## # A tibble: 2,747 x 2
 ## # Groups:   name [79]
-##       name wind_centred
-##      &lt;chr&gt;        &lt;dbl&gt;
-##  1 Allison   -14.393939
-##  2 Allison   -14.393939
-##  3 Allison    -9.393939
-##  4 Allison    -4.393939
-##  5 Allison     5.606061
-##  6 Allison    15.606061
-##  7 Allison    20.606061
-##  8 Allison    20.606061
-##  9 Allison    20.606061
-## 10 Allison    15.606061
-## # ... with 2,737 more rows</code></pre>
+##    name    wind_centred
+##    &lt;chr&gt;          &lt;dbl&gt;
+##  1 Allison       -14.4 
+##  2 Allison       -14.4 
+##  3 Allison        -9.39
+##  4 Allison        -4.39
+##  5 Allison         5.61
+##  6 Allison        15.6 
+##  7 Allison        20.6 
+##  8 Allison        20.6 
+##  9 Allison        20.6 
+## 10 Allison        15.6 
+## # … with 2,737 more rows</code></pre>
 <p>In this example we calculated the “group mean-centered” version of the wind variable. The new <code>wind_centred</code> variable contains the difference between the wind speed and the mean of whichever storm type is associated with the observation.</p>
 </div>
 </div>
@@ -579,20 +576,19 @@ storms_grouped &lt;-<span class="st"> </span><span class="kw">group_by</span>(st
 <p>On occasion it’s necessary to remove grouping information from a data object. This is most often done when working with “pipes” (the topic of the next chapter) when we need to revert back to operating on the whole data set. The <code>ungroup</code> function removes grouping information:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ungroup</span>(storms_grouped)</code></pre></div>
 <pre><code>## # A tibble: 2,747 x 11
-##       name  year month   day  hour   lat  long pressure  wind
-##      &lt;chr&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt;    &lt;int&gt; &lt;int&gt;
-##  1 Allison  1995     6     3     0  17.4 -84.3     1005    30
-##  2 Allison  1995     6     3     6  18.3 -84.9     1004    30
-##  3 Allison  1995     6     3    12  19.3 -85.7     1003    35
-##  4 Allison  1995     6     3    18  20.6 -85.8     1001    40
-##  5 Allison  1995     6     4     0  22.0 -86.0      997    50
-##  6 Allison  1995     6     4     6  23.3 -86.3      995    60
-##  7 Allison  1995     6     4    12  24.7 -86.2      987    65
-##  8 Allison  1995     6     4    18  26.2 -86.2      988    65
-##  9 Allison  1995     6     5     0  27.6 -86.1      988    65
-## 10 Allison  1995     6     5     6  28.5 -85.6      990    60
-## # ... with 2,737 more rows, and 2 more variables: type &lt;chr&gt;,
-## #   seasday &lt;int&gt;</code></pre>
+##    name    year month   day  hour   lat  long pressure  wind type   seasday
+##    &lt;chr&gt;  &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt;    &lt;int&gt; &lt;int&gt; &lt;chr&gt;    &lt;int&gt;
+##  1 Allis…  1995     6     3     0  17.4 -84.3     1005    30 Tropi…       3
+##  2 Allis…  1995     6     3     6  18.3 -84.9     1004    30 Tropi…       3
+##  3 Allis…  1995     6     3    12  19.3 -85.7     1003    35 Tropi…       3
+##  4 Allis…  1995     6     3    18  20.6 -85.8     1001    40 Tropi…       3
+##  5 Allis…  1995     6     4     0  22   -86        997    50 Tropi…       4
+##  6 Allis…  1995     6     4     6  23.3 -86.3      995    60 Tropi…       4
+##  7 Allis…  1995     6     4    12  24.7 -86.2      987    65 Hurri…       4
+##  8 Allis…  1995     6     4    18  26.2 -86.2      988    65 Hurri…       4
+##  9 Allis…  1995     6     5     0  27.6 -86.1      988    65 Hurri…       5
+## 10 Allis…  1995     6     5     6  28.5 -85.6      990    60 Tropi…       5
+## # … with 2,737 more rows</code></pre>
 <p>Looking at the top right of the printed summary, we can see that the <code>Group:</code> part is now gone—the <code>ungroup</code> function effectively created a copy of <code>storms_grouped</code> that is identical to the original <code>storms_tbl</code> tibble.</p>
 
 </div>
@@ -621,10 +617,11 @@ gitbook.start({
 "facebook": true,
 "twitter": true,
 "google": false,
+"linkedin": false,
 "weibo": false,
-"instapper": false,
+"instapaper": false,
 "vk": false,
-"all": ["facebook", "google", "twitter", "weibo", "instapaper"]
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
 "theme": "white",
@@ -634,6 +631,10 @@ gitbook.start({
 "edit": {
 "link": "https://github.com/dzchilds/eda-for-bio/edit/master/2_07_dplyr_summaries_groups.Rmd",
 "text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
 },
 "download": null,
 "toc": {
@@ -649,9 +650,11 @@ gitbook.start({
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    script.src  = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:" && /^https?:/.test(script.src))
-      script.src  = script.src.replace(/^https?:/, '');
+    var src = "";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(src))
+      src = src.replace(/^https?:/, '');
+    script.src = src;
     document.getElementsByTagName("head")[0].appendChild(script);
   })();
 </script>

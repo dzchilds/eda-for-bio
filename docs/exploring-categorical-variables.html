@@ -5,11 +5,11 @@
 
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>APS 135: Introduction to Exploratory Data Analysis with R</title>
+  <title>Chapter 21 Exploring categorical variables | APS 135: Introduction to Exploratory Data Analysis with R</title>
   <meta name="description" content="Course book for Introduction to Exploratory Data Analysis with R (APS 135) in the Department of Animal and Plant Sciences, University of Sheffield.">
-  <meta name="generator" content="bookdown 0.5 and GitBook 2.6.7">
+  <meta name="generator" content="bookdown  and GitBook 2.6.7">
 
-  <meta property="og:title" content="APS 135: Introduction to Exploratory Data Analysis with R" />
+  <meta property="og:title" content="Chapter 21 Exploring categorical variables | APS 135: Introduction to Exploratory Data Analysis with R" />
   <meta property="og:type" content="book" />
   
   
@@ -17,7 +17,7 @@
   <meta name="github-repo" content="dzchilds/eda-for-bio" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="APS 135: Introduction to Exploratory Data Analysis with R" />
+  <meta name="twitter:title" content="Chapter 21 Exploring categorical variables | APS 135: Introduction to Exploratory Data Analysis with R" />
   
   <meta name="twitter:description" content="Course book for Introduction to Exploratory Data Analysis with R (APS 135) in the Department of Animal and Plant Sciences, University of Sheffield." />
   
@@ -25,7 +25,7 @@
 <meta name="author" content="Dylan Z. Childs">
 
 
-<meta name="date" content="2018-02-12">
+<meta name="date" content="2019-02-03">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -36,6 +36,7 @@
 <link rel="next" href="relationships-between-two-variables.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
@@ -430,8 +431,8 @@ Unfortunately, if we apply the <code>median</code> function to a character vecto
 <span class="kw">summary</span>(bar_plt) </code></pre></div>
 <pre><code>## data: name, year, month, day, hour, lat, long, pressure, wind,
 ##   type, seasday [2747x11]
-## mapping:  x = type
-## faceting: &lt;ggproto object: Class FacetNull, Facet&gt;
+## mapping:  x = ~type
+## faceting: &lt;ggproto object: Class FacetNull, Facet, gg&gt;
 ##     compute_layout: function
 ##     draw_back: function
 ##     draw_front: function
@@ -439,20 +440,14 @@ Unfortunately, if we apply the <code>median</code> function to a character vecto
 ##     draw_panels: function
 ##     finish_data: function
 ##     init_scales: function
-##     map: function
 ##     map_data: function
 ##     params: list
-##     render_back: function
-##     render_front: function
-##     render_panels: function
 ##     setup_data: function
 ##     setup_params: function
 ##     shrink: TRUE
-##     train: function
-##     train_positions: function
 ##     train_scales: function
 ##     vars: function
-##     super:  &lt;ggproto object: Class FacetNull, Facet&gt;
+##     super:  &lt;ggproto object: Class FacetNull, Facet, gg&gt;
 ## -----------------------------------
 ## geom_bar: width = NULL, na.rm = FALSE
 ## stat_count: width = NULL, na.rm = FALSE
@@ -508,10 +503,11 @@ gitbook.start({
 "facebook": true,
 "twitter": true,
 "google": false,
+"linkedin": false,
 "weibo": false,
-"instapper": false,
+"instapaper": false,
 "vk": false,
-"all": ["facebook", "google", "twitter", "weibo", "instapaper"]
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
 "theme": "white",
@@ -521,6 +517,10 @@ gitbook.start({
 "edit": {
 "link": "https://github.com/dzchilds/eda-for-bio/edit/master/3_05_univariate_categorical.Rmd",
 "text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
 },
 "download": null,
 "toc": {
@@ -536,9 +536,11 @@ gitbook.start({
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    script.src  = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:" && /^https?:/.test(script.src))
-      script.src  = script.src.replace(/^https?:/, '');
+    var src = "";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(src))
+      src = src.replace(/^https?:/, '');
+    script.src = src;
     document.getElementsByTagName("head")[0].appendChild(script);
   })();
 </script>

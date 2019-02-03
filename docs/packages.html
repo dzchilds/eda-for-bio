@@ -5,11 +5,11 @@
 
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>APS 135: Introduction to Exploratory Data Analysis with R</title>
+  <title>Chapter 8 Packages | APS 135: Introduction to Exploratory Data Analysis with R</title>
   <meta name="description" content="Course book for Introduction to Exploratory Data Analysis with R (APS 135) in the Department of Animal and Plant Sciences, University of Sheffield.">
-  <meta name="generator" content="bookdown 0.5 and GitBook 2.6.7">
+  <meta name="generator" content="bookdown  and GitBook 2.6.7">
 
-  <meta property="og:title" content="APS 135: Introduction to Exploratory Data Analysis with R" />
+  <meta property="og:title" content="Chapter 8 Packages | APS 135: Introduction to Exploratory Data Analysis with R" />
   <meta property="og:type" content="book" />
   
   
@@ -17,7 +17,7 @@
   <meta name="github-repo" content="dzchilds/eda-for-bio" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="APS 135: Introduction to Exploratory Data Analysis with R" />
+  <meta name="twitter:title" content="Chapter 8 Packages | APS 135: Introduction to Exploratory Data Analysis with R" />
   
   <meta name="twitter:description" content="Course book for Introduction to Exploratory Data Analysis with R (APS 135) in the Department of Animal and Plant Sciences, University of Sheffield." />
   
@@ -25,7 +25,7 @@
 <meta name="author" content="Dylan Z. Childs">
 
 
-<meta name="date" content="2018-02-12">
+<meta name="date" content="2019-02-03">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -36,6 +36,7 @@
 <link rel="next" href="data-frames.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
@@ -405,7 +406,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p>We sometimes need to check whether a package is currently installed. RStudio provides a simple, intuitive way to see which packages are installed on our computer. The <strong>Packages</strong> tab in the top right pane of RStudio shows the name of every installed package, a brief description (the same one seen on CRAN) and a version number. We can also manage our packages from this tab, as we are about to find out.</p>
 <p>There are also a few R functions that can be used to check whether a package is currently installed. For example, the <code>find.package</code> function can do this:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">find.package</span>(<span class="st">&quot;MASS&quot;</span>)</code></pre></div>
-<pre><code>## [1] &quot;/Library/Frameworks/R.framework/Versions/3.3/Resources/library/MASS&quot;</code></pre>
+<pre><code>## [1] &quot;/Library/Frameworks/R.framework/Versions/3.5/Resources/library/MASS&quot;</code></pre>
 <p>This either prints a “file path” showing us where the package is located, or returns an error if the package can’t be found. Alternatively, the function called <code>installed.packages</code> returns something called a data frame (these are discussed later in the book) containing a lot more information about the installed packages.</p>
 </div>
 <div id="installing-packages" class="section level3">
@@ -440,7 +441,6 @@ Because installing a package is a “do once” operation, it is almost never a 
 <h3><span class="header-section-number">8.3.3</span> Loading and attaching packages</h3>
 <p>Once we’ve installed a package or two we’ll probably want to actually use them. Two things have to happen to access a package’s facilities: the package has to be loaded into memory, and then it has to attached to something called a search path so that R can find it. It is beyond the scope of this book to get in to “how” and “why” of these events. Fortunately, there’s no need to worry about these details, as both loading and attaching can be done in a single step with a function called <code>library</code>. The <code>library</code> function works exactly as we might expect it to. If we want to start using the <code>fortunes</code> package—which was just installed above—all we need is:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">&quot;fortunes&quot;</span>)</code></pre></div>
-<pre><code>## Warning: package &#39;fortunes&#39; was built under R version 3.3.2</code></pre>
 <p>Nothing much happens if everything is working as it should. R just returns us to the prompt without printing anything to the Console. The difference is that now we can use the functions that <strong>fortunes</strong> provides. As it turns out, there is only one, called fortune:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">fortune</span>()</code></pre></div>
 <pre><code>## 
@@ -499,10 +499,11 @@ gitbook.start({
 "facebook": true,
 "twitter": true,
 "google": false,
+"linkedin": false,
 "weibo": false,
-"instapper": false,
+"instapaper": false,
 "vk": false,
-"all": ["facebook", "google", "twitter", "weibo", "instapaper"]
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
 "theme": "white",
@@ -512,6 +513,10 @@ gitbook.start({
 "edit": {
 "link": "https://github.com/dzchilds/eda-for-bio/edit/master/1_09_using_packages.Rmd",
 "text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
 },
 "download": null,
 "toc": {
@@ -527,9 +532,11 @@ gitbook.start({
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    script.src  = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:" && /^https?:/.test(script.src))
-      script.src  = script.src.replace(/^https?:/, '');
+    var src = "";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(src))
+      src = src.replace(/^https?:/, '');
+    script.src = src;
     document.getElementsByTagName("head")[0].appendChild(script);
   })();
 </script>

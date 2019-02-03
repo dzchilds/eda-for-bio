@@ -5,11 +5,11 @@
 
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>APS 135: Introduction to Exploratory Data Analysis with R</title>
+  <title>Chapter 14 Helper functions | APS 135: Introduction to Exploratory Data Analysis with R</title>
   <meta name="description" content="Course book for Introduction to Exploratory Data Analysis with R (APS 135) in the Department of Animal and Plant Sciences, University of Sheffield.">
-  <meta name="generator" content="bookdown 0.5 and GitBook 2.6.7">
+  <meta name="generator" content="bookdown  and GitBook 2.6.7">
 
-  <meta property="og:title" content="APS 135: Introduction to Exploratory Data Analysis with R" />
+  <meta property="og:title" content="Chapter 14 Helper functions | APS 135: Introduction to Exploratory Data Analysis with R" />
   <meta property="og:type" content="book" />
   
   
@@ -17,7 +17,7 @@
   <meta name="github-repo" content="dzchilds/eda-for-bio" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="APS 135: Introduction to Exploratory Data Analysis with R" />
+  <meta name="twitter:title" content="Chapter 14 Helper functions | APS 135: Introduction to Exploratory Data Analysis with R" />
   
   <meta name="twitter:description" content="Course book for Introduction to Exploratory Data Analysis with R (APS 135) in the Department of Animal and Plant Sciences, University of Sheffield." />
   
@@ -25,7 +25,7 @@
 <meta name="author" content="Dylan Z. Childs">
 
 
-<meta name="date" content="2018-02-12">
+<meta name="date" content="2019-02-03">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -36,6 +36,7 @@
 <link rel="next" href="grouping-and-summarising-data.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
@@ -399,7 +400,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 ##  8          1.5         0.2
 ##  9          1.4         0.2
 ## 10          1.5         0.1
-## # ... with 140 more rows</code></pre>
+## # … with 140 more rows</code></pre>
 <p>This returns a table containing just <code>Petal.Length</code> and <code>Petal.Width</code>. As one might expect, there is also a helper function to select variables according to characters used at the end of their name. This is the <code>ends_with</code> function (no surprises here). To select all the variables in <code>iris_tbl</code> that end with the word “Length”, we use:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">select</span>(iris_tbl, <span class="kw">ends_with</span>(<span class="st">&quot;length&quot;</span>))</code></pre></div>
 <pre><code>## # A tibble: 150 x 2
@@ -409,13 +410,13 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 ##  2          4.9          1.4
 ##  3          4.7          1.3
 ##  4          4.6          1.5
-##  5          5.0          1.4
+##  5          5            1.4
 ##  6          5.4          1.7
 ##  7          4.6          1.4
-##  8          5.0          1.5
+##  8          5            1.5
 ##  9          4.4          1.4
 ## 10          4.9          1.5
-## # ... with 140 more rows</code></pre>
+## # … with 140 more rows</code></pre>
 <p>Notice that we have to quote the character string that we want to match against. This is not optional. However, the <code>starts_with</code> and <code>ends_with</code> functions are not case sensitive by default. For example, I passed <code>starts_with</code> the argument <code>&quot;petal&quot;</code> instead of <code>&quot;Petal&quot;</code>, yet it still selected variables beginning with the character string <code>&quot;Petal&quot;</code>. If we want to select variables on a case-sensitive basis, we need to set an argument <code>ignore.case</code> to <code>FALSE</code> in <code>starts_with</code> and <code>ends_with</code>.</p>
 <p>The last <code>select</code> helper function we will look at is called <code>contains</code>. This allows us to select variables based on a partial match anywhere in their name. Look at what happens if we pass <code>contains</code> the argument <code>&quot;.&quot;</code>:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">select</span>(iris_tbl, <span class="kw">contains</span>(<span class="st">&quot;.&quot;</span>))</code></pre></div>
@@ -423,16 +424,16 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 ##    Sepal.Length Sepal.Width Petal.Length Petal.Width
 ##           &lt;dbl&gt;       &lt;dbl&gt;        &lt;dbl&gt;       &lt;dbl&gt;
 ##  1          5.1         3.5          1.4         0.2
-##  2          4.9         3.0          1.4         0.2
+##  2          4.9         3            1.4         0.2
 ##  3          4.7         3.2          1.3         0.2
 ##  4          4.6         3.1          1.5         0.2
-##  5          5.0         3.6          1.4         0.2
+##  5          5           3.6          1.4         0.2
 ##  6          5.4         3.9          1.7         0.4
 ##  7          4.6         3.4          1.4         0.3
-##  8          5.0         3.4          1.5         0.2
+##  8          5           3.4          1.5         0.2
 ##  9          4.4         2.9          1.4         0.2
 ## 10          4.9         3.1          1.5         0.1
-## # ... with 140 more rows</code></pre>
+## # … with 140 more rows</code></pre>
 <p>This selects all the variables with a dot in their name.</p>
 <p>There is nothing to stop us combining the different variable selection methods. For example, we can use this approach to select all the variables whose names start with the word “Petal” or end with the word “Length”:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">select</span>(iris_tbl, <span class="kw">ends_with</span>(<span class="st">&quot;length&quot;</span>), <span class="kw">starts_with</span>(<span class="st">&quot;petal&quot;</span>))</code></pre></div>
@@ -443,13 +444,13 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 ##  2          4.9          1.4         0.2
 ##  3          4.7          1.3         0.2
 ##  4          4.6          1.5         0.2
-##  5          5.0          1.4         0.2
+##  5          5            1.4         0.2
 ##  6          5.4          1.7         0.4
 ##  7          4.6          1.4         0.3
-##  8          5.0          1.5         0.2
+##  8          5            1.5         0.2
 ##  9          4.4          1.4         0.2
 ## 10          4.9          1.5         0.1
-## # ... with 140 more rows</code></pre>
+## # … with 140 more rows</code></pre>
 <p>When we apply more than one selection criteria like this the <code>select</code> function returns all the variables that match either criteria, rather than just the set that meets all the criteria.</p>
 </div>
 <div id="working-with-mutate-and-transmute" class="section level2">
@@ -461,19 +462,19 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p>There’s one <code>dplyr</code> <strong>helper function</strong> that works with <code>filter</code> that’s definitely worth knowing about: the <code>between</code> function. This is used to identify the values of a variable that lie inside a defined range:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">filter</span>(storms_tbl, <span class="kw">between</span>(pressure, <span class="dv">960</span>, <span class="dv">970</span>))</code></pre></div>
 <pre><code>## # A tibble: 213 x 11
-##     name  year month   day  hour   lat  long pressure  wind      type
-##    &lt;chr&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt;    &lt;int&gt; &lt;int&gt;     &lt;chr&gt;
-##  1 Felix  1995     8    11    18  21.3 -56.5      965    90 Hurricane
-##  2 Felix  1995     8    14    12  29.9 -63.4      962    80 Hurricane
-##  3 Felix  1995     8    14    18  30.7 -64.1      962    75 Hurricane
-##  4 Felix  1995     8    15     0  31.3 -65.1      962    75 Hurricane
-##  5 Felix  1995     8    15     6  31.9 -66.2      964    75 Hurricane
-##  6 Felix  1995     8    15    12  32.5 -67.4      968    70 Hurricane
-##  7 Felix  1995     8    15    18  33.1 -68.8      965    70 Hurricane
-##  8 Felix  1995     8    16     0  33.5 -70.1      963    70 Hurricane
-##  9 Felix  1995     8    16     6  34.0 -71.3      966    70 Hurricane
-## 10 Felix  1995     8    16    12  34.6 -72.4      968    70 Hurricane
-## # ... with 203 more rows, and 1 more variables: seasday &lt;int&gt;</code></pre>
+##    name   year month   day  hour   lat  long pressure  wind type    seasday
+##    &lt;chr&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt;    &lt;int&gt; &lt;int&gt; &lt;chr&gt;     &lt;int&gt;
+##  1 Felix  1995     8    11    18  21.3 -56.5      965    90 Hurric…      72
+##  2 Felix  1995     8    14    12  29.9 -63.4      962    80 Hurric…      75
+##  3 Felix  1995     8    14    18  30.7 -64.1      962    75 Hurric…      75
+##  4 Felix  1995     8    15     0  31.3 -65.1      962    75 Hurric…      76
+##  5 Felix  1995     8    15     6  31.9 -66.2      964    75 Hurric…      76
+##  6 Felix  1995     8    15    12  32.5 -67.4      968    70 Hurric…      76
+##  7 Felix  1995     8    15    18  33.1 -68.8      965    70 Hurric…      76
+##  8 Felix  1995     8    16     0  33.5 -70.1      963    70 Hurric…      77
+##  9 Felix  1995     8    16     6  34   -71.3      966    70 Hurric…      77
+## 10 Felix  1995     8    16    12  34.6 -72.4      968    70 Hurric…      77
+## # … with 203 more rows</code></pre>
 <p>This example filters the <code>storms</code> dataset such that only values of <code>pressure</code> between 960 and 970 are retained. We could do the same thing using some combination of <code>&gt;</code> or <code>&lt;</code>, but the <code>between</code> function makes things a bit easier to read.</p>
 
 </div>
@@ -502,10 +503,11 @@ gitbook.start({
 "facebook": true,
 "twitter": true,
 "google": false,
+"linkedin": false,
 "weibo": false,
-"instapper": false,
+"instapaper": false,
 "vk": false,
-"all": ["facebook", "google", "twitter", "weibo", "instapaper"]
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
 "theme": "white",
@@ -515,6 +517,10 @@ gitbook.start({
 "edit": {
 "link": "https://github.com/dzchilds/eda-for-bio/edit/master/2_06_dplyr_helpers.Rmd",
 "text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
 },
 "download": null,
 "toc": {
@@ -530,9 +536,11 @@ gitbook.start({
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    script.src  = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:" && /^https?:/.test(script.src))
-      script.src  = script.src.replace(/^https?:/, '');
+    var src = "";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(src))
+      src = src.replace(/^https?:/, '');
+    script.src = src;
     document.getElementsByTagName("head")[0].appendChild(script);
   })();
 </script>

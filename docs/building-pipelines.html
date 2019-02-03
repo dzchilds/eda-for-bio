@@ -5,11 +5,11 @@
 
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>APS 135: Introduction to Exploratory Data Analysis with R</title>
+  <title>Chapter 16 Building pipelines | APS 135: Introduction to Exploratory Data Analysis with R</title>
   <meta name="description" content="Course book for Introduction to Exploratory Data Analysis with R (APS 135) in the Department of Animal and Plant Sciences, University of Sheffield.">
-  <meta name="generator" content="bookdown 0.5 and GitBook 2.6.7">
+  <meta name="generator" content="bookdown  and GitBook 2.6.7">
 
-  <meta property="og:title" content="APS 135: Introduction to Exploratory Data Analysis with R" />
+  <meta property="og:title" content="Chapter 16 Building pipelines | APS 135: Introduction to Exploratory Data Analysis with R" />
   <meta property="og:type" content="book" />
   
   
@@ -17,7 +17,7 @@
   <meta name="github-repo" content="dzchilds/eda-for-bio" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="APS 135: Introduction to Exploratory Data Analysis with R" />
+  <meta name="twitter:title" content="Chapter 16 Building pipelines | APS 135: Introduction to Exploratory Data Analysis with R" />
   
   <meta name="twitter:description" content="Course book for Introduction to Exploratory Data Analysis with R (APS 135) in the Department of Animal and Plant Sciences, University of Sheffield." />
   
@@ -25,7 +25,7 @@
 <meta name="author" content="Dylan Z. Childs">
 
 
-<meta name="date" content="2018-02-12">
+<meta name="date" content="2019-02-03">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -36,6 +36,7 @@
 <link rel="next" href="exploratory-data-analysis.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
@@ -386,29 +387,29 @@ storms_grouped &lt;-<span class="st"> </span><span class="kw">group_by</span>(st
 <span class="co"># 2. calculate the mean wind speed for each storm</span>
 <span class="kw">summarise</span>(storms_grouped, <span class="dt">mean.wind =</span> <span class="kw">mean</span>(wind))</code></pre></div>
 <pre><code>## # A tibble: 79 x 2
-##       name mean.wind
-##      &lt;chr&gt;     &lt;dbl&gt;
-##  1 Alberto  63.04598
-##  2    Alex  35.38462
-##  3 Allison  44.39394
-##  4     Ana  32.10526
-##  5  Arlene  39.03846
-##  6  Arthur  35.22727
-##  7   Barry  39.76190
-##  8  Bertha  60.00000
-##  9   Beryl  36.11111
-## 10    Bill  50.55556
-## # ... with 69 more rows</code></pre>
+##    name    mean.wind
+##    &lt;chr&gt;       &lt;dbl&gt;
+##  1 Alberto      63.0
+##  2 Alex         35.4
+##  3 Allison      44.4
+##  4 Ana          32.1
+##  5 Arlene       39.0
+##  6 Arthur       35.2
+##  7 Barry        39.8
+##  8 Bertha       60  
+##  9 Beryl        36.1
+## 10 Bill         50.6
+## # … with 69 more rows</code></pre>
 <p>There’s nothing wrong with this way of doing things. However, this approach to building up an analysis is quite verbose—especially if an analysis involves more than a couple of steps—because we have to keep storing intermediate steps. It also tends to clutter the global environment with lots of data objects we don’t need.</p>
 <p>One way to make things more concise is to use a nested function call (we examined these in the <a href="using-functions.html#using-functions">Using functions</a> chapter), like this:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summarise</span>(<span class="kw">group_by</span>(storms_tbl, type), <span class="dt">mean.wind =</span> <span class="kw">mean</span>(wind))</code></pre></div>
 <pre><code>## # A tibble: 4 x 2
-##                  type mean.wind
-##                 &lt;chr&gt;     &lt;dbl&gt;
-## 1       Extratropical  40.06068
-## 2           Hurricane  84.65960
-## 3 Tropical Depression  27.35867
-## 4      Tropical Storm  47.32181</code></pre>
+##   type                mean.wind
+##   &lt;chr&gt;                   &lt;dbl&gt;
+## 1 Extratropical            40.1
+## 2 Hurricane                84.7
+## 3 Tropical Depression      27.4
+## 4 Tropical Storm           47.3</code></pre>
 <p>Here we placed the <code>group_by</code> function call inside the list of arguments to <code>summarise</code>. Remember, you have to read nested function calls from the inside out to understand what they are doing. This is exactly equivalent to the previous example. We get the same result without having to store intermediate data. However, there are a couple of good reasons why this approach is not advised:</p>
 <ul>
 <li><p>Experienced R users probably don’t mind this approach because they’re used to nested functions calls. Nonetheless, no reasonable person would argue that nesting functions inside one another is intuitive. Reading outward from the inside of a large number of nested functions is hard work.</p></li>
@@ -418,34 +419,34 @@ storms_grouped &lt;-<span class="st"> </span><span class="kw">group_by</span>(st
 <p>The <code>%&gt;%</code> operator has become very popular in recent years. The main reason for this is because it allows us to specify a chain of function calls in a (reasonably) human readable format. Here’s how we write the previous example using the pipe operator <code>%&gt;%</code>:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">storms_tbl <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">group_by</span>(., type) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">summarise</span>(., <span class="dt">mean.wind =</span> <span class="kw">mean</span>(wind))</code></pre></div>
 <pre><code>## # A tibble: 4 x 2
-##                  type mean.wind
-##                 &lt;chr&gt;     &lt;dbl&gt;
-## 1       Extratropical  40.06068
-## 2           Hurricane  84.65960
-## 3 Tropical Depression  27.35867
-## 4      Tropical Storm  47.32181</code></pre>
+##   type                mean.wind
+##   &lt;chr&gt;                   &lt;dbl&gt;
+## 1 Extratropical            40.1
+## 2 Hurricane                84.7
+## 3 Tropical Depression      27.4
+## 4 Tropical Storm           47.3</code></pre>
 <p>How do we make sense of this? Every time we see the <code>%&gt;%</code> operator it means the following: take whatever is produced by the left hand expression and use it as an argument in the function on the right hand side. The <code>.</code> serves as a placeholder for the location of the corresponding argument. This means we can understand what a sequence of calculations is doing by reading from left to right, just as we would read the words in a book. This example says, take the <code>storms_tbl</code> data, group it by <code>type</code>, then take the resulting grouped tibble and apply the summarise function to it to calculate the mean of <code>wind</code>. It is exactly the same calculation we did above.</p>
 <p>When using the pipe operator we can often leave out the <code>.</code> placeholder. Remember, this signifies the argument of the function on the right of <code>%&gt;%</code> that is associated with the result from on left of <code>%&gt;%</code>. If we choose to leave out the <code>.</code>, the pipe operator assumes we meant to slot it into the first argument. This means we can simplify our example even more:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">storms_tbl <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">group_by</span>(type) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">summarise</span>(<span class="dt">mean.wind =</span> <span class="kw">mean</span>(wind))</code></pre></div>
 <pre><code>## # A tibble: 4 x 2
-##                  type mean.wind
-##                 &lt;chr&gt;     &lt;dbl&gt;
-## 1       Extratropical  40.06068
-## 2           Hurricane  84.65960
-## 3 Tropical Depression  27.35867
-## 4      Tropical Storm  47.32181</code></pre>
+##   type                mean.wind
+##   &lt;chr&gt;                   &lt;dbl&gt;
+## 1 Extratropical            40.1
+## 2 Hurricane                84.7
+## 3 Tropical Depression      27.4
+## 4 Tropical Storm           47.3</code></pre>
 <p>This is why the first argument of a <strong>dplyr</strong> verb is always the data object. This convention ensures that we can use <code>%&gt;%</code> without explicitly specifying the argument to match against.</p>
 <p>Remember, R does not care about white space, which means we can break a chained set of function calls over several lines if it becomes too long:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">storms_tbl <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">group_by</span>(type) <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">summarise</span>(<span class="dt">mean.wind =</span> <span class="kw">mean</span>(wind))</code></pre></div>
 <pre><code>## # A tibble: 4 x 2
-##                  type mean.wind
-##                 &lt;chr&gt;     &lt;dbl&gt;
-## 1       Extratropical  40.06068
-## 2           Hurricane  84.65960
-## 3 Tropical Depression  27.35867
-## 4      Tropical Storm  47.32181</code></pre>
+##   type                mean.wind
+##   &lt;chr&gt;                   &lt;dbl&gt;
+## 1 Extratropical            40.1
+## 2 Hurricane                84.7
+## 3 Tropical Depression      27.4
+## 4 Tropical Storm           47.3</code></pre>
 <p>In fact, many <strong>dplyr</strong> users always place each part of a pipeline onto a new line to help with overall readability.</p>
 <p>Finally, when we need to assign the result of a chained functions we have to break the left to right rule a bit, placing the assignment at the beginning:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">new_data &lt;-<span class="st"> </span>
@@ -493,10 +494,11 @@ gitbook.start({
 "facebook": true,
 "twitter": true,
 "google": false,
+"linkedin": false,
 "weibo": false,
-"instapper": false,
+"instapaper": false,
 "vk": false,
-"all": ["facebook", "google", "twitter", "weibo", "instapaper"]
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
 "theme": "white",
@@ -506,6 +508,10 @@ gitbook.start({
 "edit": {
 "link": "https://github.com/dzchilds/eda-for-bio/edit/master/2_08_dplyr_pipes.Rmd",
 "text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
 },
 "download": null,
 "toc": {
@@ -521,9 +527,11 @@ gitbook.start({
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    script.src  = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:" && /^https?:/.test(script.src))
-      script.src  = script.src.replace(/^https?:/, '');
+    var src = "";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(src))
+      src = src.replace(/^https?:/, '');
+    script.src = src;
     document.getElementsByTagName("head")[0].appendChild(script);
   })();
 </script>

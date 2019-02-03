@@ -5,11 +5,11 @@
 
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>APS 135: Introduction to Exploratory Data Analysis with R</title>
+  <title>Chapter 18 Introduction to ggplot2 | APS 135: Introduction to Exploratory Data Analysis with R</title>
   <meta name="description" content="Course book for Introduction to Exploratory Data Analysis with R (APS 135) in the Department of Animal and Plant Sciences, University of Sheffield.">
-  <meta name="generator" content="bookdown 0.5 and GitBook 2.6.7">
+  <meta name="generator" content="bookdown  and GitBook 2.6.7">
 
-  <meta property="og:title" content="APS 135: Introduction to Exploratory Data Analysis with R" />
+  <meta property="og:title" content="Chapter 18 Introduction to ggplot2 | APS 135: Introduction to Exploratory Data Analysis with R" />
   <meta property="og:type" content="book" />
   
   
@@ -17,7 +17,7 @@
   <meta name="github-repo" content="dzchilds/eda-for-bio" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="APS 135: Introduction to Exploratory Data Analysis with R" />
+  <meta name="twitter:title" content="Chapter 18 Introduction to ggplot2 | APS 135: Introduction to Exploratory Data Analysis with R" />
   
   <meta name="twitter:description" content="Course book for Introduction to Exploratory Data Analysis with R (APS 135) in the Department of Animal and Plant Sciences, University of Sheffield." />
   
@@ -25,7 +25,7 @@
 <meta name="author" content="Dylan Z. Childs">
 
 
-<meta name="date" content="2018-02-12">
+<meta name="date" content="2019-02-03">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -36,6 +36,7 @@
 <link rel="next" href="customising-plots.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
@@ -434,7 +435,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">plt &lt;-<span class="st"> </span><span class="kw">ggplot</span>()
 <span class="kw">summary</span>(plt)</code></pre></div>
 <pre><code>## data: [x]
-## faceting: &lt;ggproto object: Class FacetNull, Facet&gt;
+## faceting: &lt;ggproto object: Class FacetNull, Facet, gg&gt;
 ##     compute_layout: function
 ##     draw_back: function
 ##     draw_front: function
@@ -442,20 +443,14 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 ##     draw_panels: function
 ##     finish_data: function
 ##     init_scales: function
-##     map: function
 ##     map_data: function
 ##     params: list
-##     render_back: function
-##     render_front: function
-##     render_panels: function
 ##     setup_data: function
 ##     setup_params: function
 ##     shrink: TRUE
-##     train: function
-##     train_positions: function
 ##     train_scales: function
 ##     vars: function
-##     super:  &lt;ggproto object: Class FacetNull, Facet&gt;</code></pre>
+##     super:  &lt;ggproto object: Class FacetNull, Facet, gg&gt;</code></pre>
 <p>Here’s what just happened: we constructed the skeleton object, assigned it to a variable called <code>plt</code>, and then used the <code>summary</code> function to inspect the result. When first learning about <strong>ggplot2</strong>, it’s a good idea to use <code>summary</code> on various objects to get an idea of their structure. It’s quite ‘verbose’, but the important parts of the output are near the top, before the <code>faceting:</code> part. In this case, the ‘important part’ is basically empty. This tells us that there are no data, aesthetic mapping, layers, etc associated with <code>plt</code>. All we did was set up an empty object.</p>
 <div class="info">
 <h4 id="ggplot2-vs.-ggplot">
@@ -470,7 +465,7 @@ Notice that the while package is called <strong>ggplot2</strong>, the actual fun
 <span class="kw">summary</span>(plt)</code></pre></div>
 <pre><code>## data: name, year, month, day, hour, lat, long, pressure, wind,
 ##   type, seasday [2747x11]
-## faceting: &lt;ggproto object: Class FacetNull, Facet&gt;
+## faceting: &lt;ggproto object: Class FacetNull, Facet, gg&gt;
 ##     compute_layout: function
 ##     draw_back: function
 ##     draw_front: function
@@ -478,20 +473,14 @@ Notice that the while package is called <strong>ggplot2</strong>, the actual fun
 ##     draw_panels: function
 ##     finish_data: function
 ##     init_scales: function
-##     map: function
 ##     map_data: function
 ##     params: list
-##     render_back: function
-##     render_front: function
-##     render_panels: function
 ##     setup_data: function
 ##     setup_params: function
 ##     shrink: TRUE
-##     train: function
-##     train_positions: function
 ##     train_scales: function
 ##     vars: function
-##     super:  &lt;ggproto object: Class FacetNull, Facet&gt;</code></pre>
+##     super:  &lt;ggproto object: Class FacetNull, Facet, gg&gt;</code></pre>
 <p>Notice that when we summarise the resulting object this time we see that the variables inside <code>storms</code> (<code>name</code>, <code>year</code>, <code>month</code>, etc) now comprise the data inside our <code>plt</code> object.</p>
 <p>The next step is to add a default aesthetic mapping to our graphical object. Remember, these describe how variables in the data are mapped to the aesthetic properties of the layer(s). One way to think about aesthetic mappings is that they define what kind of relationships our plot will describe. Since we’re making a scatter plot we need to define mappings for positions on the ‘x’ and ‘y’ axes. We want to investigate how wind speed depends on atmospheric pressure, so we need to associate <code>wind</code> with the y axis and <code>pressure</code> with the x axis.</p>
 <p>We define an aesthetic mapping with the <code>aes</code> function (‘aesthetic mapping’). One way to do this is like this:</p>
@@ -505,8 +494,8 @@ Notice that the while package is called <strong>ggplot2</strong>, the actual fun
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(plt)</code></pre></div>
 <pre><code>## data: name, year, month, day, hour, lat, long, pressure, wind,
 ##   type, seasday [2747x11]
-## mapping:  x = pressure, y = wind
-## faceting: &lt;ggproto object: Class FacetNull, Facet&gt;
+## mapping:  x = ~pressure, y = ~wind
+## faceting: &lt;ggproto object: Class FacetNull, Facet, gg&gt;
 ##     compute_layout: function
 ##     draw_back: function
 ##     draw_front: function
@@ -514,20 +503,14 @@ Notice that the while package is called <strong>ggplot2</strong>, the actual fun
 ##     draw_panels: function
 ##     finish_data: function
 ##     init_scales: function
-##     map: function
 ##     map_data: function
 ##     params: list
-##     render_back: function
-##     render_front: function
-##     render_panels: function
 ##     setup_data: function
 ##     setup_params: function
 ##     shrink: TRUE
-##     train: function
-##     train_positions: function
 ##     train_scales: function
 ##     vars: function
-##     super:  &lt;ggproto object: Class FacetNull, Facet&gt;</code></pre>
+##     super:  &lt;ggproto object: Class FacetNull, Facet, gg&gt;</code></pre>
 <p>As hoped, the data (<code>data:</code>) from the original <code>plt</code> are still there, but now we can also see that two default mappings (<code>mapping:</code>) have been defined for the x and y axis positions. We have successfully used the <code>ggplot</code> and <code>aes</code> functions to set up a graphical object with both default data and aesthetic mappings. Any layers that we now add will use these unless we choose to override them by specifying different options.</p>
 <p>In order to produce a plotable version of <code>plt</code> we now need to specify a layer. This will tell <strong>ggplot2</strong> how to visualise the data. Remember, each layer has five different components: data, aesthetic mappings, a geom, a stat and a position adjustment. Since we’ve already set up the default data and aesthetic mappings, there’s no need to define these again—<strong>ggplot2</strong> will use the defaults if we leave them out of the definition. This leaves the geom, stat and position adjustment.</p>
 <p>What kind of geom do we need? A scatter plots allow us to explore a relationship as a series of <em>points</em>. We need to add a layer that uses the <em>point</em> geom. What about the stat and position? These are difficult to explain (and understand) without drilling down into the details of how <strong>ggplot2</strong> works. The important insight is that both the stat and the position adjustment components change our data in some way before plotting it. If we want to avoid having <strong>ggplot2</strong> do anything to our data, the key word is ‘identity’. We use this as the value when we want <strong>ggplot2</strong> to plot our data ‘as is’.</p>
@@ -543,8 +526,8 @@ Notice that the while package is called <strong>ggplot2</strong>, the actual fun
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(plt)</code></pre></div>
 <pre><code>## data: name, year, month, day, hour, lat, long, pressure, wind,
 ##   type, seasday [2747x11]
-## mapping:  x = pressure, y = wind
-## faceting: &lt;ggproto object: Class FacetNull, Facet&gt;
+## mapping:  x = ~pressure, y = ~wind
+## faceting: &lt;ggproto object: Class FacetNull, Facet, gg&gt;
 ##     compute_layout: function
 ##     draw_back: function
 ##     draw_front: function
@@ -552,20 +535,14 @@ Notice that the while package is called <strong>ggplot2</strong>, the actual fun
 ##     draw_panels: function
 ##     finish_data: function
 ##     init_scales: function
-##     map: function
 ##     map_data: function
 ##     params: list
-##     render_back: function
-##     render_front: function
-##     render_panels: function
 ##     setup_data: function
 ##     setup_params: function
 ##     shrink: TRUE
-##     train: function
-##     train_positions: function
 ##     train_scales: function
 ##     vars: function
-##     super:  &lt;ggproto object: Class FacetNull, Facet&gt;
+##     super:  &lt;ggproto object: Class FacetNull, Facet, gg&gt;
 ## -----------------------------------
 ## geom_point: na.rm = FALSE
 ## stat_identity: na.rm = FALSE
@@ -600,8 +577,8 @@ It’s possible to construct any <strong>ggplot2</strong> visualisation using th
 <span class="kw">summary</span>(plt)</code></pre></div>
 <pre><code>## data: name, year, month, day, hour, lat, long, pressure, wind,
 ##   type, seasday [2747x11]
-## mapping:  x = pressure, y = wind
-## faceting: &lt;ggproto object: Class FacetNull, Facet&gt;
+## mapping:  x = ~pressure, y = ~wind
+## faceting: &lt;ggproto object: Class FacetNull, Facet, gg&gt;
 ##     compute_layout: function
 ##     draw_back: function
 ##     draw_front: function
@@ -609,20 +586,14 @@ It’s possible to construct any <strong>ggplot2</strong> visualisation using th
 ##     draw_panels: function
 ##     finish_data: function
 ##     init_scales: function
-##     map: function
 ##     map_data: function
 ##     params: list
-##     render_back: function
-##     render_front: function
-##     render_panels: function
 ##     setup_data: function
 ##     setup_params: function
 ##     shrink: TRUE
-##     train: function
-##     train_positions: function
 ##     train_scales: function
 ##     vars: function
-##     super:  &lt;ggproto object: Class FacetNull, Facet&gt;</code></pre>
+##     super:  &lt;ggproto object: Class FacetNull, Facet, gg&gt;</code></pre>
 <p>In this form the <code>aes</code> function is used inside <code>ggplot</code>, i.e. it supplies a second argument to <code>ggplot</code>. This approach is the most commonly used approach for setting up a graphical object with default data and aesthetic mappings. We will use it from now on.</p>
 <p>The next step is to add a layer. We just saw that the <code>layer</code> function can be used to construct a layer from its component parts. However, <code>ggplot</code> provides a number of functions that add layers according to the type of geom they use. They look like this: <code>geom_NAME</code>, where <code>NAME</code> stands for the name of the different possible geoms. An alternative to the last line is therefore:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">plt &lt;-<span class="st"> </span>plt <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>()</code></pre></div>
@@ -691,10 +662,11 @@ gitbook.start({
 "facebook": true,
 "twitter": true,
 "google": false,
+"linkedin": false,
 "weibo": false,
-"instapper": false,
+"instapaper": false,
 "vk": false,
-"all": ["facebook", "google", "twitter", "weibo", "instapaper"]
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
 "theme": "white",
@@ -704,6 +676,10 @@ gitbook.start({
 "edit": {
 "link": "https://github.com/dzchilds/eda-for-bio/edit/master/3_02_ggplot_intro.Rmd",
 "text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
 },
 "download": null,
 "toc": {
@@ -719,9 +695,11 @@ gitbook.start({
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    script.src  = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:" && /^https?:/.test(script.src))
-      script.src  = script.src.replace(/^https?:/, '');
+    var src = "";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(src))
+      src = src.replace(/^https?:/, '');
+    script.src = src;
     document.getElementsByTagName("head")[0].appendChild(script);
   })();
 </script>

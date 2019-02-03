@@ -7,7 +7,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>APS 135: Introduction to Exploratory Data Analysis with R</title>
   <meta name="description" content="Course book for Introduction to Exploratory Data Analysis with R (APS 135) in the Department of Animal and Plant Sciences, University of Sheffield.">
-  <meta name="generator" content="bookdown 0.5 and GitBook 2.6.7">
+  <meta name="generator" content="bookdown  and GitBook 2.6.7">
 
   <meta property="og:title" content="APS 135: Introduction to Exploratory Data Analysis with R" />
   <meta property="og:type" content="book" />
@@ -25,7 +25,7 @@
 <meta name="author" content="Dylan Z. Childs">
 
 
-<meta name="date" content="2018-02-12">
+<meta name="date" content="2019-02-03">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -36,6 +36,7 @@
 <link rel="next" href="get-up-and-running-with-r-and-rstudio.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
@@ -377,12 +378,12 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
             <section class="normal" id="section-">
 <div id="header">
 <h1 class="title">APS 135: Introduction to Exploratory Data Analysis with R</h1>
-<h4 class="author"><em>Dylan Z. Childs</em></h4>
-<h4 class="date"><em>2018-02-12</em></h4>
+<p class="author"><em>Dylan Z. Childs</em></p>
+<p class="date"><em>2019-02-03</em></p>
 </div>
 <div id="information-and-overview" class="section level1 unnumbered">
 <h1>Information and overview</h1>
-<p>This is the online course book for the <strong>Introduction to Exploratory Data Analysis with R</strong> component of (<a href="https://www.shef.ac.uk/aps/currentug/level2/aps135">APS 135</a>) module. You can view this book in any modern desktop browser, as well as on your phone or tablet device. The site is self-contained—it contains all the material you are expected to learn this year. Bethan Hindle is running the course this year. Please <a href="mailto:bjhindle1@sheffield.ac.uk?Subject=APS%20135%20general%20query">email her</a> if you spot any problems.</p>
+<p>This is the online course book for the <strong>Introduction to Exploratory Data Analysis with R</strong> component of (<a href="https://www.sheffield.ac.uk/aps/currentug/level1/aps135">APS 135</a>) module. You can view this book in any modern desktop browser, as well as on your phone or tablet device. The site is self-contained—it contains all the material you are expected to learn this year. Dylan Childs is running the course this year. Please <a href="mailto:d.childs@sheffield.ac.uk?Subject=APS%20135%20general%20query">email her</a> if you spot any problems with the course book.</p>
 <div id="aims" class="section level2 unnumbered">
 <h2>Aims</h2>
 <ol style="list-style-type: decimal">
@@ -400,25 +401,25 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </div>
 <div id="how-to-use-the-book" class="section level2 unnumbered">
 <h2>How to use the book</h2>
-<p>This book covers all the material you need to get to grips with this year, some of which we will not have time to cover in the practicals. <strong>No one is expecting you to memorise everything in the book</strong>. It is designed to serve as a resource for you to refer to over the next 2-3 years (and beyond) as needed. However, you should aim to familiarise yourself with the content so that you know where to look for information or examples when needed. Try to understand the important concepts and then worry about the specific details.</p>
-<p>What should you be doing as you read about each topic? There is a lot of R code embedded in the book, most of which you can just copy and paste into RStudio and then run. You are strongly encouraged to do this when you first work through a topic. The best way to learn something like R is to use it actively, not just read about it. Experimenting with different code snippets by changing them is also a very good way to learn what they do. You can’t really break R (well you can, but it is quite hard), and working out why something does or does not work will help you learn to use it.</p>
+<p>This book covers all the material you need to get to grips with this year, some of which we will not have time to cover in the practicals. <strong>No one is expecting you to memorise everything in the book</strong>. It is designed to serve as a resource for you to refer to over the next 2-3 years (and beyond) as needed. However, you should aim to familiarise yourself with the content so that you know where to look for information or examples when needed. Try to understand the important concepts and then worry about the details.</p>
+<p>What should you be doing as you read about each topic? There is a lot of R code embedded in the book, most of which you can just copy and paste into R. It’s a good idea to do this when you first work through a topic. The best way to learn something is to use it actively, not just read about it. Experimenting with different code snippets by changing them is also a very good way to learn what they do. You can’t really break R (well you can, but it is quite hard), and working out why something does or does not work will help you learn to use it.</p>
 <div id="text-instructions-and-explanations" class="section level4 unnumbered">
 <h4>Text, instructions, and explanations</h4>
 <p>Normal text, instructions, explanations etc. are written in the same type as this document, we will tend to use bold for emphasis and italics to highlight specific technical terms when they are first introduced (italics will also crop up with Latin names from time to time, but this is unlikely to produce too much confusion!)</p>
 <p>At various points in the text you will come across text in different coloured boxes. These are designed to highlight stand-alone exercises or little pieces of supplementary information that might otherwise break the flow. There are three different kinds of boxes:</p>
 <div class="action">
 <p>
-This is an <strong>action</strong> box. We use these when we want to say something important. For example, we might be summarising a key learning outcome or giving you instructions to do something.
+This is an <strong>action</strong> box. We use these when we want to say something important. For example, we might be summarising a key learning outcome or giving you instructions to do something. Do not ignore these boxes.
 </p>
 </div>
 <div class="warning">
 <p>
-This is a <strong>warning</strong> box. These contain a warning or a common “gotcha”. There are a number of common pitfalls that trip up new users of R. These boxes aim to highlight these and show you how to avoid them. It’s a good idea to pay attention to these.
+This is a <strong>warning</strong> box. These contain a warning or a common “gotcha”. There are a number of common pitfalls that trip up new users of R. These boxes aim to highlight these and show you how to avoid them. Pay attention to these.
 </p>
 </div>
 <div class="info">
 <p>
-This is an <strong>information</strong> box. These aim to offer a not-too-technical discussion of how or why something works the way it does. You do not have to understand everything in these boxes to use R, but the information will help you understand how it works.
+This is an <strong>information</strong> box. These aim to offer a not-too-technical discussion of why something works the way it does. You do not have to understand everything in these boxes to use R but the information will help you understand how it works.
 </p>
 </div>
 </div>
@@ -473,10 +474,11 @@ gitbook.start({
 "facebook": true,
 "twitter": true,
 "google": false,
+"linkedin": false,
 "weibo": false,
-"instapper": false,
+"instapaper": false,
 "vk": false,
-"all": ["facebook", "google", "twitter", "weibo", "instapaper"]
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
 "theme": "white",
@@ -486,6 +488,10 @@ gitbook.start({
 "edit": {
 "link": "https://github.com/dzchilds/eda-for-bio/edit/master/index.Rmd",
 "text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
 },
 "download": null,
 "toc": {
@@ -501,9 +507,11 @@ gitbook.start({
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    script.src  = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:" && /^https?:/.test(script.src))
-      script.src  = script.src.replace(/^https?:/, '');
+    var src = "";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(src))
+      src = src.replace(/^https?:/, '');
+    script.src = src;
     document.getElementsByTagName("head")[0].appendChild(script);
   })();
 </script>

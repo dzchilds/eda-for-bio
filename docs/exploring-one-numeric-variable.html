@@ -5,11 +5,11 @@
 
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>APS 135: Introduction to Exploratory Data Analysis with R</title>
+  <title>Chapter 20 Exploring one numeric variable | APS 135: Introduction to Exploratory Data Analysis with R</title>
   <meta name="description" content="Course book for Introduction to Exploratory Data Analysis with R (APS 135) in the Department of Animal and Plant Sciences, University of Sheffield.">
-  <meta name="generator" content="bookdown 0.5 and GitBook 2.6.7">
+  <meta name="generator" content="bookdown  and GitBook 2.6.7">
 
-  <meta property="og:title" content="APS 135: Introduction to Exploratory Data Analysis with R" />
+  <meta property="og:title" content="Chapter 20 Exploring one numeric variable | APS 135: Introduction to Exploratory Data Analysis with R" />
   <meta property="og:type" content="book" />
   
   
@@ -17,7 +17,7 @@
   <meta name="github-repo" content="dzchilds/eda-for-bio" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="APS 135: Introduction to Exploratory Data Analysis with R" />
+  <meta name="twitter:title" content="Chapter 20 Exploring one numeric variable | APS 135: Introduction to Exploratory Data Analysis with R" />
   
   <meta name="twitter:description" content="Course book for Introduction to Exploratory Data Analysis with R (APS 135) in the Department of Animal and Plant Sciences, University of Sheffield." />
   
@@ -25,7 +25,7 @@
 <meta name="author" content="Dylan Z. Childs">
 
 
-<meta name="date" content="2018-02-12">
+<meta name="date" content="2019-02-03">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -36,6 +36,7 @@
 <link rel="next" href="exploring-categorical-variables.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
@@ -433,8 +434,8 @@ storms<span class="op">$</span>wind[<span class="dv">1</span><span class="op">:<
 <span class="kw">summary</span>(plt_hist)</code></pre></div>
 <pre><code>## data: name, year, month, day, hour, lat, long, pressure, wind,
 ##   type, seasday [2747x11]
-## mapping:  x = pressure
-## faceting: &lt;ggproto object: Class FacetNull, Facet&gt;
+## mapping:  x = ~pressure
+## faceting: &lt;ggproto object: Class FacetNull, Facet, gg&gt;
 ##     compute_layout: function
 ##     draw_back: function
 ##     draw_front: function
@@ -442,20 +443,14 @@ storms<span class="op">$</span>wind[<span class="dv">1</span><span class="op">:<
 ##     draw_panels: function
 ##     finish_data: function
 ##     init_scales: function
-##     map: function
 ##     map_data: function
 ##     params: list
-##     render_back: function
-##     render_front: function
-##     render_panels: function
 ##     setup_data: function
 ##     setup_params: function
 ##     shrink: TRUE
-##     train: function
-##     train_positions: function
 ##     train_scales: function
 ##     vars: function
-##     super:  &lt;ggproto object: Class FacetNull, Facet&gt;
+##     super:  &lt;ggproto object: Class FacetNull, Facet, gg&gt;
 ## -----------------------------------
 ## geom_bar: na.rm = FALSE
 ## stat_bin: binwidth = NULL, bins = NULL, na.rm = FALSE, pad = FALSE
@@ -548,7 +543,7 @@ s^2 = \frac{1}{N-1}\sum\limits_{i=1}^{N}{(x_i-\bar{x})^2}
 What are quartiles?
 </h4>
 <p>
-We need to know what a quartile is to understand the interquartile range. Three quartiles are defined for any sample. These divide the data into four equal sized groups, from the set of smallest numbers up to the set of largest numbers. The second quartile (<span class="math inline"><em>Q</em><sub>2</sub></span>) is the median, i.e. it divides the data into an upper and lower half. The first quartile (<span class="math inline"><em>Q</em><sub>1</sub></span>) is the number that divides the lower 50% of values into two equal sized groups. The third quartile (<span class="math inline"><em>Q</em><sub>3</sub></span>) is the number that divides the upper 50% of values into two equal sized groups.
+We need to know what a quartile is to understand the interquartile range. Three quartiles are defined for any sample. These divide the data into four equal sized groups, from the set of smallest numbers up to the set of largest numbers. The second quartile (<span class="math inline"><span class="math inline">\(Q_2\)</span></span>) is the median, i.e. it divides the data into an upper and lower half. The first quartile (<span class="math inline"><span class="math inline">\(Q_1\)</span></span>) is the number that divides the lower 50% of values into two equal sized groups. The third quartile (<span class="math inline"><span class="math inline">\(Q_3\)</span></span>) is the number that divides the upper 50% of values into two equal sized groups.
 </p>
 <p>
 The quartiles also have other names. The first quartile is sometimes called the lower quartile, or the 25th percentile; the second quartile (the median) is the 50th percentile; and the third quartile is also called the upper quartile, or the 75th percentile.
@@ -602,10 +597,11 @@ gitbook.start({
 "facebook": true,
 "twitter": true,
 "google": false,
+"linkedin": false,
 "weibo": false,
-"instapper": false,
+"instapaper": false,
 "vk": false,
-"all": ["facebook", "google", "twitter", "weibo", "instapaper"]
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
 "theme": "white",
@@ -615,6 +611,10 @@ gitbook.start({
 "edit": {
 "link": "https://github.com/dzchilds/eda-for-bio/edit/master/3_04_univariate_numeric.Rmd",
 "text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
 },
 "download": null,
 "toc": {
@@ -630,9 +630,11 @@ gitbook.start({
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    script.src  = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:" && /^https?:/.test(script.src))
-      script.src  = script.src.replace(/^https?:/, '');
+    var src = "";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(src))
+      src = src.replace(/^https?:/, '');
+    script.src = src;
     document.getElementsByTagName("head")[0].appendChild(script);
   })();
 </script>

@@ -5,11 +5,11 @@
 
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>APS 135: Introduction to Exploratory Data Analysis with R</title>
+  <title>Chapter 12 Working with variables | APS 135: Introduction to Exploratory Data Analysis with R</title>
   <meta name="description" content="Course book for Introduction to Exploratory Data Analysis with R (APS 135) in the Department of Animal and Plant Sciences, University of Sheffield.">
-  <meta name="generator" content="bookdown 0.5 and GitBook 2.6.7">
+  <meta name="generator" content="bookdown  and GitBook 2.6.7">
 
-  <meta property="og:title" content="APS 135: Introduction to Exploratory Data Analysis with R" />
+  <meta property="og:title" content="Chapter 12 Working with variables | APS 135: Introduction to Exploratory Data Analysis with R" />
   <meta property="og:type" content="book" />
   
   
@@ -17,7 +17,7 @@
   <meta name="github-repo" content="dzchilds/eda-for-bio" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="APS 135: Introduction to Exploratory Data Analysis with R" />
+  <meta name="twitter:title" content="Chapter 12 Working with variables | APS 135: Introduction to Exploratory Data Analysis with R" />
   
   <meta name="twitter:description" content="Course book for Introduction to Exploratory Data Analysis with R (APS 135) in the Department of Animal and Plant Sciences, University of Sheffield." />
   
@@ -25,7 +25,7 @@
 <meta name="author" content="Dylan Z. Childs">
 
 
-<meta name="date" content="2018-02-12">
+<meta name="date" content="2019-02-03">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -36,6 +36,7 @@
 <link rel="next" href="working-with-observations.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
@@ -409,18 +410,18 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">select</span>(iris_tbl, Species, Petal.Length, Petal.Width)</code></pre></div>
 <pre><code>## # A tibble: 150 x 3
 ##    Species Petal.Length Petal.Width
-##     &lt;fctr&gt;        &lt;dbl&gt;       &lt;dbl&gt;
-##  1  setosa          1.4         0.2
-##  2  setosa          1.4         0.2
-##  3  setosa          1.3         0.2
-##  4  setosa          1.5         0.2
-##  5  setosa          1.4         0.2
-##  6  setosa          1.7         0.4
-##  7  setosa          1.4         0.3
-##  8  setosa          1.5         0.2
-##  9  setosa          1.4         0.2
-## 10  setosa          1.5         0.1
-## # ... with 140 more rows</code></pre>
+##    &lt;fct&gt;          &lt;dbl&gt;       &lt;dbl&gt;
+##  1 setosa           1.4         0.2
+##  2 setosa           1.4         0.2
+##  3 setosa           1.3         0.2
+##  4 setosa           1.5         0.2
+##  5 setosa           1.4         0.2
+##  6 setosa           1.7         0.4
+##  7 setosa           1.4         0.3
+##  8 setosa           1.5         0.2
+##  9 setosa           1.4         0.2
+## 10 setosa           1.5         0.1
+## # … with 140 more rows</code></pre>
 <p>Hopefully nothing about this example is surprising or confusing. There are a few things to notice about how <code>select</code> works though:</p>
 <ul>
 <li><p>The <code>select</code> function is one of those non-standard functions we briefly mentioned in the <a href="using-functions.html#using-functions">Using functions</a> chapter. This means the variable names should not be surrounded by quotes unless they have spaces in them (which is best avoided).</p></li>
@@ -432,51 +433,51 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">select</span>(iris_tbl, <span class="op">-</span>Petal.Width, <span class="op">-</span>Petal.Length)</code></pre></div>
 <pre><code>## # A tibble: 150 x 3
 ##    Sepal.Length Sepal.Width Species
-##           &lt;dbl&gt;       &lt;dbl&gt;  &lt;fctr&gt;
-##  1          5.1         3.5  setosa
-##  2          4.9         3.0  setosa
-##  3          4.7         3.2  setosa
-##  4          4.6         3.1  setosa
-##  5          5.0         3.6  setosa
-##  6          5.4         3.9  setosa
-##  7          4.6         3.4  setosa
-##  8          5.0         3.4  setosa
-##  9          4.4         2.9  setosa
-## 10          4.9         3.1  setosa
-## # ... with 140 more rows</code></pre>
+##           &lt;dbl&gt;       &lt;dbl&gt; &lt;fct&gt;  
+##  1          5.1         3.5 setosa 
+##  2          4.9         3   setosa 
+##  3          4.7         3.2 setosa 
+##  4          4.6         3.1 setosa 
+##  5          5           3.6 setosa 
+##  6          5.4         3.9 setosa 
+##  7          4.6         3.4 setosa 
+##  8          5           3.4 setosa 
+##  9          4.4         2.9 setosa 
+## 10          4.9         3.1 setosa 
+## # … with 140 more rows</code></pre>
 <p>This returns a tibble with just the remaining variables:<code>Sepal.Length</code>, <code>Sepal.Width</code> and <code>Species</code>.</p>
 <p>The <code>select</code> function can also be used to grab (or drop) a set of variables that occur in a sequence next to one another. We specify a series of adjacent variables using the <code>:</code> operator. This must be used with two variable names, one on the left hand side and one on the right. When we use <code>:</code> like this, <code>select</code> will subset both those variables along with any others that fall in between them. For example, if we need the two <code>Petal</code> variables and <code>Species</code>, we use:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">select</span>(iris_tbl, Petal.Length<span class="op">:</span>Species)</code></pre></div>
 <pre><code>## # A tibble: 150 x 3
 ##    Petal.Length Petal.Width Species
-##           &lt;dbl&gt;       &lt;dbl&gt;  &lt;fctr&gt;
-##  1          1.4         0.2  setosa
-##  2          1.4         0.2  setosa
-##  3          1.3         0.2  setosa
-##  4          1.5         0.2  setosa
-##  5          1.4         0.2  setosa
-##  6          1.7         0.4  setosa
-##  7          1.4         0.3  setosa
-##  8          1.5         0.2  setosa
-##  9          1.4         0.2  setosa
-## 10          1.5         0.1  setosa
-## # ... with 140 more rows</code></pre>
+##           &lt;dbl&gt;       &lt;dbl&gt; &lt;fct&gt;  
+##  1          1.4         0.2 setosa 
+##  2          1.4         0.2 setosa 
+##  3          1.3         0.2 setosa 
+##  4          1.5         0.2 setosa 
+##  5          1.4         0.2 setosa 
+##  6          1.7         0.4 setosa 
+##  7          1.4         0.3 setosa 
+##  8          1.5         0.2 setosa 
+##  9          1.4         0.2 setosa 
+## 10          1.5         0.1 setosa 
+## # … with 140 more rows</code></pre>
 <p>The <code>:</code> operator can be combined with <code>-</code> if we need to drop a series of variables according to their position in a data frame or tibble:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">select</span>(iris_tbl, <span class="op">-</span>(Petal.Length<span class="op">:</span>Species))</code></pre></div>
 <pre><code>## # A tibble: 150 x 2
 ##    Sepal.Length Sepal.Width
 ##           &lt;dbl&gt;       &lt;dbl&gt;
 ##  1          5.1         3.5
-##  2          4.9         3.0
+##  2          4.9         3  
 ##  3          4.7         3.2
 ##  4          4.6         3.1
-##  5          5.0         3.6
+##  5          5           3.6
 ##  6          5.4         3.9
 ##  7          4.6         3.4
-##  8          5.0         3.4
+##  8          5           3.4
 ##  9          4.4         2.9
 ## 10          4.9         3.1
-## # ... with 140 more rows</code></pre>
+## # … with 140 more rows</code></pre>
 <p>The extra <code>( )</code> around are <code>Petal.Length:Species</code> important here — <code>select</code> will throw an error if we don’t include them.</p>
 <div id="renaming-variables-with-select-and-rename" class="section level3">
 <h3><span class="header-section-number">12.2.1</span> Renaming variables with <code>select</code> and <code>rename</code></h3>
@@ -484,34 +485,34 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">select</span>(iris_tbl, Species, <span class="dt">Petal_Length =</span> Petal.Length, <span class="dt">Petal_Width =</span> Petal.Width)</code></pre></div>
 <pre><code>## # A tibble: 150 x 3
 ##    Species Petal_Length Petal_Width
-##     &lt;fctr&gt;        &lt;dbl&gt;       &lt;dbl&gt;
-##  1  setosa          1.4         0.2
-##  2  setosa          1.4         0.2
-##  3  setosa          1.3         0.2
-##  4  setosa          1.5         0.2
-##  5  setosa          1.4         0.2
-##  6  setosa          1.7         0.4
-##  7  setosa          1.4         0.3
-##  8  setosa          1.5         0.2
-##  9  setosa          1.4         0.2
-## 10  setosa          1.5         0.1
-## # ... with 140 more rows</code></pre>
+##    &lt;fct&gt;          &lt;dbl&gt;       &lt;dbl&gt;
+##  1 setosa           1.4         0.2
+##  2 setosa           1.4         0.2
+##  3 setosa           1.3         0.2
+##  4 setosa           1.5         0.2
+##  5 setosa           1.4         0.2
+##  6 setosa           1.7         0.4
+##  7 setosa           1.4         0.3
+##  8 setosa           1.5         0.2
+##  9 setosa           1.4         0.2
+## 10 setosa           1.5         0.1
+## # … with 140 more rows</code></pre>
 <p>Renaming variables is a common task when working with data frames and tibbles. What should we do if the <em>only</em> thing we would like to achieve is to rename a variables, rather than rename and select variables? The <code>dplyr</code> provides an additional function called <code>rename</code> for this purpose. This function renames certain variables while retaining all others. It works in a similar way to <code>select</code>. For example, to rename <code>Petal.Length</code> and <code>Petal.Width</code> to <code>Petal_Length</code> and <code>Petal_Width</code>, we use:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">rename</span>(iris_tbl, <span class="dt">Petal_Length =</span> Petal.Length, <span class="dt">Petal_Width =</span> Petal.Width)</code></pre></div>
 <pre><code>## # A tibble: 150 x 5
 ##    Sepal.Length Sepal.Width Petal_Length Petal_Width Species
-##           &lt;dbl&gt;       &lt;dbl&gt;        &lt;dbl&gt;       &lt;dbl&gt;  &lt;fctr&gt;
-##  1          5.1         3.5          1.4         0.2  setosa
-##  2          4.9         3.0          1.4         0.2  setosa
-##  3          4.7         3.2          1.3         0.2  setosa
-##  4          4.6         3.1          1.5         0.2  setosa
-##  5          5.0         3.6          1.4         0.2  setosa
-##  6          5.4         3.9          1.7         0.4  setosa
-##  7          4.6         3.4          1.4         0.3  setosa
-##  8          5.0         3.4          1.5         0.2  setosa
-##  9          4.4         2.9          1.4         0.2  setosa
-## 10          4.9         3.1          1.5         0.1  setosa
-## # ... with 140 more rows</code></pre>
+##           &lt;dbl&gt;       &lt;dbl&gt;        &lt;dbl&gt;       &lt;dbl&gt; &lt;fct&gt;  
+##  1          5.1         3.5          1.4         0.2 setosa 
+##  2          4.9         3            1.4         0.2 setosa 
+##  3          4.7         3.2          1.3         0.2 setosa 
+##  4          4.6         3.1          1.5         0.2 setosa 
+##  5          5           3.6          1.4         0.2 setosa 
+##  6          5.4         3.9          1.7         0.4 setosa 
+##  7          4.6         3.4          1.4         0.3 setosa 
+##  8          5           3.4          1.5         0.2 setosa 
+##  9          4.4         2.9          1.4         0.2 setosa 
+## 10          4.9         3.1          1.5         0.1 setosa 
+## # … with 140 more rows</code></pre>
 <p>Notice that the rename function also preserves the order of the variables found in the original data.</p>
 </div>
 </div>
@@ -522,21 +523,20 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p>Again, this is not an example we can run; it’s pseudo code that highlights in abstract terms how to use <code>mutate</code>. As always with <code>dplyr</code>, the first argument, <code>data_set</code>, should be the name of the object containing our data. We then include a series of one or more additional arguments, where each of these is a valid R expression involving one or more variables in <code>data_set</code>. We’ve have expressed these as <code>&lt;expression1&gt;, &lt;expression2&gt;</code>, where <code>&lt;expression1&gt;</code> and <code>&lt;expression2&gt;</code> represent the first two expressions, and the <code>...</code> is acting as placeholder for the remaining expressions. Remember, this is not valid R code. It is just intended to demonstrate the general usage of <code>mutate</code>.</p>
 <p>To see <code>mutate</code> in action, let’s construct a new version of <code>iris_tbl</code> that contains a variable summarising the approximate area of sepals:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">mutate</span>(iris_tbl, Sepal.Width <span class="op">*</span><span class="st"> </span>Sepal.Length)</code></pre></div>
-<pre><code>## Warning: package &#39;bindrcpp&#39; was built under R version 3.3.2</code></pre>
 <pre><code>## # A tibble: 150 x 6
 ##    Sepal.Length Sepal.Width Petal.Length Petal.Width Species
-##           &lt;dbl&gt;       &lt;dbl&gt;        &lt;dbl&gt;       &lt;dbl&gt;  &lt;fctr&gt;
-##  1          5.1         3.5          1.4         0.2  setosa
-##  2          4.9         3.0          1.4         0.2  setosa
-##  3          4.7         3.2          1.3         0.2  setosa
-##  4          4.6         3.1          1.5         0.2  setosa
-##  5          5.0         3.6          1.4         0.2  setosa
-##  6          5.4         3.9          1.7         0.4  setosa
-##  7          4.6         3.4          1.4         0.3  setosa
-##  8          5.0         3.4          1.5         0.2  setosa
-##  9          4.4         2.9          1.4         0.2  setosa
-## 10          4.9         3.1          1.5         0.1  setosa
-## # ... with 140 more rows, and 1 more variables: `Sepal.Width *
+##           &lt;dbl&gt;       &lt;dbl&gt;        &lt;dbl&gt;       &lt;dbl&gt; &lt;fct&gt;  
+##  1          5.1         3.5          1.4         0.2 setosa 
+##  2          4.9         3            1.4         0.2 setosa 
+##  3          4.7         3.2          1.3         0.2 setosa 
+##  4          4.6         3.1          1.5         0.2 setosa 
+##  5          5           3.6          1.4         0.2 setosa 
+##  6          5.4         3.9          1.7         0.4 setosa 
+##  7          4.6         3.4          1.4         0.3 setosa 
+##  8          5           3.4          1.5         0.2 setosa 
+##  9          4.4         2.9          1.4         0.2 setosa 
+## 10          4.9         3.1          1.5         0.1 setosa 
+## # … with 140 more rows, and 1 more variable: `Sepal.Width *
 ## #   Sepal.Length` &lt;dbl&gt;</code></pre>
 <p>This creates a copy of <code>iris_tbl</code> with a new column called <code>Sepal.Width * Sepal.Length</code> (mentioned at the bottom of the printed output). Most of the rules that apply to <code>select</code> also apply to <code>mutate</code>:</p>
 <ul>
@@ -548,18 +548,18 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">mutate</span>(iris_tbl, <span class="dt">Sepal.Area =</span> Sepal.Width <span class="op">*</span><span class="st"> </span>Sepal.Length)</code></pre></div>
 <pre><code>## # A tibble: 150 x 6
 ##    Sepal.Length Sepal.Width Petal.Length Petal.Width Species Sepal.Area
-##           &lt;dbl&gt;       &lt;dbl&gt;        &lt;dbl&gt;       &lt;dbl&gt;  &lt;fctr&gt;      &lt;dbl&gt;
-##  1          5.1         3.5          1.4         0.2  setosa      17.85
-##  2          4.9         3.0          1.4         0.2  setosa      14.70
-##  3          4.7         3.2          1.3         0.2  setosa      15.04
-##  4          4.6         3.1          1.5         0.2  setosa      14.26
-##  5          5.0         3.6          1.4         0.2  setosa      18.00
-##  6          5.4         3.9          1.7         0.4  setosa      21.06
-##  7          4.6         3.4          1.4         0.3  setosa      15.64
-##  8          5.0         3.4          1.5         0.2  setosa      17.00
-##  9          4.4         2.9          1.4         0.2  setosa      12.76
-## 10          4.9         3.1          1.5         0.1  setosa      15.19
-## # ... with 140 more rows</code></pre>
+##           &lt;dbl&gt;       &lt;dbl&gt;        &lt;dbl&gt;       &lt;dbl&gt; &lt;fct&gt;        &lt;dbl&gt;
+##  1          5.1         3.5          1.4         0.2 setosa        17.8
+##  2          4.9         3            1.4         0.2 setosa        14.7
+##  3          4.7         3.2          1.3         0.2 setosa        15.0
+##  4          4.6         3.1          1.5         0.2 setosa        14.3
+##  5          5           3.6          1.4         0.2 setosa        18  
+##  6          5.4         3.9          1.7         0.4 setosa        21.1
+##  7          4.6         3.4          1.4         0.3 setosa        15.6
+##  8          5           3.4          1.5         0.2 setosa        17  
+##  9          4.4         2.9          1.4         0.2 setosa        12.8
+## 10          4.9         3.1          1.5         0.1 setosa        15.2
+## # … with 140 more rows</code></pre>
 <p>We can create more than one variable by supplying <code>mutate</code> multiple (named) arguments:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">mutate</span>(iris_tbl, 
        <span class="dt">Sepal.Area =</span> Sepal.Width <span class="op">*</span><span class="st"> </span>Sepal.Length,
@@ -567,18 +567,18 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
        <span class="dt">Area.Ratio =</span> Petal.Area <span class="op">/</span><span class="st"> </span>Petal.Area)</code></pre></div>
 <pre><code>## # A tibble: 150 x 8
 ##    Sepal.Length Sepal.Width Petal.Length Petal.Width Species Sepal.Area
-##           &lt;dbl&gt;       &lt;dbl&gt;        &lt;dbl&gt;       &lt;dbl&gt;  &lt;fctr&gt;      &lt;dbl&gt;
-##  1          5.1         3.5          1.4         0.2  setosa      17.85
-##  2          4.9         3.0          1.4         0.2  setosa      14.70
-##  3          4.7         3.2          1.3         0.2  setosa      15.04
-##  4          4.6         3.1          1.5         0.2  setosa      14.26
-##  5          5.0         3.6          1.4         0.2  setosa      18.00
-##  6          5.4         3.9          1.7         0.4  setosa      21.06
-##  7          4.6         3.4          1.4         0.3  setosa      15.64
-##  8          5.0         3.4          1.5         0.2  setosa      17.00
-##  9          4.4         2.9          1.4         0.2  setosa      12.76
-## 10          4.9         3.1          1.5         0.1  setosa      15.19
-## # ... with 140 more rows, and 2 more variables: Petal.Area &lt;dbl&gt;,
+##           &lt;dbl&gt;       &lt;dbl&gt;        &lt;dbl&gt;       &lt;dbl&gt; &lt;fct&gt;        &lt;dbl&gt;
+##  1          5.1         3.5          1.4         0.2 setosa        17.8
+##  2          4.9         3            1.4         0.2 setosa        14.7
+##  3          4.7         3.2          1.3         0.2 setosa        15.0
+##  4          4.6         3.1          1.5         0.2 setosa        14.3
+##  5          5           3.6          1.4         0.2 setosa        18  
+##  6          5.4         3.9          1.7         0.4 setosa        21.1
+##  7          4.6         3.4          1.4         0.3 setosa        15.6
+##  8          5           3.4          1.5         0.2 setosa        17  
+##  9          4.4         2.9          1.4         0.2 setosa        12.8
+## 10          4.9         3.1          1.5         0.1 setosa        15.2
+## # … with 140 more rows, and 2 more variables: Petal.Area &lt;dbl&gt;,
 ## #   Area.Ratio &lt;dbl&gt;</code></pre>
 <p>Notice that here we placed each argument on a new line, remembering the comma to separate arguments. There is nothing to stop us doing this because R ignores white space. This is useful though, because it allows us, the user, to makes long function calls easier to read by breaking them up on different lines.</p>
 <p>This last example reveals a nice feature of <code>mutate</code>: we can use newly created variables in further calculations. Here we constructed approximate sepal and petal area variables, and then used these to construct a third variable containing the ratio of these two quantities, <code>Area.Ratio</code>.</p>
@@ -592,17 +592,17 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <pre><code>## # A tibble: 150 x 3
 ##    Sepal.Area Petal.Area Area.Ratio
 ##         &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt;
-##  1      17.85       0.28          1
-##  2      14.70       0.28          1
-##  3      15.04       0.26          1
-##  4      14.26       0.30          1
-##  5      18.00       0.28          1
-##  6      21.06       0.68          1
-##  7      15.64       0.42          1
-##  8      17.00       0.30          1
-##  9      12.76       0.28          1
-## 10      15.19       0.15          1
-## # ... with 140 more rows</code></pre>
+##  1       17.8      0.280          1
+##  2       14.7      0.280          1
+##  3       15.0      0.26           1
+##  4       14.3      0.3            1
+##  5       18        0.280          1
+##  6       21.1      0.68           1
+##  7       15.6      0.42           1
+##  8       17        0.3            1
+##  9       12.8      0.280          1
+## 10       15.2      0.15           1
+## # … with 140 more rows</code></pre>
 <p>Here we repeated the previous example, but now only the new variables were retained in the resulting tibble. If we also want to retain one or more variables without altering them we just have to pass them as unnamed arguments. For example, if we need to retain species identity in the output, we use:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">transmute</span>(iris_tbl,
           Species,
@@ -611,18 +611,18 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
           <span class="dt">Area.Ratio =</span> Petal.Area <span class="op">/</span><span class="st"> </span>Petal.Area)</code></pre></div>
 <pre><code>## # A tibble: 150 x 4
 ##    Species Sepal.Area Petal.Area Area.Ratio
-##     &lt;fctr&gt;      &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt;
-##  1  setosa      17.85       0.28          1
-##  2  setosa      14.70       0.28          1
-##  3  setosa      15.04       0.26          1
-##  4  setosa      14.26       0.30          1
-##  5  setosa      18.00       0.28          1
-##  6  setosa      21.06       0.68          1
-##  7  setosa      15.64       0.42          1
-##  8  setosa      17.00       0.30          1
-##  9  setosa      12.76       0.28          1
-## 10  setosa      15.19       0.15          1
-## # ... with 140 more rows</code></pre>
+##    &lt;fct&gt;        &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt;
+##  1 setosa        17.8      0.280          1
+##  2 setosa        14.7      0.280          1
+##  3 setosa        15.0      0.26           1
+##  4 setosa        14.3      0.3            1
+##  5 setosa        18        0.280          1
+##  6 setosa        21.1      0.68           1
+##  7 setosa        15.6      0.42           1
+##  8 setosa        17        0.3            1
+##  9 setosa        12.8      0.280          1
+## 10 setosa        15.2      0.15           1
+## # … with 140 more rows</code></pre>
 
 </div>
 </div>
@@ -651,10 +651,11 @@ gitbook.start({
 "facebook": true,
 "twitter": true,
 "google": false,
+"linkedin": false,
 "weibo": false,
-"instapper": false,
+"instapaper": false,
 "vk": false,
-"all": ["facebook", "google", "twitter", "weibo", "instapaper"]
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
 "theme": "white",
@@ -664,6 +665,10 @@ gitbook.start({
 "edit": {
 "link": "https://github.com/dzchilds/eda-for-bio/edit/master/2_04_dplyr_variables.Rmd",
 "text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
 },
 "download": null,
 "toc": {
@@ -679,9 +684,11 @@ gitbook.start({
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    script.src  = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:" && /^https?:/.test(script.src))
-      script.src  = script.src.replace(/^https?:/, '');
+    var src = "";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(src))
+      src = src.replace(/^https?:/, '');
+    script.src = src;
     document.getElementsByTagName("head")[0].appendChild(script);
   })();
 </script>
