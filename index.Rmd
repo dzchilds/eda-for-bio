@@ -20,7 +20,7 @@ description: "Course book for Introduction to Exploratory Data Analysis with R (
 
 # Information and overview {-}
 
-This is the online course book for the __Introduction to Exploratory Data Analysis with R__ component of ([APS 135](https://www.sheffield.ac.uk/aps/currentug/level1/aps135)) module. You can view this book in any modern desktop browser, as well as on your phone or tablet device. The site is self-contained---it contains all the material you are expected to learn this year. Dylan Childs is running the course this year. Please [email her](mailto:d.childs@sheffield.ac.uk?Subject=APS%20135%20general%20query) if you spot any problems with the course book.
+This is the online course book for the __Introduction to Exploratory Data Analysis with R__ component of ([APS 135](https://www.sheffield.ac.uk/aps/currentug/level1/aps135)) module. You can view this book in any modern desktop browser, as well as on your phone or tablet device. The site is self-contained---it contains all the material you are expected to learn this year. Dylan Childs is running the course this year. Please [email him](mailto:d.childs@sheffield.ac.uk?Subject=APS%20135%20general%20query) if you spot any problems with the course book.
 
 ## Aims {-}
 
