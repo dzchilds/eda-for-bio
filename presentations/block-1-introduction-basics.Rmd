@@ -16,16 +16,28 @@ show_ans <- TRUE
 
 ## Before we start...
 
-DO THIS NOW!
+While we are waitongh for everyone to arrive and settle...
 
-- Go to the APS 135 MOLE site and open today's lecture ("Block 1"). You can navigate through this with the arrow keys.
+- Go to the APS 135 MOLE site and open today's lecture ("Block 1").
 
-- Open up RStudio from the Programs Menu on your PC. Grab a TA for help if there seems to be a problem.
+- Open up RStudio from the Programs Menu on your PC.
 
 - Get your ucards out to be swiped. 
 
+Grab a TA for help if you have a problem with any of these.
+
 Course overview   
 ======================================================================================
+
+## What are we aiming to do 
+
+We have __three related aims__ in this course:
+
+- Introduce specific tools (`dplyr` + `ggplot2`) to facilitate exploratory data analysis.
+- Provide a foundation for using R next year to help you learn statistics. You will have to use it!
+- Give you enough experience of basic R to start using it to Get Things Done, now next year, and beyond.
+
+We could list a 4^th^ aim here as well. We hope that you will learn how to __help one another__ solve your R and data analysis problems. 
 
 ## Course structure {.build}
 
@@ -44,17 +56,6 @@ __Each block is 2 weeks long__
 __Assessment__
 
 - MOLE assessment in semester 2B (after Easter)
-
-## What are we aiming to do 
-
-We have __three related aims__ in this course:
-
-- Introduce specific tools (`dplyr` + `ggplot2`) to facilitate exploratory data analysis.
-- Provide a foundation for using R next year to help you learn statistics. You will have to use it!
-- Give you enough experience of basic R to start using it to Get Things Done, now next year, and beyond.
-
-We could list a 4^th^ aim here as well. We hope that you will learn how to __help one another__ solve your R and data analysis problems. 
-
 
 R and Rstudio | What are they? Why use them?
 ======================================================================================
