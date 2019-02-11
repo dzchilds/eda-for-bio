@@ -870,30 +870,43 @@ The internet is packed full of helpful resources:
 
 ## Other sources of help {.build}
 
-- **Each other**
+**Each other** -- work in groups
   
-- **The TAs**
-  
-- **Me** - email (bjhindle1@sheffield.ac.uk) to arrange a meeting - if none of the above have helped
+**The TAs** -- they are really good with R
 
+**Me** - email [Dylan](mailto:d.childs@sheffield.ac.uk) if really stuck
 
 Efficiency | Making the most of RStudio
 ======================================================================================
 
 ## Changing the appearance of RStudio
 
-Navigate through RStudio's menus to Tools > Global Options
+1. Navigate through the menus to **Tools > Global Options** then click on 'Appearance'
 
-Click on Appearance
+    - Experiment with the different themes
+    
+    - Pick one you like (and click 'OK')
+    
+2. Navigate through the menus to **Tools > Project Options** then click on 'Appearance'
 
-Experiment with the different themes
+    - Set **'Restore .RData into workspace...'** to **'No'**
+    
+    - Set **'Save workspace to .RData...'** to **'No'**
+
 
 ## Useful keyboard shortcuts
 
-Move cursor to script:    Ctrl + 1  
-Move cursor to console:   Ctrl + 2
-Navigate command history: Up/down  
-Assignment operator:      Alt + -
+Navigate through RStudio's menus to **Tools > Keyboard Shortcuts Help**
+
+Some examples...
+
+- Move cursor to script: Ctrl + 1  
+
+- Move cursor to console: Ctrl + 2
+
+- Navigate command history: Up/down  
+
+- Assignment operator: Alt + -
 
 
 
