@@ -1,7 +1,7 @@
 ---
 title: Data frames and data wranging with dplyr
-author: Bethan Hindle
-date: February 22, 2018
+author: Dylan Childs
+date: "`r format(Sys.time(), '%d %B, %Y')`"
 output:
   ioslides_presentation:
     css: extras.css
@@ -11,24 +11,22 @@ highlighter: pygments
 ---
 
 ```{r, echo=FALSE, warning = FALSE, message = FALSE}
-showAnswers <- FALSE
+showAnswers <- TRUE
 library(dplyr)
-library(nasaweather)
+ca_storms <- nasaweather::storms
 ```
 
 ## Before we start...
 
 DO THIS NOW!
 
-- Go to the APS 135/118 MOLE site and open today's lecture ("Presentation 3"). 
+- Go to the course MOLE site and open today's lecture ("Block 2"). 
 
-- Open up RStudio from the Programs Menu on your PC. 
+- Open up RStudio from the Programs Menu on your PC.
 
-- Open a new script.
+- Start a new script.
 
 - Get your ucards out to be scanned.
-
-- Have a look at the two example scripts on the APS135/118 MOLE sites
 
 Feedback
 ======================================================================================
@@ -218,8 +216,8 @@ __STEP 2. Now import the CSV file into using RStudio:__
 - Include the following line in your script, and send it to the Console
 
 ```{r, eval = FALSE}
-my.iris <- read.csv("iris_morphology.csv", stringsAsFactors = FALSE)
-my.iris
+my_iris <- read.csv("iris_morphology.csv", stringsAsFactors = FALSE)
+my_iris
 ```
 
 - What happened? Did you see any error messages? If you did, check your spelling and make sure your working directory is set to the right place.
@@ -284,7 +282,7 @@ __It is helpful to classify the verbs according to what they work on:__
 Required packages and data:
 
 - **dplyr**: obviously
-- `storms.csv`: climate data for Central America (on MOLE)
+- `CA_STORMS.csv`: climate data for Central America (on MOLE)
 
 <div>
 **1. Load the __dplyr__ package**
@@ -303,26 +301,26 @@ install.packages("dplyr")
 <div>
 __2. Read in the storms data__
 
-Download the `storms.csv` data from MOLE. Set your working directory, and then use `read.csv` to read the data in (remember to use `stringsAsFactors = FALSE`). Assign the resulting data frame the name `storms`.
+Download the `CA_STORMS.csv` data from MOLE. Set your working directory, and then use `read.csv` to read the data in (remember to use `stringsAsFactors = FALSE`). Assign the resulting data frame the name `ca_storms`.
 </div>
 
 
-__3. Use `View` to examine the `storms` data__
+__3. Use `View` to examine the `ca_storms` data__
 
 ## Making and using `tbl` objects  {.smaller}
 
 A `tbl` object (pronounced "tibble") is essentially a special kind of data frame. It works the same as a data frame, but with a few small differences... e.g. compact printing:
 
 ```{r}
-tbl_df(storms)
+tbl_df(ca_storms)
 ```
 
-## Convert `storms` and `iris` to tibbles now
+## Convert `ca_storms` and `iris` to tibbles now
 
-Next in your script, add these lines to convert `storms` and `iris` to tibbles...
+Next in your script, add these lines to convert `ca_storms` and `iris` to tibbles...
 
 ```{r}
-storms <- tbl_df(storms)
+ca_storms <- tbl_df(ca_storms)
 iris   <- tbl_df(iris)
 ```
 
@@ -333,7 +331,7 @@ You don't have to do this (**dplyr** is fine with normal data frames), but it wi
 In addition to printing a `tbl` or `data.frame`, we can use the `glimpse` function with these objects to obtain different summary information about variables:
 
 ```{r}
-glimpse(storms)
+glimpse(ca_storms)
 ```
 
 Glimpse tells us what variables are in `storm` as well as the type of each variable.
@@ -359,13 +357,13 @@ __Arguments__
 <div id="exercise-box">
 __Selecting two variables__
 <div id="box-text">
-Use the `select` function with the `storms` data set to make a new data set containing only `name` and `year`. Assign this new data set a name, and then check that it contains the right variables using the `glimpse` function.
+Use the `select` function with the `ca_storms` data set to make a new data set containing only `name` and `year`. Assign this new data set a name, and then check that it contains the right variables using the `glimpse` function.
 </div>
 </div>
 
 ```{r, include=showAnswers}
-storms_simple <- select(storms, name, year)
-glimpse(storms_simple)
+ca_storms_simple <- select(ca_storms, name, year)
+glimpse(ca_storms_simple)
 ```
 
 ## Selecting & dropping variable ranges {.build}
@@ -402,18 +400,18 @@ iris_fewer
 <div id="exercise-box">
 __Selecting a range of variables__
 <div id="box-text">
-Use the `select` function with the `storms` data set to select __just__ the variables `name`, `year` and `month` variables.
+Use the `select` function with the `ca_storms` data set to select __just__ the variables `name`, `year` and `month` variables.
 </div>
 </div>
 
 ```{r, include=showAnswers}
-storms_fewer <- select(storms, name:month)
-glimpse(storms_fewer)
+ca_storms_fewer <- select(ca_storms, name:month)
+glimpse(ca_storms_fewer)
 ```
 
 ```{r, include=showAnswers}
 # alternatively
-x <- select(storms, -(day:seasday))
+x <- select(ca_storms, -(day:seasday))
 ```
 
 ## Helper functions {.build .smaller}
@@ -448,23 +446,60 @@ glimpse(iris_petal)
 <div id="exercise-box">
 __Using select with helper functions__
 <div id="box-text">
-Use the `select` function with the `storms` data set to create a new data set containing just the `lat` and `long` variables. Do this using the `starts_with` helper function inside select. 
+Use the `select` function with the `ca_storms` data set to create a new data set containing just the `lat` and `long` variables. Do this using the `starts_with` helper function inside select. 
 </div>
 </div>
 
 ```{r, include=showAnswers}
-storms_fewer <- select(storms, starts_with("l"))
-glimpse(storms_fewer)
+ca_storms_fewer <- select(ca_storms, starts_with("l"))
+glimpse(ca_storms_fewer)
 ```
 
+Using `select` and `rename` | Renaming variables
+====================================================================
 
-## What happens next?
+## Renaming while selecting {.build}
 
-<br><br>
+We can use `select` to rename variables as we select them using the `newName = varName` construct.
 
-1. __No lecture__ tomorrow.
+<div>
+__Usage:__
 
-2. Keep reading through the online course book.
+```{r, eval=FALSE}
+select(data, newName1 = Var1, newName2 = Var2, ...)
+```
+</div>
 
-3. Let me know if you have any problems (bjhindle1@sheffield.ac.uk)
+<div>
+__Example:__
+
+```{r, eval=TRUE}
+iris_select <- select(iris, PetalLength = Petal.Length)
+glimpse(iris_select)
+```
+</div>
+
+## Renaming without selecting {.build}
+
+Use `rename` to rename variables while keeping all variables using the `newName = varName` construct.
+
+<div>
+__Usage:__
+
+```{r, eval=FALSE}
+rename(data, newName1 = Var1, newName2 = Var2, ...)
+```
+</div>
+
+<div>
+__Example:__
+
+```{r}
+iris_renamed <- rename(iris, 
+                       PetalLength = Petal.Length, 
+                       PetalWidth  = Petal.Width)
+glimpse(iris_renamed)
+```
+</div>
+
 

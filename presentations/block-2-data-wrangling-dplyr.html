@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Packages and help</title>
+  <title>Data frames and data wranging with dplyr</title>
 
   <meta charset="utf-8">
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -10,7 +10,6 @@
 
 
 
-  <meta name="date" content="2018-02-15" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -21,7 +20,7 @@
     var SLIDE_CONFIG = {
       // Slide settings
       settings: {
-                title: 'Packages and help',
+                title: 'Data frames and data wranging with dplyr',
                         useBuilds: true,
         usePrettify: true,
         enableSlideAreas: true,
@@ -31,7 +30,7 @@
       // Author information
       presenters: [
             {
-        name:  'Bethan Hindle' ,
+        name:  'Dylan Childs' ,
         company: '',
         gplus: '',
         twitter: '',
@@ -61,6 +60,10 @@
 
     em {
       font-style: italic;
+    }
+
+    summary {
+      display: list-item;
     }
 
     slides > slide {
@@ -95,420 +98,1020 @@
       <h1 data-config-title><!-- populated from slide_config.json --></h1>
       <h2 data-config-subtitle><!-- populated from slide_config.json --></h2>
       <p data-config-presenter><!-- populated from slide_config.json --></p>
-            <p style="margin-top: 6px; margin-left: -2px;">15 February 2018</p>
+            <p style="margin-top: 6px; margin-left: -2px;">18 February, 2019</p>
           </hgroup>
   </slide>
 
-<slide class=''><hgroup><h2>Before we start&#8230;</h2></hgroup><article  id="before-we-start...">
+<slide class=""><hgroup><h2>Before we start&#8230;</h2></hgroup><article  id="before-we-start...">
 
 <p>DO THIS NOW!</p>
 
 <ul>
-<li><p>Go to the APS 135 MOLE site and open today&#39;s lecture (&quot;Presentation 2&quot;). You can navigate through this with the arrow keys.</p></li>
-<li><p>Open up RStudio from the Programs Menu on your PC. Grab a TA for help if there seems to be a problem.</p></li>
-<li><p>Open a new script.</p></li>
+<li><p>Go to the course MOLE site and open today&#39;s lecture (&quot;Block 2&quot;).</p></li>
+<li><p>Open up RStudio from the Programs Menu on your PC.</p></li>
+<li><p>Start a new script.</p></li>
 <li><p>Get your ucards out to be scanned.</p></li>
 </ul>
 
-</article></slide><slide class='segue dark nobackground level1'><hgroup class = 'auto-fadein'><h2>Refresher exercises</h2></hgroup><article  id="refresher-exercises">
+</article></slide><slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>Data frames </h2><h3> A place for your data</h3></hgroup><article  id="data-frames-a-place-for-your-data">
 
-</article></slide><slide class=''><hgroup><h2>Exercise</h2></hgroup><article  id="exercise" class="build">
+</article></slide><slide class=""><hgroup><h2>Two views of data frames</h2></hgroup><article  id="two-views-of-data-frames" class="build">
 
-<div id="exercise-box">
-<strong>Vectorised operations</strong>
-
-<div id="box-text">
-<p>Use the <code>c</code> function to make a pair of numeric vectors containing the two following sets of numbers:</p>
-
-<ol>
-<li>7, 2, 5, 3, 1<br/></li>
-<li>1, 4, 8, 3, 9</li>
-</ol>
-
-<p>Assign them the names <code>A</code> and <code>B</code>. Write some R code to determine the result of <code>A + B</code> and <code>A + B + 6</code>.</p>
-
-<p>Look carefully at the results. What happens when we add two numeric vectors together? What happens when we add a single number to a vector?</p>
-
-<p>Now make a new numeric vector containing the following set of numbers (call it <code>X</code>):</p>
-
-<p>1, 2</p>
-
-<p>Add this to the <code>A</code> vector. What happens when you add numeric vectors with different lengths?</p></div></div>
-
-</article></slide><slide class=''><hgroup><h2>Exercise</h2></hgroup><article  id="exercise-1" class="build">
+<p>The first view: <strong>Data frames are a collection of vectors</strong>. These may be different types (e.g. numeric, character, logical) but they must all be the same length.</p>
 
 <div>
-<pre class = 'prettyprint lang-r'># make `A`
-A &lt;- c(7, 2, 5, 3, 1)
-A</pre>
+<p>Here is how to make one &quot;by hand&quot; using the <code>data.frame</code> function:</p>
 
-<pre >## [1] 7 2 5 3 1</pre>
+<pre class = 'prettyprint lang-r'>mydf &lt;- data.frame(Var1 = 1:4, Var2 = LETTERS[1:4], Var3 = c(1, 2, 4, 8))
+mydf</pre>
 
-<pre class = 'prettyprint lang-r'># make `B`
-B &lt;- c(1, 4, 8, 3, 9)
-B</pre>
+<pre >##   Var1 Var2 Var3
+## 1    1    A    1
+## 2    2    B    2
+## 3    3    C    4
+## 4    4    D    8</pre>
 
-<pre >## [1] 1 4 8 3 9</pre></div>
+<p>You can think of each vector as corresponding to a <strong>statistical variable</strong> that we want to analyse (more on that in the course book).</p></div>
 
-</article></slide><slide class=''><hgroup><h2>Exercise</h2></hgroup><article  id="exercise-2" class="build">
+</article></slide><slide class=""><hgroup><h2>Selecting vectors from data frames</h2></hgroup><article  id="selecting-vectors-from-data-frames" class="build">
 
-<div>
-<pre class = 'prettyprint lang-r'>A + B</pre>
-
-<pre >## [1]  8  6 13  6 10</pre>
-
-<pre class = 'prettyprint lang-r'>A + B + 6</pre>
-
-<pre >## [1] 14 12 19 12 16</pre></div>
-
-<pre class = 'prettyprint lang-r'>X &lt;- 1:2
-A + X</pre>
-
-<pre >## Warning in A + X: longer object length is not a multiple of shorter object
-## length</pre>
-
-<pre >## [1] 8 4 6 5 2</pre>
-
-</article></slide><slide class=''><hgroup><h2>Exercise</h2></hgroup><article  id="exercise-3" class="build">
-
-<div id="exercise-box">
-<strong>Extracting elements from a vector</strong>
-
-<div id="box-text">
-<p>Create a vector containing the letters of the alphabet in reverse order.</p>
-
-<p>Extension: Imagine that you want to access the last element of a vector, but you don&#39;t know how long it is (i.e. you can&#39;t use <code>LETTERS[26]</code>). How could you do it?</p></div></div>
-
-<pre class = 'prettyprint lang-r'>LETTERS[26:1]</pre>
-
-<pre >##  [1] &quot;Z&quot; &quot;Y&quot; &quot;X&quot; &quot;W&quot; &quot;V&quot; &quot;U&quot; &quot;T&quot; &quot;S&quot; &quot;R&quot; &quot;Q&quot; &quot;P&quot; &quot;O&quot; &quot;N&quot; &quot;M&quot; &quot;L&quot; &quot;K&quot; &quot;J&quot;
-## [18] &quot;I&quot; &quot;H&quot; &quot;G&quot; &quot;F&quot; &quot;E&quot; &quot;D&quot; &quot;C&quot; &quot;B&quot; &quot;A&quot;</pre>
-
-</article></slide><slide class=''><hgroup><h2>Exercise</h2></hgroup><article  id="exercise-4">
-
-<pre class = 'prettyprint lang-r'>length(LETTERS)</pre>
-
-<pre >## [1] 26</pre>
-
-<pre class = 'prettyprint lang-r'>LETTERS[length(LETTERS)]</pre>
-
-<pre >## [1] &quot;Z&quot;</pre>
-
-</article></slide><slide class='segue dark nobackground level1'><hgroup class = 'auto-fadein'><h2>One last bit of the basics&#8230; </h2><h3> Logical comparisons</h3></hgroup><article  id="one-last-bit-of-the-basics...-logical-comparisons">
-
-</article></slide><slide class=''><hgroup><h2>Comparing vectors</h2></hgroup><article  id="comparing-vectors" class="build smaller">
+<p>We can extract a vector (e.g. called <code>Var1</code>) from a data frame (e.g. called <code>mydf</code>) in a few different ways:</p>
 
 <div>
-<p>We use <strong>relational operators</strong> to compare the elements of numeric vectors:</p>
-
 <ul>
-<li><code>x &lt; y</code>: is x less than y?</li>
-<li><code>x &gt; y</code>: is x greater than y?</li>
-<li><code>x &lt;= y</code>: is x less than or equal to y?</li>
-<li><code>x &gt;= y</code>: is x greater than or equal to y?</li>
-<li><code>x == y</code>: is x equal to y?</li>
-<li><code>x != y</code>: is x not equal to y?</li>
+<li>Using the vector&#39;s name and the <code>$</code> operator</li>
 </ul>
 
-<p>These operators produce something called a <strong>logical vector</strong> (a vector of TRUE and FALSE values&#8212;nothing else allowed)</p></div>
+<pre class = 'prettyprint lang-r'>mydf $ Var1</pre>
 
-<div>
-<p><strong>Example</strong></p>
-
-<pre class = 'prettyprint lang-r'>x &lt;- 1:9
-y &lt;- rep(5, 9)
-x == y</pre>
-
-<pre >## [1] FALSE FALSE FALSE FALSE  TRUE FALSE FALSE FALSE FALSE</pre></div>
-
-</article></slide><slide class=''><hgroup><h2>Exercise</h2></hgroup><article  id="exercise-5" class="build">
-
-<div id="exercise-box">
-<strong>Using relational operators</strong>
-
-<div id="box-text">
-<p>Make two vectors named <code>num1</code> and <code>num2</code>, where <code>num1</code> is a sequence from 0 to 20, and <code>num2</code> is a sequence from 25 to 5. Once you have made these print them to screen, then experiment with <code>&lt;</code>, <code>&gt;</code>, <code>&lt;=</code>, <code>&gt;=</code>, <code>==</code> and <code>!=</code> to convince yourself you understand how they work.</p></div></div>
-
-<div>
-<pre class = 'prettyprint lang-r'>num1</pre>
-
-<pre >##  [1]  0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20</pre>
-
-<pre class = 'prettyprint lang-r'>num2</pre>
-
-<pre >##  [1]  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25</pre></div>
-
-</article></slide><slide class=''><hgroup><h2>Exercise</h2></hgroup><article  id="exercise-6" class="build">
-
-<div>
-<pre class = 'prettyprint lang-r'>num1</pre>
-
-<pre >##  [1]  0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20</pre>
-
-<pre class = 'prettyprint lang-r'>num2</pre>
-
-<pre >##  [1]  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25</pre></div>
-
-<pre class = 'prettyprint lang-r'>num1 == num2</pre>
-
-<pre >##  [1] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
-## [12] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE</pre>
-
-<pre class = 'prettyprint lang-r'>num1 != num2</pre>
-
-<pre >##  [1] TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE
-## [15] TRUE TRUE TRUE TRUE TRUE TRUE TRUE</pre>
-
-</article></slide><slide class=''><hgroup><h2>Exercise</h2></hgroup><article  id="exercise-7" class="build">
-
-<div>
-<pre class = 'prettyprint lang-r'>num1</pre>
-
-<pre >##  [1]  0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20</pre>
-
-<pre class = 'prettyprint lang-r'>num2</pre>
-
-<pre >##  [1]  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25</pre></div>
-
-<pre class = 'prettyprint lang-r'>num1 &lt;  num2</pre>
-
-<pre >##  [1] TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE
-## [15] TRUE TRUE TRUE TRUE TRUE TRUE TRUE</pre>
-
-<pre class = 'prettyprint lang-r'>num1 &lt;= num2</pre>
-
-<pre >##  [1] TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE
-## [15] TRUE TRUE TRUE TRUE TRUE TRUE TRUE</pre>
-
-</article></slide><slide class=''><hgroup><h2>Combining comparisons</h2></hgroup><article  id="combining-comparisons" class="build smaller">
-
-<div>
-<p>We use <strong>logical operators</strong> to combine logical statements:</p>
+<pre >## [1] 1 2 3 4</pre>
 
 <ul>
-<li><code>!x</code>: <strong>negation</strong> = <code>TRUE</code> becomes <code>FALSE</code>, <code>FALSE</code> becomes <code>TRUE</code></li>
-<li><code>x &amp; y</code>: <strong>AND</strong> = <code>TRUE</code> if <strong>both</strong> x and y are <code>TRUE</code>, <code>FALSE</code> otherwise</li>
-<li><code>x | y</code>: <strong>OR</strong> = <code>TRUE</code> if <strong>either</strong> x and y are <code>TRUE</code>, <code>FALSE</code> otherwise</li>
+<li>Using the vector&#39;s name and the <code>[[ ]]</code> operator</li>
+<li>Using the vector&#39;s position and the <code>[[ ]]</code> operator</li>
+</ul></div>
+
+</article></slide><slide class=""><hgroup><h2>Selecting vectors from data frames</h2></hgroup><article  id="selecting-vectors-from-data-frames-1">
+
+<p>We can extract a vector (e.g. called <code>Var1</code>) from a data frame (e.g. called <code>mydf</code>) in a few different ways:</p>
+
+<div>
+<ul>
+<li>Using the vector&#39;s name and the <code>$</code> operator</li>
+<li>Using the vector&#39;s name and the <code>[[ ]]</code> operator</li>
 </ul>
 
-<p>These operators produce another <strong>logical vector</strong> (a vector of TRUE / FALSE values)</p></div>
+<pre class = 'prettyprint lang-r'>mydf[[&quot;Var1&quot;]] # &lt;- WE HAVE TO USE QUOTES!</pre>
+
+<pre >## [1] 1 2 3 4</pre>
+
+<ul>
+<li>Using the vector&#39;s position and the <code>[[ ]]</code> operator</li>
+</ul></div>
+
+</article></slide><slide class=""><hgroup><h2>Selecting vectors from data frames</h2></hgroup><article  id="selecting-vectors-from-data-frames-2">
+
+<p>We can extract a vector (e.g. called <code>Var1</code>) from a data frame (e.g. called <code>mydf</code>) in a few different ways:</p>
 
 <div>
-<p><strong>Example</strong></p>
+<ul>
+<li>Using the vector&#39;s name and the <code>$</code> operator</li>
+<li>Using the vector&#39;s name and the <code>[[ ]]</code> operator</li>
+<li>Using the vector&#39;s position and the <code>[[ ]]</code> operator</li>
+</ul>
 
-<pre class = 'prettyprint lang-r'>x &lt;- c(TRUE, TRUE, FALSE, FALSE)
-y &lt;- c(FALSE, TRUE, FALSE, TRUE)
-x &amp; y</pre>
+<pre class = 'prettyprint lang-r'>mydf[[1]]</pre>
 
-<pre >## [1] FALSE  TRUE FALSE FALSE</pre>
+<pre >## [1] 1 2 3 4</pre></div>
 
-<pre class = 'prettyprint lang-r'>x | y</pre>
-
-<pre >## [1]  TRUE  TRUE FALSE  TRUE</pre></div>
-
-</article></slide><slide class='segue dark nobackground level1'><hgroup class = 'auto-fadein'><h2>R packages </h2><h3> A great source of confusion</h3></hgroup><article  id="r-packages-a-great-source-of-confusion">
-
-</article></slide><slide class=''><hgroup><h2>A (very) quick overview</h2></hgroup><article  id="a-very-quick-overview" class="build">
-
-<div>
-<p>Packages extend what base R can do. Two things have to happen before you can use a package:</p>
-
-<ol>
-<li><p>You have to <strong>install</strong> it. This is a &quot;do once&quot; operation. After a package is installed you can close down and reopen R and it is still installed.</p></li>
-<li>You have to <strong>load and attach</strong> it. This is a &quot;do every time&quot; operation. You have to load and attach the package every time you start a new session (= open R).</li>
-</ol></div>
+<br>
 
 <hr>
 
+<p>N.B. We will only use the first version in this course. Remember what <code>$</code> does. You <strong>will</strong> need to use it.</p>
+
+</article></slide><slide class=""><hgroup><h2>Exercise</h2></hgroup><article  id="exercise" class="build">
+
+<div id="exercise-box">
+<strong>Extracting vectors from data frames</strong>
+
+<div id="box-text">
+<p>R has many different datasets built into it. These are stored as data frames.</p>
+
+<p>One of these is the famous <code>iris</code> data. Type this into your Console: <code>View(iris)</code>. What does the <code>View</code> function do?</p>
+
+<p>How many vectors (i.e. columns) are stored in <code>iris</code>? Extract the one named <code>Sepal.Width</code> and print it to the Console.</p></div></div>
+
 <div>
-<p>A mobile phone App analogy:</p>
+<pre class = 'prettyprint lang-r'>iris$Sepal.Width</pre>
+
+<pre >##   [1] 3.5 3.0 3.2 3.1 3.6 3.9 3.4 3.4 2.9 3.1 3.7 3.4 3.0 3.0 4.0 4.4 3.9
+##  [18] 3.5 3.8 3.8 3.4 3.7 3.6 3.3 3.4 3.0 3.4 3.5 3.4 3.2 3.1 3.4 4.1 4.2
+##  [35] 3.1 3.2 3.5 3.6 3.0 3.4 3.5 2.3 3.2 3.5 3.8 3.0 3.8 3.2 3.7 3.3 3.2
+##  [52] 3.2 3.1 2.3 2.8 2.8 3.3 2.4 2.9 2.7 2.0 3.0 2.2 2.9 2.9 3.1 3.0 2.7
+##  [69] 2.2 2.5 3.2 2.8 2.5 2.8 2.9 3.0 2.8 3.0 2.9 2.6 2.4 2.4 2.7 2.7 3.0
+##  [86] 3.4 3.1 2.3 3.0 2.5 2.6 3.0 2.6 2.3 2.7 3.0 2.9 2.9 2.5 2.8 3.3 2.7
+## [103] 3.0 2.9 3.0 3.0 2.5 2.9 2.5 3.6 3.2 2.7 3.0 2.5 2.8 3.2 3.0 3.8 2.6
+## [120] 2.2 3.2 2.8 2.8 2.7 3.3 3.2 2.8 3.0 2.8 3.0 2.8 3.8 2.8 2.8 2.6 3.0
+## [137] 3.4 3.1 3.0 3.1 3.1 3.1 2.7 3.2 3.3 3.0 2.5 3.0 3.4 3.0</pre></div>
+
+</article></slide><slide class=""><hgroup><h2>Two views of data frames</h2></hgroup><article  id="two-views-of-data-frames-1" class="build">
+
+<p>The second view: <strong>Data frames are table-like objects</strong>. Take another look at our simple data frame:</p>
+
+<pre class = 'prettyprint lang-r'>mydf</pre>
+
+<pre >##   Var1 Var2 Var3
+## 1    1    A    1
+## 2    2    B    2
+## 3    3    C    4
+## 4    4    D    8</pre>
+
+<p>This clearly has rows and columns. We can extract elements of the data frame using the square brackets <code>[ ]</code>:</p>
+
+<pre class = 'prettyprint lang-r'>mydf[2, 3]</pre>
+
+<pre >## [1] 2</pre>
+
+<p><strong>[Row #, Col #]</strong>: This extracted the element in the second row and third column.</p>
+
+</article></slide><slide class=""><hgroup><h2>Exercise</h2></hgroup><article  id="exercise-1" class="build smaller">
+
+<div id="exercise-box">
+<strong>Extracting elements from data frames</strong>
+
+<div id="box-text">
+<p>Using the <code>iris</code> data, wee if you can use the <code>[,]</code> construct to&#8230;</p>
+
+<ol>
+<li><p>Get the block of elements that lie in rows 2 to 3 <strong>and</strong> columns 1 to 4. Hint &#8212; you will need to use the <code>:</code> operator twice inside <code>[,]</code></p></li>
+<li>Get just the second row of the dataset. Hint &#8212; you <strong>do not</strong> need to use the <code>:</code> operator to solve this problem.</li>
+</ol></div></div>
+
+<div>
+<pre class = 'prettyprint lang-r'>iris[2:3, 1:4]</pre>
+
+<pre >##   Sepal.Length Sepal.Width Petal.Length Petal.Width
+## 2          4.9         3.0          1.4         0.2
+## 3          4.7         3.2          1.3         0.2</pre></div>
+
+<div>
+<pre class = 'prettyprint lang-r'>iris[2, ]</pre>
+
+<pre >##   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+## 2          4.9           3          1.4         0.2  setosa</pre></div>
+
+<p><strong>Note</strong>: this produced a new data frame.</p>
+
+</article></slide><slide class=""><hgroup><h2>Exercise</h2></hgroup><article  id="exercise-2" class="build smaller">
+
+<div id="exercise-box">
+<strong>Examining a data frame</strong>
+
+<div id="box-text">
+<p>We&#39;ve seen that <code>View(iris)</code> can be used to examine a data frame in a spreadsheet like view. There are many other functions that allow us to examine the structure of a data frame. Using the <code>iris</code> data, experiment with the <code>head</code>, <code>tail</code>, and <code>str</code> functions to see what they do.</p></div></div>
+
+<div>
+<pre class = 'prettyprint lang-r'>head(iris, n = 2)</pre>
+
+<pre >##   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+## 1          5.1         3.5          1.4         0.2  setosa
+## 2          4.9         3.0          1.4         0.2  setosa</pre></div>
+
+<div>
+<pre class = 'prettyprint lang-r'>str(iris)</pre>
+
+<pre >## &#39;data.frame&#39;:    150 obs. of  5 variables:
+##  $ Sepal.Length: num  5.1 4.9 4.7 4.6 5 5.4 4.6 5 4.4 4.9 ...
+##  $ Sepal.Width : num  3.5 3 3.2 3.1 3.6 3.9 3.4 3.4 2.9 3.1 ...
+##  $ Petal.Length: num  1.4 1.4 1.3 1.5 1.4 1.7 1.4 1.5 1.4 1.5 ...
+##  $ Petal.Width : num  0.2 0.2 0.2 0.2 0.2 0.4 0.3 0.2 0.2 0.1 ...
+##  $ Species     : Factor w/ 3 levels &quot;setosa&quot;,&quot;versicolor&quot;,..: 1 1 1 1 1 1 1 1 1 1 ...</pre></div>
+
+</article></slide><slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>The working directory </h2><h3> Where R &quot;looks&quot; for files</h3></hgroup><article  id="the-working-directory-where-r-looks-for-files">
+
+</article></slide><slide class=""><hgroup><h2>What is the working directory?</h2></hgroup><article  id="what-is-the-working-directory" class="build">
+
+<p>A quick overview of what it is and how to work with it&#8230;</p>
 
 <ul>
-<li><p>installing a package &lt;=&gt; getting an App from an App store</p></li>
-<li>loading and attaching a package &lt;=&gt; opening the App on your phone</li>
+<li><p>The <strong>working directory</strong> is a default location where R looks for files you want to use. It is just a folder on your computer.</p></li>
+<li><p>If you don&#39;t set the working directory, R will do it for you. It will seldom choose the exact folder you want to use.</p></li>
+<li><p>YOU should set the working directory EVERY time you start R/RStudio. Setting your working directory should be the first thing you do.</p></li>
+<li><p>Don&#39;t do this using R code in your script. Instead, do it via the Console (hard and error prone) or using the RStudio menu system (easy and reliable).</p></li>
+</ul>
+
+<div>
+<p><strong>Set your working directory now using&#8230;</strong> <strong><code>Session &gt; Set Working Directory &gt; Choose Directory...</code></strong></p></div>
+
+</article></slide><slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>Reading in data </h2><h3> A great source of confusion</h3></hgroup><article  id="reading-in-data-a-great-source-of-confusion">
+
+</article></slide><slide class=""><hgroup><h2>We need some data&#8230;.</h2></hgroup><article  id="we-need-some-data....">
+
+<p><strong>1. Grab the &quot;iris_morphology.xlsx&quot; file from MOLE</strong>:</p>
+
+<p>Look in the folder called <em>Data files needed for R course (semester 2)</em></p>
+
+<p><strong>2. Save this anywhere you like</strong></p>
+
+<p>Make sure you remember where you put it!</p>
+
+<p><strong>3. Open up your copy of &quot;iris_morphology.xlsx&quot; in Excel</strong></p>
+
+<p>How many columns (&quot;variables&quot;) and rows (&quot;observations&quot;) are there?</p>
+
+</article></slide><slide class=""><hgroup><h2>Getting data from Excel into R</h2></hgroup><article  id="getting-data-from-excel-into-r" class="build smaller">
+
+<p>Essentially a two step process</p>
+
+<div>
+<p><strong>STEP 1. Export data from Excel to a CSV file</strong>:</p>
+
+<ul>
+<li><p>Open the &quot;iris_morphology.xlsx&quot; spreadsheet up in Excel</p></li>
+<li><p>In Excel, go to <code>Save As...</code> and choose the <code>Comma Separated Values (csv)</code> option</p></li>
+<li>Keep the default file name (&quot;iris_morphology.csv&quot;), but make sure the file is saved <strong>in your working directory</strong> (you set this earlier)</li>
 </ul></div>
 
-</article></slide><slide class=''><hgroup><h2>How do we access packages?</h2></hgroup><article  id="how-do-we-access-packages">
-
-<ol>
-<li><p>We <strong>install</strong> a package with the <code>install.packages</code> function</p></li>
-<li><p>We <strong>load and attach</strong> an installed package with the <code>library</code> function</p></li>
-</ol>
-
-<p><strong>TIPS</strong></p>
+<div>
+<p><strong>STEP 2. Now import the CSV file into using RStudio:</strong></p>
 
 <ul>
-<li><p>Do not use <code>install.packages</code> inside your scripts! You don&#39;t want to reinstall a package every time you plan to use it.</p></li>
-<li><p>You can also install a package via the Packages tab in RStudio. It is fine to use this if you don&#39;t like using <code>install.packages</code>.</p></li>
+<li>Include the following line in your script, and send it to the Console</li>
 </ul>
 
-</article></slide><slide class=''><hgroup><h2>Exercise</h2></hgroup><article  id="exercise-8" class="smaller">
-
-<div id="exercise-box">
-<strong>Working with packages</strong>
-
-<div id="box-text">
-<p>We want to use the <code>fortune</code> function (singular!) that resides in the <strong>fortunes</strong> package (plural!). Do the following, in the order given, working directly in the Console:</p>
-
-<ol>
-<li><p>Try to use the <code>fortune</code> function, i.e. type <code>fortune()</code> straight into the Console. Does this work or do you see an error?</p></li>
-<li><p>Try to use <code>library</code> to load and attach the <strong>fortunes</strong> package. Does this work or do you see an error?</p></li>
-<li><p>Look in the <strong>Packages</strong> tab in RStudio. Can you see anything called fortunes? Now install the <strong>fortunes</strong> package with <code>install.packages</code>. Look for it the <strong>Packages</strong> tab again.</p></li>
-<li><p>Try again to use the <code>fortune</code> function. Does this work? If not, why not?</p></li>
-<li><p>Use <code>library</code> to load and attach the <strong>fortunes</strong> package (plural!). What happens?</p></li>
-<li>Try again to use the <code>fortune</code> function. Does this work or do you see an error?</li>
-</ol></div></div>
-
-</article></slide><slide class=''><hgroup><h2>Exercise</h2></hgroup><article  id="exercise-9" class="smaller build">
-
-<div id="exercise-box">
-<strong>Working with packages (still)</strong>
-
-<div id="box-text">
-<p>Now try the following:</p>
-
-<ol>
-<li><p>Close down Rstudio completely then open it again.</p></li>
-<li><p>Try to use the <code>fortune</code> function, i.e. type <code>fortune()</code> straight into the Console. Does this work or do you see an error?</p></li>
-<li><p>Use <code>library</code> to load and attach the <strong>fortunes</strong> package (plural!). What happens?</p></li>
-<li><p>Try again to use the <code>fortune</code> function. Does this work or do you see an error?</p></li>
-</ol></div></div>
-
-</article></slide><slide class=''><hgroup><h2>Exercise</h2></hgroup><article  id="exercise-10" class="small">
-
-<p>In the next few weeks we&#39;re going to be using two packages: <code>dplyr</code> and <code>ggplot2</code>. The TAs installed these packages on a lot of your computers last week.<br/><br> Check whether they&#39;re installed now using the following code:</p>
-
-<pre class = 'prettyprint lang-r'>library(ggplot2)
-library(dplyr)</pre>
-
-<p>If you get an error message (NOT a warning) - stick your hand up.</p>
-
-</article></slide><slide class='segue dark nobackground level1'><hgroup class = 'auto-fadein'><h2>Getting help </h2><h3> Learning about a function</h3></hgroup><article  id="getting-help-learning-about-a-function">
-
-</article></slide><slide class=''><hgroup><h2>Help files</h2></hgroup><article  id="help-files">
-
-<p>Do the following:</p>
-
-<pre class = 'prettyprint lang-r'>?round</pre>
-
-<p>Help files are really <strong>documentation</strong> files:</p>
+<pre class = 'prettyprint lang-r'>my_iris &lt;- read.csv(&quot;iris_morphology.csv&quot;, stringsAsFactors = FALSE)
+my_iris</pre>
 
 <ul>
-<li>Description</li>
-<li>Usage</li>
-<li>Arguments</li>
-<li>Details</li>
-<li>References</li>
-<li>Examples</li>
+<li>What happened? Did you see any error messages? If you did, check your spelling and make sure your working directory is set to the right place.</li>
+</ul></div>
+
+</article></slide><slide class=""><hgroup><h2>The other way&#8230;</h2></hgroup><article  id="the-other-way...">
+
+<p><strong>This is how to import data in a CSV file using RStudio:</strong></p>
+
+<ul>
+<li><p>Select <code>Import Dataset &gt; From Text File...</code></p></li>
+<li><p>Select the file your saved and click Open</p></li>
+<li><p>Enter a name (no spaces allowed) and click Import</p></li>
 </ul>
 
-<p>Let&#39;s step though the help for <code>round</code>&#8230;</p>
-
-</article></slide><slide class=''><hgroup><h2>Exercise</h2></hgroup><article  id="exercise-11" class="smaller build">
-
-<div id="exercise-box">
-<strong>Using the help files</strong>
-
-<div id="box-text">
-<p>Use the <code>rep</code> function to create the following three sequences:</p>
-
-<pre >##  [1] 1 1 1 2 2 2 3 3 3 4 4 4 5 5 5 6 6 6</pre>
-
-<pre >## [1] 2 5 2 5 2 5 2 5</pre>
-
-<pre >##  [1] 3 3 4 4 5 5 6 6 3 3 4 4 5 5 6 6 3 3 4 4 5 5 6 6</pre></div></div>
-
-</article></slide><slide class=''><hgroup><h2>Exercise</h2></hgroup><article  id="exercise-12" class="build">
-
-<pre class = 'prettyprint lang-r'>rep(1:6, each = 3)</pre>
-
-<pre >##  [1] 1 1 1 2 2 2 3 3 3 4 4 4 5 5 5 6 6 6</pre>
-
-<pre class = 'prettyprint lang-r'>rep(c(2, 5), times = 4)</pre>
-
-<pre >## [1] 2 5 2 5 2 5 2 5</pre>
-
-<pre class = 'prettyprint lang-r'>rep(3:6, each = 2, times = 3)</pre>
-
-<pre >##  [1] 3 3 4 4 5 5 6 6 3 3 4 4 5 5 6 6 3 3 4 4 5 5 6 6</pre>
-
-</article></slide><slide class=''><hgroup><h2>Exercise</h2></hgroup><article  id="exercise-13" class="smaller build">
-
-<div id="exercise-box">
-<strong>Using the help files</strong>
-
-<div id="box-text">
-<p>Use the <code>seq</code> function to create the following numeric vector.</p>
-
-<pre >##  [1] 0.0 0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1.0</pre>
-
-<p>Assign the vector to a name of your choice.<br/>Change the 6th element to have a value of 14.</p></div></div>
-
-<pre class = 'prettyprint lang-r'>myseq &lt;- seq(0, 1, by = 0.1)
-myseq</pre>
-
-<pre >##  [1] 0.0 0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1.0</pre>
-
-<pre class = 'prettyprint lang-r'>myseq[6] &lt;- 14
-myseq</pre>
-
-<pre >##  [1]  0.0  0.1  0.2  0.3  0.4 14.0  0.6  0.7  0.8  0.9  1.0</pre>
-
-</article></slide><slide class=''><hgroup><h2>What if you don&#39;t know the function name?</h2></hgroup><article  id="what-if-you-dont-know-the-function-name">
-
-<p>Do the following:</p>
-
-<pre class = 'prettyprint lang-r'>??round</pre>
-
-</article></slide><slide class=''><hgroup><h2>Other sources of help</h2></hgroup><article  id="other-sources-of-help" class="smaller build">
-
-<p>The internet is packed full of helpful resources:</p>
+<p><strong>Please, please, please don&#39;t use this method!!!</strong></p>
 
 <ul>
-<li><p><strong>Google</strong> &#8211; this might be obvious, but you have to work on your &quot;Google-fu&quot; to find what you want. The key is to pick the right search terms:</p>
-
-<ul>
-<li><p>include the function or package name</p></li>
-<li><p>include the letter R!</p></li>
-<li><p>be selective about which sites you look at&#8230;</p></li>
-</ul></li>
-<li><p><strong>Stack Overflow</strong> &#8211; probably the best question and answer site for computing stuff. People can be a bit blunt though:</p>
-
-<ul>
-<li><p>check whether your question has been asked before (Google)</p></li>
-<li><p>read the community guidelines</p></li>
-<li><p>provide example code with your questions</p></li>
-</ul></li>
+<li><p>You have to remember do it everytime you want to run your script.</p></li>
+<li><p>This method is very error prone.</p></li>
 </ul>
 
-</article></slide><slide class=''><hgroup><h2>Other sources of help</h2></hgroup><article  id="other-sources-of-help-1" class="build">
+</article></slide><slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>Overview of <strong>dplyr</strong> and <code>tbl</code> </h2><h3> Getting to grips with the basics</h3></hgroup><article  id="overview-of-dplyr-and-tbl-getting-to-grips-with-the-basics">
+
+</article></slide><slide class=""><hgroup><h2>Why use dplyr?</h2></hgroup><article  id="why-use-dplyr">
+
+<p><strong>dplyr</strong> implements a <strong>grammar of data manipulation</strong> to enable you manipulate data and summarise the information in a data set (e.g. group means).</p>
+
+<p><strong>Advantages of using <strong>dplyr</strong></strong></p>
 
 <ul>
-<li><p><strong>Each other</strong></p></li>
-<li><p><strong>The TAs</strong></p></li>
-<li><p><strong>Me</strong> - email (<a href='mailto:bjhindle1@sheffield.ac.uk' title=''>bjhindle1@sheffield.ac.uk</a>) to arrange a meeting - if none of the above have helped</p></li>
+<li>Provides a consistent framework for data manipulation</li>
+<li>Designed to work well with the <code>ggplot2</code> plotting system</li>
+<li>Fast compared to many base R functions</li>
+<li>Allows you to work with data stored in many ways (e.g. in a database)</li>
 </ul>
 
-</article></slide><slide class=''><hgroup><h2>Changing the appearance of RStudio</h2></hgroup><article  id="changing-the-appearance-of-rstudio">
+</article></slide><slide class=""><hgroup><h2>Five key verbs</h2></hgroup><article  id="five-key-verbs" class="build">
 
-<p>Navigate through RStudio&#39;s menus to Tools &gt; Global Options</p>
-
-<p>Click on Appearance</p>
-
-<p>Experiment with the different themes</p>
-
-</article></slide><slide class=''><hgroup><h2>Useful keyboard shortcuts</h2></hgroup><article  id="useful-keyboard-shortcuts">
-
-<p>Move cursor to script: Ctrl + 1<br/>Move cursor to console: Ctrl + 2 Navigate command history: Up/down<br/>Assignment operator: Alt + -</p>
-
-</article></slide><slide class=''><hgroup><h2>And finally&#8230;</h2></hgroup><article  id="and-finally...">
+<div>
+<p><strong><strong>dplyr</strong> has five main &quot;verbs&quot; (i.e. functions):</strong></p>
 
 <ul>
-<li><p>There will <strong>not</strong> be a lecture tomorrow morning.</p></li>
-<li><p>Keep working through the online coursebook</p></li>
-<li><p>Provide feedback on the course so far at: <a href='https://goo.gl/forms/x2x5JZdhygDti09q2' title=''>https://goo.gl/forms/x2x5JZdhygDti09q2</a></p></li>
-<li><p>Next week we&#39;ll actually start using some data</p></li>
-</ul></article></slide>
+<li><code>select</code>: Extract a subset of variables</li>
+<li><code>filter</code>: Extract a subset of rows</li>
+<li><code>arrange</code>: Reorder rows</li>
+<li><code>mutate</code>: Construct new variables</li>
+<li><code>summarise</code>: Calculate information about groups</li>
+</ul>
+
+<p>We&#39;ll also explore a few more useful functions such as <code>slice</code>, <code>rename</code>, <code>transmute</code>, and <code>group_by</code>. There are many others&#8230;</p></div>
+
+<div>
+<p><br></p>
+
+</article></slide><slide class=""><hgroup><h2>Five key verbs</h2></hgroup><article  id="five-key-verbs-1">
+
+<p><strong>It is helpful to classify the verbs according to what they work on:</strong></p>
+
+<ul>
+<li>observations (rows): <code>filter</code> &amp; <code>slice</code> &amp; <code>arrange</code></li>
+<li>variables (columns): <code>select</code> &amp; <code>rename</code> &amp; <code>mutate</code></li>
+<li>summarise: <code>summarise</code> (or <code>summarize</code>)</li>
+</ul>
+
+<p>(This classification only works if your data are <strong>tidy</strong>, i.e. there is one observation per row and one column per variable. Make sure you read about this idea in the course book)</p></div>
+
+</article></slide><slide class=""><hgroup><h2>Before we start</h2></hgroup><article  id="before-we-start" class="build smaller">
+
+<p>Required packages and data:</p>
+
+<ul>
+<li>The <strong>dplyr</strong> package obviously</li>
+<li>The <code>CA_STORMS.csv</code> data file: climate data for Central America (on MOLE)</li>
+</ul>
+
+<div>
+<p><strong>1. Load the <strong>dplyr</strong> package</strong></p>
+
+<pre class = 'prettyprint lang-r'>library(dplyr)</pre>
+
+<p>This should already be installed. If you see errors, you may have to install it, e.g.</p>
+
+<pre class = 'prettyprint lang-r'>install.packages(&quot;dplyr&quot;)</pre></div>
+
+<div>
+<p><strong>2. Read in the Central American storms data</strong></p>
+
+<p>Download the <code>CA_STORMS.csv</code> data from MOLE. Set your working directory, and then use <code>read.csv</code> to read the data in (remember to use <code>stringsAsFactors = FALSE</code>). Assign the resulting data frame the name <code>ca_storms</code>.</p></div>
+
+<p><strong>3. Use <code>View</code> to examine the <code>ca_storms</code> data frame object</strong></p>
+
+</article></slide><slide class=""><hgroup><h2>Making and using <code>tbl</code> objects</h2></hgroup><article  id="making-and-using-tbl-objects" class="smaller">
+
+<p>A <code>tbl</code> object (pronounced &quot;tibble&quot;) is essentially a special kind of data frame. It works the same as a data frame, but with a few small differences&#8230; e.g. compact printing:</p>
+
+<pre class = 'prettyprint lang-r'>tbl_df(ca_storms)</pre>
+
+<pre >## # A tibble: 2,747 x 11
+##    name    year month   day  hour   lat  long pressure  wind type   seasday
+##    &lt;chr&gt;  &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt;    &lt;int&gt; &lt;int&gt; &lt;chr&gt;    &lt;int&gt;
+##  1 Allis…  1995     6     3     0  17.4 -84.3     1005    30 Tropi…       3
+##  2 Allis…  1995     6     3     6  18.3 -84.9     1004    30 Tropi…       3
+##  3 Allis…  1995     6     3    12  19.3 -85.7     1003    35 Tropi…       3
+##  4 Allis…  1995     6     3    18  20.6 -85.8     1001    40 Tropi…       3
+##  5 Allis…  1995     6     4     0  22   -86        997    50 Tropi…       4
+##  6 Allis…  1995     6     4     6  23.3 -86.3      995    60 Tropi…       4
+##  7 Allis…  1995     6     4    12  24.7 -86.2      987    65 Hurri…       4
+##  8 Allis…  1995     6     4    18  26.2 -86.2      988    65 Hurri…       4
+##  9 Allis…  1995     6     5     0  27.6 -86.1      988    65 Hurri…       5
+## 10 Allis…  1995     6     5     6  28.5 -85.6      990    60 Tropi…       5
+## # … with 2,737 more rows</pre>
+
+</article></slide><slide class=""><hgroup><h2>Convert <code>ca_storms</code> and <code>iris</code> to tibbles now</h2></hgroup><article  id="convert-ca_storms-and-iris-to-tibbles-now">
+
+<p>Next in your script, add these lines to convert <code>ca_storms</code> and <code>iris</code> to tibbles&#8230;</p>
+
+<pre class = 'prettyprint lang-r'>ca_storms &lt;- tbl_df(ca_storms)
+iris   &lt;- tbl_df(iris)</pre>
+
+<p>You don&#39;t have to do this (<strong>dplyr</strong> is fine with normal data frames) but it will ensure your output matches the presentation.</p>
+
+</article></slide><slide class=""><hgroup><h2>Looking at your <code>tbl</code> (or <code>data.frame</code>)</h2></hgroup><article  id="looking-at-your-tbl-or-data.frame" class="smaller">
+
+<p>In addition to printing a <code>tbl</code> or <code>data.frame</code>, we can use the <code>glimpse</code> function to obtain different summary information about variables:</p>
+
+<pre class = 'prettyprint lang-r'>glimpse(ca_storms)</pre>
+
+<pre >## Observations: 2,747
+## Variables: 11
+## $ name     &lt;chr&gt; &quot;Allison&quot;, &quot;Allison&quot;, &quot;Allison&quot;, &quot;Allison&quot;, &quot;Allison&quot;, …
+## $ year     &lt;int&gt; 1995, 1995, 1995, 1995, 1995, 1995, 1995, 1995, 1995, 1…
+## $ month    &lt;int&gt; 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6…
+## $ day      &lt;int&gt; 3, 3, 3, 3, 4, 4, 4, 4, 5, 5, 5, 5, 6, 6, 6, 6, 7, 7, 7…
+## $ hour     &lt;int&gt; 0, 6, 12, 18, 0, 6, 12, 18, 0, 6, 12, 18, 0, 6, 12, 18,…
+## $ lat      &lt;dbl&gt; 17.4, 18.3, 19.3, 20.6, 22.0, 23.3, 24.7, 26.2, 27.6, 2…
+## $ long     &lt;dbl&gt; -84.3, -84.9, -85.7, -85.8, -86.0, -86.3, -86.2, -86.2,…
+## $ pressure &lt;int&gt; 1005, 1004, 1003, 1001, 997, 995, 987, 988, 988, 990, 9…
+## $ wind     &lt;int&gt; 30, 30, 35, 40, 50, 60, 65, 65, 65, 60, 60, 45, 30, 35,…
+## $ type     &lt;chr&gt; &quot;Tropical Depression&quot;, &quot;Tropical Depression&quot;, &quot;Tropical…
+## $ seasday  &lt;int&gt; 3, 3, 3, 3, 4, 4, 4, 4, 5, 5, 5, 5, 6, 6, 6, 6, 7, 7, 7…</pre>
+
+<p>This is similar to <code>str</code> &#8212; the <code>glimpse</code> function tells us what variables are in <code>storm</code> as well as the type of each variable.</p>
+
+</article></slide><slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>Using <code>select</code> </h2><h3> Extracting a subset of variables</h3></hgroup><article  id="using-select-extracting-a-subset-of-variables">
+
+</article></slide><slide class=""><hgroup><h2>Basic usage</h2></hgroup><article  id="basic-usage">
+
+<p>We use <code>select</code> to extract a subset of variables for further analysis. Using <code>select</code> looks like this:</p>
+
+<pre class = 'prettyprint lang-r'>select(data, Variable1, Variable2, ...)</pre>
+
+<p><strong>Arguments</strong></p>
+
+<ul>
+<li><code>data</code>: a <code>data.frame</code> or <code>tbl</code> object</li>
+<li><code>VariableX</code>: names of variables in <code>data</code></li>
+</ul>
+
+</article></slide><slide class=""><hgroup><h2>Exercise</h2></hgroup><article  id="exercise-3" class="build">
+
+<div id="exercise-box">
+<strong>Selecting two variables</strong>
+
+<div id="box-text">
+<p>Use the <code>select</code> function with the <code>ca_storms</code> data set to make a new data set containing only <code>name</code> and <code>year</code>. Assign this new data set a name, and then check that it contains the right variables using the <code>glimpse</code> function.</p></div></div>
+
+<pre class = 'prettyprint lang-r'>ca_storms_simple &lt;- select(ca_storms, name, year)
+glimpse(ca_storms_simple)</pre>
+
+<pre >## Observations: 2,747
+## Variables: 2
+## $ name &lt;chr&gt; &quot;Allison&quot;, &quot;Allison&quot;, &quot;Allison&quot;, &quot;Allison&quot;, &quot;Allison&quot;, &quot;All…
+## $ year &lt;int&gt; 1995, 1995, 1995, 1995, 1995, 1995, 1995, 1995, 1995, 1995,…</pre>
+
+</article></slide><slide class=""><hgroup><h2>Selecting &amp; dropping variable ranges</h2></hgroup><article  id="selecting-dropping-variable-ranges" class="build">
+
+<p>The <code>select</code> function makes selecting/removing groups of variables easy:</p>
+
+<ul>
+<li>Use <code>:</code> to select a sequence of variables</li>
+<li>Use <code>-</code> to drop a sequence of variables</li>
+</ul>
+
+<p>The sequence can be specified using numbers (for position) or names.</p>
+
+<div>
+<p><strong>Usage:</strong></p>
+
+<pre class = 'prettyprint lang-r'># a range of variable to keep
+select(data, Variable1:Variable5)
+# a range of variable to drop
+select(data, -(Variable1:Variable5))</pre></div>
+
+<div>
+</article></slide><slide class=""><hgroup><h2>Example:</h2></hgroup><article  id="example">
+
+<pre class = 'prettyprint lang-r'>iris_fewer &lt;- select(iris, Petal.Length:Species)
+iris_fewer</pre>
+
+<pre >## # A tibble: 150 x 3
+##    Petal.Length Petal.Width Species
+##           &lt;dbl&gt;       &lt;dbl&gt; &lt;fct&gt;  
+##  1          1.4         0.2 setosa 
+##  2          1.4         0.2 setosa 
+##  3          1.3         0.2 setosa 
+##  4          1.5         0.2 setosa 
+##  5          1.4         0.2 setosa 
+##  6          1.7         0.4 setosa 
+##  7          1.4         0.3 setosa 
+##  8          1.5         0.2 setosa 
+##  9          1.4         0.2 setosa 
+## 10          1.5         0.1 setosa 
+## # … with 140 more rows</pre></div>
+
+</article></slide><slide class=""><hgroup><h2>Exercise</h2></hgroup><article  id="exercise-4" class="build">
+
+<div id="exercise-box">
+<strong>Selecting a range of variables</strong>
+
+<div id="box-text">
+<p>Use the <code>select</code> function with the <code>ca_storms</code> data set to select <strong>just</strong> the variables <code>name</code>, <code>year</code> and <code>month</code> variables.</p></div></div>
+
+<pre class = 'prettyprint lang-r'>ca_storms_fewer &lt;- select(ca_storms, name:month)
+glimpse(ca_storms_fewer)</pre>
+
+<pre >## Observations: 2,747
+## Variables: 3
+## $ name  &lt;chr&gt; &quot;Allison&quot;, &quot;Allison&quot;, &quot;Allison&quot;, &quot;Allison&quot;, &quot;Allison&quot;, &quot;Al…
+## $ year  &lt;int&gt; 1995, 1995, 1995, 1995, 1995, 1995, 1995, 1995, 1995, 1995…
+## $ month &lt;int&gt; 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6…</pre>
+
+<pre class = 'prettyprint lang-r'># alternatively
+x &lt;- select(ca_storms, -(day:seasday))</pre>
+
+</article></slide><slide class=""><hgroup><h2>Helper functions</h2></hgroup><article  id="helper-functions" class="build smaller">
+
+<p>There are several helper functions that work with <code>select</code> to simplify common variable selection tasks:</p>
+
+<ul>
+<li><code>starts_with(&quot;xyz&quot;)</code>: every name that starts with <code>&quot;xyz&quot;</code></li>
+<li><code>ends_with(&quot;xyz&quot;)</code>: every name that ends with <code>&quot;xyz&quot;</code></li>
+<li><code>contains(&quot;xyz&quot;)</code>: every name that contains <code>&quot;xyz&quot;</code></li>
+<li><code>matches(&quot;xyz&quot;)</code>: every name that matches <code>&quot;xyz&quot;</code></li>
+<li><code>one_of(names)</code>: every name that appears in <code>names</code> (character vector).</li>
+</ul>
+
+<div>
+<p><strong>Usage:</strong></p>
+
+<pre class = 'prettyprint lang-r'>select(data, help_func(&quot;xyz&quot;))</pre></div>
+
+<div>
+<p><strong>Example:</strong></p>
+
+<pre class = 'prettyprint lang-r'>iris_petal &lt;- select(iris, starts_with(&quot;Petal&quot;))
+glimpse(iris_petal)</pre>
+
+<pre >## Observations: 150
+## Variables: 2
+## $ Petal.Length &lt;dbl&gt; 1.4, 1.4, 1.3, 1.5, 1.4, 1.7, 1.4, 1.5, 1.4, 1.5, 1…
+## $ Petal.Width  &lt;dbl&gt; 0.2, 0.2, 0.2, 0.2, 0.2, 0.4, 0.3, 0.2, 0.2, 0.1, 0…</pre></div>
+
+</article></slide><slide class=""><hgroup><h2>Exercise</h2></hgroup><article  id="exercise-5" class="build">
+
+<div id="exercise-box">
+<strong>Using select with helper functions</strong>
+
+<div id="box-text">
+<p>Use the <code>select</code> function with the <code>ca_storms</code> data set to create a new data set containing just the <code>lat</code> and <code>long</code> variables. Do this using the <code>starts_with</code> helper function inside select.</p></div></div>
+
+<pre class = 'prettyprint lang-r'>ca_storms_fewer &lt;- select(ca_storms, starts_with(&quot;l&quot;))
+glimpse(ca_storms_fewer)</pre>
+
+<pre >## Observations: 2,747
+## Variables: 2
+## $ lat  &lt;dbl&gt; 17.4, 18.3, 19.3, 20.6, 22.0, 23.3, 24.7, 26.2, 27.6, 28.5,…
+## $ long &lt;dbl&gt; -84.3, -84.9, -85.7, -85.8, -86.0, -86.3, -86.2, -86.2, -86…</pre>
+
+</article></slide><slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>Using <code>select</code> and <code>rename</code> </h2><h3> Renaming variables</h3></hgroup><article  id="using-select-and-rename-renaming-variables">
+
+</article></slide><slide class=""><hgroup><h2>Renaming while selecting</h2></hgroup><article  id="renaming-while-selecting" class="build">
+
+<p>We can use <code>select</code> to rename variables as we select them using the <code>newName = varName</code> construct.</p>
+
+<div>
+<p><strong>Usage:</strong></p>
+
+<pre class = 'prettyprint lang-r'>select(data, newName1 = Var1, newName2 = Var2, ...)</pre></div>
+
+<div>
+<p><strong>Example:</strong></p>
+
+<pre class = 'prettyprint lang-r'>iris_select &lt;- select(iris, PetalLength = Petal.Length)
+glimpse(iris_select)</pre>
+
+<pre >## Observations: 150
+## Variables: 1
+## $ PetalLength &lt;dbl&gt; 1.4, 1.4, 1.3, 1.5, 1.4, 1.7, 1.4, 1.5, 1.4, 1.5, 1.…</pre></div>
+
+</article></slide><slide class=""><hgroup><h2>Renaming without selecting</h2></hgroup><article  id="renaming-without-selecting" class="build">
+
+<p>Use <code>rename</code> to rename variables while keeping all variables using the <code>newName = varName</code> construct.</p>
+
+<div>
+<p><strong>Usage:</strong></p>
+
+<pre class = 'prettyprint lang-r'>rename(data, newName1 = Var1, newName2 = Var2, ...)</pre></div>
+
+<div>
+<p><strong>Example:</strong></p>
+
+<pre class = 'prettyprint lang-r'>iris_renamed &lt;- rename(iris, 
+                       PetalLength = Petal.Length, 
+                       PetalWidth  = Petal.Width)
+glimpse(iris_renamed)</pre>
+
+<pre >## Observations: 150
+## Variables: 5
+## $ Sepal.Length &lt;dbl&gt; 5.1, 4.9, 4.7, 4.6, 5.0, 5.4, 4.6, 5.0, 4.4, 4.9, 5…
+## $ Sepal.Width  &lt;dbl&gt; 3.5, 3.0, 3.2, 3.1, 3.6, 3.9, 3.4, 3.4, 2.9, 3.1, 3…
+## $ PetalLength  &lt;dbl&gt; 1.4, 1.4, 1.3, 1.5, 1.4, 1.7, 1.4, 1.5, 1.4, 1.5, 1…
+## $ PetalWidth   &lt;dbl&gt; 0.2, 0.2, 0.2, 0.2, 0.2, 0.4, 0.3, 0.2, 0.2, 0.1, 0…
+## $ Species      &lt;fct&gt; setosa, setosa, setosa, setosa, setosa, setosa, set…</pre></div>
+
+</article></slide><slide class=""><hgroup><h2>Exercise</h2></hgroup><article  id="exercise-6" class="build">
+
+<div id="exercise-box">
+<strong>Renaming</strong>
+
+<div id="box-text">
+<p>Extract just the <code>lat</code> and <code>long</code> columns from the storms data set and rename these as <code>latitude</code> and <code>longitude</code> respectively.</p></div></div>
+
+<pre class = 'prettyprint lang-r'>ca_storms_renamed &lt;- select(ca_storms, latitude = lat, longitude = long)
+glimpse(ca_storms_renamed)</pre>
+
+<pre >## Observations: 2,747
+## Variables: 2
+## $ latitude  &lt;dbl&gt; 17.4, 18.3, 19.3, 20.6, 22.0, 23.3, 24.7, 26.2, 27.6, …
+## $ longitude &lt;dbl&gt; -84.3, -84.9, -85.7, -85.8, -86.0, -86.3, -86.2, -86.2…</pre>
+
+</article></slide><slide class=""><hgroup><h2>Part 2 &#8212; Before we start</h2></hgroup><article  id="part-2-----before-we-start" class="build smaller">
+
+<p>Required packages and data:</p>
+
+<ul>
+<li>The <strong>dplyr</strong> package</li>
+<li>The <code>CA_STORMS.csv</code> data file: climate data for Central America (on MOLE)</li>
+</ul>
+
+<div>
+<p><strong>1. Load the <strong>dplyr</strong> package</strong></p>
+
+<pre class = 'prettyprint lang-r'>library(dplyr)</pre>
+
+<p>This should already be installed. If you see errors, you may have to install it.</p></div>
+
+<div>
+<p><strong>2. Read in the Central American storms data</strong></p>
+
+<p>Download the <code>CA_STORMS.csv</code> data from MOLE. Set your working directory, and then use <code>read.csv</code> to read the data in (remember to use <code>stringsAsFactors = FALSE</code>). Assign the resulting data frame the name <code>ca_storms</code>.</p></div>
+
+<p><strong>3. Convert the ca_storms dataframe to a tbl</strong></p>
+
+<p>Remember that we can use the <code>tbl_df</code> function to convert a data frame to a tbl. This is basically a special kind of data frame that has a few advantages such as compact printing.</p>
+
+</article></slide><slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>Using <code>mutate</code> </h2><h3> Making new variables</h3></hgroup><article  id="using-mutate-making-new-variables">
+
+</article></slide><slide class=""><hgroup><h2>Basic usage</h2></hgroup><article  id="basic-usage-1" class="build">
+
+<div>
+<p>We use <code>mutate</code> to <strong>add variables</strong> for further analysis. This is how we use <code>mutate</code>:</p>
+
+<pre class = 'prettyprint lang-r'>mutate(data, NewVar = &lt;expression&gt;, ...)</pre></div>
+
+<div>
+<p><strong>Arguments</strong></p>
+
+<ul>
+<li><code>data</code>: a <code>data.frame</code> or <code>tbl</code> object</li>
+<li><code>NewVar</code>: name of a new variable to create</li>
+<li><code>&lt;expression&gt;</code>: an R expression that references variables in <code>data</code></li>
+</ul></div>
+
+<div>
+<p><strong>Comments</strong></p>
+
+<ul>
+<li><p>The <code>&lt;expression&gt;</code> which appears on the right hand side of the <code>=</code> can be any valid R expression that uses variables in <code>data</code>.</p></li>
+<li>You may use more than one <code>NewVar = &lt;expression&gt;</code> at a time if you need to construct several new variables.</li>
+</ul></div>
+
+</article></slide><slide class=""><hgroup><h2>Exercise</h2></hgroup><article  id="exercise-7" class="build">
+
+<div id="exercise-box">
+<strong>Making a new variable</strong>
+
+<div id="box-text">
+<p>Use the <code>mutate</code> function with the <code>iris</code> data set to make a new variable which is the petal area, \((Area = Length \times Width)\).</p></div></div>
+
+<pre class = 'prettyprint lang-r'>iris_area &lt;- mutate(iris, Petal.Area = Petal.Length * Petal.Width)
+glimpse(iris_area)</pre>
+
+<pre >## Observations: 150
+## Variables: 6
+## $ Sepal.Length &lt;dbl&gt; 5.1, 4.9, 4.7, 4.6, 5.0, 5.4, 4.6, 5.0, 4.4, 4.9, 5…
+## $ Sepal.Width  &lt;dbl&gt; 3.5, 3.0, 3.2, 3.1, 3.6, 3.9, 3.4, 3.4, 2.9, 3.1, 3…
+## $ Petal.Length &lt;dbl&gt; 1.4, 1.4, 1.3, 1.5, 1.4, 1.7, 1.4, 1.5, 1.4, 1.5, 1…
+## $ Petal.Width  &lt;dbl&gt; 0.2, 0.2, 0.2, 0.2, 0.2, 0.4, 0.3, 0.2, 0.2, 0.1, 0…
+## $ Species      &lt;fct&gt; setosa, setosa, setosa, setosa, setosa, setosa, set…
+## $ Petal.Area   &lt;dbl&gt; 0.28, 0.28, 0.26, 0.30, 0.28, 0.68, 0.42, 0.30, 0.2…</pre>
+
+</article></slide><slide class=""><hgroup><h2>Multiple calculations</h2></hgroup><article  id="multiple-calculations" class="build">
+
+<div>
+<p>We can add more than one variable at a time using <code>mutate</code>. Each new variable can also use one or more variables created in a previous step.</p></div>
+
+<div>
+<p><strong>Usage:</strong></p>
+
+<pre class = 'prettyprint lang-r'>mutate(data, NewVar1 = &lt;expression1&gt;, 
+             NewVar2 = &lt;expression2 using NewVar1&gt;)</pre></div>
+
+<div>
+<p><strong>Example:</strong></p>
+
+<pre class = 'prettyprint lang-r'>iris_new_vars &lt;- 
+  mutate(iris, Sepal.Eccentricity = Sepal.Length / Sepal.Width,
+               Petal.Eccentricity = Petal.Length / Petal.Width,
+               Eccentricity.Diff  = Sepal.Eccentricity - Petal.Eccentricity)
+glimpse(iris_new_vars)</pre>
+
+<pre >## Observations: 150
+## Variables: 8
+## $ Sepal.Length       &lt;dbl&gt; 5.1, 4.9, 4.7, 4.6, 5.0, 5.4, 4.6, 5.0, 4.4, …
+## $ Sepal.Width        &lt;dbl&gt; 3.5, 3.0, 3.2, 3.1, 3.6, 3.9, 3.4, 3.4, 2.9, …
+## $ Petal.Length       &lt;dbl&gt; 1.4, 1.4, 1.3, 1.5, 1.4, 1.7, 1.4, 1.5, 1.4, …
+## $ Petal.Width        &lt;dbl&gt; 0.2, 0.2, 0.2, 0.2, 0.2, 0.4, 0.3, 0.2, 0.2, …
+## $ Species            &lt;fct&gt; setosa, setosa, setosa, setosa, setosa, setos…
+## $ Sepal.Eccentricity &lt;dbl&gt; 1.457143, 1.633333, 1.468750, 1.483871, 1.388…
+## $ Petal.Eccentricity &lt;dbl&gt; 7.000000, 7.000000, 6.500000, 7.500000, 7.000…
+## $ Eccentricity.Diff  &lt;dbl&gt; -5.542857, -5.366667, -5.031250, -6.016129, -…</pre></div>
+
+</article></slide><slide class=""><hgroup><h2>Exercise</h2></hgroup><article  id="exercise-8" class="build">
+
+<div id="exercise-box">
+<strong>Making several new variables</strong>
+
+<div id="box-text">
+<p>Use the <code>mutate</code> function with the <code>iris</code> data set to make two new area variables, one for petal and one for sepal. Create a third variable which is the ratio of the petal and sepal areas.</p></div>
+
+<p>Do all of this in one call to <code>mutate</code>, i.e. use <code>mutate</code> only once to do all of this.</p></div>
+
+</div>
+
+<pre class = 'prettyprint lang-r'>iris_ratio &lt;- mutate(iris, Sepal.Area = Sepal.Length * Sepal.Width,
+                           Petal.Area = Petal.Length * Petal.Width,
+                           PS.Area.Ratio = Petal.Area / Sepal.Area)
+glimpse(iris_ratio)</pre>
+
+<pre >## Observations: 150
+## Variables: 8
+## $ Sepal.Length  &lt;dbl&gt; 5.1, 4.9, 4.7, 4.6, 5.0, 5.4, 4.6, 5.0, 4.4, 4.9, …
+## $ Sepal.Width   &lt;dbl&gt; 3.5, 3.0, 3.2, 3.1, 3.6, 3.9, 3.4, 3.4, 2.9, 3.1, …
+## $ Petal.Length  &lt;dbl&gt; 1.4, 1.4, 1.3, 1.5, 1.4, 1.7, 1.4, 1.5, 1.4, 1.5, …
+## $ Petal.Width   &lt;dbl&gt; 0.2, 0.2, 0.2, 0.2, 0.2, 0.4, 0.3, 0.2, 0.2, 0.1, …
+## $ Species       &lt;fct&gt; setosa, setosa, setosa, setosa, setosa, setosa, se…
+## $ Sepal.Area    &lt;dbl&gt; 17.85, 14.70, 15.04, 14.26, 18.00, 21.06, 15.64, 1…
+## $ Petal.Area    &lt;dbl&gt; 0.28, 0.28, 0.26, 0.30, 0.28, 0.68, 0.42, 0.30, 0.…
+## $ PS.Area.Ratio &lt;dbl&gt; 0.015686275, 0.019047619, 0.017287234, 0.021037868…</pre>
+
+</article></slide><slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>Using <code>filter</code> </h2><h3> Selecting subsets of observations</h3></hgroup><article  id="using-filter-selecting-subsets-of-observations">
+
+</article></slide><slide class=""><hgroup><h2>Basic usage</h2></hgroup><article  id="basic-usage-2" class="build">
+
+<div>
+<p>We use <code>filter</code> to select a subset of rows for further analysis, based on the result(s) of one or more logical comparisons. Using <code>filter</code> looks like this:</p>
+
+<pre class = 'prettyprint lang-r'>filter(data, &lt;expression&gt;)</pre></div>
+
+<div>
+<p><strong>Arguments</strong></p>
+
+<ul>
+<li><code>data</code>: a <code>data.frame</code> or <code>tbl</code> object</li>
+<li><code>&lt;expression&gt;</code>: an R expression that implements a logical comparison using variables in <code>data</code></li>
+</ul></div>
+
+<div>
+<p><strong>Comments</strong></p>
+
+<ul>
+<li>The <code>&lt;expression&gt;</code> can be any valid R expression that uses variables in <code>data</code> and returns a logical vector of <code>TRUE</code> / <code>FALSE</code> values.</li>
+<li>The <code>&lt;expression&gt;</code> typically uses a combination of <strong>relational</strong> (e.g. <code>&lt;</code> and <code>==</code>) and <strong>logical</strong> (e.g. <code>&amp;</code> and <code>|</code>) operators</li>
+</ul></div>
+
+</article></slide><slide class=""><hgroup><h2>Exercise</h2></hgroup><article  id="exercise-9" class="build">
+
+<div id="exercise-box">
+<strong>Subsetting observations on one variable</strong>
+
+<div id="box-text">
+<p>Use the <code>filter</code> function with the <code>ca_storms</code> data set to create a new data set containing just the observations associated with storms classified as Hurricanes.</p>
+
+<p>Hint: use <code>glimpse</code> to remind yourself of the variable names in <code>ca_storms</code>. You need to work out which one contains information about the storm category.</p></div></div>
+
+<pre class = 'prettyprint lang-r'>filter(ca_storms, type == &quot;Hurricane&quot;)</pre>
+
+<pre >## # A tibble: 896 x 11
+##    name    year month   day  hour   lat  long pressure  wind type   seasday
+##    &lt;chr&gt;  &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt;    &lt;int&gt; &lt;int&gt; &lt;chr&gt;    &lt;int&gt;
+##  1 Allis…  1995     6     4    12  24.7 -86.2      987    65 Hurri…       4
+##  2 Allis…  1995     6     4    18  26.2 -86.2      988    65 Hurri…       4
+##  3 Allis…  1995     6     5     0  27.6 -86.1      988    65 Hurri…       5
+##  4 Erin    1995     8     1     0  23.6 -74.9      992    70 Hurri…      62
+##  5 Erin    1995     8     1     6  24.3 -75.7      988    75 Hurri…      62
+##  6 Erin    1995     8     1    12  25.5 -76.3      985    75 Hurri…      62
+##  7 Erin    1995     8     1    18  26.3 -77.7      980    75 Hurri…      62
+##  8 Erin    1995     8     2     0  26.9 -79        982    75 Hurri…      63
+##  9 Erin    1995     8     2     6  27.7 -80.4      985    75 Hurri…      63
+## 10 Erin    1995     8     3     0  28.8 -84.7      985    65 Hurri…      64
+## # … with 886 more rows</pre>
+
+</article></slide><slide class=""><hgroup><h2>Exercise</h2></hgroup><article  id="exercise-10" class="build">
+
+<div id="exercise-box">
+<strong>Subsetting observations on more than one variable</strong>
+
+<div id="box-text">
+<p>Repeat the last exercise, but now extract the observations associated with Hurricanes that took place in 1997 or later.</p></div></div>
+
+<pre class = 'prettyprint lang-r'>filter(ca_storms, 
+       type == &quot;Hurricane&quot; &amp; year &gt;= 1997) </pre>
+
+<pre >## # A tibble: 501 x 11
+##    name   year month   day  hour   lat  long pressure  wind type    seasday
+##    &lt;chr&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt;    &lt;int&gt; &lt;int&gt; &lt;chr&gt;     &lt;int&gt;
+##  1 Bill   1997     7    12    12  37.9 -61.1      987    65 Hurric…      42
+##  2 Bill   1997     7    12    18  39.6 -58.4      987    65 Hurric…      42
+##  3 Danny  1997     7    18     6  29.2 -89.9      992    65 Hurric…      48
+##  4 Danny  1997     7    18    12  29.5 -89.4      990    70 Hurric…      48
+##  5 Danny  1997     7    18    18  29.7 -89        988    70 Hurric…      48
+##  6 Danny  1997     7    19     0  29.8 -88.4      984    70 Hurric…      49
+##  7 Danny  1997     7    19     6  30.1 -88.1      987    65 Hurric…      49
+##  8 Danny  1997     7    19    12  30.3 -88        984    70 Hurric…      49
+##  9 Danny  1997     7    19    18  30.4 -87.9      986    65 Hurric…      49
+## 10 Erika  1997     9     4    18  15.2 -53.7      999    65 Hurric…      96
+## # … with 491 more rows</pre>
+
+<pre class = 'prettyprint lang-r'># or use: filter(ca_storms, type == &quot;Hurricane&quot;, year &gt;= 1997)</pre>
+
+</article></slide><slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>Using <code>arrange</code> </h2><h3> Reordering observations</h3></hgroup><article  id="using-arrange-reordering-observations">
+
+</article></slide><slide class=""><hgroup><h2>Basic usage</h2></hgroup><article  id="basic-usage-3" class="build">
+
+<div>
+<p>We use <code>arrange</code> to reorder the rows of our data set. This can help us see associations among our variables. Using <code>arrange</code> looks like this:</p>
+
+<pre class = 'prettyprint lang-r'>arrange(data, Variable1, Variable2, ...)</pre></div>
+
+<div>
+<p><strong>Arguments</strong></p>
+
+<ul>
+<li><code>data</code>: a <code>data.frame</code> or <code>tbl</code> object</li>
+<li><code>VariableX</code>: names of variables in <code>data</code></li>
+</ul></div>
+
+<div>
+<p><strong>Comments</strong></p>
+
+<ul>
+<li>The order of sorting corresponds to the order that variables appear in <code>arrange</code>, meaning <code>data</code> is sorted according to <code>Variable1</code>, then <code>Variable2</code>, then <code>Variable3</code>, etc</li>
+<li>The sort order is from smallest to largest (ascending). If you want to reverse the sort order to go from largest to smallest (descending) use <code>desc(VariableX)</code>.</li>
+</ul></div>
+
+</article></slide><slide class=""><hgroup><h2>Exercise</h2></hgroup><article  id="exercise-11" class="build">
+
+<div id="exercise-box">
+<strong>Reording observations</strong>
+
+<div id="box-text">
+<p>Use the <code>arrange</code> function to reorder the observations in the <code>ca_storms</code> data set, according to the pressure variable. Store the resulting data set and use then use the <code>View</code> function to examine it. What can you say about the association between atmospheric pressure and storm category?</p></div></div>
+
+<pre class = 'prettyprint lang-r'>storm.sort &lt;- arrange(ca_storms, pressure)</pre>
+
+<pre class = 'prettyprint lang-r'>View(storm.sort)</pre>
+
+</article></slide><slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>Using <code>summarise</code> </h2><h3> Calculating summaries of variables</h3></hgroup><article  id="using-summarise-calculating-summaries-of-variables">
+
+</article></slide><slide class=""><hgroup><h2>Basic usage</h2></hgroup><article  id="basic-usage-4" class="build smaller">
+
+<div>
+<p>We use summarise to <strong>calculate summary statistics</strong> for further analysis. This is how to use <code>summarise</code>:</p>
+
+<pre class = 'prettyprint lang-r'>summarise(data, SummaryVar = &lt;expression&gt;, ...)</pre></div>
+
+<div>
+<p><strong>Arguments</strong></p>
+
+<ul>
+<li><code>data</code>: a <code>data.frame</code> or <code>tbl</code> object</li>
+<li><code>SummaryVar</code>: name of your summary variable</li>
+<li><code>&lt;expression&gt;</code>: an R expression that references variables in <code>data</code> and returns to <strong>a single value</strong></li>
+</ul></div>
+
+<div>
+<p><strong>Comments</strong></p>
+
+<ul>
+<li>The <code>&lt;expression&gt;</code> which appears on the right hand side of the <code>=</code> can be any valid R expression that uses variables in <code>data</code>. However, <code>&lt;expression&gt;</code> should return <strong>a single value</strong>.</li>
+<li>Although <code>summarise</code> looks a little like <code>mutate</code>, it is designed to construct a completely new dataset containing summaries of one or more variables.</li>
+<li>You may use more than one <code>SummaryStat = &lt;expression&gt;</code> at a time if you need to construct several summaries.</li>
+</ul></div>
+
+</article></slide><slide class=""><hgroup><h2>Exercise</h2></hgroup><article  id="exercise-12" class="build">
+
+<div id="exercise-box">
+<strong>Calculating the mean of two variables</strong>
+
+<div id="box-text">
+<p>Use the <code>summarise</code> function with the <code>iris</code> dataset to calculate the mean sepal length and the mean sepal width.</p>
+
+<p>Hint: You need to work out which R function calculates a mean. The clue is in the name.</p></div></div>
+
+<pre class = 'prettyprint lang-r'>summarise(iris, 
+          mean_sl = mean(Sepal.Length), 
+          mean_sw = mean(Sepal.Width))</pre>
+
+<pre >## # A tibble: 1 x 2
+##   mean_sl mean_sw
+##     &lt;dbl&gt;   &lt;dbl&gt;
+## 1    5.84    3.06</pre>
+
+</article></slide><slide class=""><hgroup><h2>Exercise</h2></hgroup><article  id="exercise-13" class="build">
+
+<div id="exercise-box">
+<strong>Calculating a more complex summary of a variable</strong>
+
+<div id="box-text">
+<p>Use the <code>summarise</code> function with the <code>iris</code> dataset to calculate the mean <strong>area</strong> of sepals.</p></div></div>
+
+<pre class = 'prettyprint lang-r'>summarise(iris, mean_sl = mean(Sepal.Length * Sepal.Width))</pre>
+
+<pre >## # A tibble: 1 x 1
+##   mean_sl
+##     &lt;dbl&gt;
+## 1    17.8</pre>
+
+<pre class = 'prettyprint lang-r'>summarise(iris, mean_sl = mean(Sepal.Length) * mean(Sepal.Width))</pre>
+
+<pre >## # A tibble: 1 x 1
+##   mean_sl
+##     &lt;dbl&gt;
+## 1    17.9</pre>
+
+<p>Which one is right?</p>
+
+</article></slide><slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>Using <code>group_by</code> </h2><h3> Making summaries for groups of observations</h3></hgroup><article  id="using-group_by-making-summaries-for-groups-of-observations">
+
+</article></slide><slide class=""><hgroup><h2>Basic usage</h2></hgroup><article  id="basic-usage-5" class="build smaller">
+
+<div>
+<p>We use <code>group_by</code> to add grouping information to a data frame or tibble. This is how we use <code>group_by</code>:</p>
+
+<pre class = 'prettyprint lang-r'>group_by(data, GroupVar1, GroupVar2, ...)</pre></div>
+
+<div>
+<p><strong>Arguments</strong></p>
+
+<ul>
+<li><code>data</code>: a <code>data.frame</code> or <code>tbl</code> object</li>
+<li><code>GroupVar</code>: name of grouping variable(s)</li>
+</ul></div>
+
+<div>
+<p><strong>Comments</strong></p>
+
+<ul>
+<li>The <code>group_by</code> does not do anything other than add grouping information to a <code>tbl</code>. It is only useful when used with <code>summarise</code> or <code>mutate</code>.</li>
+<li>Using <code>group_by</code> with <code>summarise</code> enables us to calculate numerical summaries on a <em>per group</em> basis.</li>
+<li>Using <code>group_by</code> with <code>mutate</code> enables us to add variables on a <em>per group</em> basis.</li>
+</ul></div>
+
+</article></slide><slide class=""><hgroup><h2>Exercise</h2></hgroup><article  id="exercise-14" class="build smaller">
+
+<div id="exercise-box">
+<strong>Using <code>group_by</code> to calculate group-specific means</strong>
+
+<div id="box-text">
+<p>Use the <code>group_by</code> function and the <code>summarise</code> functions with the <code>ca_storms</code> dataset to calculate the mean wind speed associated with each storm <strong>type</strong>.</p>
+
+<p>Hint: This is a two step exercise: 1) Use <code>group_by</code> to add some information to storms, remembering to assign the result a name; 2) These use <code>summarise</code> on this new dataset.</p></div></div>
+
+<pre class = 'prettyprint lang-r'># 1. make a grouped tibble
+ca_storms_grouped &lt;- group_by(ca_storms, type)
+# 2. use summarise on the grouped data
+summarise(ca_storms_grouped, mean_wind = mean(wind))</pre>
+
+<pre >## # A tibble: 4 x 2
+##   type                mean_wind
+##   &lt;chr&gt;                   &lt;dbl&gt;
+## 1 Extratropical            40.1
+## 2 Hurricane                84.7
+## 3 Tropical Depression      27.4
+## 4 Tropical Storm           47.3</pre>
+
+</article></slide><slide class=""><hgroup><h2>Exercise</h2></hgroup><article  id="exercise-15" class="build smaller">
+
+<div id="exercise-box">
+<strong>Using <code>group_by</code> to group by more than one variable</strong>
+
+<div id="box-text">
+<p>Use the <code>group_by</code> and <code>summarise</code> functions with the <code>ca_storms</code> dataset to calculate the mean and maximum wind speed associated with <strong>each combination</strong> of month and year. Assign the result a name and then use <code>View</code> to examine it. Which month in which year saw the largest maximum wind speed?</p>
+
+<p>Hint: You can guess the names of the two functions that calculate the mean and max from a numeric vector.</p></div></div>
+
+<pre class = 'prettyprint lang-r'># 1. make a grouped tibble
+ca_storms_grouped &lt;- group_by(ca_storms, year, month)
+# 2. use summarise on the grouped data
+summarise(ca_storms_grouped, mean_speed = mean(wind), max_speed = max(wind))</pre>
+
+<pre >## # A tibble: 30 x 4
+## # Groups:   year [?]
+##     year month mean_speed max_speed
+##    &lt;int&gt; &lt;int&gt;      &lt;dbl&gt;     &lt;dbl&gt;
+##  1  1995     6       44.4        65
+##  2  1995     7       41.4        60
+##  3  1995     8       54.2       120
+##  4  1995     9       64.4       120
+##  5  1995    10       50.5       130
+##  6  1995    11       55          70
+##  7  1996     6       35.2        45
+##  8  1996     7       56.8       100
+##  9  1996     8       57.2       125
+## 10  1996     9       60.9       120
+## # … with 20 more rows</pre>
+
+</article></slide><slide class=""><hgroup><h2>Exercise</h2></hgroup><article  id="exercise-16" class="build smaller">
+
+<div id="exercise-box">
+<strong>Using <code>group_by</code> and <code>mutate</code></strong>
+
+<div id="box-text">
+<p>The <code>group_by</code> function works with any <strong>dplyr</strong> verb that operates on variables (columns). Use the <code>group_by</code> and <code>mutate</code> functions with the <code>iris</code> dataset to calculate a &quot;mean centred&quot; version of sepal length. A centred variable is just one that has had its overall mean subtracted from every value.</p>
+
+<p>Do you understand the different behaviour of <code>summarise</code> and <code>mutate</code> when used alongside <code>group_by</code>?</p></div></div>
+
+<pre class = 'prettyprint lang-r'># 1. group iris by species identity
+iris_grouped &lt;- group_by(iris, Species)
+# 2. use mutate on the grouped data
+mutate(iris_grouped, sl_centred = Sepal.Length - mean(Sepal.Length))</pre>
+
+<pre >## # A tibble: 150 x 6
+## # Groups:   Species [3]
+##    Sepal.Length Sepal.Width Petal.Length Petal.Width Species sl_centred
+##           &lt;dbl&gt;       &lt;dbl&gt;        &lt;dbl&gt;       &lt;dbl&gt; &lt;fct&gt;        &lt;dbl&gt;
+##  1          5.1         3.5          1.4         0.2 setosa      0.0940
+##  2          4.9         3            1.4         0.2 setosa     -0.106 
+##  3          4.7         3.2          1.3         0.2 setosa     -0.306 
+##  4          4.6         3.1          1.5         0.2 setosa     -0.406 
+##  5          5           3.6          1.4         0.2 setosa     -0.006 
+##  6          5.4         3.9          1.7         0.4 setosa      0.394 
+##  7          4.6         3.4          1.4         0.3 setosa     -0.406 
+##  8          5           3.4          1.5         0.2 setosa     -0.006 
+##  9          4.4         2.9          1.4         0.2 setosa     -0.606 
+## 10          4.9         3.1          1.5         0.1 setosa     -0.106 
+## # … with 140 more rows</pre>
+
+</article></slide><slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>We&#39;re finished with block 2 </h2><h3> Next&#8230; making figures</h3></hgroup><article  id="were-finished-with-block-2-next...-making-figures"></article></slide>
 
 
   <slide class="backdrop"></slide>
