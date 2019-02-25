@@ -98,7 +98,7 @@
       <h1 data-config-title><!-- populated from slide_config.json --></h1>
       <h2 data-config-subtitle><!-- populated from slide_config.json --></h2>
       <p data-config-presenter><!-- populated from slide_config.json --></p>
-            <p style="margin-top: 6px; margin-left: -2px;">18 February, 2019</p>
+            <p style="margin-top: 6px; margin-left: -2px;">25 February, 2019</p>
           </hgroup>
   </slide>
 
@@ -464,7 +464,7 @@ iris   &lt;- tbl_df(iris)</pre>
 
 <p>You don&#39;t have to do this (<strong>dplyr</strong> is fine with normal data frames) but it will ensure your output matches the presentation.</p>
 
-</article></slide><slide class=""><hgroup><h2>Looking at your <code>tbl</code> (or <code>data.frame</code>)</h2></hgroup><article  id="looking-at-your-tbl-or-data.frame" class="smaller">
+</article></slide><slide class=""><hgroup><h2>Looking at your data</h2></hgroup><article  id="looking-at-your-data" class="smaller">
 
 <p>In addition to printing a <code>tbl</code> or <code>data.frame</code>, we can use the <code>glimpse</code> function to obtain different summary information about variables:</p>
 
@@ -704,9 +704,9 @@ glimpse(ca_storms_renamed)</pre>
 
 <p>Download the <code>CA_STORMS.csv</code> data from MOLE. Set your working directory, and then use <code>read.csv</code> to read the data in (remember to use <code>stringsAsFactors = FALSE</code>). Assign the resulting data frame the name <code>ca_storms</code>.</p></div>
 
-<p><strong>3. Convert the ca_storms dataframe to a tbl</strong></p>
+<p><strong>3. Convert the ca_storms dataframe to a tbl (optional)</strong></p>
 
-<p>Remember that we can use the <code>tbl_df</code> function to convert a data frame to a tbl. This is basically a special kind of data frame that has a few advantages such as compact printing.</p>
+<p>Use the <code>tbl_df</code> function to convert a data frame to a tbl. This is basically a special kind of data frame that has a few advantages such as compact printing.</p>
 
 </article></slide><slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>Using <code>mutate</code> </h2><h3> Making new variables</h3></hgroup><article  id="using-mutate-making-new-variables">
 
@@ -791,11 +791,9 @@ glimpse(iris_new_vars)</pre>
 <strong>Making several new variables</strong>
 
 <div id="box-text">
-<p>Use the <code>mutate</code> function with the <code>iris</code> data set to make two new area variables, one for petal and one for sepal. Create a third variable which is the ratio of the petal and sepal areas.</p></div>
+<p>Use the <code>mutate</code> function with the <code>iris</code> data set to make two new area variables, one for petal and one for sepal. Create a third variable which is the ratio of the petal and sepal areas.</p>
 
-<p>Do all of this in one call to <code>mutate</code>, i.e. use <code>mutate</code> only once to do all of this.</p></div>
-
-</div>
+<p>Do all of this in one call to <code>mutate</code>, i.e. use <code>mutate</code> only once to do all of this.</p></div></div>
 
 <pre class = 'prettyprint lang-r'>iris_ratio &lt;- mutate(iris, Sepal.Area = Sepal.Length * Sepal.Width,
                            Petal.Area = Petal.Length * Petal.Width,
@@ -874,7 +872,7 @@ glimpse(iris_ratio)</pre>
 <p>Repeat the last exercise, but now extract the observations associated with Hurricanes that took place in 1997 or later.</p></div></div>
 
 <pre class = 'prettyprint lang-r'>filter(ca_storms, 
-       type == &quot;Hurricane&quot; &amp; year &gt;= 1997) </pre>
+       type == &quot;Hurricane&quot;, year &gt;= 1997) </pre>
 
 <pre >## # A tibble: 501 x 11
 ##    name   year month   day  hour   lat  long pressure  wind type    seasday
@@ -1111,7 +1109,7 @@ mutate(iris_grouped, sl_centred = Sepal.Length - mean(Sepal.Length))</pre>
 ## 10          4.9         3.1          1.5         0.1 setosa     -0.106 
 ## # … with 140 more rows</pre>
 
-</article></slide><slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>We&#39;re finished with block 2 </h2><h3> Next&#8230; making figures</h3></hgroup><article  id="were-finished-with-block-2-next...-making-figures"></article></slide>
+</article></slide><slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>We&#39;re finished with block 2 </h2><h3> Next&#8230; piping and making figures</h3></hgroup><article  id="were-finished-with-block-2-next...-piping-and-making-figures"></article></slide>
 
 
   <slide class="backdrop"></slide>

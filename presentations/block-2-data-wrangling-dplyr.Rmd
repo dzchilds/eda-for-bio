@@ -344,7 +344,7 @@ iris   <- tbl_df(iris)
 
 You don't have to do this (**dplyr** is fine with normal data frames) but it will ensure your output matches the presentation.
 
-## Looking at your `tbl` (or `data.frame`) {.smaller}
+## Looking at your data {.smaller}
 
 In addition to printing a `tbl` or `data.frame`, we can use the `glimpse` function to obtain different summary information about variables:
 
@@ -558,9 +558,9 @@ __2. Read in the Central American storms data__
 Download the `CA_STORMS.csv` data from MOLE. Set your working directory, and then use `read.csv` to read the data in (remember to use `stringsAsFactors = FALSE`). Assign the resulting data frame the name `ca_storms`.
 </div>
 
-__3. Convert the ca_storms dataframe to a tbl__
+__3. Convert the ca_storms dataframe to a tbl (optional)__
 
-Remember that we can use the `tbl_df` function to convert a data frame to a tbl. This is basically a special kind of data frame that has a few advantages such as compact printing.
+Use the `tbl_df` function to convert a data frame to a tbl. This is basically a special kind of data frame that has a few advantages such as compact printing.
 
 Using `mutate` | Making new variables 
 ====================================================================
@@ -638,7 +638,7 @@ glimpse(iris_new_vars)
 __Making several new variables__
 <div id="box-text">
 Use the `mutate` function with the `iris` data set to make two new area variables, one for petal and one for sepal. Create a third variable which is the ratio of the petal and sepal areas. 
-</div>
+
 Do all of this in one call to `mutate`, i.e. use `mutate` only once to do all of this.
 </div>
 </div>
@@ -703,7 +703,7 @@ Repeat the last exercise, but now extract the observations associated with Hurri
 
 ```{r, include=showAnswers}
 filter(ca_storms, 
-       type == "Hurricane" & year >= 1997) 
+       type == "Hurricane", year >= 1997) 
 
 # or use: filter(ca_storms, type == "Hurricane", year >= 1997)
 ```
@@ -897,6 +897,6 @@ iris_grouped <- group_by(iris, Species)
 mutate(iris_grouped, sl_centred = Sepal.Length - mean(Sepal.Length))
 ```
 
-We're finished with block 2 | Next... making figures
+We're finished with block 2 | Next... piping and making figures
 ====================================================================
 
