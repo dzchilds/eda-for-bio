@@ -465,6 +465,29 @@ ggplot(iris, aes(x = Petal.Length / Petal.Width)) +
   labs(x = "Petal Eccentricity", y = "Count")  
 ```
 
+Revision | How **ggplot2** works
+====================================================================
+
+## Revision: Scatter plots
+
+```{r, fig.height=3.2, fig.width=4}
+ggplot(iris, aes(x = Petal.Width, y = Petal.Length)) + 
+  geom_point() + 
+  labs(x = "Petal Width (cm)", y = "Petal Length (cm)")
+```
+
+## Revision: Making things more informative
+
+1. Customise the plot by setting arguments of a `geom_` function.
+
+2. Add more information by including an additional aesthetic mapping.
+
+```{r, fig.height=3.2, fig.width=4.8, echo=TRUE}
+ggplot(iris, aes(x = Petal.Width, y = Petal.Length, colour = Species)) +
+  geom_point(size = 2, alpha = 0.5) + 
+  labs(x = "Petal Width (cm)", y = "Petal Length (cm)")
+```
+
 Alternative to histograms | visualising 'small' data
 ====================================================================
 
@@ -510,32 +533,6 @@ ggplot(setosa, aes(x = Sepal.Length)) +
   theme_classic()
 ```
 
-Revision | How **ggplot2** works
-====================================================================
-
-## Revision: Scatter plots
-
-```{r, fig.height=3.2, fig.width=4}
-ggplot(iris, aes(x = Petal.Width, y = Petal.Length)) + 
-  geom_point() + 
-  labs(x = "Petal Width (cm)", y = "Petal Length (cm)")
-```
-
-## Revision: Making things more informative
-
-1. Customise the plot by setting arguments of a `geom_` function.
-
-2. Add more information by including an additional aesthetic mapping.
-
-Option 1 takes precedence over option 2. Remember that!
-
-```{r, fig.height=3.2, fig.width=4.8, echo=TRUE}
-ggplot(iris, aes(x = Petal.Width, y = Petal.Length, colour = Species)) +
-  geom_point(size = 2, alpha = 0.5) + 
-  labs(x = "Petal Width (cm)", y = "Petal Length (cm)")
-```
-
-
 Boxplots | Relationships between categorical and continuous data
 ====================================================================
 
@@ -566,7 +563,7 @@ ggplot(iris, aes(x = Species, y = Petal.Length/Petal.Width)) +
 <div id="exercise-box">
 __Box and whiskers plots__
 <div id="box-text">
-Working with the `storms` dataset, construct a box and whiskers plot to summarise wind speed for each type of storm.  Extension: Work out how to change the background colour and the size of the text on the graph (use google!).
+Working with the `storms` dataset, construct a box and whiskers plot to summarise wind speed for each type of storm.  Extension: Change the background colour and the size of the text on the graph (you've done this before).
 
 </div>
 </div>
@@ -601,12 +598,12 @@ ggplot(setosa, aes(x = Sepal.Length)) +
 <div id="exercise-box">
 __Saving plots__
 <div id="box-text">
-Use ggsave to save the box and whiskers plot that you just made. Can you work out where R has saved your plot to? (i.e. which folder on your computer)  
-Can you change the dimensions of the saved plot?
+Use ggsave to save the box and whiskers plot that you just made. Can you work out where R has saved your plot to (i.e. which folder on your computer)? Can you change the dimensions of the saved plot?
 </div>
 </div>
 
 ## Answer
+
 ```{r, include=showAnswers}
 ggplot(ca_storms, aes(x = type, y = wind)) + 
   geom_boxplot() + 
@@ -617,11 +614,11 @@ ggplot(ca_storms, aes(x = type, y = wind)) +
 Barplots | Summary statistics for groups
 ====================================================================
 
-## What are bar plots?
+## What are bar plots? {.smaller}
 
 We typically use a barplot to summarise differences in summary statistics (like the mean) among groups. We can use `geom_bar` to make barplots. When we use `geom_bar` on raw data it will simply count the number of observations:
 
-```{r, fig.height=2.5}
+```{r, fig.height=3.0}
 ggplot(ca_storms, aes(x = factor(year))) + 
   geom_bar() + 
   labs(x = "Year", y = "Number of Storms")  
@@ -629,7 +626,7 @@ ggplot(ca_storms, aes(x = factor(year))) +
 
 This is often not really all that useful. Usually we use a bar plot to compare **summary statistics**.
 
-## Using bar plots to compare means {.build}
+## Using bar plots to compare means {.smaller}
 
 If we want to compare a summary statistic (e.g. the mean) across groups we can use the `geom_col` function instead. First we need to calculate the summary statistic. We can do this with the `group_by` and `summarise` function from the **dplyr** package. We then use the resulting data set to plot the means. For example:
 
@@ -645,26 +642,26 @@ ggplot(pl_stats, aes(x = Species, y = mean_pl)) +
   labs(y = "Mean Petal Length (cm)")
 ```
 
-<div class="columns-2">
-```{r, fig.width=2.5, fig.height=2, echo=FALSE}
-# step 1 - use dplyr to calculate the means
+## Using bar plots to compare means {.smaller}
+
+```{r, fig.height=3.0}
+# step 1
 pl_stats <- 
-  iris %>% group_by(Species) %>% 
+  iris %>%
+  group_by(Species) %>% 
   summarise(mean_pl = mean(Petal.Length))
-# step 2 - make the plot
+# step 2 
 ggplot(pl_stats, aes(x = Species, y = mean_pl)) + 
   geom_col() + 
-  labs(y = "Mean Petal Length")
+  labs(y = "Mean Petal Length (cm)")
 ```
-
-</div>
 
 ## Exercise
 
 <div id="exercise-box">
 __Making a barplot of means__
 <div id="box-text">
-Working with the `ca_storms` dataset, construct a bar plot to summarises the mean wind speed (`wind`) associated with storms in each year (`year`). If that was too easy, see if you can change the `fill` colour of the bars to grey.
+Working with the `ca_storms` dataset, construct a bar plot to summarises the mean wind speed (`wind`) associated with storms in each year (`year`). If that was too easy, see if you can change the colour of the bars to grey.
 </div>
 </div>
 
@@ -679,7 +676,7 @@ ggplot(wind.means, aes(x = factor(year), y = wind)) +
   labs(x = "Year", y = "Wind speed (mph)")
 ```
 
-## Answer
+## Answer {.smaller}
 
 ```{r, include=showAnswers}
 # step 1 - use dplyr to calculate the means
@@ -713,6 +710,14 @@ ggplot(pl_stats,
 We can build more complex figures by adding more than one layer with the `geom_` functions. For example, we should always add an error bar of some kind to summaries of means.
 </div>
 <br>
+The __standard error__ is one option here: 
+
+$$
+\text{Standard Error} = \frac{\text{Standard Deviation}}{\sqrt{\text{Sample Size}}}
+$$
+
+## Adding multiple layers (1)
+
 The __standard error__ is one option here: 
 
 $$
@@ -771,18 +776,20 @@ Go back to the bar plot you just made using the `ca_storms` data set and add err
 </div>
 </div>
 
-## Answer
+## Answer {.smaller}
 
-```{r, include=showAnswers}
+```{r, fig.height=2.5, include=showAnswers}
 # step 1 - use dplyr to calculate the means
 wind.means <- 
   ca_storms %>% group_by(year) %>% 
   summarise(mean = mean(wind), 
             se = sd(wind)/sqrt(n()))
+
 # step 2 - make the plot
-ggplot(wind.means, aes(x = factor(year), y = mean, ymin = mean - se, ymax = mean + se)) + 
+ggplot(wind.means, aes(x = factor(year), y = mean, 
+                       ymin = mean - se, ymax = mean + se)) + 
   geom_col(fill="darkgrey") + 
-  geom_errorbar() + 
+  geom_errorbar(width = 0.25) + 
   labs(x = "Year", y = "Wind speed (mph)")
 ```
 
@@ -791,9 +798,7 @@ ggplot(wind.means, aes(x = factor(year), y = mean, ymin = mean - se, ymax = mean
 <div id="exercise-box">
 __Putting it all together__
 <div id="box-text">
-Have a look at the builtin data set on R called `ChickWeight`. Make sure you understand what variables it contains first.  
-Then try to make two plots below.  
-Finally think about a) what these two graphs tell you about the effectiveness of the four diets and b) what other information it might be useful to include.
+Have a look at the builtin data set on R called `ChickWeight`. Make sure you understand what variables it contains, then try to make two plots below. Think about a) what these two graphs tell you about the effectiveness of the four diets and b) what other information it might be useful to include.
 </div>
 </div>
 
@@ -819,13 +824,12 @@ pltb <- ggplot(pltdata2, aes(x=Diet, y = mn, ymin = mn-se, ymax = mn+se)) +
 plot_grid(plta, pltb, labels = c("a)", "b)"))
 ```
 
-## Answer
+## Answer {.smaller}
 
-```{r, fig.width= 4, include=showAnswers}
+```{r, fig.width=3, fig.height=3, include=showAnswers}
 ## Calculate the mean and standard errors for each diet at each time point
 pltdata<- group_by(ChickWeight, Time, Diet) %>% 
   summarise(mn = mean(weight), se = sd(weight)/sqrt(n()))
-
 ## Plot the means over time - remembering to colour by the diet
 plta <- ggplot(pltdata, aes(x=Time, y = mn, colour = Diet)) + 
   geom_point() + 
@@ -835,8 +839,9 @@ plta <- ggplot(pltdata, aes(x=Time, y = mn, colour = Diet)) +
 plta
 ```
 
-## Answer
-```{r, fig.width = 4, include=showAnswers}
+## Answer {.smaller}
+
+```{r, fig.width = 3, fig.height = 3, include=showAnswers}
 ## Filter the summary data to only include the final weights
 pltdata2 <- ungroup(pltdata) %>% 
   filter(Time==max(Time))
@@ -849,12 +854,12 @@ pltb <- ggplot(pltdata2, aes(x=Diet, y = mn, ymin = mn-se, ymax = mn+se)) +
 pltb
 ```
 
-## Answer
-We can then use the `plot_grid` function to make a panel plot containing both graphs.
-This function is from the `cowplot` package so you'll need to have that loaded (remember if 
-you haven't used it before then you'll need to install it first using install.packages).
+## A final trick...
 
-```{r, fig.width = 8, include=showAnswers}
+We can then use the `plot_grid` function to make a panel plot containing both graphs.
+This function is from the `cowplot` package so you'll need to have that loaded (remember if you haven't used it before then you'll need to install it first using install.packages).
+
+```{r, fig.width = 8, fig.height = 3, include=showAnswers}
 library(cowplot)
 plot_grid(plta, pltb, labels = c("a)", "b)"))
 ```
@@ -862,6 +867,7 @@ plot_grid(plta, pltb, labels = c("a)", "b)"))
 ## Answer
 
 Useful additional information could include:  
+
 a) Sample sizes  
 b) Results of a statistical test  
 c) What are the different diets?
