@@ -508,10 +508,13 @@ N.B. --- The y-scale is meaingless in this plot!
 <div id="exercise-box">
 __Tweaking a dot plot__
 <div id="box-text">
-Make the _Setosa_ sepal length dot plot again but now use `scale_y_continuous` to remove the y axis labels and find a theme that removes  the grid lines. A code outline is given below. 
+Make the dot plot of the sepal length variable for the _Setosa_ species but now remove the y axis labels and the grid lines. You don't know how to do this yet! You'll need a hint: 
 
-Hint: [1] look at the examples in the help for `geom_dotplot` to work out what to do with `scale_y_continuous`, and [2] experiment with the options presented by RStudio after you type `theme_`.
+1. Look at the examples in the help file for `geom_dotplot` to work out what to do with `scale_y_continuous` (read the comments)
 
+2. Experiment with the options presented by RStudio after you type `theme_`. You need to find eth right theme.
+
+A code outline is given below. The `<????>` are placeholders that show the bits to complete. 
 </div>
 </div>
 
@@ -529,8 +532,8 @@ ggplot(setosa, aes(x = Sepal.Length)) +
 setosa <- filter(iris, Species == "setosa")
 ggplot(setosa, aes(x = Sepal.Length)) + 
   geom_dotplot(binwidth = 0.1) +
-  scale_y_continuous(NULL, breaks = NULL) + 
-  theme_classic()
+  scale_y_continuous(NULL, breaks = NULL) + # <- remove the y-axis
+  theme_classic()                           # <- remove the grid lines
 ```
 
 Boxplots | Relationships between categorical and continuous data
@@ -541,21 +544,23 @@ Boxplots | Relationships between categorical and continuous data
 Box and whisker plots summarise the distributions of a variable at different levels of a categorical variable. Here is an example:
 
 ```{r, fig.width=3, eval=TRUE, echo=FALSE}
-ggplot(iris, aes(x = Species, y = Petal.Length/Petal.Width))  + 
+ggplot(iris, aes(x = Species, y = Petal.Length/Petal.Width)) + 
   geom_boxplot() + 
-  labs(x = "Species", y = "Eccentricty")  
+  labs(x = "Species", y = "Eccentricty") + 
+  theme_minimal(base_size = 14)
 ```
 
 Each box-and-whisker shows the group median (line) and the interquartile range ("boxes"). The vertical lines ("whiskers") highlight the range of the rest of the data in each group. Potential outliers are plotted individually.
 
-## Making box and whiskers plots {.build}
+## Making box and whiskers plots
 
-Which `geom_` function do you think we use to make a boxplot?
+You can guess which `geom_` function we use to make a boxplot...
 
 ```{r, fig.width=3}
 ggplot(iris, aes(x = Species, y = Petal.Length/Petal.Width)) + 
   geom_boxplot() + 
-  labs(x = "Species", y = "Eccentricty")  
+  labs(x = "Species", y = "Eccentricty") + 
+  theme_minimal(base_size = 14)
 ```
 
 ## Exercise
@@ -563,52 +568,71 @@ ggplot(iris, aes(x = Species, y = Petal.Length/Petal.Width)) +
 <div id="exercise-box">
 __Box and whiskers plots__
 <div id="box-text">
-Working with the `storms` dataset, construct a box and whiskers plot to summarise wind speed for each type of storm.  Extension: Change the background colour and the size of the text on the graph (you've done this before).
+Working with the `ca_storms` dataset, construct a box and whiskers plot to summarise wind speed for each type of storm. Customise the fill colour of the boxes, get rid of the grey in the plot background, and increase the size of the text on the graph.
 
 </div>
 </div>
 
 ```{r, fig.width=6, echo=FALSE}
 ggplot(ca_storms, aes(x = type, y = wind)) + 
-  geom_boxplot() + 
-  labs(x = "Type of storm", y = "Wind Speed (mph)")  
+  geom_boxplot(fill= "lightgrey") + 
+  labs(x = "Type of storm", y = "Wind Speed (mph)") + 
+  theme_classic(base_size = 14)
 ```
 
 ## Answer
 
 ```{r, fig.width=6, include=showAnswers}
 ggplot(ca_storms, aes(x = type, y = wind)) + 
-  geom_boxplot() + 
-  labs(x = "Type of storm", y = "Wind Speed (mph)") +
-  theme_classic(base_size = 12)
+  geom_boxplot(fill= "lightgrey") + 
+  labs(x = "Type of storm", y = "Wind Speed (mph)") + 
+  theme_classic(base_size = 14)
 ```
 
-## Saving plots
+## Saving plots (version 1)
 
-We can save our plots using the `ggsave` function as follows
+We can save a plot using the `ggsave` function with `+` when we're building our plot...
 
-```{r}
-setosa <- filter(iris, Species == "setosa")
+```{r, eval=FALSE}
+# version 1. 
 ggplot(setosa, aes(x = Sepal.Length)) + 
-  geom_dotplot(binwidth=0.1) + 
-  ggsave("Sepal_dotplot.pdf", height = 4, width =4)
+  geom_dotplot(binwidth = 0.1) + 
+  ggsave("Sepal_dotplot.pdf") # <- use ggsave as part of a ggplot construct
 ```
+
+Maybe don't use this method.
+
+## Saving plots (version 2)
+
+Or we can save a plot using the `ggsave` function on its own after we make the figure...
+
+```{r, eval=FALSE}
+# version 2. 
+ggplot(setosa, aes(x = Sepal.Length)) + 
+  geom_dotplot(binwidth = 0.1)
+# use ggsave on its own *after* making the figure
+ggsave("Sepal_dotplot.pdf")
+```
+
+This method is probably better.
 
 ## Exercise
 <div id="exercise-box">
 __Saving plots__
 <div id="box-text">
-Use ggsave to save the box and whiskers plot that you just made. Can you work out where R has saved your plot to (i.e. which folder on your computer)? Can you change the dimensions of the saved plot?
+Use ggsave to save the box and whiskers plot that you just made. Can you work out where R has saved your plot to (i.e. which folder on your computer)? Can you change the dimensions of the saved plot so that these are 4 inches x 4 inches?
 </div>
 </div>
 
 ## Answer
 
-```{r, include=showAnswers}
+```{r, echo=showAnswers, eval=FALSE}
+# make the plot 
 ggplot(ca_storms, aes(x = type, y = wind)) + 
   geom_boxplot() + 
-  labs(x = "Type of storm", y = "Wind Speed") + 
-  ggsave("Windspeed_boxplot.pdf", height = 4, width =4)
+  labs(x = "Type of storm", y = "Wind Speed")
+# save it
+ggsave("Windspeed_boxplot.pdf", height = 4, width = 4)
 ```
 
 Barplots | Summary statistics for groups
@@ -616,40 +640,33 @@ Barplots | Summary statistics for groups
 
 ## What are bar plots? {.smaller}
 
-We typically use a barplot to summarise differences in summary statistics (like the mean) among groups. We can use `geom_bar` to make barplots. When we use `geom_bar` on raw data it will simply count the number of observations:
+We typically use a barplot to summarise differences among groups. We can use `geom_bar` to make barplots but it will simply count the number of observations by default:
 
 ```{r, fig.height=3.0}
-ggplot(ca_storms, aes(x = factor(year))) + 
+ggplot(ca_storms, aes(x = factor(year))) + # <- what is the 'factor' function doing?
   geom_bar() + 
   labs(x = "Year", y = "Number of Storms")  
 ```
 
-This is often not really all that useful. Usually we use a bar plot to compare **summary statistics**.
+This is not really very useful. Usually we use a bar plot to compare **summary statistics** (e.g. the mean). 
 
-## Using bar plots to compare means {.smaller}
+## Using bar plots to compare means [step 1]
 
-If we want to compare a summary statistic (e.g. the mean) across groups we can use the `geom_col` function instead. First we need to calculate the summary statistic. We can do this with the `group_by` and `summarise` function from the **dplyr** package. We then use the resulting data set to plot the means. For example:
+First we need to calculate the summary statistic. We can do this with the `group_by` and `summarise` function from the **dplyr** package. For example:
 
-```{r, echo=TRUE, eval=FALSE}
+```{r}
 # step 1
 pl_stats <- 
   iris %>%
   group_by(Species) %>% 
   summarise(mean_pl = mean(Petal.Length))
-# step 2 
-ggplot(pl_stats, aes(x = Species, y = mean_pl)) + 
-  geom_col() + 
-  labs(y = "Mean Petal Length (cm)")
 ```
 
-## Using bar plots to compare means {.smaller}
+## Using bar plots to compare means [step 2]
 
-```{r, fig.height=3.0}
-# step 1
-pl_stats <- 
-  iris %>%
-  group_by(Species) %>% 
-  summarise(mean_pl = mean(Petal.Length))
+Second, make the plot. If we want to use a bar plot to compare a summary statistic (e.g. the mean) across groups we should use the `geom_col` function:
+
+```{r, fig.height=3.0, fig.width=3}
 # step 2 
 ggplot(pl_stats, aes(x = Species, y = mean_pl)) + 
   geom_col() + 
@@ -671,7 +688,7 @@ wind.means <-
   ca_storms %>% group_by(year) %>% 
   summarise(wind = mean(wind))
 # step 2 - make the plot
-ggplot(wind.means, aes(x = factor(year), y = wind)) + 
+ggplot(wind.means, aes(x = factor(year), y = wind)) + # <- notice the use of factor
   geom_col(fill="darkgrey") + 
   labs(x = "Year", y = "Wind speed (mph)")
 ```
