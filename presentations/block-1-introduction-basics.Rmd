@@ -238,8 +238,8 @@ __Using assignment__
 <div id="box-text">
 Let's look at the Pythagoras's theorem example again. 
 
-1. Assign the value 2 to `A` and the value 3 to `B`.
-2. Rewrite the calculation to find the length of the hypotenuse using `A` and `B`. 
+1. Assign the value 2 to `a` and the value 3 to `b`.
+2. Rewrite the calculation to find the length of the hypotenuse using `a` and `b`. 
 
 Remember: $L_C = \sqrt(L_A^2 + L_B^2)$ 
 </div>
@@ -255,37 +255,27 @@ b <- 3
 Using functions | Starting to make use of R's power 
 ======================================================================================
 
-## Functions {.build}
-
-An R function is similar to a mathematical function. It takes one or more inputs, does something to them and then returns the result to us. Using a function looks like this:
-
-```{r, eval=FALSE}
-my_func_name(arg1 = val1, arg2 = val2, ...)
-```
+## Examples of using functions {.build .smaller}
 
 <div>
-__Details__
-
-- `my_func_name`: the name of the function (e.g. `round`)
-- `arg1`: name of the first __argument__
-- `val1`: value of the first __argument__
-
-A function may have 0, 1, or more "arguments" (name-value pairs). These are the inputs to the function. Remember: name on the left, value of the right.
-</div>
-
-## Examples of using functions {.build}
-
-```{r}
-round(x = 3.141593)
-```
-
-Here the name of the argument is `x`. We gave it the value `3.141593`. What did R do with this?
+An R function is similar to a mathematical function. It takes one or more inputs, does something to them and then returns the result to us. Here's a simple example:
 
 ```{r}
 round(3.141593)
 ```
 
-You do not have to name arguments in R -- it will match them up by position. More on this in a moment...
+What did R do with this?
+</div>
+
+<div>
+We can do the same thing a slightly more long-winded way like this:
+
+```{r}
+round(x = 3.141593)
+```
+
+Here, we specified the name of the input as `x` and we associated this with the value `3.141593`. You do not have to name inputs in R but it is a good habit to get into. You will see why later...
+</div>
 
 ## Exercise {.build}
 
@@ -299,7 +289,7 @@ Experiment with the following functions to convince yourself you know what they 
 - `exp`
 - `log10`
 - `floor`
-- `sinpi` (harder)
+- `sinpi`
 
 Hint --- don't just use whole numbers, i.e. make sure you try things like `floor(1.2)`
 </div>
@@ -325,6 +315,31 @@ Hint --- don't just use whole numbers, i.e. make sure you try things like `floor
 <!-- </div> -->
 <!-- </div> -->
 
+## Functions {.build .smaller}
+
+<div>
+An R function takes one or more inputs, does something to them and then returns the result to us. In general, using a function looks like this:
+
+```{r, eval=FALSE}
+my_func_name(arg1 = val1, arg2 = val2, ...)
+```
+
+__Details__
+
+- `my_func_name`: the name of the function (e.g. `round`)
+- `arg1`: name of the first __argument__
+- `val1`: value of the first __argument__
+
+A function may have 0, 1, or more name-value pairs. These are the inputs to the function. These inputs are called __arguments__.
+</div>
+
+<div>
+Remember: 
+
+1. Name on the left / Value of the right.
+2. You do not have to name arguments but it is usually a good idea to do so.
+</div>
+
 Scripts | Reusing your hard work later
 ======================================================================================
 
@@ -333,7 +348,7 @@ Scripts | Reusing your hard work later
 STEP 1: Do the following:
 
 1. Navigate through RStudio's menus to `File > New File > R Script`.
-2. A new pane should open up. Type these calculations from earlier into it:
+2. A new pane should open up. Copy these calculations from earlier into your new script:
 ```{r, eval=FALSE}
 # short sides of the triangle
 a <- 2
@@ -343,7 +358,7 @@ b <- 3
 ```
 3. Now highlight those three lines and then hit `Ctrl+Enter`
 
-What happened? What does the text in your script look like?
+What does the text in your script look like? What is the `#` symbol doing? What happened when you hit `Ctrl+Enter`? 
 
 ## Working with a script
 
@@ -365,101 +380,104 @@ __This__ is why using R will save you time in the long run.
 Vectors | The simplest objects in R
 ======================================================================================
 
-## Vectors {.build}
+## Vectors {.build .smaller}
 
-This is what you need to know: vectors are the simplest type of "object" in R---there is no such thing as just a single number. 
+Vectors are the simplest type of "object" in R. 
+
+What are 'vectors'? They are ordered collections of simple things like numbers, characters, TRUE/FALSE values, etc. 
 
 <div>
-What does this do?
-
+What does this print?
 ```{r}
 print(5)
 ```
-
-Look at the `[1]`. This says we made a numeric vector of length 1. But what does that actually mean? 
+It prints a length-one **numeric** vector. 
 </div>
 
-## Vectors {.build}
+<div>
+What does this print?
+```{r}
+print("cat")
+```
+It prints a length-one **character** vector.
+</div>
+
+## Making vectors {.build .smaller}
 
 <div>
-Now look at what the `:` operator does:
+Vectors do a lot of work in R-land. There are many ways to make them Let's look at what the `:` operator does:
 
 ```{r}
 5:35
 ```
-
-The `:` symbol makes a vector with more than one __element__.
 </div>
 
 <div>
-What are the elements of the vector we made?
+The `:` symbol makes a sequence of numbers. These are stored in a single vector with several __elements__.
+<BR>
+Questions:
 
-How many elements are in the vector we made? 
+-  What are the elements of the vector we made? 
+-  How many elements are in the vector we made? 
+-  What do the numbers in the square brackets `[ ]` signify?
 
-What does the `[24]` signify?
 </div>
 
 
-## Making and using vectors {.build .small}
+## Making vectors {.smaller}
 
-Think of vectors as collections of simple things (e.g. numbers) that are ordered. We can create vectors from other vectors using the `c` function:
+Think of vectors as collections of simple things (e.g. numbers) that are ordered. We can create vectors from other vectors using the `c` function. The `c` function (__c__)ombines things together to make vectors.
+
+Copy these lines of R code into your script and run them:
 
 ```{r}
+# make a numeric vector
 c(3, 4, 1:3)
+# make a character vector
+c("dog", "cat", "ape")
 ```
 
-The `c` function 'c'ombines vectors together. We can use the assignment operator to associate a name with our vectors so that we can reuse them:
+What colour are the words 'dog', 'cat' and 'ape' in your script? How does the colour compare to a number?
+
+## Assignment (naming things) {.smaller}
+
+Remember! --> we can use the assignment operator to associate a name with our vectors so that we can reuse them. Update your script and rerun the altered lines:
 
 ```{r}
-myvec <- c(3, 4, 1:3)
-myvec
+# make a numeric vector and give it a name
+my_num_vec <- c(3, 4, 1:3)
+my_num_vec
+
+# make a character vector and give it a name
+my_chr_vec <- c("dog", "cat", "ape")
+my_chr_vec
 ```
+
+Now we have stored a numeric vector called `my_num_vec` and a character vector called `my_chr_vec`. 
+
+Take a look in the environment tab (top right). Do the lines associated with `my_num_vec` make any sense `my_chr_vec`?
 
 ## Exercise {.build .smaller}
 
 <div id="exercise-box">
 __Different kinds of vectors__
 <div id="box-text">
-Add this line to your script and send it to the Console: `char_vec <- c("dog","cat","ape")`. Print `char_vec` to the Console. 
 
-This builds a __character vector__. We know this because the elements are all in quotes.
+Use the `c` function to combine `my_num_vec` with `my_chr_vec`. There's no need to give the result a name. Just print the result to the Console. 
 
-Now use the `c` function to combine the number 4 with `char_vec`. What happens? What kind of vector does this produce?
+What happens? What kind of vector does this produce? Is it numeric or character?
 </div>
 </div>
 
 <div>
 ```{r, include=show_ans}
-# make a character vector
-char_vec <- c("dog", "cat", "ape")
-char_vec
+# 'c'ombine my_num_vec and my_chr_vec
+c(my_num_vec, my_chr_vec)
 ```
 
-What colour are the words 'dog', 'cat' and 'ape' in your script? How does the colour compare to a number? 
-</div>
+The resulting length-six vector is a character vector, i.e. R converted the numeric vector to character vector.
 
-## Exercise {.smaller}
-
-<div id="exercise-box">
-__Different kinds of vectors__
-<div id="box-text">
-Add this line to your script and send it to the Console: `char_vec <- c("dog","cat","ape")`. Print `char_vec` to the Console. 
-
-This builds a __character vector__. We know this because the elements are all in quotes.
-
-Now use the `c` function to combine the number 4 with `char_vec`. What happens? What kind of vector does this produce?
-</div>
-</div>
-
-<div>
-```{r, include=show_ans}
-# 'c'ombine it with the number 4
-c(4, char_vec)
-```
-
-Notice that the `4` is quoted. R turned the number 4 it into a character. 
-
-The lesson: __all the elements in a vector must be of the same type__. That is, we are not allowed to mix and match numbers and characters (or any other types of vector).
+The lesson: __all the elements in a vector must be of the same type__. We are not allowed to mix and match numbers and characters.
 </div>
 
 ## Extracting elements of vectors {.build}
@@ -470,13 +488,13 @@ R has a few built in vectors that we can access all the time. We just have to kn
 LETTERS
 ```
 
-How do we extract the letter `C`? This is the third element of the vector:
+How do we extract the letter `D`? This is the third element of the vector:
 
 ```{r}
-LETTERS[3]
+LETTERS[4]
 ```
 
-__Use the square brakets to subset vectors__. Notice that all we did was make a new vector of length one (there is nothing simpler than a vector).
+__Use the square brackets to subset vectors__. Notice that all we did was make a new vector of length one (there is nothing simpler than a vector).
 
 ## Extracting elements of vectors {.build}
 
@@ -499,9 +517,13 @@ Can you see how `LETTERS[3:10]` works now?
 <div id="exercise-box">
 __Extracting elements ("subsetting") vectors__
 <div id="box-text">
-See if you can make a vector with the sequence of letters `C`, `E` and `J` using `LETTERS` and the square brackets, `[ ]`.
+See if you can extract a vector with the sequence of letters `C`, `E` and `J` from `LETTERS` 
 
-Hint --- you will need the `c` function.
+Hint -->
+
+- You will need the `c` function
+- and the square brackets, `[ ]`.
+
 </div>
 </div>
 
@@ -519,7 +541,7 @@ __Extracting elements from a vector__
 
 Create a vector containing the letters of the alphabet in reverse order. 
 
-EIf that's easy, try this as well: Imagine you want to access the last element of a vector, but you don't know how long it is (i.e. you can't use `LETTERS[26]`). How could you do it? You'll need to guess the name of a function to extract the length of a vector.
+If that's easy, try this as well. See if you can work out how to extract the last element `LETTERS` without using `LETTERS[26]`. How could you do it? You'll need to guess the name of a function to extract the length of a vector.
 
 </div>
 </div>
@@ -758,11 +780,13 @@ Look in the **Packages** tab in RStudio. Can you see anything called fortunes? N
 <div>
 **Step 1.** We need to install the package first!
 
-- Install the **fortunes** package with `install.packages`. 
+- Install the **fortunes** package using RStudio. 
 
 - Look for the the **fortunes** package is the **Packages** tab again. 
 
-- Try again to use the `fortune` function. Does this work or do you see an error?
+- Try again to use the `fortune` function. 
+
+Does this work or do you see an error?
 </div>
 
 <div>
@@ -774,13 +798,19 @@ Why doesn't this work? The package has now been installed. However, we forgot to
 <div>
 **Step 2.** Next, we need to load and attach the package.
 
-- Use `library` to load and attach the **fortunes** package (plural). What happens at the Console?
+- Use `library` to load the **fortunes** package (plural). 
 
-- Try again to use the `fortune` function. Does this work now?
+- Try again to use the `fortune` function.
 </div>
 
 <div>
 That should have worked because the package had been installed **and** we remembered to use `library` load it. What does the `fortune` function do?
+
+```{r}
+library(fortunes)
+fortune(which = 105)
+```
+
 </div>
 
 ## Loading and installing packages

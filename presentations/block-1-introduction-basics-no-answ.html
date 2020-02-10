@@ -3366,44 +3366,33 @@ y</pre>
 <p>Let’s look at the Pythagoras’s theorem example again.</p>
 
 <ol>
-<li>Assign the value 2 to <code>A</code> and the value 3 to <code>B</code>.</li>
-<li>Rewrite the calculation to find the length of the hypotenuse using <code>A</code> and <code>B</code>.</li>
+<li>Assign the value 2 to <code>a</code> and the value 3 to <code>b</code>.</li>
+<li>Rewrite the calculation to find the length of the hypotenuse using <code>a</code> and <code>b</code>.</li>
 </ol>
 
 <p>Remember: \(L_C = \sqrt(L_A^2 + L_B^2)\)</p></div></div>
 
 </article></slide><slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>Using functions </h2><h3> Starting to make use of R’s power</h3></hgroup><article  id="using-functions-starting-to-make-use-of-rs-power">
 
-</article></slide><slide class=""><hgroup><h2>Functions</h2></hgroup><article  class="build" id="functions">
-
-<p>An R function is similar to a mathematical function. It takes one or more inputs, does something to them and then returns the result to us. Using a function looks like this:</p>
-
-<pre class = 'prettyprint lang-r'>my_func_name(arg1 = val1, arg2 = val2, ...)</pre>
+</article></slide><slide class=""><hgroup><h2>Examples of using functions</h2></hgroup><article  class="build smaller" id="examples-of-using-functions">
 
 <div>
-<p><strong>Details</strong></p>
-
-<ul>
-<li><code>my_func_name</code>: the name of the function (e.g. <code>round</code>)</li>
-<li><code>arg1</code>: name of the first <strong>argument</strong></li>
-<li><code>val1</code>: value of the first <strong>argument</strong></li>
-</ul>
-
-<p>A function may have 0, 1, or more &ldquo;arguments&rdquo; (name-value pairs). These are the inputs to the function. Remember: name on the left, value of the right.</p></div>
-
-</article></slide><slide class=""><hgroup><h2>Examples of using functions</h2></hgroup><article  class="build" id="examples-of-using-functions">
-
-<pre class = 'prettyprint lang-r'>round(x = 3.141593)</pre>
-
-<pre >## [1] 3</pre>
-
-<p>Here the name of the argument is <code>x</code>. We gave it the value <code>3.141593</code>. What did R do with this?</p>
+<p>An R function is similar to a mathematical function. It takes one or more inputs, does something to them and then returns the result to us. Here’s a simple example:</p>
 
 <pre class = 'prettyprint lang-r'>round(3.141593)</pre>
 
 <pre >## [1] 3</pre>
 
-<p>You do not have to name arguments in R – it will match them up by position. More on this in a moment…</p>
+<p>What did R do with this?</p></div>
+
+<div>
+<p>We can do the same thing a slightly more long-winded way like this:</p>
+
+<pre class = 'prettyprint lang-r'>round(x = 3.141593)</pre>
+
+<pre >## [1] 3</pre>
+
+<p>Here, we specified the name of the input as <code>x</code> and we associated this with the value <code>3.141593</code>. You do not have to name inputs in R but it is a good habit to get into. You will see why later…</p></div>
 
 </article></slide><slide class=""><hgroup><h2>Exercise</h2></hgroup><article  class="build" id="exercise-3">
 
@@ -3419,7 +3408,7 @@ y</pre>
 <li><code>exp</code></li>
 <li><code>log10</code></li>
 <li><code>floor</code></li>
-<li><code>sinpi</code> (harder)</li>
+<li><code>sinpi</code></li>
 </ul>
 
 <p>Hint — don’t just use whole numbers, i.e. make sure you try things like <code>floor(1.2)</code></p></div></div>
@@ -3456,6 +3445,31 @@ y</pre>
 
 <!-- </div> -->
 
+</article></slide><slide class=""><hgroup><h2>Functions</h2></hgroup><article  class="build smaller" id="functions">
+
+<div>
+<p>An R function takes one or more inputs, does something to them and then returns the result to us. In general, using a function looks like this:</p>
+
+<pre class = 'prettyprint lang-r'>my_func_name(arg1 = val1, arg2 = val2, ...)</pre>
+
+<p><strong>Details</strong></p>
+
+<ul>
+<li><code>my_func_name</code>: the name of the function (e.g. <code>round</code>)</li>
+<li><code>arg1</code>: name of the first <strong>argument</strong></li>
+<li><code>val1</code>: value of the first <strong>argument</strong></li>
+</ul>
+
+<p>A function may have 0, 1, or more name-value pairs. These are the inputs to the function. These inputs are called <strong>arguments</strong>.</p></div>
+
+<div>
+<p>Remember:</p>
+
+<ol>
+<li>Name on the left / Value of the right.</li>
+<li>You do not have to name arguments but it is usually a good idea to do so.</li>
+</ol></div>
+
 </article></slide><slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>Scripts </h2><h3> Reusing your hard work later</h3></hgroup><article  id="scripts-reusing-your-hard-work-later">
 
 </article></slide><slide class=""><hgroup><h2>Working with a script</h2></hgroup><article  id="working-with-a-script">
@@ -3464,7 +3478,7 @@ y</pre>
 
 <ol>
 <li>Navigate through RStudio’s menus to <code>File &gt; New File &gt; R Script</code>.</li>
-<li>A new pane should open up. Type these calculations from earlier into it:</li>
+<li>A new pane should open up. Copy these calculations from earlier into your new script:</li>
 </ol>
 
 <pre class = 'prettyprint lang-r'># short sides of the triangle
@@ -3477,7 +3491,7 @@ b &lt;- 3
 <li>Now highlight those three lines and then hit <code>Ctrl+Enter</code></li>
 </ol>
 
-<p>What happened? What does the text in your script look like?</p>
+<p>What does the text in your script look like? What is the <code>#</code> symbol doing? What happened when you hit <code>Ctrl+Enter</code>?</p>
 
 </article></slide><slide class=""><hgroup><h2>Working with a script</h2></hgroup><article  id="working-with-a-script-1">
 
@@ -3498,52 +3512,86 @@ b &lt;- 3
 
 </article></slide><slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>Vectors </h2><h3> The simplest objects in R</h3></hgroup><article  id="vectors-the-simplest-objects-in-r">
 
-</article></slide><slide class=""><hgroup><h2>Vectors</h2></hgroup><article  class="build" id="vectors">
+</article></slide><slide class=""><hgroup><h2>Vectors</h2></hgroup><article  class="build smaller" id="vectors">
 
-<p>This is what you need to know: vectors are the simplest type of &ldquo;object&rdquo; in R—there is no such thing as just a single number.</p>
+<p>Vectors are the simplest type of &ldquo;object&rdquo; in R.</p>
+
+<p>What are &lsquo;vectors&rsquo;? They are ordered collections of simple things like numbers, characters, TRUE/FALSE values, etc.</p>
 
 <div>
-<p>What does this do?</p>
+<p>What does this print?</p>
 
 <pre class = 'prettyprint lang-r'>print(5)</pre>
 
 <pre >## [1] 5</pre>
 
-<p>Look at the <code>[1]</code>. This says we made a numeric vector of length 1. But what does that actually mean?</p></div>
-
-</article></slide><slide class=""><hgroup><h2>Vectors</h2></hgroup><article  class="build" id="vectors-1">
+<p>It prints a length-one <strong>numeric</strong> vector.</p></div>
 
 <div>
-<p>Now look at what the <code>:</code> operator does:</p>
+<p>What does this print?</p>
+
+<pre class = 'prettyprint lang-r'>print(&quot;cat&quot;)</pre>
+
+<pre >## [1] &quot;cat&quot;</pre>
+
+<p>It prints a length-one <strong>character</strong> vector.</p></div>
+
+</article></slide><slide class=""><hgroup><h2>Making vectors</h2></hgroup><article  class="build smaller" id="making-vectors">
+
+<div>
+<p>Vectors do a lot of work in R-land. There are many ways to make them Let’s look at what the <code>:</code> operator does:</p>
 
 <pre class = 'prettyprint lang-r'>5:35</pre>
 
 <pre >##  [1]  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29
-## [26] 30 31 32 33 34 35</pre>
-
-<p>The <code>:</code> symbol makes a vector with more than one <strong>element</strong>.</p></div>
+## [26] 30 31 32 33 34 35</pre></div>
 
 <div>
-<p>What are the elements of the vector we made?</p>
+<p>The <code>:</code> symbol makes a sequence of numbers. These are stored in a single vector with several <strong>elements</strong>. <BR> Questions:</p>
 
-<p>How many elements are in the vector we made?</p>
+<ul>
+<li>What are the elements of the vector we made?</li>
+<li>How many elements are in the vector we made?</li>
+<li>What do the numbers in the square brackets <code>[ ]</code> signify?</li>
+</ul></div>
 
-<p>What does the <code>[24]</code> signify?</p></div>
+</article></slide><slide class=""><hgroup><h2>Making vectors</h2></hgroup><article  class="smaller" id="making-vectors-1">
 
-</article></slide><slide class=""><hgroup><h2>Making and using vectors</h2></hgroup><article  class="build small" id="making-and-using-vectors">
+<p>Think of vectors as collections of simple things (e.g. numbers) that are ordered. We can create vectors from other vectors using the <code>c</code> function. The <code>c</code> function (<strong>c</strong>)ombines things together to make vectors.</p>
 
-<p>Think of vectors as collections of simple things (e.g. numbers) that are ordered. We can create vectors from other vectors using the <code>c</code> function:</p>
+<p>Copy these lines of R code into your script and run them:</p>
 
-<pre class = 'prettyprint lang-r'>c(3, 4, 1:3)</pre>
+<pre class = 'prettyprint lang-r'># make a numeric vector
+c(3, 4, 1:3)</pre>
+
+<pre >## [1] 3 4 1 2 3</pre>
+
+<pre class = 'prettyprint lang-r'># make a character vector
+c(&quot;dog&quot;, &quot;cat&quot;, &quot;ape&quot;)</pre>
+
+<pre >## [1] &quot;dog&quot; &quot;cat&quot; &quot;ape&quot;</pre>
+
+<p>What colour are the words &lsquo;dog&rsquo;, &lsquo;cat&rsquo; and &lsquo;ape&rsquo; in your script? How does the colour compare to a number?</p>
+
+</article></slide><slide class=""><hgroup><h2>Assignment (naming things)</h2></hgroup><article  class="smaller" id="assignment-naming-things">
+
+<p>Remember! –&gt; we can use the assignment operator to associate a name with our vectors so that we can reuse them. Update your script and rerun the altered lines:</p>
+
+<pre class = 'prettyprint lang-r'># make a numeric vector and give it a name
+my_num_vec &lt;- c(3, 4, 1:3)
+my_num_vec</pre>
 
 <pre >## [1] 3 4 1 2 3</pre>
 
-<p>The <code>c</code> function ’c’ombines vectors together. We can use the assignment operator to associate a name with our vectors so that we can reuse them:</p>
+<pre class = 'prettyprint lang-r'># make a character vector and give it a name
+my_chr_vec &lt;- c(&quot;dog&quot;, &quot;cat&quot;, &quot;ape&quot;)
+my_chr_vec</pre>
 
-<pre class = 'prettyprint lang-r'>myvec &lt;- c(3, 4, 1:3)
-myvec</pre>
+<pre >## [1] &quot;dog&quot; &quot;cat&quot; &quot;ape&quot;</pre>
 
-<pre >## [1] 3 4 1 2 3</pre>
+<p>Now we have stored a numeric vector called <code>my_num_vec</code> and a character vector called <code>my_chr_vec</code>.</p>
+
+<p>Take a look in the environment tab (top right). Do the lines associated with <code>my_num_vec</code> make any sense <code>my_chr_vec</code>?</p>
 
 </article></slide><slide class=""><hgroup><h2>Exercise</h2></hgroup><article  class="build smaller" id="exercise-4">
 
@@ -3551,31 +3599,14 @@ myvec</pre>
 <strong>Different kinds of vectors</strong>
 
 <div id="box-text">
-<p>Add this line to your script and send it to the Console: <code>char_vec &lt;- c(&quot;dog&quot;,&quot;cat&quot;,&quot;ape&quot;)</code>. Print <code>char_vec</code> to the Console.</p>
+<p>Use the <code>c</code> function to combine <code>my_num_vec</code> with <code>my_chr_vec</code>. There’s no need to give the result a name. Just print the result to the Console.</p>
 
-<p>This builds a <strong>character vector</strong>. We know this because the elements are all in quotes.</p>
-
-<p>Now use the <code>c</code> function to combine the number 4 with <code>char_vec</code>. What happens? What kind of vector does this produce?</p></div></div>
+<p>What happens? What kind of vector does this produce? Is it numeric or character?</p></div></div>
 
 <div>
-<p>What colour are the words &lsquo;dog&rsquo;, &lsquo;cat&rsquo; and &lsquo;ape&rsquo; in your script? How does the colour compare to a number?</p></div>
+<p>The resulting length-six vector is a character vector, i.e. R converted the numeric vector to character vector.</p>
 
-</article></slide><slide class=""><hgroup><h2>Exercise</h2></hgroup><article  class="smaller" id="exercise-5">
-
-<div id="exercise-box">
-<strong>Different kinds of vectors</strong>
-
-<div id="box-text">
-<p>Add this line to your script and send it to the Console: <code>char_vec &lt;- c(&quot;dog&quot;,&quot;cat&quot;,&quot;ape&quot;)</code>. Print <code>char_vec</code> to the Console.</p>
-
-<p>This builds a <strong>character vector</strong>. We know this because the elements are all in quotes.</p>
-
-<p>Now use the <code>c</code> function to combine the number 4 with <code>char_vec</code>. What happens? What kind of vector does this produce?</p></div></div>
-
-<div>
-<p>Notice that the <code>4</code> is quoted. R turned the number 4 it into a character.</p>
-
-<p>The lesson: <strong>all the elements in a vector must be of the same type</strong>. That is, we are not allowed to mix and match numbers and characters (or any other types of vector).</p></div>
+<p>The lesson: <strong>all the elements in a vector must be of the same type</strong>. We are not allowed to mix and match numbers and characters.</p></div>
 
 </article></slide><slide class=""><hgroup><h2>Extracting elements of vectors</h2></hgroup><article  class="build" id="extracting-elements-of-vectors">
 
@@ -3586,13 +3617,13 @@ myvec</pre>
 <pre >##  [1] &quot;A&quot; &quot;B&quot; &quot;C&quot; &quot;D&quot; &quot;E&quot; &quot;F&quot; &quot;G&quot; &quot;H&quot; &quot;I&quot; &quot;J&quot; &quot;K&quot; &quot;L&quot; &quot;M&quot; &quot;N&quot; &quot;O&quot; &quot;P&quot; &quot;Q&quot; &quot;R&quot; &quot;S&quot;
 ## [20] &quot;T&quot; &quot;U&quot; &quot;V&quot; &quot;W&quot; &quot;X&quot; &quot;Y&quot; &quot;Z&quot;</pre>
 
-<p>How do we extract the letter <code>C</code>? This is the third element of the vector:</p>
+<p>How do we extract the letter <code>D</code>? This is the third element of the vector:</p>
 
-<pre class = 'prettyprint lang-r'>LETTERS[3]</pre>
+<pre class = 'prettyprint lang-r'>LETTERS[4]</pre>
 
-<pre >## [1] &quot;C&quot;</pre>
+<pre >## [1] &quot;D&quot;</pre>
 
-<p><strong>Use the square brakets to subset vectors</strong>. Notice that all we did was make a new vector of length one (there is nothing simpler than a vector).</p>
+<p><strong>Use the square brackets to subset vectors</strong>. Notice that all we did was make a new vector of length one (there is nothing simpler than a vector).</p>
 
 </article></slide><slide class=""><hgroup><h2>Extracting elements of vectors</h2></hgroup><article  class="build" id="extracting-elements-of-vectors-1">
 
@@ -3610,20 +3641,25 @@ myvec</pre>
 
 <p>Can you see how <code>LETTERS[3:10]</code> works now?</p>
 
-</article></slide><slide class=""><hgroup><h2>Exercise</h2></hgroup><article  class="build" id="exercise-6">
+</article></slide><slide class=""><hgroup><h2>Exercise</h2></hgroup><article  class="build" id="exercise-5">
 
 <div id="exercise-box">
 <strong>Extracting elements (&ldquo;subsetting&rdquo;) vectors</strong>
 
 <div id="box-text">
-<p>See if you can make a vector with the sequence of letters <code>C</code>, <code>E</code> and <code>J</code> using <code>LETTERS</code> and the square brackets, <code>[ ]</code>.</p>
+<p>See if you can extract a vector with the sequence of letters <code>C</code>, <code>E</code> and <code>J</code> from <code>LETTERS</code></p>
 
-<p>Hint — you will need the <code>c</code> function.</p></div></div>
+<p>Hint –&gt;</p>
+
+<ul>
+<li>You will need the <code>c</code> function</li>
+<li>and the square brackets, <code>[ ]</code>.</li>
+</ul></div></div>
 
 <div>
 </div>
 
-</article></slide><slide class=""><hgroup><h2>Exercise</h2></hgroup><article  class="build" id="exercise-7">
+</article></slide><slide class=""><hgroup><h2>Exercise</h2></hgroup><article  class="build" id="exercise-6">
 
 <div id="exercise-box">
 <strong>Extracting elements from a vector</strong>
@@ -3631,9 +3667,9 @@ myvec</pre>
 <div id="box-text">
 <p>Create a vector containing the letters of the alphabet in reverse order.</p>
 
-<p>EIf that’s easy, try this as well: Imagine you want to access the last element of a vector, but you don’t know how long it is (i.e. you can’t use <code>LETTERS[26]</code>). How could you do it? You’ll need to guess the name of a function to extract the length of a vector.</p></div></div>
+<p>If that’s easy, try this as well. See if you can work out how to extract the last element <code>LETTERS</code> without using <code>LETTERS[26]</code>. How could you do it? You’ll need to guess the name of a function to extract the length of a vector.</p></div></div>
 
-</article></slide><slide class=""><hgroup><h2>Exercise</h2></hgroup><article  id="exercise-8">
+</article></slide><slide class=""><hgroup><h2>Exercise</h2></hgroup><article  id="exercise-7">
 
 <p>This is a simple example of how we can generalise a task using a programming like R.</p>
 
@@ -3652,7 +3688,7 @@ myvec</pre>
 
 <p><strong>Arithmetic operations are vectorised</strong></p>
 
-</article></slide><slide class=""><hgroup><h2>Exercise</h2></hgroup><article  class="build smaller" id="exercise-9">
+</article></slide><slide class=""><hgroup><h2>Exercise</h2></hgroup><article  class="build smaller" id="exercise-8">
 
 <div id="exercise-box">
 <strong>Vectorised operations</strong>
@@ -3682,12 +3718,12 @@ myvec</pre>
 
 <p>Add this to the <code>A</code> vector. What happens when you add numeric vectors with different lengths?</p></div></div>
 
-</article></slide><slide class=""><hgroup><h2>Exercise</h2></hgroup><article  class="build" id="exercise-10">
+</article></slide><slide class=""><hgroup><h2>Exercise</h2></hgroup><article  class="build" id="exercise-9">
 
 <div>
 </div>
 
-</article></slide><slide class=""><hgroup><h2>Exercise</h2></hgroup><article  class="build" id="exercise-11">
+</article></slide><slide class=""><hgroup><h2>Exercise</h2></hgroup><article  class="build" id="exercise-10">
 
 <div>
 </div>
@@ -3709,7 +3745,7 @@ myvec</pre>
 
 <p>These operators produce something called a <strong>logical vector</strong> (a vector of TRUE and FALSE values—nothing else allowed)</p>
 
-</article></slide><slide class=""><hgroup><h2>Exercise</h2></hgroup><article  class="build" id="exercise-12">
+</article></slide><slide class=""><hgroup><h2>Exercise</h2></hgroup><article  class="build" id="exercise-11">
 
 <div id="exercise-box">
 <strong>Using relational operators</strong>
@@ -3720,12 +3756,12 @@ myvec</pre>
 <div>
 </div>
 
-</article></slide><slide class=""><hgroup><h2>Exercise</h2></hgroup><article  class="build smaller" id="exercise-13">
+</article></slide><slide class=""><hgroup><h2>Exercise</h2></hgroup><article  class="build smaller" id="exercise-12">
 
 <div>
 </div>
 
-</article></slide><slide class=""><hgroup><h2>Exercise</h2></hgroup><article  class="build smaller" id="exercise-14">
+</article></slide><slide class=""><hgroup><h2>Exercise</h2></hgroup><article  class="build smaller" id="exercise-13">
 
 <div>
 </div>
@@ -3825,10 +3861,12 @@ myvec</pre>
 <p><strong>Step 1.</strong> We need to install the package first!</p>
 
 <ul>
-<li><p>Install the <strong>fortunes</strong> package with <code>install.packages</code>.</p></li>
+<li><p>Install the <strong>fortunes</strong> package using RStudio.</p></li>
 <li><p>Look for the the <strong>fortunes</strong> package is the <strong>Packages</strong> tab again.</p></li>
-<li>Try again to use the <code>fortune</code> function. Does this work or do you see an error?</li>
-</ul></div>
+<li><p>Try again to use the <code>fortune</code> function.</p></li>
+</ul>
+
+<p>Does this work or do you see an error?</p></div>
 
 <div>
 <p>Why doesn’t this work? The package has now been installed. However, we forgot to load it.</p></div>
@@ -3839,12 +3877,24 @@ myvec</pre>
 <p><strong>Step 2.</strong> Next, we need to load and attach the package.</p>
 
 <ul>
-<li><p>Use <code>library</code> to load and attach the <strong>fortunes</strong> package (plural). What happens at the Console?</p></li>
-<li>Try again to use the <code>fortune</code> function. Does this work now?</li>
+<li><p>Use <code>library</code> to load the <strong>fortunes</strong> package (plural).</p></li>
+<li>Try again to use the <code>fortune</code> function.</li>
 </ul></div>
 
 <div>
-<p>That should have worked because the package had been installed <strong>and</strong> we remembered to use <code>library</code> load it. What does the <code>fortune</code> function do?</p></div>
+<p>That should have worked because the package had been installed <strong>and</strong> we remembered to use <code>library</code> load it. What does the <code>fortune</code> function do?</p>
+
+<pre class = 'prettyprint lang-r'>library(fortunes)
+fortune(which = 105)</pre>
+
+<pre >## 
+## A sufficiently trained statistician can read the vagaries of a Q-Q plot like a
+## shaman can read a chicken&#39;s entrails, with a similar recourse to scientific
+## principles. Interpreting Q-Q plots is more a visceral than an intellectual
+## exercise. The uninitiated are often mystified by the process. Experience is the
+## key here.
+##    -- Department of Mathematics and Statistics, Murdoch University
+##       StatsNotes</pre></div>
 
 </article></slide><slide class=""><hgroup><h2>Loading and installing packages</h2></hgroup><article  id="loading-and-installing-packages-3">
 
@@ -3861,7 +3911,7 @@ myvec</pre>
 <div>
 <p>You did not have to install the package again to use it. You only had to load it using <code>library</code>. Installing is a &lsquo;do once&rsquo; operation. Loading is a &lsquo;do every time&rsquo; operation.</p></div>
 
-</article></slide><slide class=""><hgroup><h2>Exercise</h2></hgroup><article  class="small" id="exercise-15">
+</article></slide><slide class=""><hgroup><h2>Exercise</h2></hgroup><article  class="small" id="exercise-14">
 
 <p>In the next few weeks we’re going to be using two packages: <code>dplyr</code> and <code>ggplot2</code>. The TAs installed these packages on a lot of your computers last week.<br/><br> Check whether they’re installed now using the following code:</p>
 
@@ -3891,7 +3941,7 @@ library(dplyr)</pre>
 
 <p>Let’s step though the help for <code>round</code>…</p>
 
-</article></slide><slide class=""><hgroup><h2>Exercise</h2></hgroup><article  class="smaller build" id="exercise-16">
+</article></slide><slide class=""><hgroup><h2>Exercise</h2></hgroup><article  class="smaller build" id="exercise-15">
 
 <div id="exercise-box">
 <strong>Using the help files</strong>
@@ -3905,9 +3955,9 @@ library(dplyr)</pre>
 
 <pre >##  [1] 3 3 4 4 5 5 6 6 3 3 4 4 5 5 6 6 3 3 4 4 5 5 6 6</pre></div></div>
 
-</article></slide><slide class=""><hgroup><h2>Exercise</h2></hgroup><article  class="build" id="exercise-17">
+</article></slide><slide class=""><hgroup><h2>Exercise</h2></hgroup><article  class="build" id="exercise-16">
 
-</article></slide><slide class=""><hgroup><h2>Exercise</h2></hgroup><article  class="smaller build" id="exercise-18">
+</article></slide><slide class=""><hgroup><h2>Exercise</h2></hgroup><article  class="smaller build" id="exercise-17">
 
 <div id="exercise-box">
 <strong>Using the help files</strong>
