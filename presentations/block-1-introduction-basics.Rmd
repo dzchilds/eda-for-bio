@@ -98,8 +98,12 @@ RStudio is an Integrated Development Environment. Makes working with R much easi
 
 <div class="columns-2">
 
-  <img src="../images/RStudio-3-pane.png" alt="RStudio" title="RStudio", width="450">
-
+  <!-- <img src="../images/RStudio-3-pane.png" alt="RStudio" title="RStudio", width="450"> -->
+  
+```{r pressure, echo=FALSE, out.width = '90%'}
+knitr::include_graphics("../images/RStudio-3-pane.png")
+```
+  
   What is in these three panes?
   
   #. Console
@@ -301,25 +305,25 @@ Hint --- don't just use whole numbers, i.e. make sure you try things like `floor
 </div>
 </div>
 
-## Exercise {.build .smaller}
+<!-- ## Exercise {.build .smaller} -->
 
-<div id="exercise-box">
-__Using functions__
-<div id="box-text">
-We'll use a built in constant `pi` in this exercise. Type `pi` into the prompt and hit return. It's easy as $\pi$! We are going to round $\pi$ to 2 significant places. Experiment with the following uses of the `round` function.
+<!-- <div id="exercise-box"> -->
+<!-- __Using functions__ -->
+<!-- <div id="box-text"> -->
+<!-- We'll use a built in constant `pi` in this exercise. Type `pi` into the prompt and hit return. It's easy as $\pi$! We are going to round $\pi$ to 2 significant places. Experiment with the following uses of the `round` function. -->
 
-- `round(x = pi, digits = 2)`
-- `round(pi, digits = 2)`
-- `round(x = pi, 2)`
-- `round(pi, 2)`
-- `round(digits = 2, x = pi)`
-- `round(2, x = pi)`
-- `round(digits = 2, pi)`
-- `round(2, pi)`
+<!-- - `round(x = pi, digits = 2)` -->
+<!-- - `round(pi, digits = 2)` -->
+<!-- - `round(x = pi, 2)` -->
+<!-- - `round(pi, 2)` -->
+<!-- - `round(digits = 2, x = pi)` -->
+<!-- - `round(2, x = pi)` -->
+<!-- - `round(digits = 2, pi)` -->
+<!-- - `round(2, pi)` -->
 
-Work out which ones give us the wrong answer. Can you see why?
-</div>
-</div>
+<!-- Work out which ones give us the wrong answer. Can you see why? -->
+<!-- </div> -->
+<!-- </div> -->
 
 Scripts | Reusing your hard work later
 ======================================================================================
@@ -404,7 +408,7 @@ Think of vectors as collections of simple things (e.g. numbers) that are ordered
 c(3, 4, 1:3)
 ```
 
-We can use the assignment operator to associate a name with our vectors so that we can reuse them:
+The `c` function 'c'ombines vectors together. We can use the assignment operator to associate a name with our vectors so that we can reuse them:
 
 ```{r}
 myvec <- c(3, 4, 1:3)
@@ -455,12 +459,12 @@ c(4, char_vec)
 
 Notice that the `4` is quoted. R turned the number 4 it into a character. 
 
-The lesson: __all the elements in a vector must be of the same type__.
+The lesson: __all the elements in a vector must be of the same type__. That is, we are not allowed to mix and match numbers and characters (or any other types of vector).
 </div>
 
 ## Extracting elements of vectors {.build}
 
-R has a few built in vectors that we can access all the time (if we know their name). One of these is `LETTERS`. What does it contain?
+R has a few built in vectors that we can access all the time. We just have to know their name. One of these is called `LETTERS`. What does it contain?
 
 ```{r}
 LETTERS
@@ -472,7 +476,7 @@ How do we extract the letter `C`? This is the third element of the vector:
 LETTERS[3]
 ```
 
-__Use the square brakets to subset vectors__. Notice that all we did was make a new vector -- there is nothing simpler, remember?
+__Use the square brakets to subset vectors__. Notice that all we did was make a new vector of length one (there is nothing simpler than a vector).
 
 ## Extracting elements of vectors {.build}
 
@@ -515,7 +519,7 @@ __Extracting elements from a vector__
 
 Create a vector containing the letters of the alphabet in reverse order. 
 
-Extension: Imagine that you want to access the last element of a vector, but you don't know how long it is (i.e. you can't use `LETTERS[26]`). How could you do it? 
+EIf that's easy, try this as well: Imagine you want to access the last element of a vector, but you don't know how long it is (i.e. you can't use `LETTERS[26]`). How could you do it? You'll need to guess the name of a function to extract the length of a vector.
 
 </div>
 </div>
@@ -530,6 +534,8 @@ LETTERS[26:1]
 length(LETTERS)
 LETTERS[length(LETTERS)]
 ```
+
+This is a simple example of how we can generalise a task using a programming like R. 
 
 ## Vectorised operations {.build .small}
 
@@ -551,23 +557,26 @@ myvec + 2
 
 __Arithmetic operations are vectorised__
 
-## Exercise {.build}
+## Exercise {.build .smaller}
 
 <div id="exercise-box">
 __Vectorised operations__
 <div id="box-text">
 Use the `c` function to make a pair of numeric vectors containing the two following sets of numbers:
 
-a. 7, 2, 5, 3, 1   
-b. 1, 4, 8, 3, 9
+- 7, 2, 5, 3, 1   
+- 1, 4, 8, 3, 9
 
-Assign them the names `A` and `B`. Write some R code to determine the result of `A + B` and `A + B + 6`. 
+Assign them the names `A` and `B`. Write some R code to determine the result of:
+
+- `A + B`
+- `A + B + 6`. 
 
 Look carefully at the results. What happens when we add two numeric vectors together? What happens when we add a single number to a vector? 
 
 Now make a new numeric vector containing the following set of numbers (call it `X`):
 
-1, 2
+- 1, 2
 
 Add this to the `A` vector. What happens when you add numeric vectors with different lengths?
 </div>
@@ -667,27 +676,27 @@ num1 <  num2
 num1 <= num2
 ```
 
-## Combining comparisons {.build .smaller}
+<!-- ## Combining comparisons {.build .smaller} -->
 
-<div>
-We use __logical operators__ to combine logical statements:
+<!-- <div> -->
+<!-- We use __logical operators__ to combine logical statements: -->
 
-- `!x `: __negation__ = `TRUE` becomes `FALSE`, `FALSE` becomes `TRUE`
-- `x & y `: __AND__  = `TRUE` if __both__ x and y are `TRUE`, `FALSE` otherwise
-- `x | y`: __OR__  = `TRUE` if __either__ x and y are `TRUE`, `FALSE` otherwise
+<!-- - `!x `: __negation__ = `TRUE` becomes `FALSE`, `FALSE` becomes `TRUE` -->
+<!-- - `x & y `: __AND__  = `TRUE` if __both__ x and y are `TRUE`, `FALSE` otherwise -->
+<!-- - `x | y`: __OR__  = `TRUE` if __either__ x and y are `TRUE`, `FALSE` otherwise -->
 
-These operators produce another __logical vector__ (a vector of TRUE / FALSE values)
-</div>
+<!-- These operators produce another __logical vector__ (a vector of TRUE / FALSE values) -->
+<!-- </div> -->
 
-<div>
-__Example__
-```{r}
-x <- c(TRUE, TRUE, FALSE, FALSE)
-y <- c(FALSE, TRUE, FALSE, TRUE)
-x & y
-x | y
-```
-</div>
+<!-- <div> -->
+<!-- __Example__ -->
+<!-- ```{r} -->
+<!-- x <- c(TRUE, TRUE, FALSE, FALSE) -->
+<!-- y <- c(FALSE, TRUE, FALSE, TRUE) -->
+<!-- x & y -->
+<!-- x | y -->
+<!-- ``` -->
+<!-- </div> -->
 
 R packages | A great source of confusion 
 ====================================================================
@@ -724,37 +733,73 @@ A mobile phone App analogy:
 
 - You can also install a package via the Packages tab in RStudio. It is fine to use this if you don't like using `install.packages`.
 
-## Loading and installing packages {.build .smaller}
+## Loading and installing packages {.build}
 
-We want to use the `fortune` function (singular!) that resides in the **fortunes** package (plural!). Do the following, in the order given, working directly in the Console. At each step, ask yourself, does this work or do I get an error?
+<div>
+We want to use the `fortune` function (singular) that resides in the **fortunes** package (plural). 
+
+Do the following, in the order given, working directly in the Console. 
 
 1. Try to use the `fortune` function, i.e. type `fortune()` straight into the Console.
 
 2. Try to use `library` to load and attach the **fortunes** package. 
 
-3. Look in the **Packages** tab in RStudio. Can you see anything called fortunes? 
+**Go slowly**. At each step, ask yourself, does this work or do I get an error? If there is an error, why?
+</div>
 
-4. Install the **fortunes** package with `install.packages`. 
+<div>
+Why doesn't this work? 
 
-5. Look for the the **fortunes** package is the **Packages** tab again. 
+Look in the **Packages** tab in RStudio. Can you see anything called fortunes? No! The package hasn't been installed so we can't load it because R doesn't have a copy of it.
+</div>
 
-6. Try again to use the `fortune` function. Does this work?
+## Loading and installing packages {.build}
 
-7. Use `library` to load and attach the **fortunes** package (plural!). What happens?
+<div>
+**Step 1.** We need to install the package first!
 
-8. Try again to use the `fortune` function. Does this work or do you see an error?
+- Install the **fortunes** package with `install.packages`. 
 
-## Loading and installing packages  {.smaller .build}
+- Look for the the **fortunes** package is the **Packages** tab again. 
 
+- Try again to use the `fortune` function. Does this work or do you see an error?
+</div>
+
+<div>
+Why doesn't this work? The package has now been installed. However, we forgot to load it.
+</div>
+
+## Loading and installing packages {.build}
+
+<div>
+**Step 2.** Next, we need to load and attach the package.
+
+- Use `library` to load and attach the **fortunes** package (plural). What happens at the Console?
+
+- Try again to use the `fortune` function. Does this work now?
+</div>
+
+<div>
+That should have worked because the package had been installed **and** we remembered to use `library` load it. What does the `fortune` function do?
+</div>
+
+## Loading and installing packages
+
+<div>
 Now try the following:
 
 1. Close down Rstudio completely then open it again.
 
-2. Try to use the `fortune` function, i.e. type `fortune()` straight into the Console.
+2. Try to use the `fortune` function. Does this work?
 
-3. Use `library` to load and attach the **fortunes** package (plural!). What happens?
+3. Use `library` to load and attach the **fortunes** package.
 
-4. Try again to use the `fortune` function. Does this work?
+4. Try to use the `fortune` function. Does this work?
+</div>
+
+<div>
+You did not have to install the package again to use it. You only had to load it using `library`. Installing is a 'do once' operation. Loading is a 'do every time' operation.
+</div>
 
 ## Exercise {.small}
 
