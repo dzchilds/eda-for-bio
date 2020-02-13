@@ -382,9 +382,7 @@ Vectors | The simplest objects in R
 
 ## Vectors {.build .smaller}
 
-Vectors are the simplest type of "object" in R. 
-
-What are 'vectors'? They are ordered collections of simple things like numbers, characters, TRUE/FALSE values, etc. 
+Vectors are the simplest type of "object" in R. What are 'vectors'? They are ordered collections of simple things like numbers, characters, TRUE/FALSE values, etc. 
 
 <div>
 What does this print?
@@ -402,10 +400,10 @@ print("cat")
 It prints a length-one **character** vector.
 </div>
 
-## Making vectors {.build .smaller}
+## Vectors {.build .smaller}
 
 <div>
-Vectors do a lot of work in R-land. There are many ways to make them Let's look at what the `:` operator does:
+Vectors do a lot of work in R-land. There are many ways to make them. Let's look at what the `:` operator does:
 
 ```{r}
 5:35
@@ -420,13 +418,14 @@ Questions:
 -  What are the elements of the vector we made? 
 -  How many elements are in the vector we made? 
 -  What do the numbers in the square brackets `[ ]` signify?
-
 </div>
 
+<BR>
+**Think of vectors as collections of simple things (e.g. numbers) that are ordered.**
 
-## Making vectors {.smaller}
+## Vectors {.smaller}
 
-Think of vectors as collections of simple things (e.g. numbers) that are ordered. We can create vectors from other vectors using the `c` function. The `c` function (__c__)ombines things together to make vectors.
+We can manually create vectors from other vectors using the `c` function. The `c` function (__c__)ombines things together to make vectors.
 
 Copy these lines of R code into your script and run them:
 
