@@ -538,9 +538,9 @@ LETTERS[c(3, 5, 10)]
 __Extracting elements from a vector__
 <div id="box-text">
 
-Create a vector containing the letters of the alphabet in reverse order. 
+Uisng `LETTERS`, see if you can create a vector containing the letters of the alphabet in reverse order. Hint: you will need to use the sequence operator `:` to do this.
 
-If that's easy, try this as well. See if you can work out how to extract the last element `LETTERS` without using `LETTERS[26]`. How could you do it? You'll need to guess the name of a function to extract the length of a vector.
+If that's easy, see if you can work out how to extract only the last element `LETTERS` without using `LETTERS[26]`. Hint: you'll need to guess the name of a function to get the **length** of a vector.
 
 </div>
 </div>
@@ -638,64 +638,74 @@ One last bit of the basics... | Logical comparisons
 
 We use __relational operators__ to compare the elements of numeric vectors:
 
-- `x < y `: is x less than y?
-- `x > y `: is x greater than y?
-- `x <= y`: is x less than or equal to y?
-- `x >= y`: is x greater than or equal to y?
-- `x == y`: is x equal to y?
-- `x != y`: is x not equal to y?
+- `x == y`: ???
+- `x != y`: ???
+- `x < y `: ???
+- `x > y `: ???
+- `x <= y`: ???
+- `x >= y`: ???
 
-These operators produce something called a __logical vector__ (a vector of TRUE and FALSE values---nothing else allowed)
+These operators produce something called a __logical vector__ (a vector of TRUE and FALSE values---nothing else allowed). Let's see how they work.
 
 ## Exercise {.build}
 
 <div id="exercise-box">
 __Using relational operators__
 <div id="box-text">
-Make two vectors named `num1` and `num2`, where `num1` is a sequence from 0 to 20, and `num2` is a sequence from 25 to 5. Once you have made these print them to screen, then experiment with `<`, `>`, `<=`, `>=`, `==` and `!=` to convince yourself you understand how they work.
-</div>
-</div>
+Let's carry on working with the `A` and `B` vectors we just made (you don't need to run this code again):
 
 ```{r, echo=FALSE}
-num1 <- 0:20
-num2 <- 5:25
+cat("A ----> \n")
+A
+cat("B ----> \n")
+B
 ```
 
-<div>
-```{r, include=show_ans}
-num1
-num2
-
-```
+Experiment with the `<`, `>`, `<=`, `>=`, `==` and `!=` operators to convince yourself you understand how they work.
 </div>
+</div>
+
 
 ## Exercise {.build .smaller}
 
 <div>
 ```{r, include=show_ans}
-num1
-num2
+A
+B
 ```
 </div>
 
 ```{r, include=show_ans}
-num1 == num2
-num1 != num2
+A == B
+A != B
 ```
 
 ## Exercise {.build  .smaller}
 
 <div>
 ```{r, include=show_ans}
-num1
-num2
+A
+B
 ```
 </div>
 
 ```{r, include=show_ans}
-num1 <  num2
-num1 <= num2
+A <  B
+A <= B
 ```
+
+## Comparing vectors
+
+We use __relational operators__ to compare the elements of numeric vectors:
+
+- `x == y`: is x equal to y?
+- `x != y`: is x not equal to y?
+- `x < y `: is x less than y?
+- `x > y `: is x greater than y?
+- `x <= y`: is x less than or equal to y?
+- `x >= y`: is x greater than or equal to y?
+
+These may seem a little pointless at the moment. However, we're going to need them later when we learn how to subset our data.
 
 <!-- ## Combining comparisons {.build .smaller} -->
 
@@ -768,11 +778,10 @@ Do the following, in the order given, working directly in the Console.
 **Go slowly**. At each step, ask yourself, does this work or do I get an error? If there is an error, why?
 </div>
 
-<div>
-Why doesn't this work? 
-
-Look in the **Packages** tab in RStudio. Can you see anything called fortunes? No! The package hasn't been installed so we can't load it because R doesn't have a copy of it.
-</div>
+```{r, results="asis", echo=FALSE, eval=show_ans}
+cat("Why doesn't this work? Look in the **Packages** tab in RStudio. Can you see anything called fortunes?  \n\n")
+cat("No! The package hasn't been installed so we can't load it because R doesn't have a copy of it. \n")
+```
 
 ## Loading and installing packages {.build}
 
@@ -788,9 +797,9 @@ Look in the **Packages** tab in RStudio. Can you see anything called fortunes? N
 Does this work or do you see an error?
 </div>
 
-<div>
-Why doesn't this work? The package has now been installed. However, we forgot to load it.
-</div>
+```{r, results="asis", echo=FALSE, eval=show_ans}
+cat("Why doesn't this work? The package has now been installed. However, we forgot to load it. \n")
+```
 
 ## Loading and installing packages {.build}
 
@@ -803,16 +812,19 @@ Why doesn't this work? The package has now been installed. However, we forgot to
 </div>
 
 <div>
-That should have worked because the package had been installed **and** we remembered to use `library` load it. What does the `fortune` function do?
 
-```{r}
+```{r, results="asis", echo=FALSE, eval=show_ans}
+cat("That should have worked because the package had been installed **and** we remembered to use `library` load it. So... what does the `fortune` function do? \n")
+```
+
+```{r, include=show_ans}
 library(fortunes)
 fortune(which = 105)
 ```
 
 </div>
 
-## Loading and installing packages
+## Loading and installing packages {.build}
 
 <div>
 Now try the following:
@@ -826,9 +838,14 @@ Now try the following:
 4. Try to use the `fortune` function. Does this work?
 </div>
 
-<div>
-You did not have to install the package again to use it. You only had to load it using `library`. Installing is a 'do once' operation. Loading is a 'do every time' operation.
-</div>
+```{r, results="asis", echo=FALSE, eval=show_ans}
+cat("<div> \n\n
+You did not have to install the package again to use it. You only had to load it using `library`. \n\n
+- Installing is a 'do once' operation. \n\n
+- Loading is a 'do every time' operation. \n\n
+</div> \n\n
+")
+```
 
 ## Exercise {.small}
 
@@ -842,7 +859,7 @@ library(ggplot2)
 library(dplyr)
 ```
 
-If you get an error message (NOT a warning) - stick your hand up.
+If you get an error message (NOT a warning) please put your hand up so that we can fix it.
 
 Getting help | Learning about a function
 ======================================================================================
@@ -866,19 +883,28 @@ Help files are really **documentation** files:
 
 Let's step though the help for `round`...
 
-## Exercise {.smaller .build}
+## Exercise {.build}
 
 <div id="exercise-box">
 __Using the help files__
 <div id="box-text">
 
 Use the `rep` function to create the following three sequences:
+
 ```{r, echo=FALSE}
 rep(1:6, each = 3)
+
 rep(c(2, 5), times = 4)
+
 rep(3:6, each = 2, times = 3)
 ```
+Hint: 
 
+1. You will need to use `:` and `c` along with `rep` to do this.
+
+2. Take a look at the examples in the help file for `rep` if you are stuck. 
+
+Remember, you can highlight code in the examples and use CTRL + ENTER to run it.  
 </div>
 </div>
 
@@ -900,8 +926,7 @@ Use the `seq` function to create the following numeric vector.
 ```{r, echo=FALSE}
 seq(0, 1, by = 0.1)
 ```
-Assign the vector to a name of your choice.   
-Change the 6th element to have a value of 14. 
+If that's easy see if you can assign the vector a name and then change the 6th element to have a value of 14. 
 </div>
 </div>
 
@@ -919,7 +944,7 @@ myseq
 Do the following:
 
 ```{r, eval=FALSE}
-??round
+??trigonometry
 ```
 
 ## Other sources of help {.smaller .build}
@@ -942,13 +967,13 @@ The internet is packed full of helpful resources:
     
     - provide example code with your questions
 
-## Other sources of help {.build}
+<!-- ## Other sources of help {.build} -->
 
-**Each other** -- work in groups
-  
-**The TAs** -- they are really good with R
+<!-- **Each other** -- work in groups -->
 
-**Me** - email [Dylan](mailto:d.childs@sheffield.ac.uk) if really stuck
+<!-- **The TAs** -- they are really good with R -->
+
+<!-- **Me** - email [Dylan](mailto:d.childs@sheffield.ac.uk) if really stuck -->
 
 Efficiency | Making the most of RStudio
 ======================================================================================
