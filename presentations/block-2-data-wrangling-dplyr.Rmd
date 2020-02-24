@@ -21,7 +21,7 @@ storms <- read_csv("../data_csv/STORMS.CSV")
 
 DO THIS NOW!
 
-- Go to the course Blackboard site and open today's lecture ("Block 2"). 
+- Go to the course Blackboard site and open today's lecture ("Block 2").
 
 - Open up RStudio from the Programs Menu on your PC.
 
@@ -302,7 +302,7 @@ __It is helpful to classify the verbs according to what they work on:__
 Required packages and data:
 
 - The **dplyr** package obviously
-- The `CA_STORMS.csv` data file: climate data for Central America (on Blackboard)
+- The `CENTRAL_AMERICA_STORMS.CSV` data file: climate data for Central America (on Blackboard)
 
 <div>
 **1. Load the __dplyr__ and __readr__package**
@@ -318,7 +318,7 @@ This should already be installed. If you see errors, you may have to install it 
 <div>
 __2. Read in the Central American storms data__
 
-Set your working directory, and then use `read_csv` to read the `CA_STORMS.csv` data in and assign it the name `storms`. You downloaded `CA_STORMS.csv` last week so shouldn't have to do this again.
+Download the `CENTRAL_AMERICA_STORMS.CSV` data from Blackboard. Set your working directory, and then use `read_csv` to read the data in. Assign the resulting data frame the name `storms`.
 </div>
 
 __3. Use `View` to examine the `storms` data frame object__
@@ -537,7 +537,7 @@ glimpse(storms_renamed)
 Required packages and data:
 
 - The **dplyr** package
-- The `CA_STORMS.csv` data file: climate data for Central America (on Blackboard)
+- The `CENTRAL_AMERICA_STORMS.CSV` data file: climate data for Central America (on Blackboard)
 
 <div>
 **1. Load the __dplyr__ and __readr__ packages**
@@ -551,7 +551,7 @@ library(readr)
 <div>
 __2. Read in the Central American storms data__
 
-Download the `CA_STORMS.csv` data from Blackboard. Set your working directory, and then use `read_csv` to read the data in. Assign the resulting data frame the name `storms`.
+Download the `CENTRAL_AMERICA_STORMS.CSV` data from Blackboard. Set your working directory, and then use `read_csv` to read the data in. Assign the resulting data frame the name `storms`.
 </div>
 
 Using `mutate` | Making new variables 
