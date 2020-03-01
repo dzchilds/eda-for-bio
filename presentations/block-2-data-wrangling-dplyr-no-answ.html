@@ -3134,24 +3134,35 @@ border-radius: 0px 0px 6px 6px;
       <h1 data-config-title><!-- populated from slide_config.json --></h1>
       
       <p data-config-presenter><!-- populated from slide_config.json --></p>
-            <p style="margin-top: 6px; margin-left: -2px;">23 February, 2020</p>
+            <p style="margin-top: 6px; margin-left: -2px;">01 March, 2020</p>
           </hgroup>
   </slide>
 
 <slide class=""><hgroup><h2>Before we start…</h2></hgroup><article  id="before-we-start">
 
-<p>DO THIS NOW!</p>
+<p><strong>1. Go to the course Blackboard site and open today’s lecture (&ldquo;Block 2&rdquo;).</strong></p>
 
 <ul>
-<li><p>Go to the course Blackboard site and open today’s lecture (&ldquo;Block 2&rdquo;).</p></li>
-<li><p>Open up RStudio from the Programs Menu on your PC.</p></li>
-<li><p>Start a new script.</p></li>
-<li><p>Get your ucards out to be scanned.</p></li>
+<li>Use the Google Chrome browser! Do not use Microsoft Edge.</li>
 </ul>
+
+<p><strong>2. Open up RStudio from the Programs Menu on your PC.</strong></p>
+
+<p><strong>3. Start a new R script using <code>File &gt; New File &gt; R Script</code></strong></p>
+
+<p><strong>4. Add the following line to the top of the script and run it:</strong></p>
+
+<pre class = 'prettyprint lang-r'>library(readr)</pre>
+
+<ul>
+<li>Check the output in the console. If you see an error let a TA know immediately. We’ll explain what this package is for later.</li>
+</ul>
+
+<p><strong>5. Get your ucards out to be scanned.</strong></p>
 
 </article></slide><slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>Data frames </h2><h3> A place for your data</h3></hgroup><article  id="data-frames-a-place-for-your-data">
 
-</article></slide><slide class=""><hgroup><h2>Two views of data frames</h2></hgroup><article  id="two-views-of-data-frames" class="build">
+</article></slide><slide class=""><hgroup><h2>Two views of data frames</h2></hgroup><article  class="build" id="two-views-of-data-frames">
 
 <p>The first view: <strong>Data frames are a collection of vectors</strong>. These may be different types (e.g. numeric, character, logical) but they must all be the same length.</p>
 
@@ -3169,7 +3180,7 @@ mydf</pre>
 
 <p>You can think of each vector as corresponding to a <strong>statistical variable</strong> that we want to analyse (more on that in the course book).</p></div>
 
-</article></slide><slide class=""><hgroup><h2>Selecting vectors from data frames</h2></hgroup><article  id="selecting-vectors-from-data-frames" class="build">
+</article></slide><slide class=""><hgroup><h2>Selecting vectors from data frames</h2></hgroup><article  class="build" id="selecting-vectors-from-data-frames">
 
 <p>We can extract a vector (e.g. called <code>Var1</code>) from a data frame (e.g. called <code>mydf</code>) in a few different ways:</p>
 
@@ -3226,13 +3237,13 @@ mydf</pre>
 
 <p>N.B. We will only use the first version in this course. Remember what <code>$</code> does. You <strong>will</strong> need to use it.</p>
 
-</article></slide><slide class=""><hgroup><h2>Exercise</h2></hgroup><article  id="exercise" class="build">
+</article></slide><slide class=""><hgroup><h2>Exercise</h2></hgroup><article  class="build" id="exercise">
 
 <div id="exercise-box">
 <strong>Extracting vectors from data frames</strong>
 
 <div id="box-text">
-<p>R has many different datasets built into it. These are stored as data frames.</p>
+<p>R has many different data sets built into it. These are stored as data frames.</p>
 
 <p>One of these is the famous <code>iris</code> data. Type this into your Console: <code>View(iris)</code>. What does the <code>View</code> function do?</p>
 
@@ -3241,7 +3252,7 @@ mydf</pre>
 <div>
 </div>
 
-</article></slide><slide class=""><hgroup><h2>Two views of data frames</h2></hgroup><article  id="two-views-of-data-frames-1" class="build">
+</article></slide><slide class=""><hgroup><h2>Two views of data frames</h2></hgroup><article  class="build" id="two-views-of-data-frames-1">
 
 <p>The second view: <strong>Data frames are table-like objects</strong>. Take another look at our simple data frame:</p>
 
@@ -3261,7 +3272,7 @@ mydf</pre>
 
 <p><strong>[Row #, Col #]</strong>: This extracted the element in the second row and third column.</p>
 
-</article></slide><slide class=""><hgroup><h2>Exercise</h2></hgroup><article  id="exercise-1" class="build smaller">
+</article></slide><slide class=""><hgroup><h2>Exercise</h2></hgroup><article  class="build smaller" id="exercise-1">
 
 <div id="exercise-box">
 <strong>Extracting elements from data frames</strong>
@@ -3271,7 +3282,7 @@ mydf</pre>
 
 <ol>
 <li><p>Get the block of elements that lie in rows 2 to 3 <strong>and</strong> columns 1 to 4. Hint — you will need to use the <code>:</code> operator twice inside <code>[,]</code></p></li>
-<li>Get just the second row of the dataset. Hint — you <strong>do not</strong> need to use the <code>:</code> operator to solve this problem.</li>
+<li>Get just the second row of the data set. Hint — you <strong>do not</strong> need to use the <code>:</code> operator to solve this problem.</li>
 </ol></div></div>
 
 <div>
@@ -3282,7 +3293,7 @@ mydf</pre>
 
 <p><strong>Note</strong>: this produced a new data frame.</p>
 
-</article></slide><slide class=""><hgroup><h2>Exercise</h2></hgroup><article  id="exercise-2" class="build smaller">
+</article></slide><slide class=""><hgroup><h2>Exercise</h2></hgroup><article  class="build smaller" id="exercise-2">
 
 <div id="exercise-box">
 <strong>Examining a data frame</strong>
@@ -3298,7 +3309,7 @@ mydf</pre>
 
 </article></slide><slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>The working directory </h2><h3> Where R &ldquo;looks&rdquo; for files</h3></hgroup><article  id="the-working-directory-where-r-looks-for-files">
 
-</article></slide><slide class=""><hgroup><h2>What is the working directory?</h2></hgroup><article  id="what-is-the-working-directory" class="build">
+</article></slide><slide class=""><hgroup><h2>What is the working directory?</h2></hgroup><article  class="build" id="what-is-the-working-directory">
 
 <p>A quick overview of what it is and how to work with it…</p>
 
@@ -3328,7 +3339,7 @@ mydf</pre>
 
 <p>How many columns (&ldquo;variables&rdquo;) and rows (&ldquo;observations&rdquo;) are there?</p>
 
-</article></slide><slide class=""><hgroup><h2>Getting data from Excel into R</h2></hgroup><article  id="getting-data-from-excel-into-r" class="build smaller">
+</article></slide><slide class=""><hgroup><h2>Getting data from Excel into R</h2></hgroup><article  class="build smaller" id="getting-data-from-excel-into-r">
 
 <p>Essentially a two step process</p>
 
@@ -3357,22 +3368,22 @@ iris_copy</pre>
 
 </article></slide><slide class=""><hgroup><h2>The other way…</h2></hgroup><article  id="the-other-way">
 
-<p><strong>This is how to import data in a CSV file using RStudio:</strong></p>
+<p><strong>It is possible to import data in a CSV file using RStudio:</strong></p>
 
 <ul>
-<li><p>Select <code>Import Dataset &gt; From Text File...</code></p></li>
-<li><p>Select the file your saved and click Open</p></li>
-<li><p>Enter a name (no spaces allowed) and click Import</p></li>
+<li>Via the <code>Import Dataset &gt; From Text File...</code> menu</li>
 </ul>
+
+<p><BR></p>
 
 <p><strong>Please, please, please don’t use this method!!!</strong></p>
 
 <ul>
-<li><p>You have to remember do it everytime you want to run your script.</p></li>
+<li><p>You have to remember do it every time you want to run your script.</p></li>
 <li><p>This method is very error prone.</p></li>
 </ul>
 
-</article></slide><slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>Overview of <strong>dplyr</strong> and <code>tbl</code> </h2><h3> Getting to grips with the basics</h3></hgroup><article  id="overview-of-dplyr-and-tbl-getting-to-grips-with-the-basics">
+</article></slide><slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>Overview of <strong>dplyr</strong> and &lsquo;tibbles&rsquo; </h2><h3> Getting to grips with the basics</h3></hgroup><article  id="overview-of-dplyr-and-tibbles-getting-to-grips-with-the-basics">
 
 </article></slide><slide class=""><hgroup><h2>Why use dplyr?</h2></hgroup><article  id="why-use-dplyr">
 
@@ -3387,7 +3398,7 @@ iris_copy</pre>
 <li>Allows you to work with data stored in many ways (e.g. in a database)</li>
 </ul>
 
-</article></slide><slide class=""><hgroup><h2>Five key verbs</h2></hgroup><article  id="five-key-verbs" class="build">
+</article></slide><slide class=""><hgroup><h2>Five key verbs</h2></hgroup><article  class="build" id="five-key-verbs">
 
 <div>
 <p><strong><strong>dplyr</strong> has five main &ldquo;verbs&rdquo; (i.e. functions):</strong></p>
@@ -3417,35 +3428,228 @@ iris_copy</pre>
 
 <p>(This classification only works if your data are <strong>tidy</strong>, i.e. there is one observation per row and one column per variable. Make sure you read about this idea in the course book)</p></div>
 
-</article></slide><slide class=""><hgroup><h2>Before we start</h2></hgroup><article  id="before-we-start-1" class="build smaller">
+</article></slide><slide class=""><hgroup><h2>Before we start</h2></hgroup><article  class="build smaller" id="before-we-start-1">
 
-<p>Required packages and data:</p>
+<div>
+<p><strong>Required packages, data and scripts:</strong></p>
 
 <ul>
-<li>The <strong>dplyr</strong> package obviously</li>
-<li>The <code>CENTRAL_AMERICA_STORMS.CSV</code> data file: climate data for Central America (on Blackboard)</li>
+<li>The <strong>readr</strong> and <strong>dplyr</strong> packages</li>
+<li>The data file: <code>CENTRAL_AMERICA_STORMS.CSV</code> (on Blackboard)</li>
+<li>A template R script: <code>block-2-template.R</code> (on Blackboard)</li>
+</ul></div>
+
+<div>
+<p><strong>Make sure you carry out these steps:</strong></p>
+
+<ul>
+<li><p>Set your working directory.</p></li>
+<li><p>Run the code to load the <strong>dplyr</strong> and <strong>readr</strong> packages:</p></li>
 </ul>
 
-<div>
-<p>**1. Load the <strong>dplyr</strong> and __readr__package**</p>
+<pre class = 'prettyprint lang-r'>library(readr)
+library(dplyr)</pre>
 
-<pre class = 'prettyprint lang-r'>library(dplyr)
-library(readr)</pre>
+<ul>
+<li>Run the code to read the Central American storms data into R:</li>
+</ul>
 
-<p>This should already be installed. If you see errors, you may have to install it using RStudio.</p></div>
+<pre class = 'prettyprint lang-r'>storms &lt;- read_csv(&quot;CENTRAL_AMERICA_STORMS.CSV&quot;)</pre>
 
-<div>
-<p><strong>2. Read in the Central American storms data</strong></p>
+<p><strong>Check for errors at every step!</strong></p></div>
 
-<p>Download the <code>CENTRAL_AMERICA_STORMS.CSV</code> data from Blackboard. Set your working directory, and then use <code>read_csv</code> to read the data in. Assign the resulting data frame the name <code>storms</code>.</p></div>
+</article></slide><slide class=""><hgroup><h2>What is storms?</h2></hgroup><article  class="smaller" id="what-is-storms">
 
-<p><strong>3. Use <code>View</code> to examine the <code>storms</code> data frame object</strong></p>
+<p>Use <code>View</code> to examine the <code>storms</code> object:</p>
 
-</article></slide><slide class=""><hgroup><h2>Making and using <code>tbl</code> objects</h2></hgroup><article  id="making-and-using-tbl-objects" class="smaller">
+<pre >## # A tibble: 2,747 x 11
+##    name    year month   day  hour   lat  long pressure  wind type        seasday
+##    &lt;chr&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;         &lt;dbl&gt;
+##  1 Allis…  1995     6     3     0  17.4 -84.3     1005    30 Tropical D…       3
+##  2 Allis…  1995     6     3     6  18.3 -84.9     1004    30 Tropical D…       3
+##  3 Allis…  1995     6     3    12  19.3 -85.7     1003    35 Tropical S…       3
+##  4 Allis…  1995     6     3    18  20.6 -85.8     1001    40 Tropical S…       3
+##  5 Allis…  1995     6     4     0  22   -86        997    50 Tropical S…       4
+##  6 Allis…  1995     6     4     6  23.3 -86.3      995    60 Tropical S…       4
+##  7 Allis…  1995     6     4    12  24.7 -86.2      987    65 Hurricane         4
+##  8 Allis…  1995     6     4    18  26.2 -86.2      988    65 Hurricane         4
+##  9 Allis…  1995     6     5     0  27.6 -86.1      988    65 Hurricane         5
+## 10 Allis…  1995     6     5     6  28.5 -85.6      990    60 Tropical S…       5
+## 11 Allis…  1995     6     5    12  29.6 -84.7      990    60 Tropical S…       5
+## 12 Allis…  1995     6     5    18  30.7 -83.8      993    45 Tropical S…       5
+## # … with 2,735 more rows</pre>
 
-<p>A <code>tbl</code> object (pronounced &ldquo;tibble&rdquo;) is essentially a special kind of data frame. It works the same as a data frame, but with a few small differences… e.g. compact printing:</p>
+<p>…<code>storms</code> is something called a &lsquo;tibble&rsquo; (technically a <code>tbl</code> object). This is the tidyverse version of a data frame.</p>
 
-<pre class = 'prettyprint lang-r'>as_tibble(iris)</pre>
+</article></slide><slide class=""><hgroup><h2>Making and using tibbles</h2></hgroup><article  class="smaller" id="making-and-using-tibbles">
+
+<p>A <code>tbl</code> object (&ldquo;tibble&rdquo;) is essentially a special kind of data frame that belongs to the tidyverse. It mostly works the same as a data frame, but with a few small differences…</p>
+
+<p>e.g. compact printing—here is what happens when we print a <strong>standard data frame</strong>:</p>
+
+<pre class = 'prettyprint lang-r'># print the data frame version
+iris</pre>
+
+<pre >##     Sepal.Length Sepal.Width Petal.Length Petal.Width    Species
+## 1            5.1         3.5          1.4         0.2     setosa
+## 2            4.9         3.0          1.4         0.2     setosa
+## 3            4.7         3.2          1.3         0.2     setosa
+## 4            4.6         3.1          1.5         0.2     setosa
+## 5            5.0         3.6          1.4         0.2     setosa
+## 6            5.4         3.9          1.7         0.4     setosa
+## 7            4.6         3.4          1.4         0.3     setosa
+## 8            5.0         3.4          1.5         0.2     setosa
+## 9            4.4         2.9          1.4         0.2     setosa
+## 10           4.9         3.1          1.5         0.1     setosa
+## 11           5.4         3.7          1.5         0.2     setosa
+## 12           4.8         3.4          1.6         0.2     setosa
+## 13           4.8         3.0          1.4         0.1     setosa
+## 14           4.3         3.0          1.1         0.1     setosa
+## 15           5.8         4.0          1.2         0.2     setosa
+## 16           5.7         4.4          1.5         0.4     setosa
+## 17           5.4         3.9          1.3         0.4     setosa
+## 18           5.1         3.5          1.4         0.3     setosa
+## 19           5.7         3.8          1.7         0.3     setosa
+## 20           5.1         3.8          1.5         0.3     setosa
+## 21           5.4         3.4          1.7         0.2     setosa
+## 22           5.1         3.7          1.5         0.4     setosa
+## 23           4.6         3.6          1.0         0.2     setosa
+## 24           5.1         3.3          1.7         0.5     setosa
+## 25           4.8         3.4          1.9         0.2     setosa
+## 26           5.0         3.0          1.6         0.2     setosa
+## 27           5.0         3.4          1.6         0.4     setosa
+## 28           5.2         3.5          1.5         0.2     setosa
+## 29           5.2         3.4          1.4         0.2     setosa
+## 30           4.7         3.2          1.6         0.2     setosa
+## 31           4.8         3.1          1.6         0.2     setosa
+## 32           5.4         3.4          1.5         0.4     setosa
+## 33           5.2         4.1          1.5         0.1     setosa
+## 34           5.5         4.2          1.4         0.2     setosa
+## 35           4.9         3.1          1.5         0.2     setosa
+## 36           5.0         3.2          1.2         0.2     setosa
+## 37           5.5         3.5          1.3         0.2     setosa
+## 38           4.9         3.6          1.4         0.1     setosa
+## 39           4.4         3.0          1.3         0.2     setosa
+## 40           5.1         3.4          1.5         0.2     setosa
+## 41           5.0         3.5          1.3         0.3     setosa
+## 42           4.5         2.3          1.3         0.3     setosa
+## 43           4.4         3.2          1.3         0.2     setosa
+## 44           5.0         3.5          1.6         0.6     setosa
+## 45           5.1         3.8          1.9         0.4     setosa
+## 46           4.8         3.0          1.4         0.3     setosa
+## 47           5.1         3.8          1.6         0.2     setosa
+## 48           4.6         3.2          1.4         0.2     setosa
+## 49           5.3         3.7          1.5         0.2     setosa
+## 50           5.0         3.3          1.4         0.2     setosa
+## 51           7.0         3.2          4.7         1.4 versicolor
+## 52           6.4         3.2          4.5         1.5 versicolor
+## 53           6.9         3.1          4.9         1.5 versicolor
+## 54           5.5         2.3          4.0         1.3 versicolor
+## 55           6.5         2.8          4.6         1.5 versicolor
+## 56           5.7         2.8          4.5         1.3 versicolor
+## 57           6.3         3.3          4.7         1.6 versicolor
+## 58           4.9         2.4          3.3         1.0 versicolor
+## 59           6.6         2.9          4.6         1.3 versicolor
+## 60           5.2         2.7          3.9         1.4 versicolor
+## 61           5.0         2.0          3.5         1.0 versicolor
+## 62           5.9         3.0          4.2         1.5 versicolor
+## 63           6.0         2.2          4.0         1.0 versicolor
+## 64           6.1         2.9          4.7         1.4 versicolor
+## 65           5.6         2.9          3.6         1.3 versicolor
+## 66           6.7         3.1          4.4         1.4 versicolor
+## 67           5.6         3.0          4.5         1.5 versicolor
+## 68           5.8         2.7          4.1         1.0 versicolor
+## 69           6.2         2.2          4.5         1.5 versicolor
+## 70           5.6         2.5          3.9         1.1 versicolor
+## 71           5.9         3.2          4.8         1.8 versicolor
+## 72           6.1         2.8          4.0         1.3 versicolor
+## 73           6.3         2.5          4.9         1.5 versicolor
+## 74           6.1         2.8          4.7         1.2 versicolor
+## 75           6.4         2.9          4.3         1.3 versicolor
+## 76           6.6         3.0          4.4         1.4 versicolor
+## 77           6.8         2.8          4.8         1.4 versicolor
+## 78           6.7         3.0          5.0         1.7 versicolor
+## 79           6.0         2.9          4.5         1.5 versicolor
+## 80           5.7         2.6          3.5         1.0 versicolor
+## 81           5.5         2.4          3.8         1.1 versicolor
+## 82           5.5         2.4          3.7         1.0 versicolor
+## 83           5.8         2.7          3.9         1.2 versicolor
+## 84           6.0         2.7          5.1         1.6 versicolor
+## 85           5.4         3.0          4.5         1.5 versicolor
+## 86           6.0         3.4          4.5         1.6 versicolor
+## 87           6.7         3.1          4.7         1.5 versicolor
+## 88           6.3         2.3          4.4         1.3 versicolor
+## 89           5.6         3.0          4.1         1.3 versicolor
+## 90           5.5         2.5          4.0         1.3 versicolor
+## 91           5.5         2.6          4.4         1.2 versicolor
+## 92           6.1         3.0          4.6         1.4 versicolor
+## 93           5.8         2.6          4.0         1.2 versicolor
+## 94           5.0         2.3          3.3         1.0 versicolor
+## 95           5.6         2.7          4.2         1.3 versicolor
+## 96           5.7         3.0          4.2         1.2 versicolor
+## 97           5.7         2.9          4.2         1.3 versicolor
+## 98           6.2         2.9          4.3         1.3 versicolor
+## 99           5.1         2.5          3.0         1.1 versicolor
+## 100          5.7         2.8          4.1         1.3 versicolor
+## 101          6.3         3.3          6.0         2.5  virginica
+## 102          5.8         2.7          5.1         1.9  virginica
+## 103          7.1         3.0          5.9         2.1  virginica
+## 104          6.3         2.9          5.6         1.8  virginica
+## 105          6.5         3.0          5.8         2.2  virginica
+## 106          7.6         3.0          6.6         2.1  virginica
+## 107          4.9         2.5          4.5         1.7  virginica
+## 108          7.3         2.9          6.3         1.8  virginica
+## 109          6.7         2.5          5.8         1.8  virginica
+## 110          7.2         3.6          6.1         2.5  virginica
+## 111          6.5         3.2          5.1         2.0  virginica
+## 112          6.4         2.7          5.3         1.9  virginica
+## 113          6.8         3.0          5.5         2.1  virginica
+## 114          5.7         2.5          5.0         2.0  virginica
+## 115          5.8         2.8          5.1         2.4  virginica
+## 116          6.4         3.2          5.3         2.3  virginica
+## 117          6.5         3.0          5.5         1.8  virginica
+## 118          7.7         3.8          6.7         2.2  virginica
+## 119          7.7         2.6          6.9         2.3  virginica
+## 120          6.0         2.2          5.0         1.5  virginica
+## 121          6.9         3.2          5.7         2.3  virginica
+## 122          5.6         2.8          4.9         2.0  virginica
+## 123          7.7         2.8          6.7         2.0  virginica
+## 124          6.3         2.7          4.9         1.8  virginica
+## 125          6.7         3.3          5.7         2.1  virginica
+## 126          7.2         3.2          6.0         1.8  virginica
+## 127          6.2         2.8          4.8         1.8  virginica
+## 128          6.1         3.0          4.9         1.8  virginica
+## 129          6.4         2.8          5.6         2.1  virginica
+## 130          7.2         3.0          5.8         1.6  virginica
+## 131          7.4         2.8          6.1         1.9  virginica
+## 132          7.9         3.8          6.4         2.0  virginica
+## 133          6.4         2.8          5.6         2.2  virginica
+## 134          6.3         2.8          5.1         1.5  virginica
+## 135          6.1         2.6          5.6         1.4  virginica
+## 136          7.7         3.0          6.1         2.3  virginica
+## 137          6.3         3.4          5.6         2.4  virginica
+## 138          6.4         3.1          5.5         1.8  virginica
+## 139          6.0         3.0          4.8         1.8  virginica
+## 140          6.9         3.1          5.4         2.1  virginica
+## 141          6.7         3.1          5.6         2.4  virginica
+## 142          6.9         3.1          5.1         2.3  virginica
+## 143          5.8         2.7          5.1         1.9  virginica
+## 144          6.8         3.2          5.9         2.3  virginica
+## 145          6.7         3.3          5.7         2.5  virginica
+## 146          6.7         3.0          5.2         2.3  virginica
+## 147          6.3         2.5          5.0         1.9  virginica
+## 148          6.5         3.0          5.2         2.0  virginica
+## 149          6.2         3.4          5.4         2.3  virginica
+## 150          5.9         3.0          5.1         1.8  virginica</pre>
+
+</article></slide><slide class=""><hgroup><h2>Making and using tibbles</h2></hgroup><article  class="smaller" id="making-and-using-tibbles-1">
+
+<p>A <code>tbl</code> object (&ldquo;tibble&rdquo;) is essentially a special kind of data frame that belongs to the tidyverse. It mostly works the same as a data frame, but with a few small differences…</p>
+
+<p>e.g. compact printing—here is what happens when we print the equivalent <strong>tibble</strong>:</p>
+
+<pre class = 'prettyprint lang-r'># convert to tibble and print this version
+as_tibble(iris)</pre>
 
 <pre >## # A tibble: 150 x 5
 ##    Sepal.Length Sepal.Width Petal.Length Petal.Width Species
@@ -3462,15 +3666,17 @@ library(readr)</pre>
 ## 10          4.9         3.1          1.5         0.1 setosa 
 ## # … with 140 more rows</pre>
 
-</article></slide><slide class=""><hgroup><h2>Convert <code>storms</code> and <code>iris</code> to tibbles now</h2></hgroup><article  id="convert-storms-and-iris-to-tibbles-now">
+</article></slide><slide class=""><hgroup><h2>(Convert `<code>iris</code> to tibbles (optional)</h2></hgroup><article  id="convert-iris-to-tibbles-optional">
 
-<p>Next in your script, add these lines to convert <code>storms</code> and <code>iris</code> to tibbles…</p>
+<p>Next in your script, add these lines to convert <code>iris</code> to a tibble…</p>
 
 <pre class = 'prettyprint lang-r'>iris &lt;- as_tibble(iris)</pre>
 
-<p>You don’t have to do this (<strong>dplyr</strong> is fine with normal data frames) but it will ensure your output matches the presentation. The <strong>readr</strong> package always makes a tibble so there’s no need to manually convert <code>storms</code> to a tibble.</p>
+<p>You don’t have to do this (<strong>dplyr</strong> is fine with normal data frames) but it will ensure your output matches the presentation.</p>
 
-</article></slide><slide class=""><hgroup><h2>Looking at your data</h2></hgroup><article  id="looking-at-your-data" class="smaller">
+<p>The <strong>readr</strong> package always makes a tibble so there’s no need to manually convert <code>storms</code> to a tibble.</p>
+
+</article></slide><slide class=""><hgroup><h2>Looking at your data</h2></hgroup><article  class="smaller" id="looking-at-your-data">
 
 <p>In addition to printing a <code>tbl</code> or <code>data.frame</code>, we can use the <code>glimpse</code> function to obtain different summary information about variables:</p>
 
@@ -3494,20 +3700,27 @@ library(readr)</pre>
 
 </article></slide><slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>Using <code>select</code> </h2><h3> Extracting a subset of variables</h3></hgroup><article  id="using-select-extracting-a-subset-of-variables">
 
-</article></slide><slide class=""><hgroup><h2>Basic usage</h2></hgroup><article  id="basic-usage">
+</article></slide><slide class=""><hgroup><h2>Basic usage</h2></hgroup><article  class="smaller" id="basic-usage">
 
 <p>We use <code>select</code> to extract a subset of variables for further analysis. Using <code>select</code> looks like this:</p>
 
-<pre class = 'prettyprint lang-r'>select(data, Variable1, Variable2, ...)</pre>
+<pre class = 'prettyprint lang-r'>select(&lt;data&gt;, &lt;variable-1&gt;, &lt;variable-2&gt;, ...)</pre>
 
 <p><strong>Arguments</strong></p>
 
 <ul>
-<li><code>data</code>: a <code>data.frame</code> or <code>tbl</code> object</li>
-<li><code>VariableX</code>: names of variables in <code>data</code></li>
+<li><code>&lt;data&gt;</code>: a <code>data.frame</code> or <code>tbl</code> object</li>
+<li><code>&lt;variable-X&gt;</code>: names of a variable in <code>&lt;data&gt;</code></li>
 </ul>
 
-</article></slide><slide class=""><hgroup><h2>Exercise</h2></hgroup><article  id="exercise-3" class="build">
+<div>
+<p><strong>Comments</strong></p>
+
+<ul>
+<li>You select as many variable as you want by including more than two variables after the data. That is what the <code>...</code> denotes.</li>
+</ul></div>
+
+</article></slide><slide class=""><hgroup><h2>Exercise</h2></hgroup><article  class="build" id="exercise-3">
 
 <div id="exercise-box">
 <strong>Selecting two variables</strong>
@@ -3515,7 +3728,7 @@ library(readr)</pre>
 <div id="box-text">
 <p>Use the <code>select</code> function with the <code>storms</code> data set to make a new data set containing only <code>name</code> and <code>year</code>. Assign this new data set a name, and then check that it contains the right variables using the <code>glimpse</code> function.</p></div></div>
 
-</article></slide><slide class=""><hgroup><h2>Selecting &amp; dropping variable ranges</h2></hgroup><article  id="selecting-dropping-variable-ranges" class="build">
+</article></slide><slide class=""><hgroup><h2>Selecting &amp; dropping variable ranges</h2></hgroup><article  class="build" id="selecting-dropping-variable-ranges">
 
 <p>The <code>select</code> function makes selecting/removing groups of variables easy:</p>
 
@@ -3530,9 +3743,9 @@ library(readr)</pre>
 <p><strong>Usage:</strong></p>
 
 <pre class = 'prettyprint lang-r'># a range of variable to keep
-select(data, Variable1:Variable5)
-# a range of variable to drop
-select(data, -(Variable1:Variable5))</pre></div>
+select(&lt;data&gt;, &lt;variable-1&gt;:&lt;variable-2&gt;)
+# drop a variable
+select(&lt;data&gt;, -&lt;variable-1&gt;)</pre></div>
 
 <div>
 </article></slide><slide class=""><hgroup><h2>Example:</h2></hgroup><article  id="example">
@@ -3555,7 +3768,7 @@ iris_fewer</pre>
 ## 10          1.5         0.1 setosa 
 ## # … with 140 more rows</pre></div>
 
-</article></slide><slide class=""><hgroup><h2>Exercise</h2></hgroup><article  id="exercise-4" class="build">
+</article></slide><slide class=""><hgroup><h2>Exercise</h2></hgroup><article  class="build" id="exercise-4">
 
 <div id="exercise-box">
 <strong>Selecting a range of variables</strong>
@@ -3563,7 +3776,7 @@ iris_fewer</pre>
 <div id="box-text">
 <p>Use the <code>select</code> function with the <code>storms</code> data set to select <strong>just</strong> the variables <code>name</code>, <code>year</code> and <code>month</code> variables.</p></div></div>
 
-</article></slide><slide class=""><hgroup><h2>Helper functions</h2></hgroup><article  id="helper-functions" class="build smaller">
+</article></slide><slide class=""><hgroup><h2>Helper functions</h2></hgroup><article  class="build smaller" id="helper-functions">
 
 <p>There are several helper functions that work with <code>select</code> to simplify common variable selection tasks:</p>
 
@@ -3578,7 +3791,7 @@ iris_fewer</pre>
 <div>
 <p><strong>Usage:</strong></p>
 
-<pre class = 'prettyprint lang-r'>select(data, help_func(&quot;xyz&quot;))</pre></div>
+<pre class = 'prettyprint lang-r'>select(&lt;data&gt;, &lt;help_func&gt;(&quot;xyz&quot;))</pre></div>
 
 <div>
 <p><strong>Example:</strong></p>
@@ -3591,7 +3804,7 @@ glimpse(iris_petal)</pre>
 ## $ Petal.Length &lt;dbl&gt; 1.4, 1.4, 1.3, 1.5, 1.4, 1.7, 1.4, 1.5, 1.4, 1.5, 1.5, 1…
 ## $ Petal.Width  &lt;dbl&gt; 0.2, 0.2, 0.2, 0.2, 0.2, 0.4, 0.3, 0.2, 0.2, 0.1, 0.2, 0…</pre></div>
 
-</article></slide><slide class=""><hgroup><h2>Exercise</h2></hgroup><article  id="exercise-5" class="build">
+</article></slide><slide class=""><hgroup><h2>Exercise</h2></hgroup><article  class="build" id="exercise-5">
 
 <div id="exercise-box">
 <strong>Using select with helper functions</strong>
@@ -3601,51 +3814,58 @@ glimpse(iris_petal)</pre>
 
 </article></slide><slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>Using <code>select</code> and <code>rename</code> </h2><h3> Renaming variables</h3></hgroup><article  id="using-select-and-rename-renaming-variables">
 
-</article></slide><slide class=""><hgroup><h2>Renaming while selecting</h2></hgroup><article  id="renaming-while-selecting" class="build">
+</article></slide><slide class=""><hgroup><h2>Renaming while selecting</h2></hgroup><article  class="smaller" id="renaming-while-selecting">
 
-<p>We can use <code>select</code> to rename variables as we select them using the <code>newName = varName</code> construct.</p>
+<p>We can use <code>select</code> to rename variables as we select them using a <code>&lt;new-name&gt; = &lt;old-name&gt;</code> construct.</p>
 
 <div>
 <p><strong>Usage:</strong></p>
 
-<pre class = 'prettyprint lang-r'>select(data, newName1 = Var1, newName2 = Var2, ...)</pre></div>
+<pre class = 'prettyprint lang-r'>select(&lt;data&gt;, 
+       &lt;new-name-1&gt; = &lt;old-name-1&gt;, 
+       &lt;new-name-2&gt; = &lt;old-name-2&gt;, ...)</pre></div>
 
 <div>
 <p><strong>Example:</strong></p>
 
-<pre class = 'prettyprint lang-r'>iris_select &lt;- select(iris, PetalLength = Petal.Length)
-glimpse(iris_select)</pre>
+<pre class = 'prettyprint lang-r'>iris_select_rename &lt;- select(iris, 
+                             petal_length = Petal.Length,
+                             petal_width  = Petal.Width)
+glimpse(iris_select_rename)</pre>
 
 <pre >## Observations: 150
-## Variables: 1
-## $ PetalLength &lt;dbl&gt; 1.4, 1.4, 1.3, 1.5, 1.4, 1.7, 1.4, 1.5, 1.4, 1.5, 1.5, 1.…</pre></div>
+## Variables: 2
+## $ petal_length &lt;dbl&gt; 1.4, 1.4, 1.3, 1.5, 1.4, 1.7, 1.4, 1.5, 1.4, 1.5, 1.5, 1…
+## $ petal_width  &lt;dbl&gt; 0.2, 0.2, 0.2, 0.2, 0.2, 0.4, 0.3, 0.2, 0.2, 0.1, 0.2, 0…</pre></div>
 
-</article></slide><slide class=""><hgroup><h2>Renaming without selecting</h2></hgroup><article  id="renaming-without-selecting" class="build">
+</article></slide><slide class=""><hgroup><h2>Renaming without selecting</h2></hgroup><article  class="smaller" id="renaming-without-selecting">
 
-<p>Use <code>rename</code> to rename variables while keeping all variables using the <code>newName = varName</code> construct.</p>
+<p>Use <code>rename</code> to rename variables while keeping all variables using the <code>&lt;new-name&gt; = &lt;old-name&gt;</code> construct.</p>
 
 <div>
 <p><strong>Usage:</strong></p>
 
-<pre class = 'prettyprint lang-r'>rename(data, newName1 = Var1, newName2 = Var2, ...)</pre></div>
+<pre class = 'prettyprint lang-r'>rename(&lt;data&gt;, 
+       &lt;new-name-1&gt; = &lt;old-name-1&gt;, 
+       &lt;new-name-2&gt; = &lt;old-name-2&gt;, ...)</pre></div>
 
 <div>
 <p><strong>Example:</strong></p>
 
 <pre class = 'prettyprint lang-r'>iris_renamed &lt;- rename(iris, 
-                       PetalLength = Petal.Length, 
-                       PetalWidth  = Petal.Width)
+                       petal_length = Petal.Length,
+                       petal_width  = Petal.Width)
 glimpse(iris_renamed)</pre>
 
 <pre >## Observations: 150
 ## Variables: 5
 ## $ Sepal.Length &lt;dbl&gt; 5.1, 4.9, 4.7, 4.6, 5.0, 5.4, 4.6, 5.0, 4.4, 4.9, 5.4, 4…
 ## $ Sepal.Width  &lt;dbl&gt; 3.5, 3.0, 3.2, 3.1, 3.6, 3.9, 3.4, 3.4, 2.9, 3.1, 3.7, 3…
-## $ PetalLength  &lt;dbl&gt; 1.4, 1.4, 1.3, 1.5, 1.4, 1.7, 1.4, 1.5, 1.4, 1.5, 1.5, 1…
-## $ PetalWidth   &lt;dbl&gt; 0.2, 0.2, 0.2, 0.2, 0.2, 0.4, 0.3, 0.2, 0.2, 0.1, 0.2, 0…
+## $ petal_length &lt;dbl&gt; 1.4, 1.4, 1.3, 1.5, 1.4, 1.7, 1.4, 1.5, 1.4, 1.5, 1.5, 1…
+## $ petal_width  &lt;dbl&gt; 0.2, 0.2, 0.2, 0.2, 0.2, 0.4, 0.3, 0.2, 0.2, 0.1, 0.2, 0…
 ## $ Species      &lt;fct&gt; setosa, setosa, setosa, setosa, setosa, setosa, setosa, …</pre></div>
 
-</article></slide><slide class=""><hgroup><h2>Exercise</h2></hgroup><article  id="exercise-6" class="build">
+</article></slide><slide class=""><hgroup><h2>Exercise</h2></hgroup><article  class="build" id="exercise-6">
 
 <div id="exercise-box">
 <strong>Renaming</strong>
@@ -3653,53 +3873,63 @@ glimpse(iris_renamed)</pre>
 <div id="box-text">
 <p>Extract just the <code>lat</code> and <code>long</code> columns from the storms data set and rename these as <code>latitude</code> and <code>longitude</code> respectively.</p></div></div>
 
-</article></slide><slide class=""><hgroup><h2>Part 2 — Before we start</h2></hgroup><article  id="part-2-before-we-start" class="build smaller">
+</article></slide><slide class=""><hgroup><h2>Part 2 — Before we start</h2></hgroup><article  class="smaller" id="part-2-before-we-start">
 
-<p>Required packages and data:</p>
+<div>
+<p><strong>Required packages, data and scripts:</strong></p>
 
 <ul>
-<li>The <strong>dplyr</strong> package</li>
-<li>The <code>CENTRAL_AMERICA_STORMS.CSV</code> data file: climate data for Central America (on Blackboard)</li>
+<li>The <strong>readr</strong> and <strong>dplyr</strong> packages</li>
+<li>The data file: <code>CENTRAL_AMERICA_STORMS.CSV</code> (on Blackboard)</li>
+<li>A template R script: <code>block-2-template.R</code> (on Blackboard)</li>
+</ul></div>
+
+<div>
+<p><strong>Make sure you carry out these steps:</strong></p>
+
+<ul>
+<li><p>Set your working directory.</p></li>
+<li><p>Run the code to load the <strong>dplyr</strong> and <strong>readr</strong> packages:</p></li>
 </ul>
 
-<div>
-<p><strong>1. Load the <strong>dplyr</strong> and <strong>readr</strong> packages</strong></p>
+<pre class = 'prettyprint lang-r'>library(readr)
+library(dplyr)</pre>
 
-<pre class = 'prettyprint lang-r'>library(dplyr)
-library(readr)</pre></div>
+<ul>
+<li>Run the code to read the Central American storms data into R:</li>
+</ul>
 
-<div>
-<p><strong>2. Read in the Central American storms data</strong></p>
+<pre class = 'prettyprint lang-r'>storms &lt;- read_csv(&quot;CENTRAL_AMERICA_STORMS.CSV&quot;)</pre>
 
-<p>Download the <code>CENTRAL_AMERICA_STORMS.CSV</code> data from Blackboard. Set your working directory, and then use <code>read_csv</code> to read the data in. Assign the resulting data frame the name <code>storms</code>.</p></div>
+<p><strong>Check for errors at every step!</strong></p></div>
 
 </article></slide><slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>Using <code>mutate</code> </h2><h3> Making new variables</h3></hgroup><article  id="using-mutate-making-new-variables">
 
-</article></slide><slide class=""><hgroup><h2>Basic usage</h2></hgroup><article  id="basic-usage-1" class="build">
+</article></slide><slide class=""><hgroup><h2>Basic usage</h2></hgroup><article  class="smaller" id="basic-usage-1">
 
 <div>
 <p>We use <code>mutate</code> to <strong>add variables</strong> for further analysis. This is how we use <code>mutate</code>:</p>
 
-<pre class = 'prettyprint lang-r'>mutate(data, NewVar = &lt;expression&gt;, ...)</pre></div>
+<pre class = 'prettyprint lang-r'>mutate(&lt;data&gt;, &lt;new-var-name&gt; = &lt;expression&gt;, ...)</pre></div>
 
 <div>
 <p><strong>Arguments</strong></p>
 
 <ul>
-<li><code>data</code>: a <code>data.frame</code> or <code>tbl</code> object</li>
-<li><code>NewVar</code>: name of a new variable to create</li>
-<li><code>&lt;expression&gt;</code>: an R expression that references variables in <code>data</code></li>
+<li><code>&lt;data&gt;</code>: a <code>data.frame</code> or <code>tbl</code> object</li>
+<li><code>&lt;new-var-name&gt;</code>: name of a new variable to create</li>
+<li><code>&lt;expression&gt;</code>: an R expression that references variables in <code>&lt;data&gt;</code></li>
 </ul></div>
 
 <div>
 <p><strong>Comments</strong></p>
 
 <ul>
-<li><p>The <code>&lt;expression&gt;</code> which appears on the right hand side of the <code>=</code> can be any valid R expression that uses variables in <code>data</code>.</p></li>
-<li>You may use more than one <code>NewVar = &lt;expression&gt;</code> at a time if you need to construct several new variables.</li>
+<li><p>The <code>&lt;expression&gt;</code> which appears on the right hand side of the <code>=</code> can be any valid R expression that uses variables in <code>&lt;data&gt;</code>.</p></li>
+<li>You may use more than one <code>&lt;new-var-name&gt; = &lt;expression&gt;</code> at a time if you need to construct several new variables.</li>
 </ul></div>
 
-</article></slide><slide class=""><hgroup><h2>Exercise</h2></hgroup><article  id="exercise-7" class="build">
+</article></slide><slide class=""><hgroup><h2>Exercise</h2></hgroup><article  class="build" id="exercise-7">
 
 <div id="exercise-box">
 <strong>Making a new variable</strong>
@@ -3707,7 +3937,7 @@ library(readr)</pre></div>
 <div id="box-text">
 <p>Use the <code>mutate</code> function with the <code>iris</code> data set to make a new variable which is the petal area, \((Area = Length \times Width)\).</p></div></div>
 
-</article></slide><slide class=""><hgroup><h2>Multiple calculations</h2></hgroup><article  id="multiple-calculations" class="build">
+</article></slide><slide class=""><hgroup><h2>Multiple calculations</h2></hgroup><article  class="build" id="multiple-calculations">
 
 <div>
 <p>We can add more than one variable at a time using <code>mutate</code>. Each new variable can also use one or more variables created in a previous step.</p></div>
@@ -3715,30 +3945,20 @@ library(readr)</pre></div>
 <div>
 <p><strong>Usage:</strong></p>
 
-<pre class = 'prettyprint lang-r'>mutate(data, NewVar1 = &lt;expression1&gt;, 
-             NewVar2 = &lt;expression2 using NewVar1&gt;)</pre></div>
+<pre class = 'prettyprint lang-r'>mutate(&lt;data&gt;, 
+       &lt;new-var-name-1&gt; = &lt;expression-1&gt;, 
+       &lt;new-var-name-2&gt; = &lt;expression-2-using-new-var-1&gt;)</pre></div>
 
 <div>
 <p><strong>Example:</strong></p>
 
 <pre class = 'prettyprint lang-r'>iris_new_vars &lt;- 
-  mutate(iris, Sepal.Eccentricity = Sepal.Length / Sepal.Width,
-               Petal.Eccentricity = Petal.Length / Petal.Width,
-               Eccentricity.Diff  = Sepal.Eccentricity - Petal.Eccentricity)
-glimpse(iris_new_vars)</pre>
+  mutate(iris, 
+         Sepal.Eccentricity = Sepal.Length / Sepal.Width,
+         Petal.Eccentricity = Petal.Length / Petal.Width,
+         Eccentricity.Diff  = Sepal.Eccentricity - Petal.Eccentricity)</pre></div>
 
-<pre >## Observations: 150
-## Variables: 8
-## $ Sepal.Length       &lt;dbl&gt; 5.1, 4.9, 4.7, 4.6, 5.0, 5.4, 4.6, 5.0, 4.4, 4.9, …
-## $ Sepal.Width        &lt;dbl&gt; 3.5, 3.0, 3.2, 3.1, 3.6, 3.9, 3.4, 3.4, 2.9, 3.1, …
-## $ Petal.Length       &lt;dbl&gt; 1.4, 1.4, 1.3, 1.5, 1.4, 1.7, 1.4, 1.5, 1.4, 1.5, …
-## $ Petal.Width        &lt;dbl&gt; 0.2, 0.2, 0.2, 0.2, 0.2, 0.4, 0.3, 0.2, 0.2, 0.1, …
-## $ Species            &lt;fct&gt; setosa, setosa, setosa, setosa, setosa, setosa, se…
-## $ Sepal.Eccentricity &lt;dbl&gt; 1.457143, 1.633333, 1.468750, 1.483871, 1.388889, …
-## $ Petal.Eccentricity &lt;dbl&gt; 7.000000, 7.000000, 6.500000, 7.500000, 7.000000, …
-## $ Eccentricity.Diff  &lt;dbl&gt; -5.542857, -5.366667, -5.031250, -6.016129, -5.611…</pre></div>
-
-</article></slide><slide class=""><hgroup><h2>Exercise</h2></hgroup><article  id="exercise-8" class="build">
+</article></slide><slide class=""><hgroup><h2>Exercise</h2></hgroup><article  class="build" id="exercise-8">
 
 <div id="exercise-box">
 <strong>Making several new variables</strong>
@@ -3750,30 +3970,30 @@ glimpse(iris_new_vars)</pre>
 
 </article></slide><slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>Using <code>filter</code> </h2><h3> Selecting subsets of observations</h3></hgroup><article  id="using-filter-selecting-subsets-of-observations">
 
-</article></slide><slide class=""><hgroup><h2>Basic usage</h2></hgroup><article  id="basic-usage-2" class="build">
+</article></slide><slide class=""><hgroup><h2>Basic usage</h2></hgroup><article  class="smaller" id="basic-usage-2">
 
 <div>
 <p>We use <code>filter</code> to select a subset of rows for further analysis, based on the result(s) of one or more logical comparisons. Using <code>filter</code> looks like this:</p>
 
-<pre class = 'prettyprint lang-r'>filter(data, &lt;expression&gt;)</pre></div>
+<pre class = 'prettyprint lang-r'>filter(&lt;data&gt;, &lt;expression&gt;)</pre></div>
 
 <div>
 <p><strong>Arguments</strong></p>
 
 <ul>
-<li><code>data</code>: a <code>data.frame</code> or <code>tbl</code> object</li>
-<li><code>&lt;expression&gt;</code>: an R expression that implements a logical comparison using variables in <code>data</code></li>
+<li><code>&lt;data&gt;</code>: a <code>data.frame</code> or <code>tbl</code> object</li>
+<li><code>&lt;expression&gt;</code>: an R expression that implements a logical comparison using variables in <code>&lt;data&gt;</code></li>
 </ul></div>
 
 <div>
 <p><strong>Comments</strong></p>
 
 <ul>
-<li>The <code>&lt;expression&gt;</code> can be any valid R expression that uses variables in <code>data</code> and returns a logical vector of <code>TRUE</code> / <code>FALSE</code> values.</li>
-<li>The <code>&lt;expression&gt;</code> typically uses a combination of <strong>relational</strong> (e.g. <code>&lt;</code> and <code>==</code>) and <strong>logical</strong> (e.g. <code>&amp;</code> and <code>|</code>) operators</li>
+<li><p>The <code>&lt;expression&gt;</code> can be any valid R expression that uses variables in <code>&lt;data&gt;</code> and returns a logical vector of <code>TRUE</code> / <code>FALSE</code> values.</p></li>
+<li>The <code>&lt;expression&gt;</code> typically uses a combination of <strong>relational</strong> (e.g. <code>&lt;</code> and <code>==</code>) and <strong>logical</strong> (e.g. <code>&amp;</code> and <code>|</code>) operators.</li>
 </ul></div>
 
-</article></slide><slide class=""><hgroup><h2>Exercise</h2></hgroup><article  id="exercise-9" class="build">
+</article></slide><slide class=""><hgroup><h2>Exercise</h2></hgroup><article  class="build" id="exercise-9">
 
 <div id="exercise-box">
 <strong>Subsetting observations on one variable</strong>
@@ -3783,7 +4003,7 @@ glimpse(iris_new_vars)</pre>
 
 <p>Hint: use <code>glimpse</code> to remind yourself of the variable names in <code>storms</code>. You need to work out which one contains information about the storm category.</p></div></div>
 
-</article></slide><slide class=""><hgroup><h2>Exercise</h2></hgroup><article  id="exercise-10" class="build">
+</article></slide><slide class=""><hgroup><h2>Exercise</h2></hgroup><article  class="build" id="exercise-10">
 
 <div id="exercise-box">
 <strong>Subsetting observations on more than one variable</strong>
@@ -3793,30 +4013,30 @@ glimpse(iris_new_vars)</pre>
 
 </article></slide><slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>Using <code>arrange</code> </h2><h3> Reordering observations</h3></hgroup><article  id="using-arrange-reordering-observations">
 
-</article></slide><slide class=""><hgroup><h2>Basic usage</h2></hgroup><article  id="basic-usage-3" class="build">
+</article></slide><slide class=""><hgroup><h2>Basic usage</h2></hgroup><article  class="smaller" id="basic-usage-3">
 
 <div>
 <p>We use <code>arrange</code> to reorder the rows of our data set. This can help us see associations among our variables. Using <code>arrange</code> looks like this:</p>
 
-<pre class = 'prettyprint lang-r'>arrange(data, Variable1, Variable2, ...)</pre></div>
+<pre class = 'prettyprint lang-r'>arrange(&lt;data&gt;, &lt;variable-1&gt;, &lt;variable-2&gt;, ...)</pre></div>
 
 <div>
 <p><strong>Arguments</strong></p>
 
 <ul>
-<li><code>data</code>: a <code>data.frame</code> or <code>tbl</code> object</li>
-<li><code>VariableX</code>: names of variables in <code>data</code></li>
+<li><code>&lt;data&gt;</code>: a <code>data.frame</code> or <code>tbl</code> object</li>
+<li><code>&lt;variable-X&gt;</code>: names of variables in <code>&lt;data&gt;</code></li>
 </ul></div>
 
 <div>
 <p><strong>Comments</strong></p>
 
 <ul>
-<li>The order of sorting corresponds to the order that variables appear in <code>arrange</code>, meaning <code>data</code> is sorted according to <code>Variable1</code>, then <code>Variable2</code>, then <code>Variable3</code>, etc</li>
-<li>The sort order is from smallest to largest (ascending). If you want to reverse the sort order to go from largest to smallest (descending) use <code>desc(VariableX)</code>.</li>
+<li><p>The order of sorting corresponds to the order that variables appear in <code>arrange</code>, meaning <code>&lt;data&gt;</code> is sorted according to <code>&lt;variable-1&gt;</code>, then <code>&lt;variable-2&gt;</code>, then <code>&lt;variable-3&gt;</code>, etc.</p></li>
+<li>The sort order is from smallest to largest (ascending). If you want to reverse the sort order to go from largest to smallest (descending) use <code>desc(&lt;variable-X&gt;)</code>.</li>
 </ul></div>
 
-</article></slide><slide class=""><hgroup><h2>Exercise</h2></hgroup><article  id="exercise-11" class="build">
+</article></slide><slide class=""><hgroup><h2>Exercise</h2></hgroup><article  class="build" id="exercise-11">
 
 <div id="exercise-box">
 <strong>Reording observations</strong>
@@ -3824,108 +4044,136 @@ glimpse(iris_new_vars)</pre>
 <div id="box-text">
 <p>Use the <code>arrange</code> function to reorder the observations in the <code>storms</code> data set, according to the pressure variable. Store the resulting data set and use then use the <code>View</code> function to examine it. What can you say about the association between atmospheric pressure and storm category?</p></div></div>
 
-<pre class = 'prettyprint lang-r'>View(storm_sort)</pre>
+<pre class = 'prettyprint lang-r'>storm_sort &lt;- arrange(storms, pressure)
+View(storm_sort)</pre>
 
 </article></slide><slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>Using <code>summarise</code> </h2><h3> Calculating summaries of variables</h3></hgroup><article  id="using-summarise-calculating-summaries-of-variables">
 
-</article></slide><slide class=""><hgroup><h2>Basic usage</h2></hgroup><article  id="basic-usage-4" class="build smaller">
+</article></slide><slide class=""><hgroup><h2>Basic usage</h2></hgroup><article  class="smaller" id="basic-usage-4">
 
 <div>
 <p>We use summarise to <strong>calculate summary statistics</strong> for further analysis. This is how to use <code>summarise</code>:</p>
 
-<pre class = 'prettyprint lang-r'>summarise(data, SummaryVar = &lt;expression&gt;, ...)</pre></div>
+<pre class = 'prettyprint lang-r'>summarise(&lt;data&gt;, &lt;summary-var-name&gt; = &lt;expression&gt;, ...)</pre></div>
 
 <div>
 <p><strong>Arguments</strong></p>
 
 <ul>
-<li><code>data</code>: a <code>data.frame</code> or <code>tbl</code> object</li>
-<li><code>SummaryVar</code>: name of your summary variable</li>
-<li><code>&lt;expression&gt;</code>: an R expression that references variables in <code>data</code> and returns to <strong>a single value</strong></li>
+<li><code>&lt;data&gt;</code>: a <code>data.frame</code> or <code>tbl</code> object</li>
+<li><code>&lt;summary-var-name&gt;</code>: name of your summary variable</li>
+<li><code>&lt;expression&gt;</code>: an R expression that references variables in <code>&lt;data&gt;</code> and returns to <strong>a single value</strong></li>
 </ul></div>
 
 <div>
 <p><strong>Comments</strong></p>
 
 <ul>
-<li>The <code>&lt;expression&gt;</code> which appears on the right hand side of the <code>=</code> can be any valid R expression that uses variables in <code>data</code>. However, <code>&lt;expression&gt;</code> should return <strong>a single value</strong>.</li>
-<li>Although <code>summarise</code> looks a little like <code>mutate</code>, it is designed to construct a completely new dataset containing summaries of one or more variables.</li>
-<li>You may use more than one <code>SummaryStat = &lt;expression&gt;</code> at a time if you need to construct several summaries.</li>
+<li><p>The <code>&lt;expression&gt;</code> which appears on the right hand side of the <code>=</code> can be any valid R expression that uses variables in <code>&lt;data&gt;</code>. However, <code>&lt;expression&gt;</code> should return <strong>a single value</strong>.</p></li>
+<li><p>Although <code>summarise</code> looks a little like <code>mutate</code>, it is designed to construct a completely new data set containing summaries of one or more variables.</p></li>
+<li>You may use more than one <code>&lt;summary-var-name&gt; = &lt;expression&gt;</code> at a time if you need to construct several summaries.</li>
 </ul></div>
 
-</article></slide><slide class=""><hgroup><h2>Exercise</h2></hgroup><article  id="exercise-12" class="build">
+</article></slide><slide class=""><hgroup><h2>Exercise</h2></hgroup><article  class="build" id="exercise-12">
 
 <div id="exercise-box">
 <strong>Calculating the mean of two variables</strong>
 
 <div id="box-text">
-<p>Use the <code>summarise</code> function with the <code>iris</code> dataset to calculate the mean sepal length and the mean sepal width.</p>
+<p>Use the <code>summarise</code> function with the <code>iris</code> data set to calculate the mean sepal length and the mean sepal width.</p>
 
 <p>Hint: You need to work out which R function calculates a mean. The clue is in the name.</p></div></div>
 
-</article></slide><slide class=""><hgroup><h2>Exercise</h2></hgroup><article  id="exercise-13" class="build">
+</article></slide><slide class=""><hgroup><h2>Exercise</h2></hgroup><article  class="build" id="exercise-13">
 
 <div id="exercise-box">
 <strong>Calculating a more complex summary of a variable</strong>
 
 <div id="box-text">
-<p>Use the <code>summarise</code> function with the <code>iris</code> dataset to calculate the mean <strong>area</strong> of sepals.</p></div></div>
-
-<p>Which one is right?</p>
+<p>Use the <code>summarise</code> function with the <code>iris</code> data set to calculate the mean <strong>area</strong> of sepals.</p></div></div>
 
 </article></slide><slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>Using <code>group_by</code> </h2><h3> Making summaries for groups of observations</h3></hgroup><article  id="using-group_by-making-summaries-for-groups-of-observations">
 
-</article></slide><slide class=""><hgroup><h2>Basic usage</h2></hgroup><article  id="basic-usage-5" class="build smaller">
+</article></slide><slide class=""><hgroup><h2>Basic usage</h2></hgroup><article  class="smaller" id="basic-usage-5">
 
 <div>
 <p>We use <code>group_by</code> to add grouping information to a data frame or tibble. This is how we use <code>group_by</code>:</p>
 
-<pre class = 'prettyprint lang-r'>group_by(data, GroupVar1, GroupVar2, ...)</pre></div>
+<pre class = 'prettyprint lang-r'>group_by(&lt;data&gt;, &lt;grouping-var-1&gt;, &lt;grouping-var-2&gt;, ...)</pre></div>
 
 <div>
 <p><strong>Arguments</strong></p>
 
 <ul>
-<li><code>data</code>: a <code>data.frame</code> or <code>tbl</code> object</li>
-<li><code>GroupVar</code>: name of grouping variable(s)</li>
+<li><code>&lt;data&gt;</code>: a <code>data.frame</code> or <code>tbl</code> object</li>
+<li><code>&lt;grouping-var-X&gt;</code>: name of grouping variable(s) in <code>&lt;data&gt;</code></li>
 </ul></div>
 
 <div>
 <p><strong>Comments</strong></p>
 
 <ul>
-<li>The <code>group_by</code> does not do anything other than add grouping information to a <code>tbl</code>. It is only useful when used with <code>summarise</code> or <code>mutate</code>.</li>
-<li>Using <code>group_by</code> with <code>summarise</code> enables us to calculate numerical summaries on a <em>per group</em> basis.</li>
+<li><p>The <code>group_by</code> does not do anything other than add grouping information to a <code>tbl</code>. It is only useful when used with <code>summarise</code> or <code>mutate</code>.</p></li>
+<li><p>Using <code>group_by</code> with <code>summarise</code> enables us to calculate numerical summaries on a <em>per group</em> basis.</p></li>
 <li>Using <code>group_by</code> with <code>mutate</code> enables us to add variables on a <em>per group</em> basis.</li>
 </ul></div>
 
-</article></slide><slide class=""><hgroup><h2>Exercise</h2></hgroup><article  id="exercise-14" class="build smaller">
+</article></slide><slide class=""><hgroup><h2>Exercise</h2></hgroup><article  class="build smaller" id="exercise-14">
 
 <div id="exercise-box">
 <strong>Using <code>group_by</code> to calculate group-specific means</strong>
 
 <div id="box-text">
-<p>Use the <code>group_by</code> function and the <code>summarise</code> functions with the <code>storms</code> dataset to calculate the mean wind speed associated with each storm <strong>type</strong>.</p>
+<p>Use the <code>group_by</code> function and the <code>summarise</code> functions with the <code>storms</code> data set to calculate the mean wind speed associated with each storm <strong>type</strong>.</p>
 
-<p>Hint: This is a two step exercise: 1) Use <code>group_by</code> to add some information to storms, remembering to assign the result a name; 2) These use <code>summarise</code> on this new dataset.</p></div></div>
+<p>Hint: This is a two step exercise: 1) Use <code>group_by</code> to add some information to storms, remembering to assign the result a name; 2) These use <code>summarise</code> on this new data set.</p></div></div>
 
-</article></slide><slide class=""><hgroup><h2>Exercise</h2></hgroup><article  id="exercise-15" class="build smaller">
+</article></slide><slide class=""><hgroup><h2>Exercise</h2></hgroup><article  class="build smaller" id="exercise-15">
 
 <div id="exercise-box">
 <strong>Using <code>group_by</code> to group by more than one variable</strong>
 
 <div id="box-text">
-<p>Use the <code>group_by</code> and <code>summarise</code> functions with the <code>storms</code> dataset to calculate the mean and maximum wind speed associated with <strong>each combination</strong> of month and year. Assign the result a name and then use <code>View</code> to examine it. Which month in which year saw the largest maximum wind speed?</p>
+<p>Use the <code>group_by</code> and <code>summarise</code> functions with the <code>storms</code> data set to calculate the mean and maximum wind speed associated with <strong>each combination of month and year</strong>. Use <code>View</code> to examine the result. Which month in which year saw the largest maximum wind speed?</p></div></div>
 
-<p>Hint: You can guess the names of the two functions that calculate the mean and max from a numeric vector.</p></div></div>
+<div>
+<p>Next slide shows what we want to make.</p></div>
 
-</article></slide><slide class=""><hgroup><h2>Exercise</h2></hgroup><article  id="exercise-16" class="build smaller">
+</article></slide><slide class=""><hgroup><h2>Exercise</h2></hgroup><article  class="smaller" id="exercise-16">
+
+<p>Aiming for this…</p>
+
+<pre >## # A tibble: 30 x 4
+## # Groups:   year [6]
+##     year month mean_speed max_speed
+##    &lt;dbl&gt; &lt;dbl&gt;      &lt;dbl&gt;     &lt;dbl&gt;
+##  1  1995     6       44.4        65
+##  2  1995     7       41.4        60
+##  3  1995     8       54.2       120
+##  4  1995     9       64.4       120
+##  5  1995    10       50.5       130
+##  6  1995    11       55          70
+##  7  1996     6       35.2        45
+##  8  1996     7       56.8       100
+##  9  1996     8       57.2       125
+## 10  1996     9       60.9       120
+## 11  1996    10       52.0       100
+## 12  1996    11       36.0        65
+## 13  1997     6       30          30
+## 14  1997     7       37.9        70
+## 15  1997     9       63.4       110
+## 16  1997    10       34          40
+## 17  1998     7       35.3        45
+## 18  1998     8       59.7       100
+## # … with 12 more rows</pre>
+
+</article></slide><slide class=""><hgroup><h2>Exercise</h2></hgroup><article  class="smaller build" id="exercise-17">
 
 <div id="exercise-box">
 <strong>Using <code>group_by</code> and <code>mutate</code></strong>
 
 <div id="box-text">
-<p>The <code>group_by</code> function works with any <strong>dplyr</strong> verb that operates on variables (columns). Use the <code>group_by</code> and <code>mutate</code> functions with the <code>iris</code> dataset to calculate a &ldquo;mean centred&rdquo; version of sepal length. A centred variable is just one that has had its overall mean subtracted from every value.</p>
+<p>The <code>group_by</code> function works with any <strong>dplyr</strong> verb that operates on variables (columns). Use the <code>group_by</code> and <code>mutate</code> functions with the <code>iris</code> data set to calculate a &ldquo;mean centred&rdquo; version of sepal length. A centred variable is just one that has had its overall mean subtracted from every value.</p>
 
 <p>Do you understand the different behaviour of <code>summarise</code> and <code>mutate</code> when used alongside <code>group_by</code>?</p></div></div>
 

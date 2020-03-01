@@ -19,15 +19,23 @@ storms <- read_csv("../data_csv/STORMS.CSV")
 
 ## Before we start...
 
-DO THIS NOW!
+**1. Go to the course Blackboard site and open today's lecture ("Block 2").**
 
-- Go to the course Blackboard site and open today's lecture ("Block 2").
+-  Use the Google Chrome browser! Do not use Microsoft Edge.
 
-- Open up RStudio from the Programs Menu on your PC.
+**2. Open up RStudio from the Programs Menu on your PC.**
 
-- Start a new script.
+**3. Start a new R script using `File > New File > R Script`**
 
-- Get your ucards out to be scanned.
+**4. Add the following line to the top of the script and run it:**
+
+```{r, eval=FALSE}
+library(readr)
+```
+
+-  Check the output in the console. If you see an error let a TA know immediately. We'll explain what this package is for later.
+
+**5. Get your ucards out to be scanned.**
 
 Data frames | A place for your data
 ======================================================================================
@@ -95,7 +103,7 @@ N.B. We will only use the first version in this course. Remember what `$` does. 
 <div id="exercise-box">
 __Extracting vectors from data frames__
 <div id="box-text">
-R has many different datasets built into it. These are stored as data frames. 
+R has many different data sets built into it. These are stored as data frames. 
 
 One of these is the famous `iris` data. Type this into your Console: `View(iris)`. What does the `View` function do?
 
@@ -134,7 +142,7 @@ Using the `iris` data, wee if you can use the `[,]` construct to...
 
 1. Get the block of elements that lie in rows 2 to 3 __and__ columns 1 to 4. Hint --- you will need to use the `:` operator twice inside `[,]`
 
-2. Get just the second row of the dataset. Hint --- you **do not** need to use the `:` operator to solve this problem.
+2. Get just the second row of the data set. Hint --- you **do not** need to use the `:` operator to solve this problem.
 </div>
 </div>
 
@@ -241,22 +249,20 @@ iris_copy
 
 ## The other way...
 
-__This is how to import data in a CSV file using RStudio:__
+**It is possible to import data in a CSV file using RStudio:**
 
-- Select `Import Dataset > From Text File...`
+- Via the `Import Dataset > From Text File...` menu
 
-- Select the file your saved and click Open
-
-- Enter a name (no spaces allowed) and click Import
+<BR>
 
 **Please, please, please don't use this method!!!** 
 
-- You have to remember do it everytime you want to run your script. 
+- You have to remember do it every time you want to run your script. 
 
-- This method is very error prone.
+- This method is very error prone. 
 
 
-Overview of **dplyr** and `tbl` | Getting to grips with the basics 
+Overview of **dplyr** and 'tibbles' | Getting to grips with the basics 
 ====================================================================
 
 ## Why use dplyr?
@@ -299,47 +305,78 @@ __It is helpful to classify the verbs according to what they work on:__
 
 ## Before we start {.build .smaller}
 
-Required packages and data:
+<div>
+**Required packages, data and scripts:**
 
-- The **dplyr** package obviously
-- The `CENTRAL_AMERICA_STORMS.CSV` data file: climate data for Central America (on Blackboard)
+- The **readr** and **dplyr** packages
+- The data file: `CENTRAL_AMERICA_STORMS.CSV` (on Blackboard)
+- A template R script: `block-2-template.R` (on Blackboard)
+</div>
 
 <div>
-**1. Load the __dplyr__ and __readr__package**
+**Make sure you carry out these steps:**
 
-```{r, message=FALSE, warning=FALSE}
-library(dplyr)
+- Set your working directory.
+
+- Run the code to load the __dplyr__ and __readr__ packages:
+
+```{r, eval=FALSE}
 library(readr)
+library(dplyr)
 ```
 
-This should already be installed. If you see errors, you may have to install it using RStudio.
+- Run the code to read the Central American storms data into R:
+
+```{r, eval=FALSE}
+storms <- read_csv("CENTRAL_AMERICA_STORMS.CSV")
+```
+
+**Check for errors at every step!**
 </div>
 
-<div>
-__2. Read in the Central American storms data__
+## What is storms? {.smaller}
 
-Download the `CENTRAL_AMERICA_STORMS.CSV` data from Blackboard. Set your working directory, and then use `read_csv` to read the data in. Assign the resulting data frame the name `storms`.
-</div>
+Use `View` to examine the `storms` object:
 
-__3. Use `View` to examine the `storms` data frame object__
+```{r, echo=FALSE}
+print(storms, n=12)
+```
 
-## Making and using `tbl` objects  {.smaller}
+...`storms` is something called a 'tibble' (technically a `tbl` object). This is the tidyverse version of a data frame.
 
-A `tbl` object (pronounced "tibble") is essentially a special kind of data frame. It works the same as a data frame, but with a few small differences... e.g. compact printing:
+## Making and using tibbles {.smaller}
+
+A `tbl` object ("tibble") is essentially a special kind of data frame that belongs to the tidyverse. It mostly works the same as a data frame, but with a few small differences... 
+
+e.g. compact printing---here is what happens when we print a **standard data frame**:
 
 ```{r}
+# print the data frame version
+iris
+```
+
+## Making and using tibbles {.smaller}
+
+A `tbl` object ("tibble") is essentially a special kind of data frame that belongs to the tidyverse. It mostly works the same as a data frame, but with a few small differences... 
+
+e.g. compact printing---here is what happens when we print the equivalent **tibble**:
+
+```{r}
+# convert to tibble and print this version
 as_tibble(iris)
 ```
 
-## Convert `storms` and `iris` to tibbles now
+## (Convert ``iris` to tibbles (optional)
 
-Next in your script, add these lines to convert `storms` and `iris` to tibbles...
+Next in your script, add these lines to convert `iris` to a tibble...
 
 ```{r}
 iris <- as_tibble(iris)
 ```
 
-You don't have to do this (**dplyr** is fine with normal data frames) but it will ensure your output matches the presentation. The __readr__ package always makes a tibble so there's no need to manually convert `storms` to a tibble.
+You don't have to do this (**dplyr** is fine with normal data frames) but it will ensure your output matches the presentation. 
+
+The __readr__ package always makes a tibble so there's no need to manually convert `storms` to a tibble.
 
 ## Looking at your data {.smaller}
 
@@ -354,18 +391,25 @@ This is similar to `str` --- the `glimpse` function tells us what variables are 
 Using `select` | Extracting a subset of variables 
 ====================================================================
 
-## Basic usage
+## Basic usage {.smaller}
 
 We use `select` to extract a subset of variables for further analysis. Using `select` looks like this:
 
 ```{r, eval=FALSE}
-select(data, Variable1, Variable2, ...)
+select(<data>, <variable-1>, <variable-2>, ...)
 ```
 
 __Arguments__
 
-- `data`: a `data.frame` or `tbl` object 
-- `VariableX`: names of variables in `data`
+- `<data>`: a `data.frame` or `tbl` object 
+- `<variable-X>`: names of a variable in `<data>`
+
+<div>
+__Comments__
+
+- You select as many variable as you want by including more than two variables after the data. That is what the `...` denotes.
+</div>
+
 
 ## Exercise {.build}
 
@@ -395,9 +439,9 @@ __Usage:__
 
 ```{r, eval=FALSE}
 # a range of variable to keep
-select(data, Variable1:Variable5)
-# a range of variable to drop
-select(data, -(Variable1:Variable5))
+select(<data>, <variable-1>:<variable-2>)
+# drop a variable
+select(<data>, -<variable-1>)
 ```
 </div>
 
@@ -443,7 +487,7 @@ There are several helper functions that work with `select` to simplify common va
 __Usage:__
 
 ```{r, eval=FALSE}
-select(data, help_func("xyz"))
+select(<data>, <help_func>("xyz"))
 ```
 </div>
 
@@ -473,15 +517,17 @@ glimpse(storms_fewer)
 Using `select` and `rename` | Renaming variables
 ====================================================================
 
-## Renaming while selecting {.build}
+## Renaming while selecting {.smaller}
 
-We can use `select` to rename variables as we select them using the `newName = varName` construct.
+We can use `select` to rename variables as we select them using a `<new-name> = <old-name>` construct.
 
 <div>
 __Usage:__
 
 ```{r, eval=FALSE}
-select(data, newName1 = Var1, newName2 = Var2, ...)
+select(<data>, 
+       <new-name-1> = <old-name-1>, 
+       <new-name-2> = <old-name-2>, ...)
 ```
 </div>
 
@@ -489,20 +535,24 @@ select(data, newName1 = Var1, newName2 = Var2, ...)
 __Example:__
 
 ```{r, eval=TRUE}
-iris_select <- select(iris, PetalLength = Petal.Length)
-glimpse(iris_select)
+iris_select_rename <- select(iris, 
+                             petal_length = Petal.Length,
+                             petal_width  = Petal.Width)
+glimpse(iris_select_rename)
 ```
 </div>
 
-## Renaming without selecting {.build}
+## Renaming without selecting {.smaller}
 
-Use `rename` to rename variables while keeping all variables using the `newName = varName` construct.
+Use `rename` to rename variables while keeping all variables using the `<new-name> = <old-name>` construct.
 
 <div>
 __Usage:__
 
 ```{r, eval=FALSE}
-rename(data, newName1 = Var1, newName2 = Var2, ...)
+rename(<data>, 
+       <new-name-1> = <old-name-1>, 
+       <new-name-2> = <old-name-2>, ...)
 ```
 </div>
 
@@ -511,8 +561,8 @@ __Example:__
 
 ```{r}
 iris_renamed <- rename(iris, 
-                       PetalLength = Petal.Length, 
-                       PetalWidth  = Petal.Width)
+                       petal_length = Petal.Length,
+                       petal_width  = Petal.Width)
 glimpse(iris_renamed)
 ```
 </div>
@@ -528,59 +578,71 @@ Extract just the `lat` and `long` columns from the storms data set and rename th
 </div>
 
 ```{r, include=showAnswers}
-storms_renamed <- select(storms, latitude = lat, longitude = long)
+storms_renamed <- select(storms, 
+                         latitude = lat, 
+                         longitude = long)
 glimpse(storms_renamed)
 ```
 
-## Part 2 --- Before we start {.build .smaller}
-
-Required packages and data:
-
-- The **dplyr** package
-- The `CENTRAL_AMERICA_STORMS.CSV` data file: climate data for Central America (on Blackboard)
+## Part 2 --- Before we start {.smaller}
 
 <div>
-**1. Load the __dplyr__ and __readr__ packages**
+**Required packages, data and scripts:**
 
-```{r, message=FALSE, warning=FALSE}
-library(dplyr)
+- The **readr** and **dplyr** packages
+- The data file: `CENTRAL_AMERICA_STORMS.CSV` (on Blackboard)
+- A template R script: `block-2-template.R` (on Blackboard)
+</div>
+
+<div>
+**Make sure you carry out these steps:**
+
+- Set your working directory.
+
+- Run the code to load the __dplyr__ and __readr__ packages:
+
+```{r, eval=FALSE}
 library(readr)
+library(dplyr)
 ```
+
+- Run the code to read the Central American storms data into R:
+
+```{r, eval=FALSE}
+storms <- read_csv("CENTRAL_AMERICA_STORMS.CSV")
+```
+
+**Check for errors at every step!**
 </div>
 
-<div>
-__2. Read in the Central American storms data__
-
-Download the `CENTRAL_AMERICA_STORMS.CSV` data from Blackboard. Set your working directory, and then use `read_csv` to read the data in. Assign the resulting data frame the name `storms`.
-</div>
 
 Using `mutate` | Making new variables 
 ====================================================================
 
-## Basic usage {.build}
+## Basic usage {.smaller}
 
 <div>
 We use `mutate` to __add variables__ for further analysis. This is how we use `mutate`:
 
 ```{r, eval=FALSE}
-mutate(data, NewVar = <expression>, ...)
+mutate(<data>, <new-var-name> = <expression>, ...)
 ```
 </div>
 
 <div>
 __Arguments__
 
-- `data`: a `data.frame` or `tbl` object 
-- `NewVar`: name of a new variable to create
-- `<expression>`: an R expression that references variables in `data`
+- `<data>`: a `data.frame` or `tbl` object 
+- `<new-var-name>`: name of a new variable to create
+- `<expression>`: an R expression that references variables in `<data>`
 </div>
 
 <div>
 __Comments__
 
-- The `<expression>` which appears on the right hand side of the `=` can be any valid R expression that uses variables in `data`.
+- The `<expression>` which appears on the right hand side of the `=` can be any valid R expression that uses variables in `<data>`. 
 
-- You may use more than one `NewVar = <expression>` at a time if you need to construct several new variables.
+- You may use more than one `<new-var-name> = <expression>` at a time if you need to construct several new variables.
 </div>
 
 ## Exercise {.build}
@@ -593,7 +655,8 @@ Use the `mutate` function with the `iris` data set to make a new variable which 
 </div>
 
 ```{r, include=showAnswers}
-iris_area <- mutate(iris, Petal.Area = Petal.Length * Petal.Width)
+iris_area <- mutate(iris, 
+                    Petal.Area = Petal.Length * Petal.Width)
 glimpse(iris_area)
 ```
 
@@ -607,20 +670,21 @@ We can add more than one variable at a time using `mutate`. Each new variable ca
 __Usage:__
 
 ```{r, eval=FALSE}
-mutate(data, NewVar1 = <expression1>, 
-             NewVar2 = <expression2 using NewVar1>)
+mutate(<data>, 
+       <new-var-name-1> = <expression-1>, 
+       <new-var-name-2> = <expression-2-using-new-var-1>)
 ```
 </div>
 
 <div>
 __Example:__
 
-```{r, eval=TRUE}
+```{r, eval=FALSE}
 iris_new_vars <- 
-  mutate(iris, Sepal.Eccentricity = Sepal.Length / Sepal.Width,
-               Petal.Eccentricity = Petal.Length / Petal.Width,
-               Eccentricity.Diff  = Sepal.Eccentricity - Petal.Eccentricity)
-glimpse(iris_new_vars)
+  mutate(iris, 
+         Sepal.Eccentricity = Sepal.Length / Sepal.Width,
+         Petal.Eccentricity = Petal.Length / Petal.Width,
+         Eccentricity.Diff  = Sepal.Eccentricity - Petal.Eccentricity)
 ```
 </div>
 
@@ -636,37 +700,39 @@ Do all of this in one call to `mutate`, i.e. use `mutate` only once to do all of
 </div>
 
 ```{r, include=showAnswers}
-iris_ratio <- mutate(iris, Sepal.Area = Sepal.Length * Sepal.Width,
-                           Petal.Area = Petal.Length * Petal.Width,
-                           PS.Area.Ratio = Petal.Area / Sepal.Area)
+iris_ratio <- mutate(iris, 
+                     Sepal.Area = Sepal.Length * Sepal.Width,
+                     Petal.Area = Petal.Length * Petal.Width,
+                     PS.Area.Ratio = Petal.Area / Sepal.Area)
 glimpse(iris_ratio)
 ```
 
 Using `filter` | Selecting subsets of observations 
 ====================================================================
 
-## Basic usage {.build}
+## Basic usage {.smaller}
 
 <div>
 We use `filter` to select a subset of rows for further analysis, based on the result(s) of one or more logical comparisons. Using `filter` looks like this:
 
 ```{r, eval=FALSE}
-filter(data, <expression>)
+filter(<data>, <expression>)
 ```
 </div>
 
 <div>
 __Arguments__
 
-- `data`: a `data.frame` or `tbl` object 
-- `<expression>`: an R expression that implements a logical comparison using variables in `data`
+- `<data>`: a `data.frame` or `tbl` object 
+- `<expression>`: an R expression that implements a logical comparison using variables in `<data>`
 </div>
 
 <div>
 __Comments__
 
-- The `<expression>` can be any valid R expression that uses variables in `data` and returns a logical vector of `TRUE` / `FALSE` values.
-- The `<expression>` typically uses a combination of __relational__ (e.g. `<` and `==`) and __logical__ (e.g. `&` and `|`) operators
+- The `<expression>` can be any valid R expression that uses variables in `<data>` and returns a logical vector of `TRUE` / `FALSE` values. 
+
+- The `<expression>` typically uses a combination of __relational__ (e.g. `<` and `==`) and __logical__ (e.g. `&` and `|`) operators.
 </div>
 
 ## Exercise {.build}
@@ -704,28 +770,29 @@ filter(storms,
 Using `arrange` | Reordering observations 
 ====================================================================
 
-## Basic usage {.build}
+## Basic usage {.smaller}
 
 <div>
 We use `arrange` to reorder the rows of our data set. This can help us see associations among our variables. Using `arrange` looks like this:
 
 ```{r, eval=FALSE}
-arrange(data, Variable1, Variable2, ...)
+arrange(<data>, <variable-1>, <variable-2>, ...)
 ```
 </div>
 
 <div>
 __Arguments__
 
-- `data`: a `data.frame` or `tbl` object 
-- `VariableX`: names of variables in `data`
+- `<data>`: a `data.frame` or `tbl` object 
+- `<variable-X>`: names of variables in `<data>`
 </div>
 
 <div>
 __Comments__
 
-- The order of sorting corresponds to the order that variables appear in `arrange`, meaning `data` is sorted according to `Variable1`, then `Variable2`, then `Variable3`, etc
-- The sort order is from smallest to largest (ascending). If you want to reverse the sort order to go from largest to smallest (descending) use `desc(VariableX)`.
+- The order of sorting corresponds to the order that variables appear in `arrange`, meaning `<data>` is sorted according to `<variable-1>`, then `<variable-2>`, then `<variable-3>`, etc. 
+
+- The sort order is from smallest to largest (ascending). If you want to reverse the sort order to go from largest to smallest (descending) use `desc(<variable-X>)`.
 </div>
 
 ## Exercise {.build}
@@ -737,41 +804,40 @@ Use the `arrange` function to reorder the observations in the `storms` data set,
 </div>
 </div>
 
-```{r, include=showAnswers}
-storm_sort <- arrange(storms, pressure)
-```
-
 ```{r, eval=FALSE}
+storm_sort <- arrange(storms, pressure)
 View(storm_sort)
 ```
 
 Using `summarise` | Calculating summaries of variables 
 ====================================================================
 
-## Basic usage {.build .smaller}
+## Basic usage {.smaller}
 
 <div>
 We use summarise to __calculate summary statistics__ for further analysis. This is how to use `summarise`:
 
 ```{r, eval=FALSE}
-summarise(data, SummaryVar = <expression>, ...)
+summarise(<data>, <summary-var-name> = <expression>, ...)
 ```
 </div>
 
 <div>
 __Arguments__
 
-- `data`: a `data.frame` or `tbl` object 
-- `SummaryVar`: name of your summary variable
-- `<expression>`: an R expression that references variables in `data` and returns to __a single value__
+- `<data>`: a `data.frame` or `tbl` object 
+- `<summary-var-name>`: name of your summary variable
+- `<expression>`: an R expression that references variables in `<data>` and returns to __a single value__
 </div>
 
 <div>
 __Comments__
 
-- The `<expression>` which appears on the right hand side of the `=` can be any valid R expression that uses variables in `data`. However, `<expression>` should return __a single value__.
-- Although `summarise` looks a little like `mutate`, it is designed to construct a completely new dataset containing summaries of one or more variables.
-- You may use more than one `SummaryStat = <expression>` at a time if you need to construct several summaries.
+- The `<expression>` which appears on the right hand side of the `=` can be any valid R expression that uses variables in `<data>`. However, `<expression>` should return __a single value__.
+
+- Although `summarise` looks a little like `mutate`, it is designed to construct a completely new data set containing summaries of one or more variables.
+
+- You may use more than one `<summary-var-name> = <expression>` at a time if you need to construct several summaries.
 </div>
 
 ## Exercise {.build}
@@ -779,7 +845,7 @@ __Comments__
 <div id="exercise-box">
 __Calculating the mean of two variables__
 <div id="box-text">
-Use the `summarise` function with the `iris` dataset to calculate the mean sepal length and the mean sepal width.
+Use the `summarise` function with the `iris` data set to calculate the mean sepal length and the mean sepal width.
 
 Hint: You need to work out which R function calculates a mean. The clue is in the name.
 </div>
@@ -796,42 +862,48 @@ summarise(iris,
 <div id="exercise-box">
 __Calculating a more complex summary of a variable__
 <div id="box-text">
-Use the `summarise` function with the `iris` dataset to calculate the mean __area__ of sepals.
+Use the `summarise` function with the `iris` data set to calculate the mean __area__ of sepals.
 </div>
 </div>
 
 ```{r, include=showAnswers}
-summarise(iris, mean_sl = mean(Sepal.Length * Sepal.Width))
-summarise(iris, mean_sl = mean(Sepal.Length) * mean(Sepal.Width))
+summarise(iris, 
+          mean_sl = mean(Sepal.Length * Sepal.Width))
 ```
 
-Which one is right?
+```{r, eval=FALSE, include=showAnswers}
+# THIS IS WRONG!
+summarise(iris, 
+          mean_sl = mean(Sepal.Length) * mean(Sepal.Width))
+```
 
 Using `group_by` | Making summaries for groups of observations
 ====================================================================
 
-## Basic usage{.build .smaller}
+## Basic usage {.smaller}
 
 <div>
 We use `group_by` to add grouping information to a data frame or tibble. This is how we use `group_by`:
 
 ```{r, eval=FALSE}
-group_by(data, GroupVar1, GroupVar2, ...)
+group_by(<data>, <grouping-var-1>, <grouping-var-2>, ...)
 ```
 </div>
 
 <div>
 __Arguments__
 
-- `data`: a `data.frame` or `tbl` object 
-- `GroupVar`: name of grouping variable(s) 
+- `<data>`: a `data.frame` or `tbl` object 
+- `<grouping-var-X>`: name of grouping variable(s) in `<data>`
 </div>
 
 <div>
 __Comments__
 
 - The `group_by` does not do anything other than add grouping information to a `tbl`. It is only useful when used with `summarise` or `mutate`.
+
 - Using `group_by` with `summarise` enables us to calculate numerical summaries on a _per group_ basis.
+
 - Using `group_by` with `mutate` enables us to add variables on a _per group_ basis.
 </div>
 
@@ -840,9 +912,9 @@ __Comments__
 <div id="exercise-box">
 __Using `group_by` to calculate group-specific means__
 <div id="box-text">
-Use the `group_by` function and the `summarise` functions with the `storms` dataset to calculate the mean wind speed associated with each storm __type__.
+Use the `group_by` function and the `summarise` functions with the `storms` data set to calculate the mean wind speed associated with each storm __type__.
 
-Hint: This is a two step exercise: 1) Use `group_by` to add some information to storms, remembering to assign the result a name; 2) These use `summarise` on this new dataset.
+Hint: This is a two step exercise: 1) Use `group_by` to add some information to storms, remembering to assign the result a name; 2) These use `summarise` on this new data set.
 </div>
 </div>
 
@@ -858,25 +930,37 @@ summarise(storms_grouped, mean_wind = mean(wind))
 <div id="exercise-box">
 __Using `group_by` to group by more than one variable__
 <div id="box-text">
-Use the `group_by` and `summarise` functions with the `storms` dataset to calculate the mean and maximum wind speed associated with **each combination** of month and year. Assign the result a name and then use `View` to examine it. Which month in which year saw the largest maximum wind speed? 
-
-Hint: You can guess the names of the two functions that calculate the mean and max from a numeric vector.
+Use the `group_by` and `summarise` functions with the `storms` data set to calculate the mean and maximum wind speed associated with **each combination of month and year**. Use `View` to examine the result. Which month in which year saw the largest maximum wind speed? 
 </div>
 </div>
 
-```{r, include=showAnswers}
+<div>
+```{r, include=showAnswers, eval=FALSE}
 # 1. make a grouped tibble
 storms_grouped <- group_by(storms, year, month)
 # 2. use summarise on the grouped data
-summarise(storms_grouped, mean_speed = mean(wind), max_speed = max(wind))
+summarise(storms_grouped, 
+          mean_speed = mean(wind), max_speed = max(wind))
+```
+Next slide shows what we want to make.
+</div>
+
+## Exercise {.smaller}
+
+Aiming for this...
+
+```{r, echo=FALSE}
+group_by(storms, year, month) %>% 
+  summarise(mean_speed = mean(wind), max_speed = max(wind)) %>% 
+  print(n = 18)
 ```
 
-## Exercise {.build .smaller}
+## Exercise {.smaller .build}
 
 <div id="exercise-box">
 __Using `group_by` and `mutate`__
 <div id="box-text">
-The `group_by` function works with any **dplyr** verb that operates on variables (columns). Use the `group_by` and `mutate` functions with the `iris` dataset to calculate a "mean centred" version of sepal length. A centred variable is just one that has had its overall mean subtracted from every value. 
+The `group_by` function works with any **dplyr** verb that operates on variables (columns). Use the `group_by` and `mutate` functions with the `iris` data set to calculate a "mean centred" version of sepal length. A centred variable is just one that has had its overall mean subtracted from every value. 
 
 Do you understand the different behaviour of `summarise` and `mutate` when used alongside `group_by`?
 </div>
