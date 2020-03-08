@@ -16,11 +16,12 @@ showAnswers <- TRUE
 # load + attach all the packages we need
 library(dplyr)
 library(ggplot2)
+library(readr)
 library(grid)
 library(knitr)
 library(cowplot)
 # pull out the storms data
-ca_storms <- nasaweather::storms
+storms <- read_csv("../data_csv/STORMS.CSV")
 # defaults for figure output
 opts_chunk$set(fig.width=4.5, fig.height=3.3, warning=FALSE, message=FALSE, 
                dev.args = list(bg = 'transparent'), fig.align='center')
@@ -36,29 +37,34 @@ theme_set(my_theme)
 
 ## Before we start {.smaller}
 
-Required packages and data:
+<div>
+**Required packages, data and scripts:**
 
-- **dplyr**: obviously
-- **ggplot2**: new package
-- `CA_STORMS.CSV`: climate data for Central America (on MOLE)
+- The **readr** and **dplyr** packages
+- The data file: `CENTRAL_AMERICA_STORMS.CSV` (on Blackboard)
+- A template R script: `block-3-template.R` (on Blackboard)
+</div>
 
-**1. Load the ggplot2 package**
+<div>
+**Make sure you carry out these steps:**
 
-```{r, message=FALSE}
-library("ggplot2")
-```
+- Set your working directory.
 
-This should already be installed. If you see errors, you may have to install it, e.g.
+- Run the code to load the __dplyr__ and __readr__ packages:
 
 ```{r, eval=FALSE}
-install.packages("ggplot2")
+library(readr)
+library(dplyr)
 ```
 
-Do the same for **dplyr** (you should NOT need to install it first)
+- Run the code to read the Central American storms data into R:
 
-__2. Read in the storms data__
+```{r, eval=FALSE}
+storms <- read_csv("CENTRAL_AMERICA_STORMS.CSV")
+```
 
-Set your working directory to the correct location and then use `read.csv` to read the `CA_STORMS.CSV` data in (remember to use `stringsAsFactors = FALSE`), giving it the name `ca_storms`.
+**Check for errors at every step!**
+</div>
 
 
 Using `%>%` | piping or chaining
@@ -137,12 +143,12 @@ iris %>%
 <div id="exercise-box">
 __Using `group_by` to calculate group specific summaries__
 <div id="box-text">
-Last week we used `group_by` and `summarise` with the `ca_storms` data set to calculate the mean wind speed associated with each type of storm. Repeat this exercise but now use the pipe. Print the results directly to the Console.
+Last week we used `group_by` and `summarise` with the `storms` data set to calculate the mean wind speed associated with each type of storm. Repeat this exercise but now use the pipe. Print the results directly to the Console.
 </div>
 </div>
 
 ```{r, include=showAnswers}
-ca_storms %>% 
+storms %>% 
   group_by(type) %>%
   summarise(mean_speed = mean(wind))
 ```
@@ -152,13 +158,13 @@ ca_storms %>%
 <div id="exercise-box">
 __Using `group_by` to calculate group specific summaries__
 <div id="box-text">
-Last week we used `group_by` and `summarise` with the `ca_storms` data set to calculate the mean wind speed associated with each type of storm. Repeat this exercise but now use the pipe. Store the results and then use `glimpse` to summarise them.
+Last week we used `group_by` and `summarise` with the `storms` data set to calculate the mean wind speed associated with each type of storm. Repeat this exercise but now use the pipe. Store the results and then use `glimpse` to summarise them.
 </div>
 </div>
 
 ```{r, include=showAnswers}
 storms_summary <- 
-  ca_storms %>% 
+  storms %>% 
   group_by(type) %>%
   summarise(mean_speed = mean(wind))
 
@@ -210,14 +216,15 @@ We build up a plot by combining different functions using the `+` operator. This
 <div>
 Set up the basic object--define a default data frame (`my_df`) and aesthetic mappings (`aes(...)`):
 ```{r, eval=FALSE}
-ggplot_object <- ggplot(my_df, aes(x = var1, y = var2))
+ggplot_object <- ggplot(<data>, 
+                        aes(<aesthetic-1> = <var-1>, <aesthetic-2> = <var-2>))
 ```
 </div>
 
 <div>
-Add a layer using the point 'geom'...
+Add a layer using a particular 'geom'...
 ```{r, eval=FALSE}
-ggplot_object <- ggplot_object + geom_point()
+ggplot_object <- ggplot_object + geom_<type>()
 ```
 </div>
 
@@ -292,7 +299,7 @@ ggplot(iris, aes(x = Petal.Width, y = Petal.Length)) +
 <div id="exercise-box">
 __Customising your plot__
 <div id="box-text">
-Repeat the example we just stepped through, but now try to customise the point colours and their size. If that's too easy, see if you can make the points semi-transparent. An example of suitable output is given below.
+Repeat the example we just stepped through, but now try to customise the point colours and their size. If that's easy see if you can make the points semi-transparent. An example of suitable output is given below.
 
 Hint: The `geom_point` function is responsible for altering these features. It has arguments that control properties like point colour and size.
 </div>
@@ -306,7 +313,7 @@ ggplot(iris, aes(x = Petal.Width, y = Petal.Length)) +
 
 ## Answer
 
-```{r, fig.height=2.6, fig.width=3.2, include=showAnswers}
+```{r, fig.height=2.6*1.3, fig.width=3.2*1.3, include=showAnswers}
 ggplot(iris, aes(x = Petal.Width, y = Petal.Length)) + 
   geom_point(colour = "blue", size = 3, alpha = 0.5) + 
   labs(x = "Petal Width (cm)", y = "Petal Length (cm)")
@@ -352,7 +359,7 @@ ggplot(iris, aes(x = Petal.Width, y = Petal.Length, colour = Species)) +
 We want to make the following scatter plot. It shows mean `wind` speed against mean `pressure`, where the means are calculated for each combination of storm `name` and `type`. The storm type of each point is delineated by its colour.
 
 ```{r, echo = FALSE, fig.width=6}
-ca_storms %>% 
+storms %>% 
   group_by(name, type) %>%
   summarise(wind = mean(wind), pressure = mean(pressure)) %>%
   ggplot(aes(x = pressure, y = wind, col = type)) + 
@@ -365,13 +372,13 @@ ca_storms %>%
 <div id="exercise-box">
 __Using **dplyr** and **ggplot2** together (part 1)__
 <div id="box-text">
-The first step is to work out how to use **dplyr** to calcuate the mean `wind` speed and mean `pressure` for each combination of storm `name` and `type`. Do this with the pipe (`%>%`) operator, and give the resulting data the name `ca_storms_summary`.
+The first step is to work out how to use **dplyr** to calcuate the mean `wind` speed and mean `pressure` for each combination of storm `name` and `type`. Do this with the pipe (`%>%`) operator, and give the resulting data the name `storms_summary`.
 </div>
 </div>
 
 ```{r, include=showAnswers}
-ca_storms_summary <-
-  ca_storms %>% 
+storms_summary <-
+  storms %>% 
   group_by(name, type) %>%
   summarise(wind = mean(wind), pressure = mean(pressure))
 ```
@@ -381,14 +388,14 @@ ca_storms_summary <-
 <div id="exercise-box">
 __Using **dplyr** and **ggplot2** together (part 2)__
 <div id="box-text">
-The next step uses the `ca_storms_summary` data to plot the mean `wind` speed and mean `pressure` for each name-type case. Remember to colour the points by `type`.
+The next step uses the `storms_summary` data to plot the mean `wind` speed and mean `pressure` for each name-type case. Remember to colour the points by `type`.
 </div>
 </div>
 
 
 ## Exercise {.build}
 ```{r, fig.width=6, include=showAnswers}
-ggplot(ca_storms_summary, 
+ggplot(storms_summary, 
        aes(x = pressure, y = wind, col = type)) + 
   geom_point(alpha = 0.7) + 
   labs(x = "Mean pressure (mbar)", y = "Mean wind speed (mph)")
@@ -399,13 +406,17 @@ ggplot(ca_storms_summary,
 <div id="exercise-box">
 __Using **dplyr** and **ggplot2** together (part 3)__
 <div id="box-text">
-Finally, see if you can combine the solutions to part 1 and 2 into a single "piped" operation. That is, instead of storing the intermediate data in `ca_storms_summary`, use the pipe (`%>%`) to send the data straight to `ggplot`.
+Finally, see if you can combine the solutions to part 1 and 2 into a single "piped" operation. 
+
+That is, instead of storing the intermediate data in `storms_summary`, use the pipe (`%>%`) to send the data straight to `ggplot`. 
+
+Be careful to use `%>%` and `+` in the right places.
 </div>
 </div>
 
 ## Exercise {.build}
 ```{r, fig.width=6, include=showAnswers}
-ca_storms %>% 
+storms %>% 
   group_by(name, type) %>%
   summarise(wind = mean(wind), pressure = mean(pressure)) %>%
   ggplot(aes(x = pressure, y = wind, col = type)) + 
@@ -418,26 +429,26 @@ Histograms | Visualising a single variable
 
 ## What are histograms? {.smaller}
 
-Histograms summarise the relative frequency of different values of a variable. Look at the first 56 values of `pressure` variable in `ca_storms`:
+Histograms summarise the relative frequency of different values of a variable. Look at the first 56 values of `pressure` variable in `storms`:
 
 ```{r}
-ca_storms $ pressure[1:56]
+storms $ pressure[1:56]
 ```
 
-To get a sense of how frequent different values are we can "bin" the data. Here are the frequencies of `pressure` variable values, using 8 bins:
+To get a sense of how frequent different values are we can "bin" the data. Here are the frequencies of `pressure` variable values, using 8 bins (you don't need to remember this R code):
 
 ```{r}
-table(cut(ca_storms $ pressure, breaks = 8))
+table(cut(storms $ pressure, breaks = 8))
 ```
 
-(You don't need to remember this R code)
+
 
 ## What are histograms? {.smaller}
 
 We use histograms to understand the __distribution__ of a variable. They summarise the number of observations occuring in a contiguous series of bins. We can use `geom_histogram` to construct a histogram. Here is an example:
 
 ```{r}
-ggplot(ca_storms, aes(x = pressure)) + 
+ggplot(storms, aes(x = pressure)) + 
   geom_histogram(colour = "darkgrey", fill = "grey", binwidth=10) + 
   labs(x = "Pressure", y = "Count")  
 ```
@@ -447,7 +458,9 @@ ggplot(ca_storms, aes(x = pressure)) +
 <div id="exercise-box">
 __Plotting histograms__
 <div id="box-text">
-Working with the `iris` dataset, construct a histogram of the ratio of petal length to petal width. See if you can make you histogram look like the one below. Hint: you can carry out the calculation with `Petal.Length` and `Petal.Width` inside `aes` (you don't have to use `mutate` from **dplyr**)
+Working with the `iris` dataset, construct a histogram of the ratio of petal length to petal width. See if you can make you histogram look like the one below. 
+
+Hint: you can carry out the calculation with `Petal.Length` and `Petal.Width` inside `aes`.
 </div>
 </div>
 
@@ -465,28 +478,28 @@ ggplot(iris, aes(x = Petal.Length / Petal.Width)) +
   labs(x = "Petal Eccentricity", y = "Count")  
 ```
 
-Revision | How **ggplot2** works
-====================================================================
+<!-- Revision | How **ggplot2** works -->
+<!-- ==================================================================== -->
 
-## Revision: Scatter plots
+<!-- ## Revision: Scatter plots -->
 
-```{r, fig.height=3.2, fig.width=4}
-ggplot(iris, aes(x = Petal.Width, y = Petal.Length)) + 
-  geom_point() + 
-  labs(x = "Petal Width (cm)", y = "Petal Length (cm)")
-```
+<!-- ```{r, fig.height=3.2, fig.width=4} -->
+<!-- ggplot(iris, aes(x = Petal.Width, y = Petal.Length)) +  -->
+<!--   geom_point() +  -->
+<!--   labs(x = "Petal Width (cm)", y = "Petal Length (cm)") -->
+<!-- ``` -->
 
-## Revision: Making things more informative
+<!-- ## Revision: Making things more informative -->
 
-1. Customise the plot by setting arguments of a `geom_` function.
+<!-- 1. Customise the plot by setting arguments of a `geom_` function. -->
 
-2. Add more information by including an additional aesthetic mapping.
+<!-- 2. Add more information by including an additional aesthetic mapping. -->
 
-```{r, fig.height=3.2, fig.width=4.8, echo=TRUE}
-ggplot(iris, aes(x = Petal.Width, y = Petal.Length, colour = Species)) +
-  geom_point(size = 2, alpha = 0.5) + 
-  labs(x = "Petal Width (cm)", y = "Petal Length (cm)")
-```
+<!-- ```{r, fig.height=3.2, fig.width=4.8, echo=TRUE} -->
+<!-- ggplot(iris, aes(x = Petal.Width, y = Petal.Length, colour = Species)) + -->
+<!--   geom_point(size = 2, alpha = 0.5) +  -->
+<!--   labs(x = "Petal Width (cm)", y = "Petal Length (cm)") -->
+<!-- ``` -->
 
 Alternative to histograms | visualising 'small' data
 ====================================================================
@@ -508,11 +521,11 @@ N.B. --- The y-scale is meaingless in this plot!
 <div id="exercise-box">
 __Tweaking a dot plot__
 <div id="box-text">
-Make the dot plot of the sepal length variable for the _Setosa_ species but now remove the y axis labels and the grid lines. You don't know how to do this yet! You'll need a hint: 
+Make the dot plot of the sepal length variable for the _Setosa_ species but now remove the y axis labels and the grid lines. You don't know how to do this yet so here's a hint: 
 
 1. Look at the examples in the help file for `geom_dotplot` to work out what to do with `scale_y_continuous` (read the comments)
 
-2. Experiment with the options presented by RStudio after you type `theme_`. You need to find eth right theme.
+2. Experiment with the options presented by RStudio after you type `theme_`. You need to find the right theme.
 
 A code outline is given below. The `<????>` are placeholders that show the bits to complete. 
 </div>
@@ -568,13 +581,13 @@ ggplot(iris, aes(x = Species, y = Petal.Length/Petal.Width)) +
 <div id="exercise-box">
 __Box and whiskers plots__
 <div id="box-text">
-Working with the `ca_storms` dataset, construct a box and whiskers plot to summarise wind speed for each type of storm. Customise the fill colour of the boxes, get rid of the grey in the plot background, and increase the size of the text on the graph.
+Working with the `storms` dataset, construct a box and whiskers plot to summarise wind speed for each type of storm. Customise the fill colour of the boxes, get rid of the grey in the plot background, and increase the size of the text on the graph.
 
 </div>
 </div>
 
 ```{r, fig.width=6, echo=FALSE}
-ggplot(ca_storms, aes(x = type, y = wind)) + 
+ggplot(storms, aes(x = type, y = wind)) + 
   geom_boxplot(fill= "lightgrey") + 
   labs(x = "Type of storm", y = "Wind Speed (mph)") + 
   theme_classic(base_size = 14)
@@ -583,7 +596,7 @@ ggplot(ca_storms, aes(x = type, y = wind)) +
 ## Answer
 
 ```{r, fig.width=6, include=showAnswers}
-ggplot(ca_storms, aes(x = type, y = wind)) + 
+ggplot(storms, aes(x = type, y = wind)) + 
   geom_boxplot(fill= "lightgrey") + 
   labs(x = "Type of storm", y = "Wind Speed (mph)") + 
   theme_classic(base_size = 14)
@@ -600,7 +613,7 @@ ggplot(setosa, aes(x = Sepal.Length)) +
   ggsave("Sepal_dotplot.pdf") # <- use ggsave as part of a ggplot construct
 ```
 
-Maybe don't use this method.
+This saves the plot without displaying it in RStudio.
 
 ## Saving plots (version 2)
 
@@ -614,13 +627,17 @@ ggplot(setosa, aes(x = Sepal.Length)) +
 ggsave("Sepal_dotplot.pdf")
 ```
 
-This method is probably better.
+This method is probably better as it displays the plot and then svaes it.
 
 ## Exercise
 <div id="exercise-box">
 __Saving plots__
 <div id="box-text">
-Use ggsave to save the box and whiskers plot that you just made. Can you work out where R has saved your plot to (i.e. which folder on your computer)? Can you change the dimensions of the saved plot so that these are 4 inches x 4 inches?
+Use `ggsave` to save the box and whiskers plot that you just made. Look at the help file for `ggsave` and see if you can answer these two questions:
+
+1. Can you work out where R has saved your plot to (i.e. which folder on your computer)? 
+
+2. Can you change the dimensions of the saved plot so that these are 4 inches x 4 inches? 
 </div>
 </div>
 
@@ -628,7 +645,7 @@ Use ggsave to save the box and whiskers plot that you just made. Can you work ou
 
 ```{r, echo=showAnswers, eval=FALSE}
 # make the plot 
-ggplot(ca_storms, aes(x = type, y = wind)) + 
+ggplot(storms, aes(x = type, y = wind)) + 
   geom_boxplot() + 
   labs(x = "Type of storm", y = "Wind Speed")
 # save it
@@ -643,7 +660,7 @@ Barplots | Summary statistics for groups
 We typically use a barplot to summarise differences among groups. We can use `geom_bar` to make barplots but it will simply count the number of observations by default:
 
 ```{r, fig.height=3.0}
-ggplot(ca_storms, aes(x = factor(year))) + # <- what is the 'factor' function doing?
+ggplot(storms, aes(x = factor(year))) + # <- what is the 'factor' function doing?
   geom_bar() + 
   labs(x = "Year", y = "Number of Storms")  
 ```
@@ -678,14 +695,14 @@ ggplot(pl_stats, aes(x = Species, y = mean_pl)) +
 <div id="exercise-box">
 __Making a barplot of means__
 <div id="box-text">
-Working with the `ca_storms` dataset, construct a bar plot to summarises the mean wind speed (`wind`) associated with storms in each year (`year`). If that was too easy, see if you can change the colour of the bars to grey.
+Working with the `storms` dataset, construct a bar plot to summarises the mean wind speed (`wind`) associated with storms in each year (`year`). Once you've made the plot see if you can change the colour of the bars to dark grey.
 </div>
 </div>
 
 ```{r, echo=FALSE}
 # step 1 - use dplyr to calculate the means
 wind.means <- 
-  ca_storms %>% group_by(year) %>% 
+  storms %>% group_by(year) %>% 
   summarise(wind = mean(wind))
 # step 2 - make the plot
 ggplot(wind.means, aes(x = factor(year), y = wind)) + # <- notice the use of factor
@@ -698,7 +715,7 @@ ggplot(wind.means, aes(x = factor(year), y = wind)) + # <- notice the use of fac
 ```{r, include=showAnswers}
 # step 1 - use dplyr to calculate the means
 wind.means <- 
-  ca_storms %>% group_by(year) %>% 
+  storms %>% group_by(year) %>% 
   summarise(mean= mean(wind))
 # step 2 - make the plot
 ggplot(wind.means, aes(x = factor(year), y = mean)) + 
@@ -724,7 +741,7 @@ ggplot(pl_stats,
   labs(y = "Mean Petal Length")
 ```
 
-We can build more complex figures by adding more than one layer with the `geom_` functions. For example, we should always add an error bar of some kind to summaries of means.
+We can build more complex figures by adding more than one layer with the `geom_` functions. For example, we should usually try to include an error bar to numerical summaries (e.g. means).
 </div>
 <br>
 The __standard error__ is one option here: 
@@ -752,9 +769,7 @@ pl_stats <-
             se = sd(Petal.Length) / sqrt(n())) # <- New calculation
 ```
 
-
-
-## Using multiple geoms (2)
+## Using multiple geoms (2) {.smaller}
 
 Once we have the two bits of information, we include these by adding two layers via two different `geom_` functions: `geom_col` and `geom_errorbar`. We also need to define a couple of new aesthetics... 
 
@@ -765,11 +780,11 @@ ggplot(pl_stats,
            ymin = mean_pl - se, ymax = mean_pl + se)) + 
   geom_col(fill = "grey", width = 0.7) + 
   geom_errorbar(width = 0.25) + 
-  labs(y = "Mean Petal Length (cm)")
+  labs(y = "Mean Petal Length (cm)") + theme_minimal()
 ```
 
 
-```{r, fig.width=2.5, fig.height=2, echo=FALSE}
+```{r, fig.width=2.5, fig.height=2.6, echo=FALSE}
 # step 1
 pl_stats <- 
   iris %>%
@@ -778,10 +793,11 @@ pl_stats <-
             se = sd(Petal.Length) / sqrt(n())) # <- New calculation
 # step 2 
 ggplot(pl_stats, 
-       aes(x = Species, y = mean_pl, ymin = mean_pl - se, ymax = mean_pl + se)) + 
-  geom_bar(stat="identity", fill = "grey", width = 0.7) + 
+       aes(x = Species, y = mean_pl, 
+           ymin = mean_pl - se, ymax = mean_pl + se)) + 
+  geom_col(fill = "grey", width = 0.7) + 
   geom_errorbar(width = 0.25) + 
-  labs(y = "Mean Petal Length (cm)")
+  labs(y = "Mean Petal Length (cm)") + theme_minimal()
 ```
 
 ## Exercise
@@ -789,7 +805,7 @@ ggplot(pl_stats,
 <div id="exercise-box">
 __Adding error bars to your plot__
 <div id="box-text">
-Go back to the bar plot you just made using the `ca_storms` data set and add error bars showing the standard errors of wind speed.
+Go back to the bar plot you just made using the `storms` data set and add error bars showing the standard errors of wind speed.
 </div>
 </div>
 
@@ -798,7 +814,7 @@ Go back to the bar plot you just made using the `ca_storms` data set and add err
 ```{r, fig.height=2.5, include=showAnswers}
 # step 1 - use dplyr to calculate the means
 wind.means <- 
-  ca_storms %>% group_by(year) %>% 
+  storms %>% group_by(year) %>% 
   summarise(mean = mean(wind), 
             se = sd(wind)/sqrt(n()))
 
@@ -815,7 +831,7 @@ ggplot(wind.means, aes(x = factor(year), y = mean,
 <div id="exercise-box">
 __Putting it all together__
 <div id="box-text">
-Have a look at the builtin data set on R called `ChickWeight`. Make sure you understand what variables it contains, then try to make two plots below. Think about a) what these two graphs tell you about the effectiveness of the four diets and b) what other information it might be useful to include.
+Have a look at the built in data set in R called `ChickWeight`. Make sure you understand what variables it contains, then try to make two plots below. Think about a) what these two graphs tell you about the effectiveness of the four diets and b) what other information it might be useful to include.
 </div>
 </div>
 
