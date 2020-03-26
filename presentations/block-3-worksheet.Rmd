@@ -1,0 +1,317 @@
+---
+title: "block-3-worksheet"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+# packages
+library(tidyverse)
+library(cowplot)
+# pull out the storms data
+storms <- read_csv("../data_csv/STORMS.CSV")
+```
+
+### Alternative to histograms | visualising 'small' data
+
+This section picks up from where we left off in the first block 3 practical. We ended that practical by looking at histograms. These are a standard tool for visualising the distribution of numeric variables. If you are still confused about what terms like 'distribution' and 'variable' mean, now is a good time to read through the short chapter on [Exploratory data analysis](https://dzchilds.github.io/eda-for-bio/exploratory-data-analysis.html). A different chapter, [Exploring one numeric variable](https://dzchilds.github.io/eda-for-bio/exploring-one-numeric-variable.html), summarises how to plot histograms and dot plots. The latter are the subject of our first exercise...
+
+#### Dot plots
+
+Histograms are good for visualising sample distributions when we have a reasonable sample size (at least dozens, and ideally, hundreds of observations). They are less effective when the sample in hand is small. In this ‘small data’ situation it’s better to use something called a dot plot. These are useful for exploring the distribution of variables when we have relatively few observations (typically < 100). Here is an example of a dot plot using the iris data set to show the distribution of sepal length for just the setosa species:
+
+```{r, fig.align='center', fig.width=4, fig.height=4}
+# step 1. obtain just the setosa cases
+setosa <- filter(iris, Species == "setosa")
+# setp 2. make a dot plot of sepal length
+ggplot(setosa, aes(x = Sepal.Length)) + 
+  geom_dotplot(binwidth = 0.1)  
+```
+
+Each observation in the data adds one dot. A dot plot is based on binning the data, just as with a histogram, but here the dots that fall into the same bin are stacked up on top of one another.
+
+#### Exercise: 
+
+One of the oddities of dot plots produce by `ggplot2` is that the y axis scale isn't really meaningful---the positions and counts of stacked dots give us all the information we need to understand a distribution. The fact that a y scale is produced reflects a (rare) limitation of `ggplot2`. It would be better if the information about the y axis were not shown at all. 
+See if you can make the dot plot of the sepal length variable for the _Setosa_ species. However, this time remove the y axis labels and the grid lines. You have not been shown how to do this yet so this will require a bit of detective work. Here's a hint:
+
+1. Look at the examples in the help file for `geom_dotplot` to work out what to do with `scale_y_continuous`. In particular, read the code comments (`#`) in the 'Examples' section at the end.
+
+2. Experiment with the options presented by RStudio after you type `theme_`. Basically, you need to find a them that will remove the axes. Just try the different ones out until you land on one that works.
+
+A code outline and an example of the output you're aiming for is given below. The `<????>` are place holders that show the bits to complete.
+
+```{r, eval=FALSE, fig.align="center"}
+setosa <- filter(iris, Species == "setosa")
+ggplot(setosa, aes(x = Sepal.Length)) + 
+  geom_dotplot(binwidth = 0.1) +
+  scale_y_continuous( <????> ) +
+  theme_<????>()
+```
+
+Here is the plot you are aiming for:
+
+```{r, echo=FALSE, fig.align='center', fig.width=4, fig.height=4}
+setosa <- filter(iris, Species == "setosa")
+ggplot(setosa, aes(x = Sepal.Length)) + 
+  geom_dotplot(binwidth = 0.1) +
+  scale_y_continuous(NULL, breaks = NULL) + # <- remove the y-axis
+  theme_classic()                           # <- remove the grid lines
+```
+
+What is the purpose of this exercise? Partly we want to make sure you can produce a 'nice' looking dot plot. The more important goal is to briefly demonstrate that a lot of customisation is possible with **ggplot2**. You can read more about this in the [Doing more with ggplot2 chapter](https://dzchilds.github.io/eda-for-bio/doing-more-with-ggplot2.html)
+
+### Boxplots | Relationships between categorical and continuous data
+
+Box and whisker plots (aka 'box plots') can also be used to summarise the distribution of a variable, but in a compact way that allows us to summarise its distribution in different groups. The groups in this scenario are defined by the levels of a categorical variable, meaning that this type of plot can be thought of as describing the relationship between a categorical (x axis) and numeric variable (y axis). Here is an example:
+
+```{r, fig.width=3, eval=TRUE, echo=FALSE, fig.align="center"}
+ggplot(iris, aes(x = Species, y = Petal.Length/Petal.Width)) + 
+  geom_boxplot() + 
+  labs(x = "Species", y = "Eccentricty") + 
+  theme_minimal(base_size = 14)
+```
+
+Each box-and-whisker shows the group median (line) and the interquartile range ("boxes"). The vertical lines ("whiskers") highlight the range of the rest of the data in each group. Potential outliers are plotted individually. The details can be found in the [Relationships between two variables](https://dzchilds.github.io/eda-for-bio/relationships-between-two-variables.html#graphical-summaries-3) chapter.
+
+You can probably guess which `geom_` function we have to use to make a boxplot (yes, it's `geom_boxplot`)... Here's the R code that made the plot above:
+
+```{r, fig.width=3, eval=FALSE, fig.align="center"}
+ggplot(iris, aes(x = Species, y = Petal.Length/Petal.Width)) + 
+  geom_boxplot() + 
+  labs(x = "Species", y = "Eccentricty") + 
+  theme_minimal(base_size = 14)
+```
+
+<BR>
+
+#### Exercise: 
+
+Working with the `storms` dataset, construct a box and whiskers plot to summarise the distribution of wind speed for each type of storm. See if you can...
+
+1. customise the fill colour of the boxes, 
+
+2. get rid of the grey in the plot background (hint: use a `theme_`),
+
+3. increase the size of the text on the graph.
+
+This is what you are aiming for:
+
+```{r, fig.width=5, echo=FALSE, fig.align="center"}
+ggplot(storms, aes(x = type, y = wind)) + 
+  geom_boxplot(fill= "lightgrey") + 
+  labs(x = "Type of storm", y = "Wind Speed (mph)") + 
+  theme_classic(base_size = 14) 
+```
+
+That's OK but the labels are a it of a mess. See if you can use the `coord_flip` function to make this version (much nicer):
+
+```{r, fig.width=5, fig.height=2, echo=FALSE, fig.align="center"}
+ggplot(storms, aes(x = type, y = wind)) + 
+  geom_boxplot(fill= "lightgrey") + 
+  labs(x = "Type of storm", y = "Wind Speed (mph)") + 
+  theme_classic(base_size = 14) + coord_flip()
+```
+
+
+### Saving your plots
+
+There are lots of different ways to save plots in R. One is to save it after you make it using the 'Export' facility in the RStudio plot window. However, this tends not to produce very nice looking results. It's better, and more reproducible, to use the `ggsave` function. We can use this in two ways.
+
+The first 'adds' it to the ggplot code using the `+` when we're building our plot, like this:
+
+```{r, eval=FALSE}
+# version 1. 
+ggplot(setosa, aes(x = Sepal.Length)) + 
+  geom_dotplot(binwidth = 0.1) + 
+  ggsave("Sepal_dotplot.pdf") # <- use ggsave as part of a ggplot construct
+```
+
+This saves the plot directly to the working directory without first displaying it in RStudio. The second way of doing it uses the `ggsave` function on its own **after** we make the figure, like this:
+
+```{r, eval=FALSE}
+# version 2. 
+ggplot(setosa, aes(x = Sepal.Length)) + 
+  geom_dotplot(binwidth = 0.1)
+
+# use ggsave on its own *after* making the figure
+ggsave("Sepal_dotplot.pdf")
+```
+
+This displaying the plot in RStudio and then saves it to the working directory without first.
+
+#### Exercise: Saving plots
+
+Use `ggsave` to save the box and whiskers plot you made in the previous exercise to a PDF file. Look at the help file for `ggsave` and then see if you can answer these questions:
+
+1. Can you work out where R has saved your plot to (i.e. which folder on your computer)? 
+
+2. Can you change the dimensions of the saved plot so that these are 4 inches x 4 inches?
+
+Saving plots so that they look good in the saved version usually involves a bit of trial and error with the figure dimensions. Don't expect to get it right first time.
+
+### Bar plots | Summary statistics for groups
+
+We use bar plots to summarise a **summary statistics** in different groups. Often, this number is the mean a numeric variable but it doesn't have to be. It is tempting to use `geom_bar` to make bar plots (and seems logical). However, `geom_bar` will simply count the number of observations by default. For example, we can show the number of observations associated with each year in the storms data set using:
+
+```{r, fig.height=3.0, fig.width=3.0, fig.align="center"}
+ggplot(storms, aes(x = factor(year))) + # <- notice use of 'factor' function
+  geom_bar() + 
+  labs(x = "Year", y = "Number of Storms")  
+```
+
+This is basically a plot showing sample size for each year --- this behaviour is mostly a historic accident and it's not hugely useful. 
+
+By the way, notice that we used the `factor` function on `year` in this example. This was to convert a numeric variable to a categorical variable (a factor, in R-land). Whether the x variable is numeric or categorical affects the labelling. To understand what we mean, look at what we get if we run the code without converting `year` to a factor (look at the x axis labels).
+
+```{r, echo=FALSE, fig.height=3.0, fig.width=3.0, fig.align="center"}
+ggplot(storms, aes(x = year)) + # <- notice use of 'factor' function
+  geom_bar() + 
+  labs(x = "Year", y = "Number of Storms")  
+```
+
+
+Usually we use a bar plot to compare **summary statistics** (e.g. the mean). We can do this as a two-step process with **dplyr** and **ggplot2**. First, we need to calculate the summary statistic we want to display. Do this with the `group_by` and `summarise` functions from the **dplyr** package. For example, we can calculate the mean petal length for each species in `iris` like this:
+
+```{r}
+# step 1
+pl_stats <- 
+  iris %>%
+  group_by(Species) %>% 
+  summarise(mean_pl = mean(Petal.Length))
+# take a look at what we made
+pl_stats
+```
+
+Once we have the information we need we are ready to make the plot. That lives in the `pl_stats` data frame in our `iris` example. To make a bar plot to compare summary statistics across groups it is easiest to use `geom_col` (we can use `geom_bar` but that requires more work). Using `geom_col` is just like using any other `geom_` function:
+
+```{r, fig.height=3.0, fig.width=2.5, fig.align='center'}
+# step 2 
+ggplot(pl_stats, aes(x = Species, y = mean_pl)) + 
+  geom_col() + 
+  labs(y = "Mean Petal Length (cm)")
+```
+
+#### Exercise: Making a barplot of means
+
+Working with the `storms` dataset, construct a bar plot that summarises the mean wind speed (`wind`) in each year (`year`). Once you've made the plot see if you can change the colour of the bars to dark grey. The plot you're aiming for looks like this:
+
+```{r, echo=FALSE, fig.height=3.0, fig.width=3.5, fig.align='center'}
+# step 1 - use dplyr to calculate the means
+wind.means <- 
+  storms %>% group_by(year) %>% 
+  summarise(wind = mean(wind))
+# step 2 - make the plot
+ggplot(wind.means, aes(x = factor(year), y = wind)) +
+  geom_col(fill="darkgrey") + 
+  labs(x = "Year", y = "Wind speed (mph)")
+```
+
+### Making more complicated plots: multiple layers
+
+Sometimes one geom isn't enough to get all the information we want to display onto a plot. We can build more complex figures by adding more than one layer via the `geom_` functions. For example, if we show the world a set of estimated means, we should also try to include an error bar to summarise how precise the estimates are:
+
+```{r, echo=FALSE, fig.height=3.0, fig.width=2.5, fig.align='center'}
+# step 1
+pl_stats <- 
+  iris %>%
+  group_by(Species) %>% 
+  summarise(mean_pl = mean(Petal.Length),
+            se = sd(Petal.Length) / sqrt(n())) # <- New calculation
+# step 2 
+ggplot(pl_stats, 
+       aes(x = Species, y = mean_pl, 
+           ymin = mean_pl - se, ymax = mean_pl + se)) + 
+  geom_col(fill = "grey", width = 0.7) + 
+  geom_errorbar(width = 0.25) + 
+  labs(y = "Mean Petal Length")
+```
+
+Each error bar in that bar plot shows the mean +/- one __standard error__. We will learn about standard errors next year. For now, just accept this is an acceptable way to summarise the uncertainty in the estimate. The standard error of the mean is can be calculated like this: 
+
+$$
+\text{Standard Error} = \frac{\text{Standard Deviation}}{\sqrt{\text{Sample Size}}}
+$$
+That is, it is equal to something called the standard deviation divided by the square root of the sample size. We are going to need to calculate this to make the plot above. We need to adapt the **dplyr** code above to do this by including a calculation of the standard errors along with the means:
+
+```{r, eval=FALSE}
+# step 1
+pl_stats <- 
+  iris %>%
+  group_by(Species) %>% 
+  summarise(mean_pl = mean(Petal.Length),
+            se = sd(Petal.Length) / sqrt(n())) # <- New calculation
+```
+
+This uses two new function: `sd()` calculates the standard deviation and `n()` calculate sample size (it's a weird, one-letter function). Here's what this makes:
+
+```{r, echo=FALSE}
+pl_stats
+```
+
+Once we have all the information we need in one place we are ready to make the new plot that includes the error bars. This time we have to use two `geom_` functions together: `geom_col` to add the bars and `geom_errorbar` to add the error bars. 
+
+However that's not enough. `geom_errorbar` will also expect two new aesthetic mappings to be set up: `ymin` and `ymax`. These define the lower and upper ends of the bars. To make the example above, these need to be the 'Mean - SE' and 'Mean + S.E.'. Putting these ideas together, we get to the following bit of R code to make the plot:
+
+```{r, echo=TRUE, eval=FALSE}
+# step 2 
+ggplot(pl_stats, 
+       aes(x = Species, y = mean_pl, 
+           ymin = mean_pl - se, ymax = mean_pl + se)) + 
+  geom_col(fill = "grey", width = 0.7) + 
+  geom_errorbar(width = 0.25) + 
+  labs(y = "Mean Petal Length (cm)") + theme_minimal()
+```
+
+Notice that we calculated the `ymin` and `ymax` inside the `aes` bit, i.e. `ymin = mean_pl - se` and `ymax = mean_pl + se`.
+
+#### Exercise: Adding error bars to your plot
+
+Return to the bar plot you just made using the `storms` data set and add error bars showing the standard errors of wind speed. The resulting plot should look like this:
+
+```{r, echo=FALSE, fig.height=3.0, fig.width=3.5, fig.align='center'}
+# step 1 - use dplyr to calculate the means
+wind.means <- 
+  storms %>% 
+  group_by(year) %>% 
+  summarise(mean = mean(wind), 
+            se = sd(wind) / sqrt(n()))
+# step 2 - make the plot
+ggplot(wind.means, aes(x = factor(year), y = mean, 
+                       ymin = mean - se, ymax = mean + se)) + 
+  geom_col(fill="darkgrey") + 
+  geom_errorbar(width = 0.25) + 
+  labs(x = "Year", y = "Wind speed (mph)")
+```
+
+#### Final exercise: Putting it all together (HARDER!)
+
+R has a built in data set in  called `ChickWeight`. Take a look at this with `View`, `glimpse`, etc to make sure you understand what variables it contains.
+
+Now try to make two plots below. Think about a) what these two graphs tell you about the effectiveness of the four diets and b) what other information it might be useful to include.
+
+```{r, echo = FALSE, fig.width=6, fig.height=3, fig.align='center'}
+
+pltdata<- group_by(ChickWeight, Time, Diet) %>% 
+  summarise(mn = mean(weight), se = sd(weight)/sqrt(n()))
+pltdata2 <- ungroup(pltdata) %>% 
+  filter(Time==max(Time))
+
+plta <- ggplot(pltdata, aes(x=Time, y = mn, colour = Diet)) + 
+  geom_point() + 
+  geom_line() + 
+  theme_classic() + 
+  labs(y = "Mean weight (g)", x = "Time (days)")
+
+pltb <- ggplot(pltdata2, aes(x=Diet, y = mn, ymin = mn-se, ymax = mn+se)) + 
+  geom_col(fill = 'cornflowerblue', colour = "black") + 
+  geom_errorbar(width = 0.3) + 
+  labs(y = "Final weight (g)") + 
+  theme_classic()
+
+plot_grid(plta, pltb, rel_widths = c(1, 0.9))
+```
+
+<BR><BR><BR>
+
+**You're done! Congratulations on finishing the course!**
